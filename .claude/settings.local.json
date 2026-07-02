@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__27dd73dd-a805-4cf1-8715-3d893857dd48__notion-fetch",
+      "Bash(python3 /private/tmp/claude-501/-Users-priyank-Documents-portfolio-website/5e275d41-fc13-4b23-be2b-f5fa73f2fdd6/scratchpad/download_images.py \"/Users/priyank/.claude/projects/-Users-priyank-Documents-portfolio-website/5e275d41-fc13-4b23-be2b-f5fa73f2fdd6/tool-results/mcp-27dd73dd-a805-4cf1-8715-3d893857dd48-notion-fetch-1782988375002.txt\" /Users/priyank/Documents/portfolio-website/assets/images/khiladipro)",
+      "Bash(python3 /private/tmp/claude-501/-Users-priyank-Documents-portfolio-website/5e275d41-fc13-4b23-be2b-f5fa73f2fdd6/scratchpad/download_images.py \"/Users/priyank/.claude/projects/-Users-priyank-Documents-portfolio-website/5e275d41-fc13-4b23-be2b-f5fa73f2fdd6/tool-results/mcp-27dd73dd-a805-4cf1-8715-3d893857dd48-notion-fetch-1782988454444.txt\" /Users/priyank/Documents/portfolio-website/assets/images/getmega)"
+    ]
+  }
+}
