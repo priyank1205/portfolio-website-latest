@@ -1,0 +1,1 @@
+Never use em dashes or en dashes in any case study copy or UI text. Use hyphens, colons, commas, or restructured sentences instead.

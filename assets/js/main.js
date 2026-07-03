@@ -158,8 +158,8 @@ if (fine && !noMotion) {
 
 // ---------- Lightbox ----------
 (function () {
-  const shots = document.querySelectorAll("figure.shot img");
-  if (!shots.length) return;
+  const triggers = document.querySelectorAll("figure.shot img, [data-lightbox]");
+  if (!triggers.length) return;
   const lb = document.createElement("div");
   lb.className = "lightbox";
   lb.innerHTML =
@@ -167,17 +167,34 @@ if (fine && !noMotion) {
   document.body.appendChild(lb);
   const lbImg = lb.querySelector("img");
 
-  shots.forEach((img) => {
-    img.addEventListener("click", () => {
-      lbImg.src = img.src;
-      lbImg.alt = img.alt || "";
-      lb.classList.add("open");
-      document.body.style.overflow = "hidden";
+  function open(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt || "";
+    lb.classList.remove("scroll");
+    // very tall artifacts (e.g. full landing pages) get a scrollable
+    // full-width view instead of being shrunk to fit the viewport
+    const mode = () => {
+      if (lbImg.naturalHeight > 2400 && lbImg.naturalHeight / lbImg.naturalWidth > 2) {
+        lb.classList.add("scroll");
+      }
+    };
+    if (lbImg.complete) mode();
+    else lbImg.onload = mode;
+    lb.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  triggers.forEach((t) => {
+    t.addEventListener("click", (e) => {
+      e.preventDefault();
+      const src = t.dataset && t.dataset.lightbox ? t.dataset.lightbox : t.src;
+      if (!src) return;
+      open(src, t.alt);
     });
   });
 
   function close() {
-    lb.classList.remove("open");
+    lb.classList.remove("open", "scroll");
     lbImg.src = "";
     document.body.style.overflow = "";
   }
