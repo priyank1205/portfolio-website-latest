@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=6">
+  <link rel="stylesheet" href="assets/css/style.css?v=7">
 </head>
 <body>
 
@@ -25,6 +25,7 @@
         <a href="#hobby">/Hobby</a>
         <a href="#testimonials">/Testimonials</a>
         <a href="#contact">/Contact</a>
+        <a href="https://drive.google.com/file/d/0B0y_QT-8mXwgRFhmWEdUWkpKOHc/view?usp=sharing&amp;resourcekey=0-Q4joErTGFsTqmVHZnpbYYw" target="_blank" rel="noopener">/Resume ↗</a>
       </nav>
     </div>
   </header>
@@ -32,41 +33,60 @@
   <main>
     <!-- ============ Hero ============ -->
     <section class="hero">
-      <div class="wrap">
-        <img class="avatar" src="assets/images/home/f4b46c2b_Group_215.png" alt="Priyank Agarwal" width="84" height="84">
-        <h1>
-          Priyank <span style="white-space:nowrap;">Agarwal<svg class="verified" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.4 2.1 3.1-.5 1.1 3 3 1.1-.5 3.1L23 13l-2.1 2.4.5 3.1-3 1.1-1.1 3-3.1-.5L12 24l-2.4-2.1-3.1.5-1.1-3-3-1.1.5-3.1L1 13l2.1-2.4-.5-3.1 3-1.1 1.1-3 3.1.5L12 2z" fill="#4a9eed" transform="translate(0 -1)"/><path d="M8.5 12.2l2.3 2.3 4.7-4.9" stroke="#0f0f0e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 -1)"/></svg></span>
+      <div class="wrap-wide">
+        <p class="hero-eyebrow">Senior Product Designer / 0 to 1 and Growth Stage</p>
+
+        <h1 class="hero-headline">
+          <span class="line"><span class="line-inner">I design products end to end,</span></span>
+          <span class="line"><span class="line-inner">then prototype them in</span></span>
+          <span class="line"><span class="line-inner"><em class="code-em">working code.</em><span class="typed" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span></span></span>
         </h1>
-        <p class="role">Senior Product Designer — 0→1 &amp; Growth Stage</p>
 
-        <p class="intro">I design <strong>end-to-end</strong> product experiences across complex domains — mobile, web, and dashboards. Lately I've been using <strong>AI-native workflows</strong> and <strong>AI coding tools</strong> to rapidly prototype, iterate, and implement ideas — while making sure <strong>business goals remain paramount</strong>.</p>
-
-        <p class="location"><span class="pulse"></span>Designing from wherever — currently based in Bengaluru, India</p>
-        <p class="copy-hint">Press <kbd>C</kbd> to copy my email</p>
+        <p class="hero-sub">Six years across five unforgiving domains. I take ambiguous problems from first conversation to shipped product, and AI tooling now lets me hand teams working builds, not mockups.</p>
 
         <div class="hero-ctas">
-          <a class="btn btn-primary" href="mailto:hello@priyank.design">Email me</a>
-          <a class="link-mono" href="https://www.linkedin.com/in/priyank1205/" target="_blank" rel="noopener">LinkedIn ↗</a>
-          <a class="link-mono" href="https://drive.google.com/file/d/0B0y_QT-8mXwgRFhmWEdUWkpKOHc/view?usp=sharing&amp;resourcekey=0-Q4joErTGFsTqmVHZnpbYYw" target="_blank" rel="noopener">Resume ↗</a>
+          <a class="btn btn-primary" href="#work">See the work <span class="arrow">↓</span></a>
+          <button class="email-copy" type="button" data-copy-email="hello@priyank.design">hello@priyank.design</button>
         </div>
-      </div>
-    </section>
 
-    <!-- ============ Previously with ============ -->
-    <section class="marquee-section" aria-label="Previous companies">
-      <p class="marquee-label">Previously with</p>
-      <div class="marquee">
-        <div class="marquee-track">
-          <span class="marquee-item">Getmega <small>iGaming</small></span>
-          <span class="marquee-item">Khiladipro <small>Sports-tech</small></span>
-          <span class="marquee-item">Ashoka University <small>Economic Center</small></span>
-          <span class="marquee-item">Medlife <small>Health-tech</small></span>
-          <span class="marquee-item">Pakit <small>Logistics</small></span>
-          <span class="marquee-item">Getmega <small>iGaming</small></span>
-          <span class="marquee-item">Khiladipro <small>Sports-tech</small></span>
-          <span class="marquee-item">Ashoka University <small>Economic Center</small></span>
-          <span class="marquee-item">Medlife <small>Health-tech</small></span>
-          <span class="marquee-item">Pakit <small>Logistics</small></span>
+        <nav class="evidence" aria-label="Domains and companies">
+          <a class="ev" href="projects/getmega.html">
+            <span class="ev-domain">Real money gaming</span>
+            <span class="ev-co">Getmega, Mega Poker</span>
+            <span class="ev-years">2019 - 2021, 2024</span>
+          </a>
+          <a class="ev" href="projects/khiladipro.html">
+            <span class="ev-domain">Sports tech</span>
+            <span class="ev-co">Khiladipro</span>
+            <span class="ev-years">2024 - 2025</span>
+          </a>
+          <a class="ev" href="projects/sedp-dashboard.html">
+            <span class="ev-domain">Economic data</span>
+            <span class="ev-co">CEDA, Ashoka University</span>
+            <span class="ev-years">2022 - 2024</span>
+          </a>
+          <span class="ev">
+            <span class="ev-domain">Health tech</span>
+            <span class="ev-co">Medlife</span>
+            <span class="ev-years">Bengaluru</span>
+          </span>
+          <span class="ev">
+            <span class="ev-domain">Logistics</span>
+            <span class="ev-co">Pakit</span>
+            <span class="ev-years">Early stage</span>
+          </span>
+        </nav>
+
+        <div class="hero-status">
+          <img class="status-photo" src="assets/images/home/f4b46c2b_Group_215.png" alt="Priyank Agarwal" width="24" height="24">
+          <span class="pulse" aria-hidden="true"></span>
+          <span class="status-text">Open to senior and founding roles, full time or contract</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <span class="status-text muted">Bengaluru, working worldwide</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <a class="status-link" href="https://github.com/priyank1205/yt-transcript-ext" target="_blank" rel="noopener">now building: a YouTube summarizer ↗</a>
+          <span class="sep kbd-hint" aria-hidden="true">·</span>
+          <span class="status-text muted kbd-hint">press <kbd>C</kbd> to copy email</span>
         </div>
       </div>
     </section>
@@ -192,6 +212,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=4"></script>
+  <script src="assets/js/main.js?v=5"></script>
 </body>
 </html>

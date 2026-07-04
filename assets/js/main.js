@@ -65,6 +65,41 @@ document.querySelectorAll("[data-copy-email]").forEach((btn) => {
   });
 });
 
+// ---------- Hero caret easter egg (types once per session on hover) ----------
+(function () {
+  const trigger = document.querySelector(".hero-headline .code-em");
+  const typed = document.querySelector(".hero-headline .typed");
+  if (!trigger || !typed) return;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced || sessionStorage.getItem("heroTyped")) return;
+
+  const TEXT = "npm run ship";
+  let running = false;
+
+  function type(i) {
+    if (i <= TEXT.length) {
+      typed.textContent = TEXT.slice(0, i);
+      setTimeout(() => type(i + 1), 60);
+    } else {
+      setTimeout(() => erase(TEXT.length), 900);
+    }
+  }
+
+  function erase(i) {
+    if (i >= 0) {
+      typed.textContent = TEXT.slice(0, i);
+      setTimeout(() => erase(i - 1), 35);
+    }
+  }
+
+  trigger.addEventListener("pointerenter", () => {
+    if (running) return;
+    running = true;
+    sessionStorage.setItem("heroTyped", "1");
+    type(1);
+  });
+})();
+
 // ---------- Header border on scroll ----------
 (function () {
   const header = document.querySelector(".site-header");
