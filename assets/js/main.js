@@ -74,6 +74,45 @@ document.querySelectorAll("[data-copy-email]").forEach((btn) => {
   window.addEventListener("scroll", onScroll, { passive: true });
 })();
 
+// ---------- Mobile nav (hamburger) ----------
+(function () {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+  const bar = header.querySelector(".wrap, .wrap-wide");
+  const nav = header.querySelector(".site-nav");
+  if (!bar || !nav) return;
+
+  const btn = document.createElement("button");
+  btn.className = "nav-toggle";
+  btn.type = "button";
+  btn.setAttribute("aria-label", "Toggle menu");
+  btn.setAttribute("aria-expanded", "false");
+  btn.innerHTML = "<span></span><span></span><span></span>";
+  bar.appendChild(btn);
+
+  const close = () => {
+    header.classList.remove("nav-open");
+    btn.setAttribute("aria-expanded", "false");
+  };
+
+  btn.addEventListener("click", () => {
+    const open = header.classList.toggle("nav-open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  nav.addEventListener("click", (e) => {
+    if (e.target.closest("a")) close();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 860) close();
+  });
+})();
+
 // ---------- Card spotlight (cursor-following highlight) ----------
 document.querySelectorAll(".project-card").forEach((card) => {
   card.addEventListener("pointermove", (e) => {
