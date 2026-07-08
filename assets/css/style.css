@@ -1110,7 +1110,7 @@ figure.shot figcaption {
 .hero-status .sep { color: var(--muted); }
 .hero-status .muted { color: var(--muted); }
 
-.about-main .case-hero { padding: 42px 0 0; }
+.about-main .case-hero { padding: 110px 0 0; }
 .about-main .section { padding: 76px 0 0; }
 .about-main .contact-box { padding-bottom: 60px; }
 
@@ -1243,6 +1243,7 @@ figure.shot figcaption {
 .site-nav a[aria-current="page"] { color: var(--ink); }
 
 @media (max-width: 860px) {
+  .about-main .case-hero { padding: 72px 0 0; }
   .about-hero { grid-template-columns: 1fr; gap: 30px; }
   .about-photo { max-width: 140px; order: -1; }
 }
