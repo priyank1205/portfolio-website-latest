@@ -81,7 +81,19 @@ kbd {
   line-height: 1.6;
 }
 
-/* ---------- Header ---------- */
+/* ============================================
+   Responsive: Hide copy hint on touch devices
+   ============================================ */
+@media (hover: none) and (pointer: coarse) {
+  .copy-hint,
+  .copy-hint-contact {
+    display: none;
+  }
+}
+
+/* ============================================
+   Header
+   ============================================ */
 .site-header {
   position: sticky;
   top: 0;
