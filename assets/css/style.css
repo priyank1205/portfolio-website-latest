@@ -1310,3 +1310,195 @@ figure.shot figcaption {
   .tl-head .lead { min-width: 10px; }
   .tl-head .hl-green { display: none; }
 }
+
+/* ============================================
+   Homepage interactions
+   ============================================ */
+
+/* hero dot grid */
+.hero { position: relative; }
+.hero-grid { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.hero .wrap { position: relative; z-index: 1; }
+
+/* avatar play */
+.avatar { transition: transform 0.35s cubic-bezier(0.2, 0.6, 0.2, 1); cursor: pointer; }
+.avatar:hover { transform: rotate(-3deg) scale(1.05); }
+.avatar.spin { animation: avatar-spin 0.7s cubic-bezier(0.3, 0.5, 0.2, 1.1); }
+@keyframes avatar-spin { to { transform: rotate(360deg); } }
+
+/* verified badge tooltip */
+.badge-wrap { position: relative; display: inline-block; }
+.badge-tip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translate(-50%, 4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line-strong);
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  z-index: 6;
+}
+.badge-wrap:hover .badge-tip { opacity: 1; transform: translate(-50%, 0); }
+
+/* intro keyword previews */
+.kw { border-bottom: 1px dashed var(--line-strong); transition: border-color 0.15s ease; }
+.kw:hover { border-color: var(--accent); }
+@media (hover: none) { .kw { border-bottom: none; } }
+
+.kw-card {
+  position: fixed;
+  z-index: 70;
+  display: flex;
+  gap: 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, calc(-100% + 6px));
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.kw-card.show { opacity: 1; pointer-events: auto; transform: translate(-50%, -100%); }
+.kw-card.below { transform: translate(-50%, -6px); }
+.kw-card.below.show { transform: translate(-50%, 0); }
+.kw-card a { display: block; width: 108px; text-decoration: none; }
+.kw-card img { width: 108px; height: 66px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 7px; background: var(--bg-raised); }
+.kw-card .kw-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.kw-card a:hover .kw-label { color: var(--ink); }
+
+/* marquee links + peek card */
+a.marquee-item { text-decoration: none; transition: color 0.15s ease; }
+a.marquee-item:hover { color: var(--ink); }
+
+.peek {
+  position: fixed;
+  z-index: 70;
+  width: 224px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, calc(-100% + 6px));
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.peek.show { opacity: 1; transform: translate(-50%, -100%); }
+.peek.below { transform: translate(-50%, -6px); }
+.peek.below.show { transform: translate(-50%, 0); }
+.peek img { width: 100%; height: 122px; object-fit: cover; border-radius: 8px; background: var(--bg-raised); }
+.peek span {
+  display: block;
+  margin-top: 9px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.peek span b { display: block; color: var(--ink-soft); font-weight: 500; margin-bottom: 2px; }
+
+/* project thumb slow pan */
+.project-thumb img { transition: transform 1.1s cubic-bezier(0.2, 0.6, 0.2, 1); }
+.project-card:hover .project-thumb img { transform: scale(1.06) translateY(-1.5%); }
+
+/* command palette */
+.cmdk {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 14vh 20px 20px;
+  background: rgba(8, 8, 7, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.cmdk.open { display: flex; }
+
+.cmdk-box {
+  width: 100%;
+  max-width: 540px;
+  background: var(--bg-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+}
+.cmdk.open .cmdk-box { animation: cmdk-in 0.2s cubic-bezier(0.2, 0.6, 0.2, 1); }
+@keyframes cmdk-in { from { opacity: 0; transform: translateY(10px) scale(0.98); } }
+
+.cmdk-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.cmdk-input::placeholder { color: var(--muted); }
+
+.cmdk-list { list-style: none; margin: 0; padding: 8px; max-height: 380px; overflow-y: auto; }
+
+.cmdk-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 14px;
+  border-radius: 9px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+.cmdk-item .ico { font-family: var(--font-mono); color: var(--muted); width: 16px; text-align: center; flex: none; }
+.cmdk-item kbd { margin-left: auto; font-size: 0.68rem; color: var(--muted); }
+.cmdk-item.active { background: var(--bg-elevated); color: var(--ink); }
+.cmdk-item.active .ico { color: var(--accent); }
+
+.cmdk-empty { padding: 20px 14px; font-family: var(--font-mono); font-size: 0.82rem; color: var(--muted); }
+
+.cmdk-foot {
+  display: flex;
+  gap: 18px;
+  padding: 10px 18px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cmdk-foot kbd { font-size: 0.62rem; padding: 0 6px; border-bottom-width: 1px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar { transition: none; }
+  .avatar:hover { transform: none; }
+  .avatar.spin { animation: none; }
+  .cmdk.open .cmdk-box { animation: none; }
+  .project-thumb img { transition: none; }
+  .project-card:hover .project-thumb img { transform: none; }
+}
