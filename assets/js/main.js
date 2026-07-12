@@ -1074,3 +1074,15 @@ function scrambleText(el, dur = 800) {
   );
   io.observe(slot);
 })();
+
+// ---------- Contact: rail handle decode on hover ----------
+(function () {
+  const links = document.querySelectorAll(".rail-link");
+  if (!links.length || !fine || noMotion) return;
+  links.forEach((link) => {
+    const handle = link.querySelector(".rail-handle");
+    if (!handle) return;
+    handle.dataset.final = handle.textContent;
+    link.addEventListener("pointerenter", () => scrambleText(handle, 380));
+  });
+})();

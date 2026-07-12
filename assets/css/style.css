@@ -633,29 +633,124 @@ kbd {
   gap: 44px;
 }
 
-.testimonial { border-top: 1px solid var(--line); padding-top: 26px; }
+.testimonial {
+  margin: 0;
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+  transition: border-color 0.3s ease;
+}
+.testimonial:hover { border-top-color: var(--line-strong); }
 
-.testimonial blockquote {
-  margin: 0 0 18px;
-  color: var(--ink-soft);
-  font-size: 0.98rem;
+.testimonial::before {
+  content: "\201C";
+  display: block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.6rem;
+  line-height: 0.65;
+  color: var(--accent);
+  margin: 12px 0 16px;
 }
 
+.testimonial blockquote {
+  margin: 0 0 22px;
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+/* highlighter sweep over the key phrase, triggered by scroll reveal */
+.testimonial .sweep {
+  color: var(--ink);
+  background-image: linear-gradient(rgba(240, 163, 68, 0.24), rgba(240, 163, 68, 0.24));
+  background-repeat: no-repeat;
+  background-size: 0% 44%;
+  background-position: 0 80%;
+  transition: background-size 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.6s;
+}
+.testimonial.in .sweep { background-size: 100% 44%; }
+.testimonial:nth-child(2) .sweep { transition-delay: 0.85s; }
+
+.testimonial figcaption {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.t-monogram {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+.testimonial:hover .t-monogram { border-color: var(--accent); color: var(--accent); }
+
 .testimonial cite {
+  flex: 1;
+  min-width: 0;
   font-style: normal;
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
-  line-height: 1.9;
+  line-height: 1.8;
 }
 .testimonial cite strong { color: var(--ink); display: block; font-weight: 500; }
 
+.t-src {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.t-src:hover { color: var(--accent); border-color: var(--accent); }
+
 /* ---------- Contact ---------- */
 .contact-box { padding-bottom: 60px; }
-.contact-box h2 { font-size: clamp(1.6rem, 3.4vw, 2.2rem); margin-bottom: 12px; }
+.contact-box h2 { font-size: clamp(1.7rem, 3.8vw, 2.4rem); margin-bottom: 14px; }
 .contact-box > p { color: var(--muted); margin-bottom: 30px; max-width: 520px; }
+
+/* hand-drawn underline that draws itself on scroll reveal */
+.scribble { position: relative; display: inline-block; }
+.scribble svg {
+  position: absolute;
+  left: -1%;
+  bottom: -0.16em;
+  width: 102%;
+  height: 0.32em;
+  overflow: visible;
+  pointer-events: none;
+}
+.scribble path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  opacity: 0.9;
+  stroke-dasharray: 240;
+  stroke-dashoffset: 240;
+}
+.reveal.in .scribble path {
+  animation: scribble-draw 0.8s cubic-bezier(0.65, 0, 0.35, 1) 0.5s forwards;
+}
+@keyframes scribble-draw {
+  to { stroke-dashoffset: 0; }
+}
 
 .email-pill {
   display: inline-flex;
@@ -667,7 +762,9 @@ kbd {
   padding: 9px 10px 9px 22px;
   font-family: var(--font-mono);
   font-size: 0.95rem;
+  transition: border-color 0.25s ease;
 }
+.email-pill:hover { border-color: rgba(240, 163, 68, 0.55); }
 
 .email-pill a { text-decoration: none; color: var(--ink); }
 
@@ -687,7 +784,63 @@ kbd {
 .email-pill button:hover { background: #fff; }
 .email-pill button.copied { background: var(--green); color: #06130b; }
 
-.contact-links { display: flex; gap: 22px; margin-top: 28px; }
+/* link rail: an editorial list built to take more links (GitHub, X, Dribbble...) */
+.contact-rail { margin-top: 36px; border-top: 1px solid var(--line); }
+
+.rail-link {
+  position: relative;
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 15px 2px;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  transition: padding-left 0.25s ease;
+}
+.rail-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+.rail-link:hover { padding-left: 30px; }
+.rail-link:hover::before { width: 20px; }
+
+.rail-name {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.rail-handle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  transition: color 0.25s ease;
+}
+.rail-link:hover .rail-handle { color: var(--ink-soft); }
+
+.rail-arrow {
+  color: var(--muted);
+  font-size: 0.9rem;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+.rail-link:hover .rail-arrow { transform: translate(3px, -3px); color: var(--accent); }
+.rail-link:hover .rail-arrow.int { transform: translateX(4px); }
+
+p.contact-ps {
+  margin: 26px 0 0;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--muted);
+}
 
 /* ---------- Footer ---------- */
 .site-footer {
@@ -999,6 +1152,15 @@ figure.shot figcaption {
   transition-delay: var(--rd, 0ms);
 }
 .reveal.in { opacity: 1; transform: none; }
+
+/* revealed elements that also transition border-color on hover */
+.testimonial.in,
+.email-pill.in {
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) var(--rd, 0ms),
+    transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) var(--rd, 0ms),
+    border-color 0.25s ease 0ms;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
@@ -1443,6 +1605,11 @@ figure.shot figcaption {
   .fm-rail, .fm-rail a, .fm-rail a::before, .fm-rail a .t { transition: none; }
   .wip-dot, .caret { animation: none; }
   .hobby-card:hover img { transform: none; }
+  .testimonial .sweep { transition: none; background-size: 100% 44%; }
+  .scribble path { animation: none; stroke-dashoffset: 0; }
+  .rail-link, .rail-link::before, .rail-arrow { transition: none; }
+  .rail-link:hover { padding-left: 2px; }
+  .rail-link:hover .rail-arrow { transform: none; }
 }
 
 /* ---------- Responsive ---------- */
@@ -1483,6 +1650,10 @@ figure.shot figcaption {
   .case-meta { grid-template-columns: 1fr; gap: 18px; }
   .hobby-card { grid-template-columns: 1fr; padding: 24px; }
   .project-foot { flex-direction: column; }
+  .testimonial figcaption { flex-wrap: wrap; }
+  .t-src { margin-left: 52px; }
+  .rail-link { grid-template-columns: 1fr auto; row-gap: 2px; padding: 13px 2px; }
+  .rail-arrow { grid-column: 2; grid-row: 1 / span 2; }
   .case-nav .wrap { flex-direction: column; }
   .case-nav a { max-width: 100%; }
   .case-nav .next { text-align: left; margin-left: 0; }
