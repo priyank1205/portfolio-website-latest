@@ -1152,11 +1152,11 @@ figure.shot figcaption {
    About page
    ============================================ */
 
-/* status row (net-new on this branch; no entrance animation) */
+/* status chips */
 .hero-status {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
   margin-top: 34px;
   font-family: var(--font-mono);
@@ -1164,8 +1164,46 @@ figure.shot figcaption {
   letter-spacing: 0.03em;
   color: var(--ink-soft);
 }
-.hero-status .sep { color: var(--muted); }
-.hero-status .muted { color: var(--muted); }
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.status-chip .pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green);
+  position: relative;
+  flex: none;
+}
+.status-chip .pulse::after {
+  content: "";
+  position: absolute; inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--green);
+  animation: pulse 2.2s ease-out infinite;
+}
+
+a.chip-open { border-color: rgba(74, 222, 128, 0.3); }
+a.chip-open:hover { border-color: var(--green); color: var(--ink); background: var(--green-dim); }
+.chip-open .chip-arr {
+  display: inline-block;
+  color: var(--muted);
+  transition: transform 0.25s cubic-bezier(0.2, 0.6, 0.2, 1), color 0.2s ease;
+}
+.chip-open:hover .chip-arr { transform: translateX(3px); color: var(--green); }
+
+.chip-loc .chip-time { color: var(--muted); white-space: nowrap; }
+.chip-loc .chip-time:empty { display: none; }
+.chip-time .tick { animation: tick-blink 1s steps(1) infinite; }
+@keyframes tick-blink { 50% { opacity: 0.2; } }
 
 .about-main .case-hero { padding: 110px 0 0; }
 .about-main .section { padding: 76px 0 0; }
@@ -1294,8 +1332,6 @@ figure.shot figcaption {
   margin: 7px 0 0;
 }
 
-.tl-note { color: var(--ink-soft); font-size: 0.93rem; max-width: 620px; margin: 9px 0 0; }
-
 /* active nav */
 .site-nav a[aria-current="page"] { color: var(--ink); }
 
@@ -1317,7 +1353,15 @@ figure.shot figcaption {
 
 /* hero dot grid */
 .hero { position: relative; }
-.hero-grid { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 90px, #000 calc(100% - 150px), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 90px, #000 calc(100% - 150px), transparent 100%);
+}
 .hero .wrap { position: relative; z-index: 1; }
 
 /* avatar play */
@@ -1325,6 +1369,24 @@ figure.shot figcaption {
 .avatar:hover { transform: rotate(-3deg) scale(1.05); }
 .avatar.spin { animation: avatar-spin 0.7s cubic-bezier(0.3, 0.5, 0.2, 1.1); }
 @keyframes avatar-spin { to { transform: rotate(360deg); } }
+
+/* name light sweep on hover (quiet alternative to the old scramble) */
+.hero h1 { width: fit-content; }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .hero h1 [data-scramble] {
+    background: linear-gradient(105deg, var(--ink) 0%, var(--ink) 45%, #fff 50%, var(--accent) 53%, var(--ink) 60%, var(--ink) 100%);
+    background-size: 250% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero h1:hover [data-scramble] { animation: name-shine 0.9s ease-out; }
+}
+@keyframes name-shine {
+  from { background-position: 100% 0; }
+  to { background-position: 0% 0; }
+}
 
 /* verified badge tooltip */
 .badge-wrap { position: relative; display: inline-block; }
@@ -1495,10 +1557,64 @@ a.marquee-item:hover { color: var(--ink); }
 .cmdk-foot kbd { font-size: 0.62rem; padding: 0 6px; border-bottom-width: 1px; }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero h1:hover [data-scramble] { animation: none; }
   .avatar { transition: none; }
   .avatar:hover { transform: none; }
   .avatar.spin { animation: none; }
   .cmdk.open .cmdk-box { animation: none; }
   .project-thumb img { transition: none; }
   .project-card:hover .project-thumb img { transform: none; }
+}
+
+/* ============================================
+   About page interactions
+   ============================================ */
+
+/* hero dot grid host */
+.about-main .case-hero { position: relative; }
+.about-main .case-hero .wrap { position: relative; z-index: 1; }
+
+/* portrait play */
+.about-photo { transition: transform 0.35s cubic-bezier(0.2, 0.6, 0.2, 1); cursor: pointer; }
+.about-photo:hover { transform: rotate(-2deg) scale(1.03); }
+
+/* timeline life: dotted leaders draw in on reveal, rows warm on hover */
+.tl-head .tl-date { transition: color 0.2s ease; }
+.tl-item:hover .tl-date { color: var(--ink-soft); }
+.tl-head .lead { transition: border-color 0.2s ease; }
+.tl-item:hover .lead { border-top-color: rgba(240, 163, 68, 0.5); }
+.tl-item.reveal .lead {
+  clip-path: inset(0 100% 0 0);
+  transition: border-color 0.2s ease, clip-path 0.9s cubic-bezier(0.2, 0.6, 0.2, 1) calc(var(--rd, 0ms) + 350ms);
+}
+.tl-item.reveal.in .lead { clip-path: inset(0 0 0 0); }
+
+/* rehired badge tooltip (reuses .badge-tip) */
+.tl-head .hl-green { position: relative; cursor: default; }
+.hl-green:hover .badge-tip { opacity: 1; transform: translate(-50%, 0); }
+
+/* interest chips: cascade in, react on hover */
+.chip { transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
+.chip:hover { color: var(--ink); border-color: var(--accent); transform: translateY(-2px); }
+.chip-row.reveal .chip {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.chip-row.reveal.in .chip { opacity: 1; transform: none; }
+.chip-row.reveal.in .chip:nth-child(1) { transition-delay: 60ms; }
+.chip-row.reveal.in .chip:nth-child(2) { transition-delay: 130ms; }
+.chip-row.reveal.in .chip:nth-child(3) { transition-delay: 200ms; }
+.chip-row.reveal.in .chip:nth-child(4) { transition-delay: 270ms; }
+.chip-row.reveal.in .chip:nth-child(5) { transition-delay: 340ms; }
+.chip-row.reveal.in .chip:nth-child(6) { transition-delay: 410ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .chip-time .tick { animation: none; }
+  .about-photo { transition: none; }
+  .about-photo:hover { transform: none; }
+  .tl-item.reveal .lead { clip-path: none; transition: none; }
+  .chip { transition: none; }
+  .chip:hover { transform: none; }
+  .chip-row.reveal .chip { opacity: 1; transform: none; transition: none; }
 }
