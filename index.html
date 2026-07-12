@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=15">
+  <link rel="stylesheet" href="assets/css/style.css?v=17">
 </head>
 <body>
 
@@ -191,17 +191,28 @@
 
     <!-- ============ Testimonials ============ -->
     <section class="section" id="testimonials">
-      <div class="wrap">
-        <p class="section-label">Testimonials</p>
+      <div class="wrap-wide">
+        <div class="section-head">
+          <p class="section-label">Testimonials</p>
+          <p class="section-meta">02 on record · Verbatim</p>
+        </div>
         <div class="testimonial-grid">
-          <div class="testimonial reveal">
-            <blockquote>“Priyank is a talented designer with great skills. He showed intuitive product thinking. He is very proactive with his contributions and gives a lot of attention to detail. Working with him was a pleasure. I highly recommend him.”</blockquote>
-            <cite><strong>Aakash Verma</strong>Product Head, Khiladipro</cite>
-          </div>
-          <div class="testimonial reveal">
-            <blockquote>“We hired Priyank to redesign our dated suite of economic dashboards. And he did an excellent job. The redesigned dashboards are a treat to interact with. We will definitely work with him again.”</blockquote>
-            <cite><strong>Akshi Chawla</strong>Ex-Director, CEDA, Ashoka University</cite>
-          </div>
+          <figure class="testimonial reveal">
+            <blockquote>Priyank is a talented designer with great skills. He showed <span class="sweep">intuitive product thinking</span>. He is very proactive with his contributions and gives a lot of attention to detail. Working with him was a pleasure. I highly recommend him.</blockquote>
+            <figcaption>
+              <span class="t-monogram" aria-hidden="true">AV</span>
+              <cite><strong>Aakash Verma</strong>Product Head, Khiladipro</cite>
+              <a class="t-src" href="projects/khiladipro.html" data-peek="assets/images/home/56f3ae8c_khiladipro.jpg" data-peek-title="Khiladipro: Website &amp; Mobile App">The project →</a>
+            </figcaption>
+          </figure>
+          <figure class="testimonial reveal">
+            <blockquote>We hired Priyank to redesign our dated suite of economic dashboards. And he did an excellent job. The redesigned dashboards are <span class="sweep">a treat to interact with</span>. We will definitely work with him again.</blockquote>
+            <figcaption>
+              <span class="t-monogram" aria-hidden="true">AC</span>
+              <cite><strong>Akshi Chawla</strong>Ex-Director, CEDA, Ashoka University</cite>
+              <a class="t-src" href="projects/sedp-dashboard.html" data-peek="assets/images/home/414e7003_ceda.jpg" data-peek-title="Economic Dashboard Redesign">The dashboards →</a>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -209,17 +220,34 @@
     <!-- ============ Contact ============ -->
     <section class="section" id="contact">
       <div class="wrap contact-box">
-        <p class="section-label">Contact</p>
-        <h2>Let's work together.</h2>
-        <p>Reach out via email or LinkedIn, <span class="copy-hint-contact">or just press <kbd>C</kbd> anywhere on this page.</span></p>
-        <div class="email-pill">
+        <div class="section-head">
+          <p class="section-label">Contact</p>
+          <p class="section-meta">No forms, just email</p>
+        </div>
+        <h2 class="reveal">Let's work <span class="scribble">together<svg viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true"><path d="M4 10 C 45 3, 80 12, 115 7 S 180 3, 216 8"/></svg></span>.</h2>
+        <p class="reveal">Have a role, a project, or just a hunch that we would work well together? Reach out via email or LinkedIn, <span class="copy-hint-contact">or press <kbd>C</kbd> anywhere on this page.</span></p>
+        <div class="email-pill reveal">
           <a href="mailto:hello@priyank.design">hello@priyank.design</a>
           <button data-copy-email="hello@priyank.design">Copy</button>
         </div>
-        <div class="contact-links">
-          <a class="link-mono" href="https://www.linkedin.com/in/priyank1205/" target="_blank" rel="noopener">LinkedIn ↗</a>
-          <a class="link-mono" href="https://drive.google.com/file/d/0B0y_QT-8mXwgRFhmWEdUWkpKOHc/view?usp=sharing&amp;resourcekey=0-Q4joErTGFsTqmVHZnpbYYw" target="_blank" rel="noopener">Resume ↗</a>
+        <div class="contact-rail reveal">
+          <a class="rail-link" href="https://www.linkedin.com/in/priyank1205/" target="_blank" rel="noopener">
+            <span class="rail-name">LinkedIn</span>
+            <span class="rail-handle">/in/priyank1205</span>
+            <span class="rail-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="rail-link" href="https://github.com/priyank1205/" target="_blank" rel="noopener">
+            <span class="rail-name">GitHub</span>
+            <span class="rail-handle">/priyank1205</span>
+            <span class="rail-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="rail-link" href="https://drive.google.com/file/d/0B0y_QT-8mXwgRFhmWEdUWkpKOHc/view?usp=sharing&amp;resourcekey=0-Q4joErTGFsTqmVHZnpbYYw" target="_blank" rel="noopener">
+            <span class="rail-name">Resume</span>
+            <span class="rail-handle">Google Drive</span>
+            <span class="rail-arrow" aria-hidden="true">↗</span>
+          </a>
         </div>
+        <p class="contact-ps reveal">P.S. Email feels formal? A LinkedIn DM works just as well.</p>
       </div>
     </section>
   </main>
@@ -231,6 +259,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=11"></script>
+  <script src="assets/js/main.js?v=12"></script>
 </body>
 </html>
