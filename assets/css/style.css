@@ -414,6 +414,18 @@ kbd {
 .section { padding: 96px 0 0; }
 .section:last-of-type { padding-bottom: 40px; }
 
+/* Homepage sections get a slower, more intentional cadence after Work begins.
+   The lead-in before Work remains on the shared section spacing above. */
+.home-section .section-head { margin-bottom: 42px; }
+.home-section + .home-section { padding-top: clamp(120px, 10vw, 144px); }
+
+#work .project-grid { column-gap: 36px; row-gap: 46px; }
+#work .work-note { margin-top: 42px; }
+#hobby .hobby-grid { gap: 40px; }
+#testimonials .testimonial-grid { gap: 56px; }
+#contact .contact-rail { margin-top: 44px; }
+#contact .contact-box { padding-bottom: 88px; }
+
 /* ---------- Project grid ---------- */
 .project-grid {
   display: grid;
@@ -1695,6 +1707,14 @@ figure.shot figcaption {
   .site-nav .sfx-toggle:hover { background: rgba(255, 255, 255, 0.04); }
   .site-nav .sfx-toggle .sfx-lbl { display: inline; font-size: 0.9rem; }
   .section { padding: 72px 0 0; }
+  .home-section .section-head { margin-bottom: 34px; }
+  .home-section + .home-section { padding-top: 104px; }
+  #work .project-grid { gap: 34px; }
+  #work .work-note { margin-top: 34px; }
+  #hobby .hobby-grid { gap: 32px; }
+  #testimonials .testimonial-grid { gap: 40px; }
+  #contact .contact-rail { margin-top: 36px; }
+  #contact .contact-box { padding-bottom: 72px; }
 }
 
 @media (max-width: 540px) {
