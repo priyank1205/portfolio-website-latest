@@ -1012,3 +1012,65 @@ function scrambleText(el, dur = 800) {
   );
   els.forEach((el) => io.observe(el));
 })();
+
+// ---------- Home: project index decode + year tag scramble ----------
+(function () {
+  const cards = document.querySelectorAll(".project-card");
+  if (!cards.length) return;
+
+  // index chips decode as their card scrolls into view
+  const pis = document.querySelectorAll(".project-thumb .pi");
+  if (pis.length && !noMotion && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          io.unobserve(e.target);
+          setTimeout(() => scrambleText(e.target, 650), 260);
+        });
+      },
+      { threshold: 0.4 }
+    );
+    pis.forEach((pi) => io.observe(pi));
+  }
+
+  // year tag decodes on card hover
+  if (fine && !noMotion) {
+    cards.forEach((card) => {
+      const tag = card.querySelector(".tag");
+      if (!tag) return;
+      tag.dataset.final = tag.textContent;
+      card.addEventListener("mouseenter", () => scrambleText(tag, 420));
+    });
+  }
+})();
+
+// ---------- Home: hobby ghost slot (cycles experiment ideas) ----------
+(function () {
+  const slot = document.getElementById("ghost-slot");
+  if (!slot || noMotion || !("IntersectionObserver" in window)) return;
+  const IDEAS = ["TBD", "a Figma plugin?", "an AI toy?", "a tiny game?", "your idea?"];
+  let i = 0;
+  let timer = null;
+
+  function next() {
+    i = (i + 1) % IDEAS.length;
+    slot.dataset.final = IDEAS[i];
+    scrambleText(slot, 500);
+  }
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          if (!timer) timer = setInterval(next, 2800);
+        } else if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+  io.observe(slot);
+})();
