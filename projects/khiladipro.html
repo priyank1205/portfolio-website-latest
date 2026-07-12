@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <meta name="theme-color" content="#0f0f0e">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css?v=13">
+  <link rel="stylesheet" href="../assets/css/style.css?v=14">
 </head>
 <body>
 
@@ -29,12 +29,17 @@
     <!-- ============ Hero ============ -->
     <div class="fm-hero">
       <img src="../assets/images/khiladipro/3a6144d6_ChatGPT_Image_Apr_22_2026_02_58_47_PM.jpg" alt="The Khiladipro olympiad landing page and mobile app">
+      <div class="fm-hero-inner">
+        <div class="wrap">
+          <a class="back-link" href="../index.html#work">← All projects</a>
+          <p class="fm-kicker">Case study · Sports tech · 2024-25</p>
+          <h1>Designing India’s first at-home sports olympiad</h1>
+        </div>
+      </div>
     </div>
 
     <section class="fm-head">
       <div class="wrap">
-        <a class="back-link" href="../index.html#work">← All projects</a>
-        <h1>Designing India’s first at-home sports olympiad</h1>
         <p class="fm-sub">Khiladipro hired me to design every user-facing surface of a first-of-its-kind event: two landing pages, paid registration, app onboarding, and the olympiad itself, in about eight weeks, solo.</p>
 
         <div class="case-meta">
@@ -76,11 +81,11 @@
           </div>
           <p>The engagement was execution-focused: strategy and success metrics stayed with the client. My first job was to map “design the olympiad” into four concrete surfaces: a landing page that converts, a registration flow that collects payment, an onboarding that teaches the drill ritual, and the in-app event itself, and then design all four inside these constraints:</p>
           <ul class="fm-checklist">
-            <li><span class="n">C-01</span><span><strong>An inherited design language, no design system.</strong> The app already existed; my screens had to look native to it, with only a little wiggle room.</span></li>
-            <li><span class="n">C-02</span><span><strong>A fixed calendar.</strong> The event window, 25 May to 15 June, was locked to school vacations, and marketing needed the pages well before that.</span></li>
-            <li><span class="n">C-03</span><span><strong>Three audiences, one page.</strong> Students compete, parents pay and supervise, academies bring whole cohorts. Each needed a different promise.</span></li>
-            <li><span class="n">C-04</span><span><strong>Persuasion before install.</strong> Registration and payment happen on the web, before the app is ever downloaded: the landing page had to carry the entire sell.</span></li>
-            <li><span class="n">C-05</span><span><strong>A team of four.</strong> Me, one product manager, one engineer, and the CEO. No other designers.</span></li>
+            <li class="reveal"><span class="n">C-01</span><span><strong>An inherited design language, no design system.</strong> The app already existed; my screens had to look native to it, with only a little wiggle room.</span></li>
+            <li class="reveal"><span class="n">C-02</span><span><strong>A fixed calendar.</strong> The event window, 25 May to 15 June, was locked to school vacations, and marketing needed the pages well before that.</span></li>
+            <li class="reveal"><span class="n">C-03</span><span><strong>Three audiences, one page.</strong> Students compete, parents pay and supervise, academies bring whole cohorts. Each needed a different promise.</span></li>
+            <li class="reveal"><span class="n">C-04</span><span><strong>Persuasion before install.</strong> Registration and payment happen on the web, before the app is ever downloaded: the landing page had to carry the entire sell.</span></li>
+            <li class="reveal"><span class="n">C-05</span><span><strong>A team of four.</strong> Me, one product manager, one engineer, and the CEO. No other designers.</span></li>
           </ul>
         </div>
       </section>
@@ -94,7 +99,7 @@
           </div>
           <p>A 14-year-old wants prizes and recognition. Their parent, who holds the credit card, wants legitimacy and oversight. An academy wants credibility in front of its students. The landing page had to make all three promises without splitting into three pages.</p>
 
-          <p class="fm-pull">The parent pays before the app is even installed, so the landing page has to do all of the convincing.</p>
+          <p class="fm-pull reveal">The parent pays before the app is even installed, so the landing page has to do all of the convincing.</p>
 
           <p>That funnel shaped the page: audience-specific value cards near the top (“For Khiladis”, “For Parents”), the age band stated plainly next to the CTA so unqualified visitors self-select out before clicking, and the event dates given hero billing: for a time-boxed event, urgency is the honest sell.</p>
 
@@ -106,7 +111,11 @@
             <figcaption><span class="fig-n">Fig. 01</span>The olympiad landing page. The full page is long: open it to scroll, or <a class="proto-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2030-4001&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">view the interactive prototype →</a></figcaption>
           </figure>
 
-          <div class="shot-row cols-2">
+        </div>
+
+        <!-- mixed aspect pair: columns proportional to image aspect ratios so both render equal height -->
+        <div class="fm-wide">
+          <div class="shot-row duo" style="--duo: 462fr 1531fr;">
             <figure class="shot reveal">
               <img src="../assets/images/khiladipro/91415b1c_Landing_Page_Mobile.png" alt="Mobile landing page with sticky CTA" loading="lazy">
               <figcaption><span class="fig-n">Fig. 02</span>On mobile, the register CTA is sticky: most traffic from ads would land here.</figcaption>
@@ -116,8 +125,10 @@
               <figcaption><span class="fig-n">Fig. 03</span>Registration, step 1 of 3. Persuasion doesn’t stop at the form: testimonials from a pro cricketer and an academy coach sit beside it, right where payment hesitation happens. <a class="proto-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2345-1923&amp;t=c1yya1PZsLvXzw1m-1" target="_blank" rel="noopener">View the flow →</a></figcaption>
             </figure>
           </div>
+        </div>
 
-          <div class="callout plain">
+        <div class="wrap">
+          <div class="callout plain reveal">
             <p><strong>Process:</strong> the page went through three fidelity passes, each answering a different question: a low-fidelity pass to agree on structure and content before any pixels, a mid-fidelity pass to lock the layout, and the high-fidelity polish above. The first two are still up: <a href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2254-23890&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">lo-fi prototype →</a> · <a href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2254-23895&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">mid-fi prototype →</a></p>
           </div>
         </div>
@@ -133,7 +144,7 @@
           <p>The first session is where this product lives or dies. A first-time user, often a 13-year-old, unsupervised, has to prop their phone against a wall, grant camera access, walk three metres away, and trust that an AI is counting their reps fairly. If setup fails, the drill can’t be scored; for a paid event, that’s a refund request. The onboarding flow was designed around that single failure mode.</p>
 
           <div class="fm-step">
-            <div>
+            <div class="reveal">
               <p class="fm-step-num">Step 01</p>
               <h3>Show the magic before asking for anything</h3>
               <p>New users arrive from olympiad ads with zero context. A short video explains what the Supervision AI actually does, before the app requests a single permission.</p>
@@ -147,7 +158,7 @@
           </div>
 
           <div class="fm-step flip">
-            <div>
+            <div class="reveal">
               <p class="fm-step-num">Step 02</p>
               <h3>The exit is a feature</h3>
               <p>The entire tour is skippable from the start. Users who arrived organically and already know the drill are never held hostage by a tutorial built for strangers.</p>
@@ -161,7 +172,7 @@
           </div>
 
           <div class="fm-step">
-            <div>
+            <div class="reveal">
               <p class="fm-step-num">Step 03</p>
               <h3>Earn the camera permission</h3>
               <p>The OS permission dialog is preceded by a plain-language rationale: why the camera, what it sees, what it’s used for. In an app aimed at minors, a refusal here is fatal: nothing can be scored without it.</p>
@@ -175,7 +186,7 @@
           </div>
 
           <div class="fm-step flip">
-            <div>
+            <div class="reveal">
               <p class="fm-step-num">Step 04</p>
               <h3>Show placement, don’t describe it</h3>
               <p>Correct phone placement is the make-or-break moment of the whole product. Text instructions fail at this; an illustration of a real room, phone propped up, full body in frame, succeeds.</p>
@@ -189,7 +200,7 @@
           </div>
 
           <div class="fm-step">
-            <div>
+            <div class="reveal">
               <p class="fm-step-num">Step 05</p>
               <h3>Rehearse before it counts</h3>
               <p>The flow introduces the visual AI through a simple practice drill, so the user’s first scored attempt is never also their first attempt.</p>
@@ -202,10 +213,10 @@
             </div>
           </div>
 
-          <p class="fm-pull">Once the user walks away from the phone, tap targets stop mattering: type size is everything.</p>
+          <p class="fm-pull reveal">Once the user walks away from the phone, tap targets stop mattering: type size is everything.</p>
 
           <div class="fm-step flip">
-            <div>
+            <div class="reveal">
               <p class="fm-step-num">Step 06</p>
               <h3>Design for three metres</h3>
               <p>During a drill the user is across the room. Prompts and rep counters are sized to be read at that distance, an accessibility constraint most mobile design never has to think about.</p>
@@ -223,7 +234,7 @@
           </div>
 
           <div class="fm-step">
-            <div>
+            <div class="reveal">
               <p class="fm-step-num">Step 07</p>
               <h3>End on a high</h3>
               <p>The flow closes with a celebration: the peak-end rule, applied deliberately. The last memory of setup is a win, not a permissions dialog.</p>
@@ -304,7 +315,7 @@
         <div class="wrap">
           <div class="fm-ch" id="rehire">
             <span class="idx">CH 05 / 06</span>
-            <h2>The rehire</h2>
+            <h2>The rehire<span class="hl-green">Rehired<span class="badge-tip" role="tooltip">A good sign, they came back</span></span></h2>
           </div>
           <p>After the olympiad shipped, Khiladipro’s growth team came back with a second brief: a landing page for a fan campaign timed to the IPL, the world’s biggest cricket league. Their in-house team designed the app screens; I designed the page, desktop and mobile.</p>
           <p><strong>A rehire is the one outcome metric I can publish.</strong></p>
@@ -356,7 +367,7 @@
             </div>
           </div>
 
-          <div class="case-quote">
+          <div class="case-quote reveal">
             <blockquote>“Priyank is a talented designer with great skills. He showed intuitive product thinking. He is very proactive with his contributions and gives a lot of attention to detail. Working with him was a pleasure. I highly recommend him.”</blockquote>
             <cite><strong>Aakash Verma</strong>Product Head, Khiladipro</cite>
           </div>
@@ -368,7 +379,7 @@
 
     <nav class="case-nav">
       <div class="wrap">
-        <a class="next" href="sedp-dashboard.html"><span>Next project →</span><strong>Economic Dashboard Redesign: SEDP</strong></a>
+        <a class="next" href="sedp-dashboard.html" data-peek="../assets/images/home/414e7003_ceda.jpg" data-peek-title="Economic Dashboard Redesign"><span>Next project →</span><strong>Economic Dashboard Redesign: SEDP</strong></a>
       </div>
     </nav>
   </main>
@@ -380,6 +391,6 @@
     </div>
   </footer>
 
-  <script src="../assets/js/main.js?v=9"></script>
+  <script src="../assets/js/main.js?v=10"></script>
 </body>
 </html>

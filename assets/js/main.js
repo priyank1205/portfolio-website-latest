@@ -609,6 +609,20 @@ function scrambleText(el, dur = 800) {
     { ico: "↗", label: "Open resume", act: () => window.open(RESUME, "_blank", "noopener") },
   ];
 
+  // on case study pages, chapters become jumpable commands
+  document.querySelectorAll(".fm-ch[id]").forEach((ch) => {
+    const h = ch.querySelector("h2");
+    const idx = ch.querySelector(".idx");
+    if (!h) return;
+    const num = idx ? idx.textContent.split("/")[0].trim() : "";
+    const title = h.childNodes[0].textContent.trim();
+    ACTIONS.push({
+      ico: "#",
+      label: "Jump to " + (num ? num + ": " : "") + title,
+      act: () => (location.hash = "#" + ch.id),
+    });
+  });
+
   const overlay = document.createElement("div");
   overlay.className = "cmdk";
   overlay.innerHTML =
@@ -881,4 +895,120 @@ function scrambleText(el, dur = 800) {
     { threshold: 0.4 }
   );
   io.observe(lis[0].closest(".about-creed"));
+})();
+
+// ---------- Case study: hero entrance ----------
+(function () {
+  const inner = document.querySelector(".fm-hero-inner");
+  if (!inner || noMotion) return;
+  const els = [
+    inner.querySelector(".back-link"),
+    inner.querySelector(".fm-kicker"),
+    inner.querySelector("h1"),
+  ].filter(Boolean);
+  const head = document.querySelector(".fm-head .wrap");
+  if (head) els.push(...head.children);
+  els.forEach((el) => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(14px)";
+    el.style.filter = "blur(6px)";
+  });
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => {
+      const ease = "cubic-bezier(0.2, 0.6, 0.2, 1)";
+      els.forEach((el, i) => {
+        el.style.transition = `opacity 0.55s ${ease}, transform 0.55s ${ease}, filter 0.55s ${ease}`;
+        el.style.transitionDelay = i * 80 + "ms";
+        el.style.opacity = "1";
+        el.style.transform = "none";
+        el.style.filter = "none";
+      });
+      const kicker = inner.querySelector(".fm-kicker");
+      if (kicker) setTimeout(() => scrambleText(kicker, 600), 350);
+      setTimeout(() => {
+        els.forEach((el) => {
+          el.style.transition = "";
+          el.style.transitionDelay = "";
+          el.style.transform = "";
+          el.style.filter = "";
+        });
+      }, 80 * els.length + 700);
+    })
+  );
+})();
+
+// ---------- Case study: reading progress ----------
+(function () {
+  if (!document.querySelector(".case-body")) return;
+  const bar = document.createElement("div");
+  bar.className = "case-progress";
+  document.body.appendChild(bar);
+  let raf = 0;
+  function update() {
+    raf = 0;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ")";
+  }
+  const queue = () => {
+    if (!raf) raf = requestAnimationFrame(update);
+  };
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", queue, { passive: true });
+  update();
+})();
+
+// ---------- Case study: chapter rail (scrollspy) ----------
+(function () {
+  const chs = Array.from(document.querySelectorAll(".fm-ch[id]"));
+  if (chs.length < 2) return;
+  const title = (ch) => {
+    const h = ch.querySelector("h2");
+    return h ? h.childNodes[0].textContent.trim() : "";
+  };
+  const rail = document.createElement("nav");
+  rail.className = "fm-rail";
+  rail.setAttribute("aria-label", "Chapters");
+  rail.innerHTML = chs
+    .map(
+      (ch, i) =>
+        '<a href="#' + ch.id + '"><b>' + String(i + 1).padStart(2, "0") + '</b><span class="t">' + title(ch) + "</span></a>"
+    )
+    .join("");
+  document.body.appendChild(rail);
+  const links = rail.querySelectorAll("a");
+
+  let raf = 0;
+  function spy() {
+    raf = 0;
+    const cut = window.innerHeight * 0.45;
+    let on = -1;
+    chs.forEach((ch, i) => {
+      if (ch.getBoundingClientRect().top < cut) on = i;
+    });
+    links.forEach((a, i) => a.classList.toggle("on", i === on));
+    rail.classList.toggle("show", on >= 0);
+  }
+  const queue = () => {
+    if (!raf) raf = requestAnimationFrame(spy);
+  };
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", queue, { passive: true });
+  spy();
+})();
+
+// ---------- Case study: chapter index + fin decode ----------
+(function () {
+  const els = document.querySelectorAll(".fm-ch .idx, .fin");
+  if (!els.length || noMotion || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        scrambleText(e.target, 520);
+        io.unobserve(e.target);
+      });
+    },
+    { threshold: 0.5 }
+  );
+  els.forEach((el) => io.observe(el));
 })();
