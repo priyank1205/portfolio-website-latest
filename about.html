@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=10">
+  <link rel="stylesheet" href="assets/css/style.css?v=13">
 </head>
 <body>
 
@@ -31,6 +31,7 @@
   <main class="about-main">
     <!-- ============ Hero ============ -->
     <section class="case-hero">
+      <canvas class="hero-grid" aria-hidden="true"></canvas>
       <div class="wrap">
         <p class="section-label">About</p>
         <div class="about-hero">
@@ -38,10 +39,15 @@
             <h1>The best design decisions rarely come from pixels alone.</h1>
             <p class="case-sub">I'm Priyank Agarwal, a Senior Product Designer in Bengaluru. I design consumer apps, internal tools, dashboards, and AI-powered products for startups across stages.</p>
             <div class="hero-status">
-              <span class="pulse" aria-hidden="true"></span>
-              <span class="status-text">Open to senior and founding roles, full time or contract</span>
-              <span class="sep" aria-hidden="true">·</span>
-              <span class="status-text muted">Bengaluru, working worldwide</span>
+              <a class="status-chip chip-open" href="#contact">
+                <span class="pulse" aria-hidden="true"></span>
+                <span id="status-open">Open to senior and founding roles, full time or contract</span>
+                <span class="chip-arr" aria-hidden="true">→</span>
+              </a>
+              <span class="status-chip chip-loc">
+                <span id="status-loc">Bengaluru, working worldwide</span>
+                <span class="chip-time" id="about-clock"></span>
+              </span>
             </div>
           </div>
           <img class="about-photo" src="assets/images/home/about-portrait.jpg" alt="Priyank Agarwal" width="495" height="495" decoding="async">
@@ -56,7 +62,7 @@
         <ol class="tl">
           <li class="tl-item reveal">
             <div class="tl-head">
-              <h3><a href="projects/khiladipro.html">Khiladipro<span class="arr">↗</span></a></h3>
+              <h3><a href="projects/khiladipro.html" data-peek="assets/images/home/56f3ae8c_khiladipro.jpg" data-peek-title="Khiladipro: Website &amp; Mobile App">Khiladipro<span class="arr">↗</span></a></h3>
               <span class="lead" aria-hidden="true"></span>
               <span class="tl-date">2024 - 2025</span>
             </div>
@@ -64,7 +70,7 @@
           </li>
           <li class="tl-item reveal">
             <div class="tl-head">
-              <h3><a href="projects/mega-poker.html">Mega Poker<span class="arr">↗</span></a></h3>
+              <h3><a href="projects/mega-poker.html" data-peek="assets/images/home/75215b55_mega.jpg" data-peek-title="Mega Poker: App Flows">Mega Poker<span class="arr">↗</span></a></h3>
               <span class="lead" aria-hidden="true"></span>
               <span class="tl-date">2024</span>
             </div>
@@ -72,8 +78,8 @@
           </li>
           <li class="tl-item reveal">
             <div class="tl-head">
-              <h3><a href="projects/sedp-dashboard.html">CEDA, Ashoka University<span class="arr">↗</span></a></h3>
-              <span class="hl-green">Rehired</span>
+              <h3><a href="projects/sedp-dashboard.html" data-peek="assets/images/home/414e7003_ceda.jpg" data-peek-title="Economic Dashboard Redesign">CEDA, Ashoka University<span class="arr">↗</span></a></h3>
+              <span class="hl-green">Rehired<span class="badge-tip" role="tooltip">A good sign, they came back</span></span>
               <span class="lead" aria-hidden="true"></span>
               <span class="tl-date">2023 - 2024</span>
             </div>
@@ -81,7 +87,7 @@
           </li>
           <li class="tl-item reveal">
             <div class="tl-head">
-              <h3><a href="projects/ecometer-agrimarket.html">CEDA, Ashoka University<span class="arr">↗</span></a></h3>
+              <h3><a href="projects/ecometer-agrimarket.html" data-peek="assets/images/home/4000b5be_ceda2.jpg" data-peek-title="Ecometer &amp; Agrimarket">CEDA, Ashoka University<span class="arr">↗</span></a></h3>
               <span class="lead" aria-hidden="true"></span>
               <span class="tl-date">2022 - 2023</span>
             </div>
@@ -89,12 +95,11 @@
           </li>
           <li class="tl-item reveal">
             <div class="tl-head">
-              <h3><a href="projects/getmega.html">Getmega<span class="arr">↗</span></a></h3>
+              <h3><a href="projects/getmega.html" data-peek="assets/images/home/2afef239_Getmega.jpg" data-peek-title="Getmega Mobile App">Getmega<span class="arr">↗</span></a></h3>
               <span class="lead" aria-hidden="true"></span>
               <span class="tl-date">2019 - 2021</span>
             </div>
             <p class="tl-role">Product Designer</p>
-            <p class="tl-note">Second design hire; the team grew to ten across two pivots, and I stepped into my first leadership role.</p>
           </li>
           <li class="tl-item reveal">
             <div class="tl-head">
@@ -183,6 +188,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=7"></script>
+  <script src="assets/js/main.js?v=9"></script>
 </body>
 </html>

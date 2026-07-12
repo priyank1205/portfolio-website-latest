@@ -326,19 +326,10 @@ function scrambleText(el, dur = 800) {
   );
 })();
 
-// ---------- Name scramble on hover ----------
+// ---------- Hero dot grid (cursor reactive; any section with a .hero-grid canvas) ----------
 (function () {
-  const words = document.querySelectorAll("h1 [data-scramble]");
-  if (!words.length || !fine || noMotion) return;
-  words[0].closest("h1").addEventListener("pointerenter", () => {
-    words.forEach((w) => scrambleText(w, 450));
-  });
-})();
-
-// ---------- Hero dot grid (cursor reactive) ----------
-(function () {
-  const hero = document.querySelector(".hero");
   const canvas = document.querySelector(".hero-grid");
+  const hero = canvas ? canvas.parentElement : null;
   if (!hero || !canvas) return;
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
@@ -569,9 +560,9 @@ function scrambleText(el, dur = 800) {
   card.addEventListener("pointerleave", scheduleHide);
 })();
 
-// ---------- Marquee peek cards ----------
+// ---------- Peek cards (marquee links, timeline links) ----------
 (function () {
-  const items = document.querySelectorAll(".marquee-item[data-peek]");
+  const items = document.querySelectorAll("[data-peek]");
   if (!items.length || !fine) return;
   const peek = document.createElement("div");
   peek.className = "peek";
@@ -785,4 +776,109 @@ function scrambleText(el, dur = 800) {
       setTimeout(() => (location.href = "mailto:" + EMAIL), 1200);
     }
   });
+})();
+
+// ---------- About hero entrance ----------
+(function () {
+  const hero = document.querySelector(".about-main .case-hero");
+  if (!hero || noMotion) return;
+  const els = [
+    hero.querySelector(".section-label"),
+    hero.querySelector("h1"),
+    hero.querySelector(".case-sub"),
+    hero.querySelector(".hero-status"),
+    hero.querySelector(".about-photo"),
+  ].filter(Boolean);
+  els.forEach((el) => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(14px)";
+    el.style.filter = "blur(6px)";
+  });
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => {
+      const ease = "cubic-bezier(0.2, 0.6, 0.2, 1)";
+      els.forEach((el, i) => {
+        el.style.transition = `opacity 0.55s ${ease}, transform 0.55s ${ease}, filter 0.55s ${ease}`;
+        el.style.transitionDelay = i * 85 + "ms";
+        el.style.opacity = "1";
+        el.style.transform = "none";
+        el.style.filter = "none";
+      });
+      const open = document.getElementById("status-open");
+      const loc = document.getElementById("status-loc");
+      setTimeout(() => {
+        if (open) scrambleText(open, 700);
+        if (loc) setTimeout(() => scrambleText(loc, 550), 150);
+      }, 450);
+      // clear inline styles so CSS hover transitions (portrait) work afterwards
+      setTimeout(() => {
+        els.forEach((el) => {
+          el.style.transition = "";
+          el.style.transitionDelay = "";
+          el.style.transform = "";
+          el.style.filter = "";
+        });
+      }, 85 * els.length + 700);
+    })
+  );
+})();
+
+// ---------- About status clock (live IST, blinking colon) ----------
+(function () {
+  const el = document.getElementById("about-clock");
+  if (!el) return;
+  let fmt;
+  try {
+    fmt = new Intl.DateTimeFormat("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "Asia/Kolkata",
+    });
+  } catch {
+    return;
+  }
+  function tick() {
+    const parts = fmt.format(new Date()).split(":");
+    el.innerHTML = "· " + parts[0] + '<span class="tick">:</span>' + parts[1] + " IST";
+  }
+  tick();
+  setInterval(tick, 30000);
+})();
+
+// ---------- About portrait easter egg ----------
+(function () {
+  const photo = document.querySelector(".about-photo");
+  if (!photo) return;
+  photo.addEventListener("click", () =>
+    showToast("100% human, verified by absolutely no one")
+  );
+})();
+
+// ---------- Timeline date decode on hover ----------
+(function () {
+  const items = document.querySelectorAll(".tl-item");
+  if (!items.length || !fine || noMotion) return;
+  items.forEach((it) => {
+    const date = it.querySelector(".tl-date");
+    if (!date) return;
+    it.addEventListener("pointerenter", () => scrambleText(date, 380));
+  });
+})();
+
+// ---------- Creed decode on reveal ----------
+(function () {
+  const lis = document.querySelectorAll(".about-creed li");
+  if (!lis.length || noMotion || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        lis.forEach((li, i) => setTimeout(() => scrambleText(li, 480), 200 + i * 170));
+      });
+    },
+    { threshold: 0.4 }
+  );
+  io.observe(lis[0].closest(".about-creed"));
 })();
