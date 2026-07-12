@@ -1,5 +1,276 @@
 const EMAIL = "hello@priyank.design";
 
+// pointer and motion gates, shared by every module below
+const fine = window.matchMedia("(pointer: fine)").matches;
+const noMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// ---------- Sound engine (sfx) ----------
+// Every sound is synthesized from two primitives: a filtered oscillator voice
+// and a filtered noise burst. All pitches sit in D major pentatonic, so any
+// two sounds that overlap stay consonant. Quiet, soft, short: felt more than heard.
+const sfx = (() => {
+  const KEY = "pf-sfx";
+  let ctx = null,
+    master = null,
+    noiseBuf = null;
+  let muted = false,
+    voices = 0,
+    count = 0;
+  const last = {};
+  try {
+    muted = localStorage.getItem(KEY) === "off";
+  } catch {}
+
+  function ensure() {
+    if (ctx) return;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    ctx = new AC();
+    master = ctx.createGain();
+    master.gain.value = 0.15;
+    // gentle safety ceiling so stacked voices never get harsh
+    const comp = ctx.createDynamicsCompressor();
+    comp.threshold.value = -20;
+    comp.knee.value = 12;
+    comp.ratio.value = 6;
+    comp.attack.value = 0.002;
+    comp.release.value = 0.15;
+    master.connect(comp);
+    comp.connect(ctx.destination);
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
+    const data = noiseBuf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+  }
+
+  // browsers gate audio behind a gesture: unlock on the very first one
+  ["pointerdown", "keydown", "touchstart"].forEach((ev) =>
+    document.addEventListener(
+      ev,
+      () => {
+        ensure();
+        if (ctx && ctx.state !== "running") ctx.resume();
+      },
+      { once: true, capture: true, passive: true }
+    )
+  );
+
+  document.addEventListener("visibilitychange", () => {
+    if (!ctx) return;
+    if (document.hidden) ctx.suspend();
+    else ctx.resume();
+  });
+
+  // oscillator voice: gain envelope, optional lowpass, optional detuned partner
+  function tone(o) {
+    const t = ctx.currentTime + (o.at || 0);
+    const dur = o.dur || 0.12;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(o.peak || 0.25, t + (o.attack || 0.003));
+    g.gain.exponentialRampToValueAtTime(0.0008, t + dur);
+    let out = g;
+    if (o.cutoff) {
+      const f = ctx.createBiquadFilter();
+      f.type = "lowpass";
+      f.frequency.value = o.cutoff;
+      g.connect(f);
+      out = f;
+    }
+    out.connect(master);
+    const mk = (cents, share) => {
+      const osc = ctx.createOscillator();
+      osc.type = o.type || "sine";
+      osc.frequency.setValueAtTime(o.freq, t);
+      if (o.glideTo)
+        osc.frequency.exponentialRampToValueAtTime(o.glideTo, t + (o.glideDur || 0.05));
+      if (cents) osc.detune.value = cents;
+      const vg = ctx.createGain();
+      vg.gain.value = share;
+      osc.connect(vg);
+      vg.connect(g);
+      voices++;
+      osc.onended = () => voices--;
+      osc.start(t);
+      osc.stop(t + dur + 0.03);
+    };
+    mk(0, o.detune ? 0.72 : 1);
+    if (o.detune) mk(o.detune, 0.35);
+  }
+
+  // filtered white-noise burst for tactility
+  function noiseBurst(o) {
+    const t = ctx.currentTime + (o.at || 0);
+    const src = ctx.createBufferSource();
+    src.buffer = noiseBuf;
+    const f = ctx.createBiquadFilter();
+    f.type = o.type || "bandpass";
+    f.frequency.value = o.freq;
+    f.Q.value = o.q || 1;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(o.peak, t + (o.attack || 0.001));
+    g.gain.exponentialRampToValueAtTime(0.0008, t + o.dur);
+    src.connect(f);
+    f.connect(g);
+    g.connect(master);
+    voices++;
+    src.onended = () => voices--;
+    src.start(t);
+    src.stop(t + o.dur + 0.03);
+  }
+
+  // builders: a bare tick, a pitch slide, and a soft press with sheen and texture
+  const blip = (freq, dur, peak, at) => tone({ freq, dur, peak, at, attack: 0.003 });
+  const slide = (from, to, dur, peak, glideDur) =>
+    tone({ freq: from, glideTo: to, glideDur, dur, peak, attack: 0.002 });
+  const press = (body, sheen, sheenPeak, cutoff) => {
+    tone({ freq: body, type: "triangle", cutoff, attack: 0.002, dur: 0.09, peak: 0.3 });
+    tone({ freq: sheen, attack: 0.002, dur: 0.05, peak: sheenPeak });
+    noiseBurst({ freq: 1800, q: 0.8, dur: 0.01, peak: 0.08 });
+  };
+
+  // D major pentatonic, Hz: D4 293.66, E4 329.63, A4 440, D5 587.33, E5 659.26,
+  // F#5 739.99, A5 880, B5 987.77, D6 1174.66, E6 1318.51, A6 1760
+  const RECIPES = {
+    hover: () => blip(1174.66, 0.045, 0.1),
+    tick: () => blip(739.99, 0.055, 0.14),
+    tap: () => press(587.33, 1174.66, 0.1, 2200),
+    confirm: () => press(880, 1760, 0.08, 2600),
+    chime: () => {
+      tone({ freq: 880, detune: 7, attack: 0.008, dur: 0.26, peak: 0.32, cutoff: 3500 });
+      tone({ freq: 1318.51, detune: 7, attack: 0.008, dur: 0.32, peak: 0.3, cutoff: 3500, at: 0.09 });
+    },
+    palOpen: () => {
+      tone({ freq: 587.33, glideTo: 880, glideDur: 0.06, attack: 0.004, dur: 0.16, peak: 0.26, cutoff: 2600 });
+      noiseBurst({ freq: 1400, type: "lowpass", attack: 0.05, dur: 0.14, peak: 0.05 });
+    },
+    palClose: () => slide(880, 587.33, 0.13, 0.2, 0.055),
+    lbOpen: () => {
+      tone({ freq: 293.66, glideTo: 295.72, glideDur: 0.3, attack: 0.012, dur: 0.35, peak: 0.26, cutoff: 1600 });
+      tone({ freq: 440, glideTo: 443.08, glideDur: 0.3, attack: 0.012, dur: 0.35, peak: 0.16, cutoff: 1600 });
+    },
+    lbClose: () => {
+      tone({ freq: 293.66, glideTo: 291.62, glideDur: 0.15, attack: 0.004, dur: 0.17, peak: 0.18, cutoff: 1600 });
+      tone({ freq: 440, glideTo: 436.95, glideDur: 0.15, attack: 0.004, dur: 0.17, peak: 0.12, cutoff: 1600 });
+    },
+    navOpen: () => slide(329.63, 659.26, 0.11, 0.26, 0.03),
+    navClose: () => slide(659.26, 329.63, 0.1, 0.2, 0.035),
+    on: () => {
+      blip(587.33, 0.06, 0.26);
+      blip(880, 0.09, 0.3, 0.045);
+    },
+    off: () => {
+      blip(880, 0.06, 0.26);
+      blip(587.33, 0.09, 0.2, 0.045);
+    },
+    pop: () => slide(440, 880, 0.1, 0.26, 0.028),
+    sparkle: () => {
+      [587.33, 739.99, 880, 987.77, 1174.66].forEach((f, i) =>
+        tone({ freq: f, detune: 8, attack: 0.005, dur: 0.22, peak: 0.22, cutoff: 3800, at: i * 0.055 })
+      );
+      tone({ freq: 1760, attack: 0.005, dur: 0.3, peak: 0.1, at: 0.275 });
+      noiseBurst({ freq: 6000, q: 2, at: 0.1, dur: 0.25, peak: 0.045 });
+    },
+  };
+
+  const GAP = { hover: 90, tick: 45 };
+
+  function play(name) {
+    if (muted) return;
+    const recipe = RECIPES[name];
+    if (!recipe) return;
+    const now = performance.now();
+    if (now - (last[name] || 0) < (GAP[name] || 60)) return;
+    ensure();
+    if (!ctx) return;
+    if (ctx.state !== "running") {
+      ctx.resume();
+      return; // drop this one, the next will sound
+    }
+    if (voices >= 12) return;
+    last[name] = now;
+    count++;
+    recipe();
+  }
+
+  function setMuted(m) {
+    muted = m;
+    try {
+      localStorage.setItem(KEY, m ? "off" : "on");
+    } catch {}
+    document.dispatchEvent(new CustomEvent("sfx:muted", { detail: m }));
+  }
+
+  function toggle() {
+    if (muted) {
+      setMuted(false);
+      play("on");
+    } else {
+      play("off"); // farewell note first, then silence
+      setMuted(true);
+    }
+    return !muted;
+  }
+
+  return {
+    play,
+    toggle,
+    setMuted,
+    get muted() {
+      return muted;
+    },
+    get count() {
+      return count;
+    },
+  };
+})();
+
+// sound toggle in the header nav, plus one delegated listener for hover ticks
+(function () {
+  const nav = document.querySelector(".site-nav");
+  if (nav) {
+    const btn = document.createElement("button");
+    btn.className = "sfx-toggle";
+    btn.type = "button";
+    btn.setAttribute("aria-label", "Toggle interface sounds");
+    btn.innerHTML =
+      '<span class="sfx-eq" aria-hidden="true"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>' +
+      '<span class="sfx-lbl">Sound on</span>';
+    const lbl = btn.querySelector(".sfx-lbl");
+    const sync = () => {
+      btn.setAttribute("aria-pressed", String(!sfx.muted));
+      btn.title = sfx.muted ? "Turn sounds on" : "Turn sounds off";
+      lbl.textContent = sfx.muted ? "Sound off" : "Sound on";
+    };
+    btn.addEventListener("click", () => sfx.toggle());
+    document.addEventListener("sfx:muted", sync);
+    sync();
+    nav.appendChild(btn);
+  }
+
+  const HOVER_SEL = [
+    ".project-card",
+    ".rail-link",
+    ".site-nav a",
+    ".btn",
+    "[data-copy-email]",
+    ".marquee-item",
+    ".t-src",
+    ".back-link",
+    ".fm-rail a",
+    ".tl-item",
+    ".kw[data-kw]",
+    ".nav-toggle",
+    ".sfx-toggle",
+  ].join(",");
+  if (fine)
+    document.addEventListener("pointerover", (e) => {
+      const el = e.target.closest(HOVER_SEL);
+      if (!el || el.contains(e.relatedTarget)) return;
+      sfx.play("hover");
+    });
+})();
+
 // ---------- Toast ----------
 const toast = document.createElement("div");
 toast.className = "toast";
@@ -38,6 +309,7 @@ async function copyEmail() {
     copied = copyFallback();
   }
   if (copied) {
+    sfx.play("chime");
     showToast('<span class="ok">✓</span>' + EMAIL + " copied to clipboard");
   } else {
     showToast("Email: " + EMAIL);
@@ -98,6 +370,7 @@ document.querySelectorAll("[data-copy-email]").forEach((btn) => {
   btn.addEventListener("click", () => {
     const open = header.classList.toggle("nav-open");
     btn.setAttribute("aria-expanded", open ? "true" : "false");
+    sfx.play(open ? "navOpen" : "navClose");
   });
 
   nav.addEventListener("click", (e) => {
@@ -105,7 +378,10 @@ document.querySelectorAll("[data-copy-email]").forEach((btn) => {
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") close();
+    if (e.key === "Escape") {
+      if (header.classList.contains("nav-open")) sfx.play("navClose");
+      close();
+    }
   });
 
   window.addEventListener("resize", () => {
@@ -123,9 +399,6 @@ document.querySelectorAll(".project-card").forEach((card) => {
 });
 
 // ---------- Magnetic buttons ----------
-const fine = window.matchMedia("(pointer: fine)").matches;
-const noMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
 if (fine && !noMotion) {
   document.querySelectorAll(".btn").forEach((btn) => {
     btn.addEventListener("pointermove", (e) => {
@@ -219,6 +492,7 @@ if (fine && !noMotion) {
     };
     if (lbImg.complete) mode();
     else lbImg.onload = mode;
+    sfx.play("lbOpen");
     lb.classList.add("open");
     document.body.style.overflow = "hidden";
   }
@@ -233,6 +507,8 @@ if (fine && !noMotion) {
   });
 
   function close() {
+    if (!lb.classList.contains("open")) return;
+    sfx.play("lbClose");
     lb.classList.remove("open", "scroll");
     lbImg.src = "";
     document.body.style.overflow = "";
@@ -493,7 +769,10 @@ function scrambleText(el, dur = 800) {
     timer = setTimeout(() => (clicks = 0), 1600);
     if (clicks === 5) {
       clicks = 0;
+      sfx.play("sparkle");
       showToast("Okay, that's enough. Press <kbd>C</kbd> instead");
+    } else {
+      sfx.play("pop");
     }
   });
   av.addEventListener("animationend", () => av.classList.remove("spin"));
@@ -603,10 +882,11 @@ function scrambleText(el, dur = 800) {
     { ico: "→", label: "Go to work", act: () => (location.href = sec("#work")) },
     { ico: "→", label: "Go to about", act: () => (location.href = root + "about.html") },
     { ico: "→", label: "Go to contact", act: () => (location.href = sec("#contact")) },
-    { ico: "@", label: "Copy email", kbd: "C", act: () => copyEmail() },
+    { ico: "@", label: "Copy email", kbd: "C", act: () => copyEmail(), sfx: false },
     { ico: "✉", label: "Email me", act: () => (location.href = "mailto:" + EMAIL) },
     { ico: "↗", label: "Open LinkedIn", act: () => window.open("https://www.linkedin.com/in/priyank1205/", "_blank", "noopener") },
     { ico: "↗", label: "Open resume", act: () => window.open(RESUME, "_blank", "noopener") },
+    { ico: "♪", label: "Toggle sounds", act: () => sfx.toggle(), sfx: false },
   ];
 
   // on case study pages, chapters become jumpable commands
@@ -659,6 +939,7 @@ function scrambleText(el, dur = 800) {
       .join("");
   }
   function openPal() {
+    sfx.play("palOpen");
     overlay.classList.add("open");
     document.body.style.overflow = "hidden";
     input.value = "";
@@ -667,13 +948,15 @@ function scrambleText(el, dur = 800) {
     render();
     input.focus();
   }
-  function closePal() {
+  function closePal(silent) {
+    if (!silent && overlay.classList.contains("open")) sfx.play("palClose");
     overlay.classList.remove("open");
     document.body.style.overflow = "";
     input.blur();
   }
   function run(a) {
-    closePal();
+    if (a.sfx !== false) sfx.play("confirm");
+    closePal(true);
     a.act();
   }
 
@@ -686,11 +969,15 @@ function scrambleText(el, dur = 800) {
   input.addEventListener("keydown", (e) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
+      const prev = active;
       active = Math.min(filtered.length - 1, active + 1);
+      if (active !== prev) sfx.play("tick");
       render();
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
+      const prev = active;
       active = Math.max(0, active - 1);
+      if (active !== prev) sfx.play("tick");
       render();
     } else if (e.key === "Enter" && filtered[active]) {
       run(filtered[active]);
@@ -786,6 +1073,7 @@ function scrambleText(el, dur = 800) {
     if (buf === "hire") {
       buf = "";
       confetti();
+      sfx.play("sparkle");
       showToast('<span class="ok">✓</span>Excellent choice. Opening your email app');
       setTimeout(() => (location.href = "mailto:" + EMAIL), 1200);
     }
@@ -864,9 +1152,10 @@ function scrambleText(el, dur = 800) {
 (function () {
   const photo = document.querySelector(".about-photo");
   if (!photo) return;
-  photo.addEventListener("click", () =>
-    showToast("100% human, verified by absolutely no one")
-  );
+  photo.addEventListener("click", () => {
+    sfx.play("pop");
+    showToast("100% human, verified by absolutely no one");
+  });
 })();
 
 // ---------- Timeline date decode on hover ----------
