@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <meta name="theme-color" content="#0f0f0e">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css?v=13">
+  <link rel="stylesheet" href="../assets/css/style.css?v=14">
 </head>
 <body>
 
@@ -29,12 +29,17 @@
     <!-- ============ Hero ============ -->
     <div class="fm-hero">
       <img src="../assets/images/megapoker/13b76faf_ChatGPT_Image_Apr_22_2026_05_03_37_PM.jpg" alt="Add cash, withdrawal, and tournament screens from the Mega Poker redesign">
+      <div class="fm-hero-inner">
+        <div class="wrap">
+          <a class="back-link" href="../index.html#work">← All projects</a>
+          <p class="fm-kicker">Case study · Real-money gaming · 2024</p>
+          <h1>Redesigning how money moves through a poker app</h1>
+        </div>
+      </div>
     </div>
 
     <section class="fm-head">
       <div class="wrap">
-        <a class="back-link" href="../index.html#work">← All projects</a>
-        <h1>Redesigning how money moves through a poker app</h1>
         <p class="fm-sub">Mega Poker brought me in to rework the flows where money enters, plays, and leaves their real-money poker app: add cash, the tournament tab, wallet self-transfer, and a withdrawal flow of more than 50 screens, in about two months, solo.</p>
 
         <div class="case-meta">
@@ -76,11 +81,11 @@
           </div>
           <p>&ldquo;Keep money in play&rdquo; can be read two ways. The dark-pattern reading is friction: bury the withdraw button, add steps, hope players give up. The brief I took was the other reading: <strong>make staying genuinely worth more than leaving, and show the math whole.</strong> Every nudge in this case study is a real offer with its arithmetic on screen, and every exit stays one tap away. That principle, plus four harder constraints, shaped the work:</p>
           <ul class="fm-checklist">
-            <li><span class="n">C-01</span><span><strong>A behaviour brief, not a beauty brief.</strong> The measure of success was where the money went: winnings transferred back into play instead of straight out of the app.</span></li>
-            <li><span class="n">C-02</span><span><strong>Two visual languages, on purpose.</strong> The app was mid-migration from an old style to a new, locked one. Some flows were briefed in the new language and some had to stay in the old, so the system had to hold across both.</span></li>
-            <li><span class="n">C-03</span><span><strong>Government math inside the UI.</strong> GST is deducted on every deposit and TDS on withdrawals. The flows had to explain deductions and the bonuses that compensate for them without reading like fine print.</span></li>
-            <li><span class="n">C-04</span><span><strong>Untouchable neighbours.</strong> The tournament tab had to be rebuilt completely without touching the other elements on the page, including the header with the add-cash chip.</span></li>
-            <li><span class="n">C-05</span><span><strong>A team of three.</strong> Me, one product manager, and the CEO reviewing weekly. No other designers.</span></li>
+            <li class="reveal"><span class="n">C-01</span><span><strong>A behaviour brief, not a beauty brief.</strong> The measure of success was where the money went: winnings transferred back into play instead of straight out of the app.</span></li>
+            <li class="reveal"><span class="n">C-02</span><span><strong>Two visual languages, on purpose.</strong> The app was mid-migration from an old style to a new, locked one. Some flows were briefed in the new language and some had to stay in the old, so the system had to hold across both.</span></li>
+            <li class="reveal"><span class="n">C-03</span><span><strong>Government math inside the UI.</strong> GST is deducted on every deposit and TDS on withdrawals. The flows had to explain deductions and the bonuses that compensate for them without reading like fine print.</span></li>
+            <li class="reveal"><span class="n">C-04</span><span><strong>Untouchable neighbours.</strong> The tournament tab had to be rebuilt completely without touching the other elements on the page, including the header with the add-cash chip.</span></li>
+            <li class="reveal"><span class="n">C-05</span><span><strong>A team of three.</strong> Me, one product manager, and the CEO reviewing weekly. No other designers.</span></li>
           </ul>
         </div>
       </section>
@@ -94,10 +99,10 @@
           </div>
           <p>Every deposit loses a chunk to GST before a single hand is dealt, and Mega Poker compensated with cashback plus a locked-bonus system tied to offers. That is three kinds of money moving in one transaction. The redesign treats the flow as a ledger: at every step, what you pay and what you receive are stated as arithmetic, never as an asterisk.</p>
 
-          <p class="fm-pull">When the government takes a cut of every deposit, the interface either shows the math or loses the trust.</p>
+          <p class="fm-pull reveal">When the government takes a cut of every deposit, the interface either shows the math or loses the trust.</p>
 
           <div class="fm-step">
-            <div>
+            <div class="reveal">
               <p class="fm-step-num">Step 01</p>
               <h3>Anchor on the deal, not the amount</h3>
               <p>The preset chips lead with the payoff: pay 500, get 750. The GST cashback is confirmed in plain words right under the selection, and the pay button repeats the exact charge, so the number on the card and the number on the button never disagree.</p>
@@ -111,7 +116,7 @@
           </div>
 
           <div class="fm-step flip">
-            <div>
+            <div class="reveal">
               <p class="fm-step-num">Step 02</p>
               <h3>Locked offers say how to unlock them</h3>
               <p>The same offer card carries an active and an inactive state. Instead of greying out and going silent, the locked state names its condition: deposit a minimum of 500 to activate. An offer you can&rsquo;t use yet is still information.</p>
@@ -125,7 +130,7 @@
           </div>
 
           <div class="fm-step">
-            <div>
+            <div class="reveal">
               <p class="fm-step-num">Step 03</p>
               <h3>A signed ledger before payment</h3>
               <p>The deposit summary itemises every line with its sign: GST out, cashback in, bonus into the locked-bonus wallet, and a single bold answer to the only question that matters: you receive this much. Nothing lands in the wallet that wasn&rsquo;t announced here.</p>
@@ -155,13 +160,13 @@
           </figure>
 
           <ul class="fm-checklist">
-            <li><span class="n">F-01</span><span><strong>Every card looked identical.</strong> Same name, same trophy art, row after row. Nothing helped a player tell one tournament from the next.</span></li>
-            <li><span class="n">F-02</span><span><strong>The price was hidden.</strong> The button just said Register. You learned what it cost after committing to the tap.</span></li>
-            <li><span class="n">F-03</span><span><strong>No sense of state.</strong> Nothing signalled live, late registration, or how close a table was to filling up.</span></li>
-            <li><span class="n">F-04</span><span><strong>One lonely filter.</strong> A single MTT chip stood in for filtering and sorting an entire lobby.</span></li>
+            <li class="reveal"><span class="n">F-01</span><span><strong>Every card looked identical.</strong> Same name, same trophy art, row after row. Nothing helped a player tell one tournament from the next.</span></li>
+            <li class="reveal"><span class="n">F-02</span><span><strong>The price was hidden.</strong> The button just said Register. You learned what it cost after committing to the tap.</span></li>
+            <li class="reveal"><span class="n">F-03</span><span><strong>No sense of state.</strong> Nothing signalled live, late registration, or how close a table was to filling up.</span></li>
+            <li class="reveal"><span class="n">F-04</span><span><strong>One lonely filter.</strong> A single MTT chip stood in for filtering and sorting an entire lobby.</span></li>
           </ul>
 
-          <p class="fm-pull">A tournament card is a purchase decision, so the redesign treats it like one: prize, format, odds, and price, all before the tap.</p>
+          <p class="fm-pull reveal">A tournament card is a purchase decision, so the redesign treats it like one: prize, format, odds, and price, all before the tap.</p>
         </div>
       </section>
 
@@ -214,7 +219,7 @@
 
       <section class="case-section">
         <div class="wrap">
-          <p class="fm-pull">The right moment to ask a player to keep money in play is the moment they have just won some.</p>
+          <p class="fm-pull reveal">The right moment to ask a player to keep money in play is the moment they have just won some.</p>
 
           <p>The same offer then lives on in two quieter places, so a player who dismissed the sheet can still find it when they are ready.</p>
 
@@ -244,11 +249,11 @@
           </div>
           <p>Withdrawal is the flow a real-money app is judged by, and Mega Poker&rsquo;s was primitive. The old withdrawal screen was also the only white screen in the whole app, sticking out like a sore thumb. I redesigned the flow end to end, more than 50 screens in all, covering amounts, limits, payout options, and the states between a request and a bank account.</p>
 
-          <div class="callout plain">
+          <div class="callout plain reveal">
             <p><strong>A note on the two visual styles:</strong> Mega Poker was migrating from an old visual language to a new, locked one, flow by flow. Some flows were briefed in the new style and some in the old, which is why this chapter&rsquo;s teal accents differ from the copper elsewhere. The discrepancy is the migration, not drift. All of it was intentional.</p>
           </div>
 
-          <p class="fm-pull">If a player decides to leave with their money, the flow&rsquo;s job is to state the fee honestly and make the exit fast.</p>
+          <p class="fm-pull reveal">If a player decides to leave with their money, the flow&rsquo;s job is to state the fee honestly and make the exit fast.</p>
 
           <div class="shot-row cols-3">
             <figure class="shot reveal">
@@ -317,8 +322,8 @@
 
     <nav class="case-nav">
       <div class="wrap">
-        <a class="prev" href="sedp-dashboard.html"><span>← Previous project</span><strong>Economic Dashboard Redesign: SEDP</strong></a>
-        <a class="next" href="getmega.html"><span>Next project →</span><strong>Getmega Mobile App</strong></a>
+        <a class="prev" href="sedp-dashboard.html" data-peek="../assets/images/home/414e7003_ceda.jpg" data-peek-title="Economic Dashboard Redesign"><span>← Previous project</span><strong>Economic Dashboard Redesign: SEDP</strong></a>
+        <a class="next" href="getmega.html" data-peek="../assets/images/home/2afef239_Getmega.jpg" data-peek-title="Getmega Mobile App"><span>Next project →</span><strong>Getmega Mobile App</strong></a>
       </div>
     </nav>
   </main>
@@ -330,6 +335,6 @@
     </div>
   </footer>
 
-  <script src="../assets/js/main.js?v=9"></script>
+  <script src="../assets/js/main.js?v=10"></script>
 </body>
 </html>
