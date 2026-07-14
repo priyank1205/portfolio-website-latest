@@ -992,6 +992,7 @@ function scrambleText(el, dur = 800) {
     { ico: "↗", label: "Open LinkedIn", act: () => window.open("https://www.linkedin.com/in/priyank1205/", "_blank", "noopener") },
     { ico: "↗", label: "Open resume", act: () => window.open(RESUME, "_blank", "noopener") },
     { ico: "♪", label: "Toggle sounds", act: () => sfx.toggle(), sfx: false },
+    { ico: "✦", label: 'Psst: try typing "hire"', act: () => hireEgg(), sfx: false },
   ];
 
   // on case study pages, chapters become jumpable commands
@@ -1024,7 +1025,7 @@ function scrambleText(el, dur = 800) {
 
   function render() {
     if (!filtered.length) {
-      list.innerHTML = '<li class="cmdk-empty">No matches. Try "email"</li>';
+      list.innerHTML = '<li class="cmdk-empty">No matches. Try "email", or maybe "hire"</li>';
       return;
     }
     list.innerHTML = filtered
@@ -1125,9 +1126,7 @@ function scrambleText(el, dur = 800) {
 })();
 
 // ---------- Typed easter egg ----------
-(function () {
-  let buf = "";
-
+function hireEgg() {
   function confetti() {
     if (noMotion) return;
     const c = document.createElement("canvas");
@@ -1167,7 +1166,14 @@ function scrambleText(el, dur = 800) {
       else c.remove();
     })(t0);
   }
+  confetti();
+  sfx.play("sparkle");
+  showToast('<span class="ok">✓</span>Excellent choice. Opening your email app');
+  setTimeout(() => (location.href = "mailto:" + EMAIL), 1200);
+}
 
+(function () {
+  let buf = "";
   document.addEventListener("keydown", (e) => {
     const t = e.target;
     const typing =
@@ -1177,10 +1183,7 @@ function scrambleText(el, dur = 800) {
     buf = (buf + e.key.toLowerCase()).slice(-4);
     if (buf === "hire") {
       buf = "";
-      confetti();
-      sfx.play("sparkle");
-      showToast('<span class="ok">✓</span>Excellent choice. Opening your email app');
-      setTimeout(() => (location.href = "mailto:" + EMAIL), 1200);
+      hireEgg();
     }
   });
 })();
