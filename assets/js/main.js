@@ -120,6 +120,7 @@ const sfx = (() => {
   }
 
   // builders: a bare tick, a pitch slide, and a soft press with sheen and texture
+  const rnd = (a, b) => a + Math.random() * (b - a);
   const blip = (freq, dur, peak, at) => tone({ freq, dur, peak, at, attack: 0.003 });
   const slide = (from, to, dur, peak, glideDur) =>
     tone({ freq: from, glideTo: to, glideDur, dur, peak, attack: 0.002 });
@@ -171,26 +172,117 @@ const sfx = (() => {
       tone({ freq: 1760, attack: 0.005, dur: 0.3, peak: 0.1, at: 0.275 });
       noiseBurst({ freq: 6000, q: 2, at: 0.1, dur: 0.25, peak: 0.045 });
     },
+
+    // ---- hover palette ----
+    // A small family of hover voices, chosen by audition. Crystalline and
+    // airy throughout; each sound is bound to a semantic role (see the
+    // HOVER_MAP below) so the material tells you what kind of thing you
+    // are touching. Per-play randomness keeps rapid repeats alive.
+
+    // struck crystal: high strike, inharmonic glass partial, resonant ping
+    // — prominent things: buttons, project cards
+    glassTick: () => {
+      const f = 1760 * rnd(0.995, 1.005);
+      tone({ freq: f, dur: 0.09, peak: 0.15, attack: 0.002 });
+      tone({ freq: f * 2.32, dur: 0.045, peak: 0.045, attack: 0.001 });
+      noiseBurst({ freq: 5600, q: 9, dur: 0.03, peak: 0.06 });
+    },
+    // water droplet: fast upward sine bend — the avatar's one playful note
+    bubble: () => {
+      const f0 = 440 * rnd(0.94, 1.06);
+      tone({ freq: f0, glideTo: f0 * rnd(2.1, 2.4), glideDur: 0.05, dur: 0.1, peak: 0.26, attack: 0.004 });
+    },
+    // no pitch at all: a soft band of air sweeping upward — the email pill
+    airBrush: () => {
+      const t = ctx.currentTime;
+      const src = ctx.createBufferSource();
+      src.buffer = noiseBuf;
+      const f = ctx.createBiquadFilter();
+      f.type = "bandpass";
+      f.Q.value = 1.8;
+      f.frequency.setValueAtTime(600, t);
+      f.frequency.exponentialRampToValueAtTime(2600, t + 0.12);
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.14, t + 0.04);
+      g.gain.exponentialRampToValueAtTime(0.0008, t + 0.16);
+      src.connect(f);
+      f.connect(g);
+      g.connect(master);
+      voices++;
+      src.onended = () => voices--;
+      src.start(t, rnd(0, 0.5)); // random buffer offset: every brush differs
+      src.stop(t + 0.18);
+    },
+    // fast rising chirp: two octaves in 50ms — the learned cue meaning
+    // "a thumbnail preview will appear here"
+    zipChirp: () => {
+      const f0 = 587.33 * rnd(0.97, 1.03);
+      tone({ freq: f0, glideTo: f0 * 4, glideDur: 0.05, cutoff: 3400, dur: 0.07, peak: 0.13, attack: 0.002 });
+    },
+    // three quiet high chimes with micro-offsets plus a dusting of hiss
+    // — reserved for the availability badge, its one special moment
+    stardust: () => {
+      [1174.66, 1760, 2637.02].forEach((f, i) =>
+        tone({ freq: f * rnd(0.995, 1.005), dur: 0.14 + i * 0.05, peak: 0.055, attack: 0.005, at: i * rnd(0.012, 0.022) })
+      );
+      noiseBurst({ freq: 9000, q: 1, dur: 0.09, peak: 0.03, attack: 0.02 });
+    },
+    // barely-there fabric tick: one grain of filtered noise, no pitch —
+    // the near-subliminal default for every ordinary link
+    velvetTick: () => {
+      noiseBurst({ freq: 4200 * rnd(0.9, 1.1), q: 0.8, dur: 0.014, peak: 0.11 });
+    },
+    // analog wah: quiet saw through a resonant lowpass — the rail
+    synthWah: () => {
+      const t = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      osc.type = "sawtooth";
+      osc.frequency.value = 293.66;
+      const f = ctx.createBiquadFilter();
+      f.type = "lowpass";
+      f.Q.value = 9;
+      f.frequency.setValueAtTime(320, t);
+      f.frequency.exponentialRampToValueAtTime(2100, t + 0.09);
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.11, t + 0.004);
+      g.gain.exponentialRampToValueAtTime(0.0008, t + 0.14);
+      osc.connect(f);
+      f.connect(g);
+      g.connect(master);
+      voices++;
+      osc.onended = () => voices--;
+      osc.start(t);
+      osc.stop(t + 0.16);
+    },
   };
 
   const GAP = { hover: 90, tick: 45 };
+  // hover palette throttles like hover; stardust's longer tail gets more room
+  ["glassTick", "bubble", "airBrush", "zipChirp", "stardust", "velvetTick", "synthWah"].forEach(
+    (n) => (GAP[n] = 90)
+  );
+  GAP.stardust = 140;
 
+  // returns true only if the sound actually fired
   function play(name) {
-    if (muted) return;
+    if (muted) return false;
     const recipe = RECIPES[name];
-    if (!recipe) return;
+    if (!recipe) return false;
     const now = performance.now();
-    if (now - (last[name] || 0) < (GAP[name] || 60)) return;
+    if (now - (last[name] || 0) < (GAP[name] || 60)) return false;
     ensure();
-    if (!ctx) return;
+    if (!ctx) return false;
     if (ctx.state !== "running") {
       ctx.resume();
-      return; // drop this one, the next will sound
+      return false; // drop this one, the next will sound
     }
-    if (voices >= 12) return;
+    if (voices >= 12) return false;
     last[name] = now;
     count++;
     recipe();
+    return true;
   }
 
   function setMuted(m) {
@@ -248,26 +340,39 @@ const sfx = (() => {
     nav.appendChild(btn);
   }
 
-  const HOVER_SEL = [
-    ".project-card",
-    ".rail-link",
-    ".site-nav a",
-    ".btn",
-    "[data-copy-email]",
-    ".marquee-item",
-    ".t-src",
-    ".back-link",
-    ".fm-rail a",
-    ".tl-item",
-    ".kw[data-kw]",
-    ".nav-toggle",
-    ".sfx-toggle",
-  ].join(",");
+  // Semantic hover map: the sound names what kind of thing you're touching.
+  // velvetTick is the near-silent default for ordinary links; glassTick marks
+  // prominent targets; zipChirp is the learned "thumbnail preview" cue; the
+  // one-offs (synthWah, airBrush, bubble, stardust) stay bound to their
+  // unique interactions so they feel like discoveries.
+  const HOVER_MAP = [
+    // [selector, sound] — more specific selectors first
+    [".badge-wrap", "stardust"],
+    ["#avatar", "bubble"],
+    [".kw[data-kw]", "zipChirp"],
+    [".marquee-item", "zipChirp"],
+    [".t-src", "zipChirp"],
+    [".rail-link", "synthWah"],
+    [".fm-rail a", "synthWah"],
+    ["[data-copy-email]", "airBrush"],
+    [".email-pill a", "airBrush"],
+    [".btn", "glassTick"],
+    [".project-card", "glassTick"],
+    [
+      ".site-nav a, .brand, .nav-toggle, .sfx-toggle, .link-mono, .ghost-hint a, .back-link, .tl-item",
+      "velvetTick",
+    ],
+  ];
+
   if (fine)
     document.addEventListener("pointerover", (e) => {
-      const el = e.target.closest(HOVER_SEL);
-      if (!el || el.contains(e.relatedTarget)) return;
-      sfx.play("hover");
+      for (const [sel, name] of HOVER_MAP) {
+        const el = e.target.closest(sel);
+        if (el && !el.contains(e.relatedTarget)) {
+          sfx.play(name);
+          return;
+        }
+      }
     });
 })();
 
