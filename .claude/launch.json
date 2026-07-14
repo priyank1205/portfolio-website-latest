@@ -3,9 +3,10 @@
   "configurations": [
     {
       "name": "portfolio",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8901"],
-      "port": 8901
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "python3 -m http.server ${PORT:-8901}"],
+      "port": 8901,
+      "autoPort": true
     }
   ]
 }

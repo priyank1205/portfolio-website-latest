@@ -86,7 +86,8 @@ kbd {
    ============================================ */
 @media (hover: none) and (pointer: coarse) {
   .copy-hint,
-  .copy-hint-contact {
+  .copy-hint-contact,
+  .contact-ps-egg {
     display: none;
   }
 }
@@ -904,6 +905,14 @@ p.contact-ps {
   font-size: 0.85rem;
   font-style: italic;
   color: var(--muted);
+}
+
+p.contact-ps + p.contact-ps { margin-top: 8px; }
+
+p.contact-ps kbd {
+  font-style: normal;
+  font-size: 0.72em;
+  padding: 0 6px;
 }
 
 /* ---------- Footer ---------- */
