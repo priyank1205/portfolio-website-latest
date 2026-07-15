@@ -1217,6 +1217,50 @@ figure.shot figcaption {
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 .toast .ok { color: var(--green); margin-right: 8px; }
 
+/* ---------- First-visit sound cue ---------- */
+/* Browsers keep audio muted until a real gesture, so a fresh visitor who only
+   hovers hears nothing. This pill invites the first click and self-dismisses. */
+.sfx-hint {
+  position: fixed;
+  left: 50%;
+  bottom: 34px;
+  transform: translate(-50%, 20px);
+  z-index: 109;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--accent);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  padding: 10px 18px;
+  border-radius: 999px;
+  white-space: nowrap;
+  max-width: calc(100vw - 32px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.sfx-hint .ic { font-size: 0.95rem; line-height: 1; flex: none; }
+.sfx-hint.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  animation: sfx-hint-pulse 2s ease-in-out infinite;
+}
+@keyframes sfx-hint-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(240, 163, 68, 0.3); }
+  60% { box-shadow: 0 0 0 7px rgba(240, 163, 68, 0); }
+}
+
+/* while audio is still locked, the nav toggle glows in rhythm to draw the eye */
+body.audio-locked .sfx-eq { animation: sfx-wake 1.6s ease-in-out infinite; }
+@keyframes sfx-wake {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(240, 163, 68, 0)); }
+  50% { filter: drop-shadow(0 0 4px rgba(240, 163, 68, 0.85)); }
+}
+
 /* ---------- Reveal ---------- */
 .reveal {
   opacity: 0;
@@ -1748,38 +1792,42 @@ figure.shot figcaption {
    About page
    ============================================ */
 
-/* status chips */
+/* status rail */
 .hero-status {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 34px;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  letter-spacing: 0.03em;
-  color: var(--ink-soft);
+  margin-top: 44px;
+  border-top: 1px solid var(--line);
 }
 
-.status-chip {
+.status-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 132px 1fr auto;
+  align-items: baseline;
+  gap: 20px;
+  padding: 13px 2px;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+}
+
+.status-label {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  padding: 6px 14px;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  color: var(--ink-soft);
-  text-decoration: none;
-  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
 }
 
-.status-chip .pulse {
-  width: 8px; height: 8px; border-radius: 50%;
+.status-label .pulse {
+  width: 7px; height: 7px; border-radius: 50%;
   background: var(--green);
   position: relative;
   flex: none;
 }
-.status-chip .pulse::after {
+.status-label .pulse::after {
   content: "";
   position: absolute; inset: -4px;
   border-radius: 50%;
@@ -1787,18 +1835,44 @@ figure.shot figcaption {
   animation: pulse 2.2s ease-out infinite;
 }
 
-a.chip-open { border-color: rgba(74, 222, 128, 0.3); }
-a.chip-open:hover { border-color: var(--green); color: var(--ink); background: var(--green-dim); }
-.chip-open .chip-arr {
-  display: inline-block;
-  color: var(--muted);
-  transition: transform 0.25s cubic-bezier(0.2, 0.6, 0.2, 1), color 0.2s ease;
+.status-value {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  transition: color 0.25s ease;
 }
-.chip-open:hover .chip-arr { transform: translateX(3px); color: var(--green); }
 
-.chip-loc .chip-time { color: var(--muted); white-space: nowrap; }
-.chip-loc .chip-time:empty { display: none; }
-.chip-time .tick { animation: tick-blink 1s steps(1) infinite; }
+a.status-open::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 1px;
+  background: var(--green);
+  transition: width 0.25s ease;
+}
+a.status-open { transition: padding-left 0.25s ease; }
+a.status-open:hover { padding-left: 26px; }
+a.status-open:hover::before { width: 16px; }
+a.status-open:hover .status-value { color: var(--ink); }
+
+.status-arr {
+  color: var(--muted);
+  font-size: 0.9rem;
+  transition: transform 0.25s cubic-bezier(0.2, 0.6, 0.2, 1), color 0.25s ease;
+}
+a.status-open:hover .status-arr { transform: translateX(4px); color: var(--green); }
+
+.status-time {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.status-time:empty { display: none; }
+.status-time .tick { animation: tick-blink 1s steps(1) infinite; }
 @keyframes tick-blink { 50% { opacity: 0.2; } }
 
 .about-main .case-hero { padding: 110px 0 0; }
@@ -1822,7 +1896,6 @@ a.chip-open:hover { border-color: var(--green); color: var(--ink); background: v
   border: 1px solid var(--line);
 }
 
-.about-hero .hero-status { margin-top: 24px; }
 
 .about-prose > p { color: var(--ink-soft); max-width: 660px; }
 
@@ -1941,6 +2014,9 @@ a.chip-open:hover { border-color: var(--green); color: var(--ink); background: v
   .tl-head { gap: 10px; }
   .tl-head .lead { min-width: 10px; }
   .tl-head .hl-green { display: none; }
+  .status-row { grid-template-columns: 1fr auto; row-gap: 3px; }
+  .status-value { grid-column: 1; grid-row: 2; }
+  .status-arr, .status-time { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
 }
 
 /* ============================================
@@ -2161,6 +2237,8 @@ a.marquee-item:hover { color: var(--ink); }
   .project-thumb img { transition: none; }
   .project-card:hover .project-thumb img { transform: none; }
   .sfx-toggle[aria-pressed="true"] .bar { animation: none; }
+  .sfx-hint.show { animation: none; }
+  body.audio-locked .sfx-eq { animation: none; }
 }
 
 /* ============================================
@@ -2191,8 +2269,28 @@ a.marquee-item:hover { color: var(--ink); }
 .hl-green:hover .badge-tip { opacity: 1; transform: translate(-50%, 0); }
 
 /* interest chips: cascade in, react on hover */
-.chip { transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
+.chip { transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, background 0.25s ease; }
 .chip:hover { color: var(--ink); border-color: var(--accent); transform: translateY(-2px); }
+
+/* the interest chips are an instrument: hover strums a note with a springy
+   wobble, click pops it an octave with a squash-and-stretch boing */
+.chip-row .chip { cursor: pointer; user-select: none; }
+.chip-row .chip:hover { animation: chip-boing 0.4s ease; }
+.chip-row .chip.boing { animation: chip-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); background: var(--accent-dim); }
+
+@keyframes chip-boing {
+  0% { transform: translateY(0); }
+  40% { transform: translateY(-4px) rotate(-1.6deg); }
+  70% { transform: translateY(-1px) rotate(1.1deg); }
+  100% { transform: translateY(-2px); }
+}
+
+@keyframes chip-pop {
+  0% { transform: translateY(-2px) scale(1); }
+  35% { transform: translateY(-5px) scale(1.14, 0.86); }
+  70% { transform: translateY(-1px) scale(0.94, 1.06); }
+  100% { transform: translateY(0) scale(1); }
+}
 .chip-row.reveal .chip {
   opacity: 0;
   transform: translateY(8px);
@@ -2207,11 +2305,13 @@ a.marquee-item:hover { color: var(--ink); }
 .chip-row.reveal.in .chip:nth-child(6) { transition-delay: 410ms; }
 
 @media (prefers-reduced-motion: reduce) {
-  .chip-time .tick { animation: none; }
+  .status-time .tick { animation: none; }
   .about-photo { transition: none; }
   .about-photo:hover { transform: none; }
   .tl-item.reveal .lead { clip-path: none; transition: none; }
   .chip { transition: none; }
   .chip:hover { transform: none; }
+  .chip-row .chip:hover,
+  .chip-row .chip.boing { animation: none; }
   .chip-row.reveal .chip { opacity: 1; transform: none; transition: none; }
 }

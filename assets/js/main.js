@@ -132,6 +132,10 @@ const sfx = (() => {
 
   // D major pentatonic, Hz: D4 293.66, E4 329.63, A4 440, D5 587.33, E5 659.26,
   // F#5 739.99, A5 880, B5 987.77, D6 1174.66, E6 1318.51, A6 1760
+
+  // ascending run for the interest chips, one degree per chip, low to high
+  const PLUCK_SCALE = [587.33, 659.26, 739.99, 880, 987.77, 1174.66];
+
   const RECIPES = {
     hover: () => blip(1174.66, 0.045, 0.1),
     tick: () => blip(739.99, 0.055, 0.14),
@@ -256,6 +260,21 @@ const sfx = (() => {
       osc.start(t);
       osc.stop(t + 0.16);
     },
+
+    // ---- interest chips (about page) ----
+    // kalimba pluck: the step picks a scale degree, so the chip row plays
+    // like an instrument — sweeping across it strums the pentatonic upward
+    pluck: (step = 0) => {
+      const f = PLUCK_SCALE[step % PLUCK_SCALE.length] * rnd(0.997, 1.003);
+      tone({ freq: f, dur: 0.16, peak: 0.18, attack: 0.002 });
+      noiseBurst({ freq: 3600, q: 2.5, dur: 0.012, peak: 0.05 });
+    },
+    // the same note bending up an octave — the chip's little click reward
+    pluckPop: (step = 0) => {
+      const f = PLUCK_SCALE[step % PLUCK_SCALE.length];
+      tone({ freq: f, glideTo: f * 2, glideDur: 0.05, dur: 0.16, peak: 0.24, attack: 0.002 });
+      noiseBurst({ freq: 4800, q: 3, dur: 0.02, peak: 0.06 });
+    },
   };
 
   const GAP = { hover: 90, tick: 45 };
@@ -264,9 +283,11 @@ const sfx = (() => {
     (n) => (GAP[n] = 90)
   );
   GAP.stardust = 140;
+  GAP.pluck = 30; // tight enough that a fast strum still voices every chip
 
-  // returns true only if the sound actually fired
-  function play(name) {
+  // returns true only if the sound actually fired; arg reaches the recipe
+  // (only the parameterized ones read it — see pluck/pluckPop)
+  function play(name, arg) {
     if (muted) return false;
     const recipe = RECIPES[name];
     if (!recipe) return false;
@@ -281,7 +302,7 @@ const sfx = (() => {
     if (voices >= 12) return false;
     last[name] = now;
     count++;
-    recipe();
+    recipe(arg);
     return true;
   }
 
@@ -338,6 +359,41 @@ const sfx = (() => {
     document.addEventListener("sfx:muted", sync);
     sync();
     nav.appendChild(btn);
+
+    // Audio cue: browsers gate sound until the document has user activation.
+    // A link click propagates activation to the document it navigates to, so
+    // anyone who arrived through the nav already has sound and needs no cue.
+    // Keying off the activation itself rather than off which page we are on
+    // covers both: internal navigation stays silent, while a cold landing, a
+    // reload, or a deep link straight into a case study still gets the cue.
+    const activated = navigator.userActivation
+      ? navigator.userActivation.hasBeenActive
+      : false;
+    if (!sfx.muted && !activated) {
+      document.body.classList.add("audio-locked");
+      const hint = document.createElement("div");
+      hint.className = "sfx-hint";
+      const verb = window.matchMedia("(pointer: coarse)").matches ? "Tap" : "Click";
+      hint.innerHTML =
+        '<span class="ic" aria-hidden="true">\u{1F50A}</span>' + verb + " anywhere to enable sound";
+      document.body.appendChild(hint);
+      const showTimer = setTimeout(() => hint.classList.add("show"), 900);
+      let dismissed = false;
+      const dismiss = () => {
+        if (dismissed) return;
+        dismissed = true;
+        clearTimeout(showTimer);
+        hint.classList.remove("show");
+        document.body.classList.remove("audio-locked");
+        setTimeout(() => hint.remove(), 350);
+        ["pointerdown", "keydown", "touchstart"].forEach((ev) =>
+          document.removeEventListener(ev, dismiss, true)
+        );
+      };
+      ["pointerdown", "keydown", "touchstart"].forEach((ev) =>
+        document.addEventListener(ev, dismiss, { capture: true, passive: true })
+      );
+    }
   }
 
   // Semantic hover map: the sound names what kind of thing you're touching.
@@ -348,6 +404,8 @@ const sfx = (() => {
   const HOVER_MAP = [
     // [selector, sound] — more specific selectors first
     [".badge-wrap", "stardust"],
+    [".status-row.status-open", "stardust"], // availability, same voice as the badge
+    [".status-row.status-loc", "velvetTick"],
     ["#avatar", "bubble"],
     [".kw[data-kw]", "zipChirp"],
     [".marquee-item", "zipChirp"],
@@ -364,8 +422,16 @@ const sfx = (() => {
     ],
   ];
 
+  // position of an interest chip within its row = its scale degree
+  const chipStep = (chip) => [...chip.parentElement.children].indexOf(chip);
+
   if (fine)
     document.addEventListener("pointerover", (e) => {
+      const chip = e.target.closest(".chip-row .chip");
+      if (chip && !chip.contains(e.relatedTarget)) {
+        sfx.play("pluck", chipStep(chip));
+        return;
+      }
       for (const [sel, name] of HOVER_MAP) {
         const el = e.target.closest(sel);
         if (el && !el.contains(e.relatedTarget)) {
@@ -374,6 +440,22 @@ const sfx = (() => {
         }
       }
     });
+
+  // clicking a chip pops its note an octave with a squash-and-stretch boing
+  // (works on touch too, where there is no hover to strum)
+  document.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip-row .chip");
+    if (!chip) return;
+    sfx.play("pluckPop", chipStep(chip));
+    if (noMotion) return;
+    chip.classList.remove("boing");
+    void chip.offsetWidth; // restart the animation on rapid re-clicks
+    chip.classList.add("boing");
+    // timer, not animationend: the event never comes if the chip leaves
+    // the viewport mid-pop, and the class would stick
+    clearTimeout(chip._boingTimer);
+    chip._boingTimer = setTimeout(() => chip.classList.remove("boing"), 500);
+  });
 })();
 
 // ---------- Toast ----------
@@ -1250,7 +1332,7 @@ function hireEgg() {
   }
   function tick() {
     const parts = fmt.format(new Date()).split(":");
-    el.innerHTML = "· " + parts[0] + '<span class="tick">:</span>' + parts[1] + " IST";
+    el.innerHTML = parts[0] + '<span class="tick">:</span>' + parts[1] + " IST";
   }
   tick();
   setInterval(tick, 30000);
