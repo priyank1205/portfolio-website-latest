@@ -1109,24 +1109,8 @@ figure.shot figcaption {
 
 .stat .lbl { font-size: 0.84rem; color: var(--muted); }
 
-/* quote inside case */
-.case-quote {
-  border-left: 2px solid var(--accent);
-  padding: 6px 0 6px 26px;
-  margin: 44px 0;
-  max-width: 680px;
-}
-.case-quote blockquote { margin: 0 0 14px; font-size: 1.05rem; color: var(--ink-soft); }
-.case-quote cite {
-  font-style: normal;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  line-height: 1.9;
-}
-.case-quote cite strong { color: var(--ink); display: block; font-weight: 500; }
+/* quote inside case: reuses the homepage .testimonial styles, capped to prose width */
+.case-body .testimonial { max-width: 680px; margin: 44px 0; }
 
 /* prev / next */
 .case-nav { border-top: 1px solid var(--line); padding: 46px 0 66px; }

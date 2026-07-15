@@ -409,6 +409,7 @@ const sfx = (() => {
     ["#avatar", "bubble"],
     [".kw[data-kw]", "zipChirp"],
     [".marquee-item", "zipChirp"],
+    [".case-nav a", "zipChirp"], // same interaction as the marquee: peek at a project
     [".t-src", "zipChirp"],
     [".rail-link", "synthWah"],
     [".fm-rail a", "synthWah"],
