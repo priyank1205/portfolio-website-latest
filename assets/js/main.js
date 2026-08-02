@@ -136,6 +136,11 @@ const sfx = (() => {
   // ascending run for the interest chips, one degree per chip, low to high
   const PLUCK_SCALE = [587.33, 659.26, 739.99, 880, 987.77, 1174.66];
 
+  // real tuning for the about-page ukulele, top string first: G4 C4 E4 A4.
+  // these sit outside the D-pentatonic UI palette on purpose — the
+  // illustrations play true pitches, like the instruments they draw
+  const UKE_STRINGS = [392.0, 261.63, 329.63, 440.0];
+
   const RECIPES = {
     hover: () => blip(1174.66, 0.045, 0.1),
     tick: () => blip(739.99, 0.055, 0.14),
@@ -275,6 +280,23 @@ const sfx = (() => {
       tone({ freq: f, glideTo: f * 2, glideDur: 0.05, dur: 0.16, peak: 0.24, attack: 0.002 });
       noiseBurst({ freq: 4800, q: 3, dur: 0.02, peak: 0.06 });
     },
+
+    // ---- off-hours instruments (about page) ----
+    // nylon-string pluck: warm triangle fundamental, faint octave shimmer,
+    // tiny nail-attack noise; rings longer than the UI sounds
+    ukeString: (i = 0) => {
+      const f = UKE_STRINGS[i % UKE_STRINGS.length] * rnd(0.998, 1.002);
+      tone({ freq: f, type: "triangle", cutoff: f * 6, dur: 0.85, peak: 0.17, attack: 0.002, detune: 5 });
+      tone({ freq: f * 2, dur: 0.3, peak: 0.045, attack: 0.002 });
+      noiseBurst({ freq: 2400, q: 1.5, dur: 0.015, peak: 0.05 });
+    },
+    // felt-hammer strike; the arg is the key's true frequency in Hz.
+    // the octave partial stays short so glissandos don't hoard voices
+    pianoKey: (f = 261.63) => {
+      tone({ freq: f, type: "triangle", cutoff: f * 5, dur: 0.8, peak: 0.2, attack: 0.002, detune: 4 });
+      tone({ freq: f * 2, dur: 0.2, peak: 0.04, attack: 0.002 });
+      noiseBurst({ freq: 3200, q: 1, dur: 0.012, peak: 0.04 });
+    },
   };
 
   const GAP = { hover: 90, tick: 45 };
@@ -284,6 +306,12 @@ const sfx = (() => {
   );
   GAP.stardust = 140;
   GAP.pluck = 30; // tight enough that a fast strum still voices every chip
+  GAP.ukeString = GAP.pianoKey = 35; // same idea: glissando sweeps voice every note
+
+  // the instruments ring ~1s per note, so a keyboard sweep needs more
+  // simultaneous voices than UI ticks ever do; the compressor keeps the
+  // ceiling safe, so only the hoarding limit moves
+  const VOICE_CAP = { ukeString: 32, pianoKey: 32 };
 
   // returns true only if the sound actually fired; arg reaches the recipe
   // (only the parameterized ones read it — see pluck/pluckPop)
@@ -299,7 +327,7 @@ const sfx = (() => {
       ctx.resume();
       return false; // drop this one, the next will sound
     }
-    if (voices >= 12) return false;
+    if (voices >= (VOICE_CAP[name] || 12)) return false;
     last[name] = now;
     count++;
     recipe(arg);
@@ -416,6 +444,8 @@ const sfx = (() => {
     ["[data-copy-email]", "airBrush"],
     [".email-pill a", "airBrush"],
     [".btn", "glassTick"],
+    [".kp-button", "glassTick"],
+    [".kp-text-link, .kp-subtle-link, .kp-hero-footer a", "velvetTick"],
     [".project-card", "glassTick"],
     [
       ".site-nav a, .brand, .nav-toggle, .sfx-toggle, .link-mono, .ghost-hint a, .back-link, .tl-item",
@@ -1375,6 +1405,45 @@ function hireEgg() {
     { threshold: 0.4 }
   );
   io.observe(lis[0].closest(".about-creed"));
+})();
+
+// ---------- Off-hours instruments (about page) ----------
+// hover strums a ukulele string or presses a piano key (fine pointers);
+// tapping does the same on touch, like the chip click
+(function () {
+  const sec = document.getElementById("offhours");
+  if (!sec) return;
+  const NOTE_HZ = {
+    C4: 261.63, "C#4": 277.18, D4: 293.66, "D#4": 311.13, E4: 329.63,
+    F4: 349.23, "F#4": 369.99, G4: 392.0, "G#4": 415.3, A4: 440.0,
+    "A#4": 466.16, B4: 493.88, C5: 523.25, "C#5": 554.37, D5: 587.33,
+    "D#5": 622.25, E5: 659.26,
+  };
+
+  const trigger = (el) => {
+    const isString = el.classList.contains("uke-string");
+    if (isString) sfx.play("ukeString", +el.dataset.string);
+    else sfx.play("pianoKey", NOTE_HZ[el.dataset.note]);
+    if (noMotion) return;
+    el.classList.remove("play");
+    void el.getBoundingClientRect(); // restart animation (SVG els have no offsetWidth)
+    el.classList.add("play");
+    // timer, not animationend — same reasoning as the chip boing above
+    clearTimeout(el._playTimer);
+    el._playTimer = setTimeout(() => el.classList.remove("play"), isString ? 450 : 180);
+  };
+
+  const pick = (e) => e.target.closest(".uke-string, .p-key");
+  if (fine)
+    sec.addEventListener("pointerover", (e) => {
+      const el = pick(e);
+      if (el && !el.contains(e.relatedTarget)) trigger(el);
+    });
+  // ungated: the touch path (and a desktop click replays the note)
+  sec.addEventListener("pointerdown", (e) => {
+    const el = pick(e);
+    if (el) trigger(el);
+  });
 })();
 
 // ---------- Case study: hero entrance ----------
