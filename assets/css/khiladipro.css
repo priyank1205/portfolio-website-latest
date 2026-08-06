@@ -2328,6 +2328,8 @@
   background-repeat: repeat-x;
 }
 
+.kp-ruler-wide { max-width: 760px; }
+
 .kp-ruler b {
   font-weight: 500;
   color: var(--kp-accent);
@@ -2343,12 +2345,15 @@
 .kp-film { margin: var(--kp-block) 0; }
 
 /* --kp-steps is set per instance in the markup; everything that used to
-   hard-code four frames reads it instead, so a 6-step strip just works */
-.kp-film { --kp-steps: 4; }
+   hard-code four frames reads it instead, so a 9-step strip just works.
+   --kp-cols is only the no-JS / reduced-motion grid: past about five
+   frames one row per step shrinks a phone to a sliver, so a long strip
+   overrides it and wraps instead. */
+.kp-film { --kp-steps: 4; --kp-cols: var(--kp-steps); }
 
 .kp-film-stage {
   display: grid;
-  grid-template-columns: repeat(var(--kp-steps), minmax(0, 1fr));
+  grid-template-columns: repeat(var(--kp-cols), minmax(0, 1fr));
   gap: var(--sp-5);
 }
 
@@ -2532,83 +2537,6 @@
 
 .kp-film-out { margin: var(--kp-group) 0 0; }
 
-/* The coda to the filmstrip. It used to centre a three-line paragraph
-   against a 613px screenshot, so the copy floated in the middle of a column
-   of nothing with void above and below it and no label to say what the block
-   was. It now has the anatomy every other block on this page has — a mono
-   label, a heading, a line of body, then the evidence — and the two columns
-   are flush to the shell's edges with the slack between them as the gutter,
-   the same grid the chapter masthead stands on. */
-.kp-film-after {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 285px;
-  gap: var(--sp-8);
-  align-items: start;
-  margin: var(--kp-block) 0 0;
-}
-
-/* the copy carries its own measure and the track carries the slack, the way
-   the fold's trade note does — a fixed track here would outgrow the shell
-   just above the width at which this block stacks */
-.kp-film-after-copy { max-width: 720px; }
-
-.kp-film-after h3 {
-  font-size: var(--kp-h3);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin: 0 0 var(--sp-5);
-}
-
-.kp-film-after p {
-  margin: 0;
-  color: var(--kp-ink-soft);
-  line-height: 1.8;
-}
-
-/* The three answers, ruled like the state legend: one a row, each on its own
-   hairline, so "three facts" is a shape and not just a claim. Deliberately
-   unnumbered — the facts above and the devices here are not a 1:1 mapping
-   (the pills answer the third fact, not the first), and numbering them would
-   assert a pairing the screen does not make. */
-/* .kp-film-after p sets margin 0 on every paragraph in the block and
-   out-specifies a bare class, so this one has to reach the same weight */
-.kp-film-after .kp-glance-label {
-  margin: var(--kp-group) 0 0;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--kp-accent);
-}
-
-.kp-glance {
-  list-style: none;
-  margin: var(--sp-5) 0 0;
-  padding: 0;
-}
-
-.kp-glance li {
-  display: grid;
-  grid-template-columns: var(--sp-6) minmax(0, 1fr);
-  align-items: baseline;
-  gap: var(--sp-4);
-  padding: var(--sp-6) 0;
-  border-top: 1px dotted var(--kp-line-strong);
-  font-size: 0.94rem;
-  line-height: 1.55;
-  color: var(--kp-ink);
-}
-
-.kp-glance li::before {
-  content: "";
-  display: block;
-  height: 1px;
-  background: var(--kp-accent);
-  /* baseline alignment puts a 1px box on the text baseline; this lifts it
-     to the optical centre of the line beside it */
-  transform: translateY(-0.42em);
-}
-
 /* ---------- 9. states --------------------------------------------------- */
 
 .kp-state-layout {
@@ -2654,11 +2582,22 @@
 
 .kp-state-legend .kp-text-link { margin-right: var(--sp-4); margin-bottom: var(--sp-3); }
 
+.kp-gallery-2,
 .kp-gallery-3,
 .kp-gallery-4 {
   display: grid;
   gap: var(--sp-7);
   justify-items: center;
+}
+/* a two-up sits under its own edge head, so it carries the same top margin
+   the four-up does; the measure keeps two phones a pair rather than two
+   objects at opposite ends of a 1280 shell */
+.kp-gallery-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 700px;
+  /* group above (it belongs to its edge head), block below (the states that
+     follow are a separate movement of the chapter) */
+  margin: var(--kp-group) 0 var(--kp-block);
 }
 .kp-gallery-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .kp-gallery-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); margin: var(--kp-group) 0 0; }
@@ -3443,7 +3382,6 @@
   .kp-annotated,
   .kp-lens-body,
   .kp-proof-grid,
-  .kp-film-after { grid-template-columns: 1fr; gap: var(--sp-7); }
 
   /* stacked: the two orders, then the trade, then the phone */
   .kp-fold-body { grid-template-columns: 1fr; gap: var(--sp-7); }
@@ -3557,6 +3495,16 @@
 
   .kp-hero-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
+  /* Two facts on the ruler no longer fit one phone line. Wrapping alone would
+     leave a dashed rule stranded at the end of a line, so on narrow the rules
+     go and the ruler reads as its labels: the badges still carry the content,
+     the drawn line was only ever the metaphor. */
+  .kp-ruler {
+    flex-wrap: wrap;
+    gap: var(--sp-3) var(--sp-4);
+  }
+  .kp-ruler i { display: none; }
+
   /* the scoreboard folds to two by two and keeps its rules */
   .kp-stat-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .kp-case a.kp-stat { padding: var(--sp-6) var(--sp-5); }
@@ -3587,6 +3535,7 @@
   .kp-case .kp-con-row { gap: var(--sp-3); }
   .kp-con-forced { grid-column: 1; }
   .kp-docket-facts { flex-wrap: wrap; gap: var(--sp-4) 0; }
+  .kp-gallery-2,
   .kp-gallery-3,
   .kp-gallery-4 { grid-template-columns: 1fr; }
   .kp-hero-actions { flex-direction: column; align-items: flex-start; gap: var(--sp-4); }
