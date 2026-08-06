@@ -2125,6 +2125,7 @@ a.marquee-item:hover { color: var(--ink); }
 .peek.below { transform: translate(-50%, -6px); }
 .peek.below.show { transform: translate(-50%, 0); }
 .peek img { width: 100%; height: 122px; object-fit: cover; border-radius: 8px; background: var(--bg-raised); }
+.peek.tall img { height: 158px; object-fit: contain; background: #000; }
 .peek span {
   display: block;
   margin-top: 9px;
@@ -2135,6 +2136,7 @@ a.marquee-item:hover { color: var(--ink); }
   color: var(--muted);
 }
 .peek span b { display: block; color: var(--ink-soft); font-weight: 500; margin-bottom: 2px; }
+.peek span i { font-style: normal; }
 
 /* project thumb slow pan */
 .project-thumb img { transition: transform 1.1s cubic-bezier(0.2, 0.6, 0.2, 1); }

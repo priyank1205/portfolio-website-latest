@@ -441,6 +441,14 @@ const sfx = (() => {
     [".t-src", "zipChirp"],
     [".rail-link", "synthWah"],
     [".fm-rail a", "synthWah"],
+    [".kp-proto", "zipChirp"], // carries a data-peek thumbnail, same cue
+    [".kp-tldr-cell a[data-peek]", "zipChirp"], // ditto, in the short version
+    [".kp-con-row", "zipChirp"], // a constraint row previews the chapter it bit in
+    [".kp-film-dots button", "tick"],
+    [".kp-anno-dot", "tick"], // same "point at one thing" gesture as the dots
+    [".kp-stat", "tick"], // pointing at one figure on the scoreboard
+    [".kp-relay-stage", "glassTick"],
+    [".kp-lessons a", "velvetTick"],
     ["[data-copy-email]", "airBrush"],
     [".email-pill a", "airBrush"],
     [".btn", "glassTick"],
@@ -461,6 +469,13 @@ const sfx = (() => {
       const chip = e.target.closest(".chip-row .chip");
       if (chip && !chip.contains(e.relatedTarget)) {
         sfx.play("pluck", chipStep(chip));
+        return;
+      }
+      // the three readers of one landing page are a sequence, the same way the
+      // filmstrip's steps are: the note rises as the lit band travels down
+      const lensRow = e.target.closest(".kp-lens-row");
+      if (lensRow && !lensRow.contains(e.relatedTarget)) {
+        sfx.play("pluck", chipStep(lensRow.parentElement));
         return;
       }
       for (const [sel, name] of HOVER_MAP) {
@@ -1063,14 +1078,22 @@ function scrambleText(el, dur = 800) {
   if (!items.length || !fine) return;
   const peek = document.createElement("div");
   peek.className = "peek";
-  peek.innerHTML = '<img alt=""><span><b></b>View case study ↗</span>';
+  peek.innerHTML = '<img alt=""><span><b></b><i></i></span>';
   document.body.appendChild(peek);
   const img = peek.querySelector("img");
   const title = peek.querySelector("b");
+  const cta = peek.querySelector("i");
+  // portrait sources (phone screenshots) letterbox instead of cropping to a
+  // sliver: the point of a peek is recognising the screen at a glance
+  img.addEventListener("load", () =>
+    peek.classList.toggle("tall", img.naturalHeight > img.naturalWidth),
+  );
   items.forEach((item) => {
     item.addEventListener("pointerenter", () => {
       img.src = item.dataset.peek;
       title.textContent = item.dataset.peekTitle || "";
+      // in-page jumps and prototype links need their own verb
+      cta.textContent = item.dataset.peekCta || "View case study ↗";
       const r = item.getBoundingClientRect();
       const cx = Math.max(128, Math.min(window.innerWidth - 128, r.left + r.width / 2));
       peek.style.left = cx + "px";

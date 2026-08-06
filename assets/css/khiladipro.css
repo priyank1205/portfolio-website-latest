@@ -1,0 +1,3279 @@
+/* ==========================================================================
+   Khiladipro case study: wide-canvas page skin
+   Loaded AFTER style.css. Everything is scoped under body.kp-case.
+
+   HARD RULE: never put overflow-x:hidden on .kp-case or body.
+   An ancestor clip container silently kills position:sticky for the
+   filmstrip. Sections that own off-canvas decoration clip themselves.
+   ========================================================================== */
+
+.kp-case {
+  /* aliases onto the global palette */
+  --kp-ink: var(--ink);
+  --kp-ink-soft: var(--ink-soft);
+  --kp-muted: var(--muted);
+  --kp-deep: var(--bg);
+  --kp-deeper: #0a0a09;
+  --kp-panel: var(--bg-raised);
+  --kp-line: var(--line);
+  --kp-line-strong: var(--line-strong);
+  --kp-accent: var(--accent);
+  --kp-accent-dim: var(--accent-dim);
+  --kp-accent-soft: #f6c98d;
+  --kp-blue: var(--blue);
+  --kp-green: var(--green);
+
+  /* paper interludes */
+  --kp-paper: #f2efe6;
+  --kp-paper-ink: #191712;
+  --kp-paper-muted: #66604f;
+  --kp-paper-line: rgba(25, 23, 18, 0.16);
+  --kp-paper-accent: #96601a;
+
+  /* accent closing panel */
+  --kp-on-accent: #221302;
+  --kp-on-accent-soft: rgba(34, 19, 2, 0.72);
+
+  /* type scale */
+  --kp-h1: clamp(2.5rem, 5.5vw, 4.3rem);
+  --kp-h2: clamp(1.9rem, 3vw, 2.7rem);
+  --kp-h3: clamp(1.25rem, 1.8vw, 1.6rem);
+  --kp-lead: clamp(1.1rem, 1.5vw, 1.35rem);
+  --kp-label: 0.72rem;
+
+  /* ---------- the spacing scale ---------------------------------------
+     One rhythm for the whole page. A 4px base stepped alternately by a
+     fifth and a fourth (x1.5, x1.33), so every gap is a recognisable
+     multiple of the one below it and nothing lands between two steps.
+     Page, section, block, group and element all draw from here; no
+     number in this file is allowed to be arbitrary. */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+  --sp-10: 128px;
+
+  /* The three rhythms above the element scale.
+
+     sec   — every top-level section's padding-block, and the only vertical
+             spacing a section owns. Two sections that meet across a change
+             of background therefore sit two units apart (each pays one),
+             and two that share a background sit one unit apart, because
+             the first of the pair has no bottom padding to pay with. The
+             page's largest interval is exactly twice its second largest.
+     block — between the set pieces inside a chapter: lens, fold, passes,
+             filmstrip, the edge-case gallery.
+     group — between a head and the thing it introduces, and around the
+             pull quotes. Half a section, two thirds of a block. */
+  --kp-sec: clamp(var(--sp-8), 9vw, var(--sp-10));
+  --kp-block: clamp(var(--sp-7), 6vw, var(--sp-9));
+  --kp-group: var(--sp-7);
+
+  /* an inbound #anchor has to land clear of the header, not under it */
+  --kp-anchor: calc(var(--kp-header-h) + var(--sp-5));
+
+  /* geometry. The shell gutter is one --sp-6 a side, which is also the
+     inline padding of every ruled panel on the page, so panel text and
+     page text stand on the same two verticals. */
+  --kp-shell-w: min(1280px, 100% - var(--sp-8));
+  --kp-header-h: 68px;
+  --kp-ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+/* ---------- shells ------------------------------------------------------ */
+
+.kp-shell {
+  width: var(--kp-shell-w);
+  margin-inline: auto;
+}
+
+/* the two body voices used between figures: a note that follows a figure,
+   and a lead that opens a section. Both sit on a comfortable measure. */
+.kp-case .kp-note {
+  margin: var(--kp-group) 0 0;
+  max-width: 66ch;
+  color: var(--kp-ink-soft);
+  line-height: 1.8;
+}
+
+.kp-case .kp-score-lead {
+  margin: 0;
+  max-width: 66ch;
+  line-height: 1.8;
+}
+
+/* every img ships intrinsic width/height attributes to reserve layout space,
+   so the rendered height must come back from the aspect ratio. Sections that
+   need a fixed height (browser frames, the live filmstrip) re-assert it below. */
+.kp-case img { height: auto; }
+
+/* one owner per gap: a lead never carries the space under it, because
+   whatever follows a lead is a block that already owns its own top
+   rhythm. Two owners is how a ladder drifts. */
+.kp-case .kp-lead {
+  margin: 0;
+  font-size: var(--kp-lead);
+  line-height: 1.6;
+  color: var(--kp-ink-soft);
+  max-width: 680px;
+}
+
+/* shared chrome widened to match the shell (header markup stays identical) */
+.kp-case .site-header .wrap,
+.kp-case .case-nav .wrap,
+.kp-case .site-footer .wrap {
+  max-width: none;
+  width: var(--kp-shell-w);
+  padding-inline: 0;
+}
+
+/* the page's own rhythm continues through the shared chrome at the foot */
+.kp-case .case-body { padding-bottom: 0; }
+.kp-case .case-nav { padding: var(--kp-group) 0 var(--sp-9); }
+
+/* the fixed chapter rail occupies roughly x22 to x75; it only reads
+   comfortably once the shell's side gutter clears it by a margin */
+@media (max-width: 1499px) {
+  .kp-case .fm-rail { display: none; }
+}
+
+/* ---------- shared component reskins ------------------------------------ */
+
+.kp-case .fm-ch {
+  margin: 0 0 var(--kp-group);
+  display: block;
+}
+
+.kp-case .fm-ch h2 {
+  font-size: var(--kp-h2);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin: 0;
+  text-wrap: balance;
+  max-width: 20ch;
+}
+
+.kp-case .fm-ch .idx {
+  display: block;
+  margin-bottom: var(--sp-3);
+}
+
+.kp-case section[id],
+.kp-case .fm-ch[id] {
+  scroll-margin-top: var(--kp-anchor);
+}
+
+.kp-case .fm-pull {
+  max-width: 900px;
+  border-left: 2px solid var(--kp-accent);
+  border-top: 0;
+  border-bottom: 0;
+  padding: var(--sp-2) 0 var(--sp-2) var(--sp-6);
+  margin: var(--kp-group) 0;
+}
+
+.kp-case .fm-checklist { max-width: none; }
+
+.kp-case figure.shot img {
+  border-radius: 12px;
+}
+
+/* ---------- the end card -----------------------------------------------
+   The orange closing panel cuts straight to black, the way a film does.
+   The rules draw outward from the centre and the word settles out of a
+   wider tracking: a title card, not a footnote. */
+
+.kp-fin {
+  background: #000;
+  padding: clamp(var(--sp-9), 16vh, calc(var(--sp-10) + var(--sp-6))) var(--sp-6);
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.kp-fin-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(560px, 100%);
+}
+
+.kp-fin-rule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(242, 241, 236, 0.34), transparent);
+  transform: scaleX(0);
+  transition: transform 1.1s var(--kp-ease) 0.15s;
+}
+.kp-fin-card.in .kp-fin-rule { transform: scaleX(1); }
+
+.kp-fin-word {
+  margin: 0;
+  padding: var(--sp-6) 0;
+  font-size: clamp(3rem, 8vw, 5.4rem);
+  font-weight: 300;
+  line-height: 1;
+  color: #f2f1ec;
+  letter-spacing: 0.42em;
+  text-indent: 0.42em; /* balances the trailing letter-space */
+  opacity: 0;
+  transition: opacity 1.5s var(--kp-ease) 0.35s, letter-spacing 1.5s var(--kp-ease) 0.35s;
+}
+.kp-fin-card.in .kp-fin-word {
+  opacity: 1;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+}
+
+.kp-fin-word span { color: var(--kp-accent); }
+
+.kp-fin-sub,
+.kp-fin-by {
+  margin: var(--sp-5) 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(242, 241, 236, 0.4);
+  opacity: 0;
+  transition: opacity 1.1s var(--kp-ease) 0.95s;
+}
+.kp-fin-by {
+  margin-top: var(--sp-3);
+  color: rgba(242, 241, 236, 0.24);
+  transition-delay: 1.2s;
+}
+.kp-fin-card.in .kp-fin-sub,
+.kp-fin-card.in .kp-fin-by { opacity: 1; }
+
+/* focus visibility across the three colour worlds */
+.kp-case :is(a, button):focus-visible {
+  outline: 2px solid var(--kp-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.kp-case .kp-paper-sec :is(a, button):focus-visible { outline-color: var(--kp-paper-accent); }
+.kp-case .kp-closing :is(a, button):focus-visible { outline-color: var(--kp-on-accent); }
+
+/* ---------- small shared bits ------------------------------------------- */
+
+.kp-overline {
+  font-family: var(--font-mono);
+  font-size: var(--kp-label);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--kp-accent);
+  margin: 0 0 var(--sp-4);
+}
+
+.kp-mini-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+  margin: 0 0 var(--sp-3);
+}
+
+.kp-case .kp-text-link {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--kp-ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid var(--kp-line-strong);
+  padding-bottom: var(--sp-1);
+  display: inline-block;
+  transition: color 0.18s var(--kp-ease), border-color 0.18s var(--kp-ease);
+}
+.kp-case .kp-text-link:hover {
+  color: var(--kp-accent-soft);
+  border-color: var(--kp-accent);
+}
+
+.kp-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: #f2f1ec;
+  color: #101010;
+  border: 0;
+  border-radius: 999px;
+  padding: var(--sp-3) var(--sp-5);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.22s var(--kp-ease), background 0.22s var(--kp-ease);
+}
+.kp-case .kp-button:hover {
+  transform: translateY(-3px);
+  background: #fff;
+  color: #101010;
+}
+.kp-button span { transition: transform 0.22s var(--kp-ease); }
+.kp-case .kp-button:hover span { transform: translateY(2px); }
+
+/* the quiet sibling of .kp-button: same jobs, none of the weight. The closing
+   panel re-declares its colours against the accent background. */
+.kp-case a.kp-subtle-link {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kp-ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid var(--kp-line-strong);
+  padding-bottom: var(--sp-1);
+  transition: color 0.2s var(--kp-ease), border-color 0.2s var(--kp-ease);
+}
+.kp-case a.kp-subtle-link:hover {
+  color: var(--kp-accent-soft);
+  border-bottom-color: var(--kp-accent);
+}
+.kp-case a.kp-subtle-link span {
+  display: inline-block;
+  transition: transform 0.2s var(--kp-ease);
+}
+.kp-case a.kp-subtle-link:hover span { transform: translateY(3px); }
+
+/* ---------- the viewfinder mark -----------------------------------------
+   Four corner brackets: the shape a vision model draws around the thing it is
+   tracking, which is the whole product in one glyph. Used exactly twice, on
+   the two things this study asks you to look at as framed objects: the shipped
+   product in the hero, and the constraint ledger, which is literally the box
+   the work happened inside. */
+
+.kp-brackets {
+  position: absolute;
+  inset: calc(var(--sp-3) * -1);
+  pointer-events: none;
+}
+
+.kp-brackets b {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--kp-accent);
+  opacity: 0.5;
+}
+.kp-brackets b:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.kp-brackets b:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.kp-brackets b:nth-child(3) { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+.kp-brackets b:nth-child(4) { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+
+/* ---------- 1. hero ----------------------------------------------------- */
+
+.kp-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* the header is in flow, not fixed, so the viewport budget for the hero is
+     the viewport minus the header. Without that subtraction the meta plate
+     always lands just under the fold, cut through the middle of a row. */
+  min-height: 620px;
+  min-height: min(calc(100vh - var(--kp-header-h)), 920px);
+  min-height: min(calc(100svh - var(--kp-header-h)), 920px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--kp-header-h) + var(--sp-5)) 0 0;
+}
+
+.kp-hero .hero-grid {
+  z-index: 0;
+}
+
+/* The stadium light. One warm pool thrown across the product shot, because the
+   entire premise is a dark living room lit like a venue. It returns, once,
+   behind the testimonial, and nowhere else. */
+.kp-hero-flood {
+  position: absolute;
+  z-index: 0;
+  top: -14%;
+  right: -14%;
+  width: 82vw;
+  height: 124%;
+  pointer-events: none;
+  background: radial-gradient(
+    50% 44% at 56% 42%,
+    rgba(240, 163, 68, 0.14),
+    rgba(240, 163, 68, 0.045) 44%,
+    transparent 72%
+  );
+}
+
+/* the floor the meta plate stands on */
+.kp-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 240px;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, var(--kp-deep) 18%, transparent);
+}
+
+.kp-hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.16fr);
+  gap: var(--sp-8);
+  align-items: center;
+  flex: 1;
+  padding-bottom: var(--sp-6);
+}
+
+.kp-hero-copy { max-width: 620px; }
+
+.kp-case .kp-hero .back-link { margin-bottom: var(--sp-5); }
+
+.kp-case .kp-hero .fm-kicker {
+  margin: 0 0 var(--sp-4);
+}
+
+.kp-case .kp-hero h1 {
+  font-size: var(--kp-h1);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  margin: 0 0 var(--sp-5);
+  text-wrap: balance;
+}
+
+/* the two words the whole study is about get a rule under them, drawn after
+   the headline has settled */
+.kp-hero-em {
+  position: relative;
+  white-space: nowrap;
+}
+.kp-hero-em::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0.1em; /* stops short of the full stop */
+  bottom: -0.04em;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--kp-accent);
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* the copy column already sets the measure; a ch cap on top of it only
+   produced a five-line paragraph with a two-word last line */
+.kp-hero-intro {
+  font-size: var(--kp-lead);
+  line-height: 1.62;
+  color: var(--kp-ink-soft);
+  margin: 0 0 var(--sp-6);
+}
+
+.kp-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-4);
+}
+
+/* two honest ways in: the summary, or the first chapter. The line underneath
+   prices both of them before the reader commits. */
+.kp-hero-note {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+}
+
+.kp-hero-note i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--kp-line-strong);
+}
+
+/* product art: the source mock is a composed scene (tablet + phone on a desk),
+   so it is shown whole. No crop, no tilt. The brackets sit outside it. */
+.kp-hero-stack {
+  position: relative;
+  justify-self: end;
+  width: 100%;
+  max-width: 740px;
+}
+
+.kp-hero-mock {
+  position: relative;
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--kp-line-strong);
+  box-shadow: -24px 34px 88px rgba(0, 0, 0, 0.6);
+}
+
+.kp-hero-mock img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: saturate(0.92) contrast(1.04);
+}
+
+.kp-hero-mock::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(140deg, rgba(240, 163, 68, 0.07), transparent 46%, rgba(0, 0, 0, 0.16));
+  pointer-events: none;
+}
+
+/* one pass of a scanning line: the product is a camera that watches you, and
+   this is the only place on the page that says so without words */
+.kp-hero-scan {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 44%,
+    rgba(240, 163, 68, 0.55) 50%,
+    transparent 56%
+  );
+}
+
+/* a broadcast tag, answering the reader's actual first question */
+.kp-hero-tag {
+  position: absolute;
+  z-index: 3;
+  left: var(--sp-4);
+  bottom: var(--sp-4);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3) var(--sp-2) var(--sp-2);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(8, 8, 7, 0.6);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(235, 234, 230, 0.84);
+}
+
+.kp-hero-tag i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--kp-accent);
+  box-shadow: 0 0 0 3px rgba(240, 163, 68, 0.16);
+}
+
+.kp-hero-stack .kp-brackets { inset: calc(var(--sp-4) * -1); }
+
+/* ---------- hero meta: the spec plate ------------------------------------
+   Five facts, ruled like a record rather than floated like a caption. The
+   accent tick on the top rule marks where the record starts. */
+.kp-hero-meta {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-top: 1px solid var(--kp-line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.024), transparent 76%);
+}
+
+.kp-hero-meta::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 58px;
+  height: 1px;
+  background: var(--kp-accent);
+}
+
+.kp-hero-meta > div {
+  padding: var(--sp-5);
+  border-right: 1px solid var(--kp-line);
+  transition: opacity 0.24s var(--kp-ease);
+}
+.kp-hero-meta > div:first-child { padding-left: 0; }
+.kp-hero-meta > div:last-child { border-right: 0; padding-right: 0; }
+
+.kp-hero-meta h4 {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+  margin: 0 0 var(--sp-2);
+  transition: color 0.24s var(--kp-ease);
+}
+
+.kp-hero-meta p {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--kp-ink-soft);
+  transition: color 0.24s var(--kp-ease);
+}
+
+/* ---------- 2. tldr ----------------------------------------------------- */
+
+.kp-tldr { padding: var(--kp-sec) 0 0; }
+
+.kp-sec-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-5);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-6);
+}
+
+.kp-sec-meta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+}
+
+.kp-tldr-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--kp-line-strong);
+  border-bottom: 1px solid var(--kp-line);
+}
+
+.kp-tldr-cell {
+  position: relative;
+  padding: var(--sp-6);
+  border-right: 1px solid var(--kp-line);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  transition: opacity 0.24s var(--kp-ease);
+}
+.kp-tldr-cell:first-child { padding-left: 0; }
+.kp-tldr-cell:last-child { border-right: 0; padding-right: 0; }
+
+.kp-tldr-cell > span {
+  font-family: var(--font-mono);
+  font-size: var(--kp-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kp-accent);
+  transition: color 0.24s var(--kp-ease);
+}
+
+/* claim first: the section exists to be skimmed, so every cell leads with the
+   sentence a reader could stop at */
+.kp-case .kp-tldr-cell h3 {
+  margin: 0;
+  font-size: 1.06rem;
+  font-weight: 600;
+  line-height: 1.34;
+  letter-spacing: -0.015em;
+  color: var(--kp-ink);
+  text-wrap: balance;
+}
+
+.kp-tldr-cell p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.72;
+  color: var(--kp-ink-soft);
+  flex: 1;
+}
+
+/* a hairline that grows into the accent as you settle on a cell */
+.kp-tldr-cell::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--kp-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.32s var(--kp-ease);
+}
+
+.kp-tldr-cell .kp-text-link { align-self: flex-start; }
+
+/* ---------- the scoreboard ----------------------------------------------
+   Four numbers, all of them things I can point at. It is a sports project, so
+   the honest stat block is built like the board at the end of a ground: one
+   lit plate, ruled into cells, each one an entrance to the evidence. */
+
+.kp-strip-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-5);
+  flex-wrap: wrap;
+  margin: var(--sp-8) 0 var(--sp-4);
+}
+.kp-case .kp-strip-head .kp-mini-label { margin: 0; }
+
+.kp-stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid var(--kp-line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.036), rgba(255, 255, 255, 0.006));
+}
+
+.kp-case a.kp-stat {
+  position: relative;
+  display: block;
+  padding: var(--sp-6);
+  text-decoration: none;
+  border-right: 1px solid var(--kp-line);
+  transition: background 0.26s var(--kp-ease), opacity 0.24s var(--kp-ease);
+}
+.kp-case a.kp-stat:last-child { border-right: 0; }
+
+.kp-stat b {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: clamp(2.3rem, 3.9vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--kp-ink);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 44px rgba(240, 163, 68, 0.22);
+  transition: color 0.26s var(--kp-ease), text-shadow 0.26s var(--kp-ease);
+}
+
+.kp-stat span {
+  display: block;
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--kp-line);
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kp-ink-soft);
+  transition: color 0.26s var(--kp-ease), border-color 0.26s var(--kp-ease);
+}
+
+/* where the number can be checked */
+.kp-stat em {
+  display: block;
+  margin-top: var(--sp-2);
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 0.57rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+  opacity: 0.62;
+  transition: color 0.26s var(--kp-ease), opacity 0.26s var(--kp-ease);
+}
+
+/* ---------- 3. brief + constraints --------------------------------------
+   The section is an argument in two movements. First: the ask as a small,
+   tidy intake docket on the left, and the reframe as the biggest claim on
+   the page beside it — the asymmetry is the point, because the job was
+   larger than the brief. Second: the five limits, as a ledger. */
+
+.kp-brief { padding: var(--kp-sec) 0; }
+
+.kp-brief-top {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 0 var(--sp-8);
+  align-items: start;
+}
+
+/* ---- the docket: what was handed over ---------------------------------- */
+
+.kp-docket {
+  position: relative;
+  padding: var(--sp-5);
+  border: 1px solid var(--kp-line);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.032), rgba(255, 255, 255, 0.004));
+}
+
+/* a lit top edge: the one thing that says this plate arrived from outside */
+.kp-docket::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: var(--sp-5);
+  right: var(--sp-5);
+  height: 2px;
+  background: linear-gradient(90deg, var(--kp-accent), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s var(--kp-ease) 0.15s;
+}
+.kp-intake.in .kp-docket::before { transform: scaleX(1); }
+
+.kp-case .kp-docket-head {
+  margin: 0 0 var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+}
+
+.kp-case .kp-docket-ask {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.72;
+  color: var(--kp-ink-soft);
+}
+
+/* the three numbers the rest of the section leans on. Deliberately lighter
+   than the scoreboard above: mono text on a rule, not a panel of plates. */
+.kp-case .kp-docket-facts {
+  list-style: none;
+  display: flex;
+  margin: var(--sp-5) 0 0;
+  padding: var(--sp-4) 0 0;
+  border-top: 1px solid var(--kp-line);
+}
+
+.kp-docket-facts li {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding-left: var(--sp-3);
+  border-left: 1px solid var(--kp-line);
+  transition: opacity 0.24s var(--kp-ease);
+}
+.kp-docket-facts li:first-child { padding-left: 0; border-left: 0; }
+
+.kp-docket-facts b {
+  font-family: var(--font-mono);
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--kp-ink);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.24s var(--kp-ease);
+}
+
+.kp-docket-facts span {
+  font-family: var(--font-mono);
+  font-size: 0.57rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+}
+
+.kp-case .kp-docket-window {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin: var(--sp-5) 0 0;
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--kp-line);
+  font-family: var(--font-mono);
+  font-size: 0.57rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+}
+
+.kp-docket-window b {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--kp-accent);
+  white-space: nowrap;
+}
+
+/* ---- the reframe: the claim the whole study is built on ---------------- */
+
+.kp-case .kp-reframe-label {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin: 0 0 var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: var(--kp-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+}
+
+/* the pivot, drawn: a rule that arrives from the docket's side of the page */
+.kp-reframe-label i {
+  width: 38px;
+  height: 1px;
+  background: var(--kp-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--kp-ease) 0.1s;
+}
+.kp-reframe.in .kp-reframe-label i { transform: scaleX(1); }
+
+/* the section's thesis outranks a chapter title and sits below the hero */
+.kp-case .kp-brief h2 {
+  font-size: clamp(2.05rem, 3.5vw, 3.05rem);
+  font-weight: 700;
+  letter-spacing: -0.032em;
+  line-height: 1.1;
+  margin: 0;
+  max-width: 23ch;
+  text-wrap: balance;
+}
+
+.kp-case .kp-reframe-body {
+  margin: var(--sp-6) 0 0;
+  max-width: 62ch;
+  font-size: var(--kp-lead);
+  line-height: 1.65;
+  color: var(--kp-ink-soft);
+}
+
+/* the highlighter is drawn, not printed: same gesture as the testimonial
+   sweep, so the two claim moments on the page rhyme. box-decoration-break
+   makes the width percentage resolve per line rather than across the block. */
+.kp-hl {
+  color: var(--kp-ink);
+  background-image: linear-gradient(var(--kp-accent-dim), var(--kp-accent-dim));
+  background-repeat: no-repeat;
+  background-size: 0% 40%;
+  background-position: 0 94%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size 1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+}
+.kp-reframe.in .kp-hl { background-size: 100% 40%; }
+
+/* ---- the constraint ledger --------------------------------------------
+   Five rows that double as an index into the study. Each row states the
+   limit, what it forced, and opens the chapter where it bit — so the ledger
+   is a table of contents sorted by problem rather than by stage. */
+
+.kp-box-head { margin: var(--kp-block) 0 0; }
+
+.kp-case .kp-box-head h3 {
+  margin: 0;
+  font-size: var(--kp-h3);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--kp-ink);
+}
+
+.kp-case .kp-box-head p:last-child {
+  margin: var(--sp-3) 0 0;
+  max-width: 62ch;
+  color: var(--kp-ink-soft);
+  line-height: 1.75;
+}
+
+/* "The box I was working in", drawn as a box. Same bracket mark as the hero,
+   smaller, plus a legend sitting on the border like a drawing callout. */
+.kp-conbox {
+  position: relative;
+  margin: var(--sp-6) 0 0;
+  border: 1px solid var(--kp-line);
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.016), transparent 62%);
+  /* one track definition for the header row and every row under it */
+  --kp-con-grid: 76px minmax(0, 1fr) minmax(0, 0.92fr);
+}
+
+.kp-conbox .kp-brackets { inset: calc(var(--sp-2) * -1); }
+.kp-conbox .kp-brackets b { width: 17px; height: 17px; }
+
+.kp-conbox-label {
+  position: absolute;
+  top: -0.55em;
+  left: calc(var(--sp-6) - var(--sp-2));
+  margin: 0;
+  padding: 0 var(--sp-2);
+  background: var(--kp-deep);
+  font-family: var(--font-mono);
+  font-size: 0.57rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+}
+
+/* the row grammar, stated once at the top so no row has to repeat it */
+.kp-case .kp-con-cols {
+  display: grid;
+  grid-template-columns: var(--kp-con-grid);
+  gap: var(--sp-6);
+  margin: 0;
+  padding: var(--sp-5) var(--sp-6) var(--sp-3);
+  border-bottom: 1px solid var(--kp-line);
+  font-family: var(--font-mono);
+  font-size: 0.57rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+  opacity: 0.75;
+}
+.kp-con-cols span:first-child { grid-column: 2; }
+/* the second heading clears the elbow, so it sits over its own column of text */
+.kp-con-cols span + span { padding-left: var(--sp-5); }
+
+.kp-case .kp-constraints {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: none;
+}
+
+.kp-constraints li {
+  position: relative;
+  border-top: 1px solid var(--kp-line);
+  transition: opacity 0.24s var(--kp-ease);
+  /* the chapters cite these rows by code, so an inbound jump has to land the
+     row clear of the sticky header rather than flush against it */
+  scroll-margin-top: calc(var(--kp-anchor) + var(--sp-4));
+}
+.kp-constraints li:first-child { border-top: 0; }
+
+/* the rail that marks which constraint you are reading: it lands exactly on
+   the box's own left edge, so the box lights up row by row */
+.kp-constraints li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--kp-accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s var(--kp-ease);
+}
+
+/* the whole row is the target: a constraint is a way into the study, not a
+   footnote with a link hanging off the end of it */
+.kp-case .kp-con-row {
+  display: grid;
+  grid-template-columns: var(--kp-con-grid);
+  gap: var(--sp-3) var(--sp-6);
+  align-items: baseline;
+  padding: var(--sp-6);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.26s var(--kp-ease);
+}
+.kp-case .kp-con-row:focus-visible {
+  outline: 2px solid var(--kp-accent);
+  outline-offset: -3px;
+  border-radius: 3px;
+}
+
+.kp-con-n {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  color: var(--kp-accent);
+  transition: color 0.24s var(--kp-ease);
+}
+
+.kp-con-body {
+  font-size: 0.94rem;
+  line-height: 1.72;
+  color: var(--kp-muted);
+}
+
+.kp-con-body strong {
+  display: block;
+  font-size: 1.06rem;
+  font-weight: 600;
+  color: var(--kp-ink);
+  margin-bottom: var(--sp-1);
+  letter-spacing: -0.01em;
+  transition: color 0.24s var(--kp-ease);
+}
+
+/* the consequence column. The elbow does the arguing: constraint, therefore
+   this. It is the half of the row the old ledger never said out loud. */
+.kp-con-forced {
+  position: relative;
+  padding-left: var(--sp-5);
+}
+
+.kp-con-forced::before {
+  content: "\21B3";
+  position: absolute;
+  left: 0;
+  top: -0.05em;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--kp-muted);
+  transition: color 0.24s var(--kp-ease);
+}
+
+.kp-con-forced em {
+  display: block;
+  font-style: normal;
+  font-size: 0.94rem;
+  line-height: 1.72;
+  color: var(--kp-ink-soft);
+  transition: color 0.24s var(--kp-ease);
+}
+
+.kp-con-forced b {
+  display: block;
+  margin-top: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+  transition: color 0.24s var(--kp-ease);
+}
+.kp-con-forced b i {
+  font-style: normal;
+  display: inline-block;
+  transition: transform 0.24s var(--kp-ease);
+}
+
+/* constraint codes cited from inside the chapters point back at the ledger,
+   so the C-0n system reads as a real cross-reference and not as decoration */
+.kp-case .kp-cref {
+  color: var(--kp-muted);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--kp-line-strong);
+  transition: color 0.2s var(--kp-ease), border-color 0.2s var(--kp-ease);
+  white-space: nowrap;
+}
+.kp-case .kp-cref:hover {
+  color: var(--kp-accent);
+  border-bottom-color: var(--kp-accent);
+}
+.kp-case .kp-paper-sec .kp-cref { color: var(--kp-paper-muted); }
+.kp-case .kp-paper-sec .kp-cref:hover { color: var(--kp-paper-accent); }
+
+/* ---------- 4. relay map (paper interlude) ------------------------------ */
+
+.kp-paper-sec {
+  background: var(--kp-paper);
+  color: var(--kp-paper-ink);
+  padding: var(--kp-sec) 0;
+}
+
+.kp-paper-sec .kp-overline { color: var(--kp-paper-accent); }
+.kp-paper-sec h2,
+.kp-paper-sec h3 { color: var(--kp-paper-ink); }
+.kp-paper-sec p { color: var(--kp-paper-muted); }
+
+.kp-case .kp-paper-sec .fm-ch h2 { color: var(--kp-paper-ink); }
+.kp-case .kp-paper-sec .fm-ch .idx { color: var(--kp-paper-accent); }
+
+.kp-map-head { max-width: 720px; margin-bottom: var(--kp-block); }
+
+.kp-case .kp-map-head h2 {
+  font-size: var(--kp-h2);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 var(--sp-4);
+}
+
+.kp-map-head p { margin: 0; line-height: 1.7; }
+
+/* the relay track. One continuous dashed line runs behind five stations; each
+   station owns its own leg of it (the b element), so the line is always
+   pixel-aligned with the node above it, at any column width. */
+.kp-relay {
+  --kp-relay-gap: var(--sp-6);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--kp-relay-gap);
+  align-items: stretch;
+}
+
+.kp-relay-ends {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  margin: 0 0 var(--sp-5);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kp-paper-muted);
+}
+
+.kp-relay-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  text-decoration: none;
+  padding: 0 var(--sp-2) 0 0;
+  transition: transform 0.26s var(--kp-ease), opacity 0.26s var(--kp-ease);
+}
+
+.kp-relay-no {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 2.2rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: rgba(25, 23, 18, 0.22);
+  margin-bottom: var(--sp-4);
+  transition: color 0.26s var(--kp-ease);
+}
+
+.kp-relay-node {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin: 0 0 var(--sp-5);
+}
+
+.kp-relay-node i {
+  flex: 0 0 auto;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--kp-paper);
+  border: 2px solid var(--kp-paper-accent);
+  transition: transform 0.26s var(--kp-ease), background 0.26s var(--kp-ease),
+    box-shadow 0.26s var(--kp-ease);
+}
+
+/* the leg bleeds across the grid gap so five segments read as one line */
+.kp-relay-node b {
+  flex: 1;
+  height: 2px;
+  margin-right: calc(var(--kp-relay-gap) * -1);
+  background-image: linear-gradient(to right, #b5ad9b 55%, transparent 0);
+  background-size: 9px 2px;
+  background-repeat: repeat-x;
+}
+
+.kp-relay-stage:last-of-type .kp-relay-node b {
+  margin-right: 0;
+  -webkit-mask-image: linear-gradient(to right, #000 30%, transparent);
+  mask-image: linear-gradient(to right, #000 30%, transparent);
+}
+
+.kp-relay-stage strong {
+  display: block;
+  font-size: 1.32rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--kp-paper-ink);
+  margin-bottom: var(--sp-2);
+}
+
+.kp-relay-q {
+  display: block;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--kp-paper-muted);
+  margin-bottom: var(--sp-4);
+  flex: 1; /* pushes every chapter link onto a shared baseline */
+}
+
+.kp-relay-go {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kp-paper-accent);
+  border-top: 1px solid var(--kp-paper-line);
+  padding-top: var(--sp-3);
+  align-self: stretch;
+}
+
+.kp-relay-go em {
+  font-style: normal;
+  display: inline-block;
+  transition: transform 0.26s var(--kp-ease);
+}
+
+/* ---------- work sections ----------------------------------------------- */
+
+.kp-work { padding: var(--kp-sec) 0; }
+.kp-work-alt { background: var(--kp-panel); }
+
+.kp-chapter-head { margin-bottom: var(--kp-group); }
+
+.kp-case .kp-chapter-head .kp-overline {
+  margin: 0 0 var(--sp-3);
+  color: var(--kp-muted);
+}
+
+.kp-case .kp-chapter-head .fm-ch { margin-bottom: 0; }
+
+/* browser frame */
+.kp-browser-frame {
+  margin: 0;
+  border: 1px solid var(--kp-line-strong);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--kp-deeper);
+}
+
+.kp-browser-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  height: 40px;
+  padding: 0 var(--sp-4);
+  background: var(--kp-panel);
+  border-bottom: 1px solid var(--kp-line);
+}
+
+.kp-browser-bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #4b4a43;
+}
+.kp-browser-bar span:nth-child(1) { background: #e0614f; }
+.kp-browser-bar span:nth-child(2) { background: #edcd70; }
+.kp-browser-bar span:nth-child(3) { background: #57b368; }
+
+.kp-browser-bar b {
+  margin-left: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--kp-muted);
+}
+
+/* screens that are one viewport tall are never cropped: the frame takes its
+   height from the artwork. Long pages get .kp-longpage instead. */
+.kp-browser-frame > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: zoom-in;
+}
+
+/* ---------- the full-page frame ----------------------------------------
+   A landing page is taller than any sensible figure. Rather than slice off
+   the bottom, the frame keeps a browser-shaped viewport and the page scrolls
+   inside it, driven by the reader's own scroll position. No wheel is ever
+   intercepted. Without JS (or with reduced motion) the page simply renders in
+   full, uncropped, which is also the honest fallback. */
+.kp-longpage-view > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: zoom-in;
+}
+
+.kp-longpage-rail,
+.kp-longpage-hint { display: none; }
+
+/* a taller viewport means fewer pixels of page left to travel, which is half
+   of what keeps the pan gentle; the script does the other half */
+.kp-longpage.is-live .kp-longpage-view {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 11.5;
+  background: var(--kp-deeper);
+}
+
+/* the pan is published as a custom property rather than written straight onto
+   the image, because the lens band below has to travel on exactly the same
+   number of pixels to stay glued to the part of the page it is marking */
+.kp-longpage.is-live .kp-longpage-view > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(0, calc(var(--kp-pan, 0) * 1px), 0);
+  will-change: transform;
+}
+
+.kp-longpage.is-live .kp-longpage-hint {
+  display: inline;
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-style: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+}
+
+.kp-longpage.is-live .kp-longpage-rail {
+  display: block;
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-2);
+  bottom: var(--sp-3);
+  width: 3px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.kp-longpage-rail b {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 28%;
+  top: calc(var(--kp-rail-p, 0) * 72%);
+  border-radius: 3px;
+  background: var(--kp-accent);
+  opacity: 0.75;
+}
+
+.kp-browser-frame figcaption {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: var(--sp-5);
+  padding: var(--sp-5) var(--sp-4);
+  border-top: 1px solid var(--kp-line);
+}
+
+.kp-browser-frame figcaption > span {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kp-accent);
+}
+
+.kp-browser-frame figcaption p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--kp-ink-soft);
+}
+
+/* phone mount */
+.kp-frame {
+  margin: 0;
+  max-width: 285px;
+  width: 100%;
+}
+
+.kp-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid var(--kp-line);
+  background: var(--kp-deeper);
+  cursor: zoom-in;
+}
+
+.kp-frame figcaption { padding-top: var(--sp-4); }
+
+.kp-frame figcaption span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kp-accent);
+  margin-bottom: var(--sp-1);
+}
+
+.kp-frame figcaption strong {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--kp-ink-soft);
+}
+
+/* ---------- CH 01: the lens ---------------------------------------------
+   The chapter argues that one page served three readers, so the figure is one
+   page that answers three readers in turn. The frame never moves and the page
+   is never cropped; a lit band travels down it, and the pan that was already
+   driven by the visitor's scroll is briefly borrowed to centre that band.
+   Everything outside the band is dimmed by a single enormous box-shadow
+   spread, clipped by the frame — one element, no overlay stack.
+   The band is a highlighter drawn across a page, which is the same gesture as
+   .kp-hl in the brief, one scale up. It is deliberately NOT the viewfinder
+   bracket: that motif is spent on the hero and the constraint ledger. */
+
+.kp-lens { margin: var(--kp-block) 0 0; }
+
+.kp-lens-head,
+.kp-fold-head { max-width: 720px; }
+
+.kp-lens-head h3,
+.kp-fold-head h3 {
+  font-size: var(--kp-h3);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--sp-4);
+}
+
+.kp-lens-head p,
+.kp-fold-head p {
+  margin: 0;
+  color: var(--kp-ink-soft);
+  line-height: 1.7;
+}
+
+.kp-lens-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: var(--sp-7);
+  align-items: start;
+  margin: var(--sp-6) 0 0;
+}
+
+/* the lit band. top/height arrive in pixels from the script because they are
+   fractions of the IMAGE, and a percentage here would resolve against the
+   frame instead. */
+.kp-lens-band {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  border-top: 1px solid var(--kp-accent);
+  border-bottom: 1px solid var(--kp-accent);
+  background: rgba(240, 163, 68, 0.05);
+  box-shadow: 0 0 0 2400px rgba(7, 7, 6, 0.82);
+  transform: translate3d(0, calc(var(--kp-pan, 0) * 1px), 0);
+  transition: opacity 0.4s var(--kp-ease), top 0.5s var(--kp-ease),
+    height 0.5s var(--kp-ease);
+}
+
+.kp-longpage.is-locked .kp-lens-band { opacity: 1; }
+/* the scrub rail answers "how far down the page am I", which the band already
+   answers better while it is lit */
+.kp-longpage.is-locked .kp-longpage-rail { opacity: 0.2; }
+.kp-longpage-rail { transition: opacity 0.4s var(--kp-ease); }
+
+.kp-lens-band b {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateY(-100%);
+  padding: var(--sp-1) var(--sp-2);
+  border-radius: 4px 4px 0 0;
+  background: var(--kp-accent);
+  color: #221302;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* the side panel: the three readers */
+.kp-lens-count {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  margin: 0 0 var(--sp-5);
+  font-family: var(--font-mono);
+}
+
+/* the counter only goes accent once there is something to count: at rest it
+   reads as a dash, and a dash is not an answer */
+.kp-lens-count b {
+  font-size: 2.4rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--kp-muted);
+  transition: color 0.3s var(--kp-ease);
+}
+
+.kp-lens-side.is-lit .kp-lens-count b { color: var(--kp-accent); }
+
+.kp-lens-count i {
+  font-style: normal;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: var(--kp-muted);
+}
+
+.kp-lens-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.kp-lens-rows li { transition: opacity 0.24s var(--kp-ease); }
+.kp-lens-rows.is-lit li { opacity: 0.34; }
+.kp-lens-rows.is-lit li.is-on { opacity: 1; }
+
+.kp-lens-row {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  column-gap: var(--sp-4);
+  width: 100%;
+  margin: 0;
+  padding: var(--sp-5) 0 var(--sp-5) var(--sp-4);
+  border: 0;
+  border-top: 1px dotted var(--kp-line-strong);
+  border-left: 2px solid transparent;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.24s var(--kp-ease), background 0.24s var(--kp-ease);
+}
+
+.kp-lens-rows li.is-on .kp-lens-row {
+  border-left-color: var(--kp-accent);
+  background: rgba(240, 163, 68, 0.04);
+}
+
+.kp-lens-n {
+  grid-row: 1;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--kp-accent-dim);
+  color: var(--kp-accent);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  transition: background 0.24s var(--kp-ease), color 0.24s var(--kp-ease);
+}
+
+.kp-lens-rows li.is-on .kp-lens-n {
+  background: var(--kp-accent);
+  color: #221302;
+}
+
+.kp-lens-who {
+  grid-column: 2;
+  align-self: center;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kp-ink);
+}
+
+.kp-lens-who em {
+  font-style: normal;
+  color: var(--kp-muted);
+}
+.kp-lens-who em::before { content: " \00B7 "; }
+
+.kp-lens-q {
+  grid-column: 2;
+  margin-top: var(--sp-3);
+  font-size: 1.02rem;
+  line-height: 1.4;
+  color: var(--kp-ink);
+}
+.kp-lens-q::before { content: "\201C"; }
+.kp-lens-q::after { content: "\201D"; }
+
+.kp-lens-a {
+  grid-column: 2;
+  margin-top: var(--sp-2);
+  font-size: 0.87rem;
+  line-height: 1.62;
+  color: var(--kp-ink-soft);
+}
+
+/* no live pan (reduced motion, or a window too narrow for the frame): the page
+   renders in full below and the rows stop pretending to be controls */
+.kp-lens.is-static .kp-lens-count { display: none; }
+.kp-lens.is-static .kp-lens-row {
+  cursor: default;
+  padding-left: 0;
+  border-left: 0;
+}
+.kp-lens.is-static .kp-lens-rows li.is-on .kp-lens-row { background: none; }
+.kp-lens.is-static .kp-lens-live,
+.kp-lens:not(.is-static) .kp-lens-static { display: none; }
+
+.kp-lens-foot {
+  margin: var(--sp-5) 0 0;
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--kp-line);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--kp-muted);
+}
+
+/* ---------- CH 01: the fold ---------------------------------------------
+   A comparison, so it gets a side-by-side: the two stacks are the actual
+   running order of the shipped page on each width, ending at the same button
+   with a dashed line for the fold. */
+
+.kp-fold { margin: var(--kp-block) 0 0; }
+
+/* The two stacks and the phone share one row, with the trade note under the
+   stacks only. Two things keep the columns bottoming out together: the phone
+   column is narrow on purpose, sized so the screenshot plus its caption comes
+   out about as tall as a stack plus the note; and the left side is a nested
+   grid rather than a row-spanning placement on a shared one, because grid
+   hands a spanning figure's surplus height back to the tracks it spans, which
+   opens a gap above the note that no track sizing will close. */
+.kp-fold-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 218px;
+  gap: var(--sp-6);
+  align-items: start;
+  margin: var(--sp-6) 0 0;
+}
+
+/* a grid item holding another grid needs this or the stacks size to their
+   content and push the phone off the row */
+.kp-fold-main { min-width: 0; }
+
+.kp-fold-body > .kp-frame { max-width: none; }
+
+.kp-fold-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-6);
+}
+
+.kp-fold-col {
+  background: var(--kp-panel);
+  border: 1px solid var(--kp-line);
+  border-radius: var(--radius);
+  padding: var(--sp-5);
+}
+
+.kp-fold-dev {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  margin: 0 0 var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kp-ink);
+}
+
+.kp-fold-dev span {
+  color: var(--kp-muted);
+  letter-spacing: 0.08em;
+}
+.kp-fold-dev span::before { content: "\2014 "; }
+
+.kp-fold-col ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.kp-fold-col li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--sp-1) var(--sp-3);
+  margin-bottom: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--kp-line);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.022);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--kp-ink-soft);
+}
+
+.kp-fold-col li b {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 400;
+  color: var(--kp-muted);
+}
+
+/* the three things the phone layout changed, marked where they happened */
+.kp-fold-col li.is-edit { box-shadow: inset 2px 0 0 var(--kp-accent); }
+
+.kp-fold-col li em {
+  grid-column: 2;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kp-accent);
+}
+
+.kp-fold-col li.is-cta {
+  border-color: rgba(240, 163, 68, 0.42);
+  background: var(--kp-accent-dim);
+  color: var(--kp-accent);
+}
+.kp-fold-col li.is-cta b { color: var(--kp-accent); opacity: 0.7; }
+
+.kp-fold-rule {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin: var(--sp-4) 0 var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+}
+
+.kp-fold-rule i {
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--kp-line-strong) 0 5px,
+    transparent 5px 10px
+  );
+}
+
+.kp-fold-note {
+  margin: 0;
+  font-size: 0.76rem;
+  line-height: 1.55;
+  color: var(--kp-muted);
+}
+
+/* the trade sits under the two stacks and beside the phone it is about, which
+   also stops the taller screenshot from opening a hole in the left column */
+/* held to the same 720px measure as the section intros: across the full width
+   of the two stacks this paragraph would run to about 130 characters a line */
+.kp-fold-delta {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 720px);
+  gap: var(--sp-5);
+  margin: var(--sp-6) 0 0;
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--kp-line);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--kp-ink-soft);
+}
+
+.kp-fold-delta span {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kp-accent);
+}
+
+/* ---------- CH 01: the three passes -------------------------------------- */
+
+.kp-passes { margin: var(--kp-block) 0 0; }
+
+.kp-passes .kp-process-steps { margin-top: var(--sp-5); }
+
+.kp-passes .kp-process-steps strong {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin-bottom: var(--sp-2);
+}
+
+.kp-process-steps {
+  list-style: none;
+  margin: var(--sp-5) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+}
+
+.kp-process-steps li {
+  border-top: 1px dotted var(--kp-line-strong);
+  padding-top: var(--sp-4);
+  display: flex;
+  gap: var(--sp-4);
+  transition: opacity 0.24s var(--kp-ease), border-color 0.24s var(--kp-ease);
+}
+
+.kp-process-steps > li > span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--kp-accent);
+  /* the one off-scale number on the page, and deliberately so: this is an
+     optical baseline nudge sitting the mono numeral on the sentence beside
+     it, not a gap between two things */
+  padding-top: 2px;
+}
+
+.kp-process-steps strong {
+  display: block;
+  font-size: 0.98rem;
+  margin-bottom: var(--sp-2);
+  color: var(--kp-ink);
+}
+
+.kp-process-steps p {
+  margin: 0 0 var(--sp-3);
+  font-size: 0.87rem;
+  line-height: 1.6;
+  color: var(--kp-ink-soft);
+}
+
+.kp-step-note {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+}
+
+/* ---------- annotated evidence figure ----------------------------------- */
+
+.kp-annotated {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: var(--sp-7);
+  align-items: start;
+  margin: var(--kp-group) 0 0;
+}
+
+.kp-anno-media { position: relative; }
+
+/* the dots are pinned to the screenshot itself, not to the figure, so the
+   browser chrome and caption can never shift them off their targets */
+.kp-anno-plate { position: relative; }
+
+.kp-anno-dot {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--kp-accent);
+  color: #221302;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 600;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 4px rgba(15, 15, 14, 0.72);
+  transition: transform 0.22s var(--kp-ease), opacity 0.22s var(--kp-ease);
+  z-index: 2;
+}
+
+/* something is lit: everything else steps back rather than competes */
+.kp-annotated.is-lit .kp-anno-dot { opacity: 0.34; }
+.kp-annotated.is-lit .kp-anno-dot.is-on {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.28);
+  box-shadow: 0 0 0 4px rgba(15, 15, 14, 0.72), 0 0 0 12px rgba(240, 163, 68, 0.18);
+}
+
+.kp-anno-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-self: center; /* the notes are much shorter than the screenshot */
+}
+
+.kp-anno-list li {
+  display: flex;
+  gap: var(--sp-4);
+  border-top: 1px dotted var(--kp-line-strong);
+  padding: var(--sp-5) 0;
+  cursor: default;
+  transition: opacity 0.22s var(--kp-ease);
+}
+
+.kp-annotated.is-lit .kp-anno-list li { opacity: 0.45; }
+.kp-annotated.is-lit .kp-anno-list li.is-on { opacity: 1; }
+
+.kp-anno-n {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--kp-accent-dim);
+  color: var(--kp-accent);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  transition: background 0.22s var(--kp-ease), color 0.22s var(--kp-ease);
+}
+
+.kp-anno-list li.is-on .kp-anno-n {
+  background: var(--kp-accent);
+  color: #221302;
+}
+
+.kp-anno-list span {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--kp-ink-soft);
+}
+
+/* ---------- onboarding steps -------------------------------------------- */
+
+.kp-case .fm-step {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
+  gap: var(--sp-8);
+  margin: var(--kp-block) 0;
+}
+
+/* the media cell is justify-self aligned, so it shrink-to-fits: give it an
+   explicit width or the figure's percentage width resolves against nothing */
+.kp-case .fm-step-media { width: 285px; }
+.kp-case .fm-step-media figure.shot { width: 100%; }
+.kp-case .fm-step.flip .fm-step-media { justify-self: start; }
+.kp-case .fm-step:not(.flip) .fm-step-media { justify-self: end; }
+
+.kp-case .fm-step h3 {
+  font-size: var(--kp-h3);
+  letter-spacing: -0.02em;
+}
+
+/* ---------- 8. the filmstrip -------------------------------------------- */
+
+.kp-film-sec {
+  background: var(--kp-deeper);
+  padding: var(--kp-sec) 0;
+}
+
+.kp-ruler {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin: var(--sp-6) 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+  max-width: 560px;
+}
+
+.kp-ruler i {
+  flex: 1;
+  height: 2px;
+  background-image: linear-gradient(to right, var(--kp-line-strong) 55%, transparent 0);
+  background-size: 8px 2px;
+  background-repeat: repeat-x;
+}
+
+.kp-ruler b {
+  font-weight: 500;
+  color: var(--kp-accent);
+  border: 1px solid var(--kp-accent);
+  border-radius: 999px;
+  padding: var(--sp-1) var(--sp-3);
+  font-size: 0.66rem;
+}
+
+/* default (no JS / reduced motion / narrow): a plain strip */
+/* the strip is a set piece, so it is a block wide on both sides: coming
+   out of it earns the same air as going in */
+.kp-film { margin: var(--kp-block) 0; }
+
+/* --kp-steps is set per instance in the markup; everything that used to
+   hard-code four frames reads it instead, so a 6-step strip just works */
+.kp-film { --kp-steps: 4; }
+
+.kp-film-stage {
+  display: grid;
+  grid-template-columns: repeat(var(--kp-steps), minmax(0, 1fr));
+  gap: var(--sp-5);
+}
+
+.kp-film-frame { margin: 0; }
+
+.kp-film-frame img {
+  display: block;
+  width: 100%;
+  max-width: 285px;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid var(--kp-line);
+  background: #000;
+  margin-inline: auto;
+}
+
+.kp-film-sents { display: none; }
+
+.kp-film-side { margin-top: var(--sp-6); }
+
+.kp-film-count { display: none; }
+
+.kp-film-dots { display: none; }
+
+.kp-film-cap > * {
+  margin: 0 0 var(--sp-4);
+}
+
+.kp-film-cap strong {
+  display: block;
+  font-size: 1.02rem;
+  color: var(--kp-ink);
+  margin-bottom: var(--sp-2);
+}
+
+.kp-film-cap p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--kp-ink-soft);
+}
+
+.kp-film-cap em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kp-accent);
+  display: block;
+  margin-bottom: var(--sp-2);
+}
+
+/* enhanced sticky mode */
+.kp-film.is-live .kp-film-pin {
+  position: relative;
+  height: calc(var(--kp-steps) * 85vh + 100vh);
+  height: calc(var(--kp-steps) * 85svh + 100svh);
+}
+
+.kp-film.is-live .kp-film-sticky {
+  position: sticky;
+  top: calc(var(--kp-header-h) + var(--sp-3));
+  height: calc(100vh - var(--kp-header-h) - var(--sp-5));
+  height: calc(100svh - var(--kp-header-h) - var(--sp-5));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--sp-8);
+  align-items: center;
+}
+
+.kp-film.is-live .kp-film-stage {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  height: 100%;
+}
+
+.kp-film.is-live .kp-film-frame {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: translateY(10px) scale(0.985);
+  pointer-events: none;
+  transition: opacity 0.45s var(--kp-ease), transform 0.45s var(--kp-ease);
+}
+
+/* aspect-ratio keeps the box correctly shaped even before the image decodes,
+   so a frame that becomes active mid-scroll never pops in from nothing */
+.kp-film.is-live .kp-film-frame img {
+  aspect-ratio: 570 / 1230;
+  max-width: 300px;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.kp-film.is-live .kp-film-frame.is-on {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.kp-film.is-live .kp-film-sents {
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.kp-film.is-live .kp-film-sents i { display: block; height: calc(100% / var(--kp-steps)); }
+
+.kp-film.is-live .kp-film-side { margin-top: 0; }
+
+.kp-film.is-live .kp-film-count {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: var(--kp-muted);
+  margin: 0 0 var(--sp-5);
+}
+.kp-film.is-live .kp-film-count b {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--kp-accent);
+  letter-spacing: -0.02em;
+}
+
+.kp-film.is-live .kp-film-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  list-style: none;
+  margin: 0 0 var(--sp-6);
+  padding: 0;
+}
+
+.kp-film-dots button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--kp-line-strong);
+  background: transparent;
+  color: var(--kp-muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  cursor: pointer;
+  transition: color 0.2s var(--kp-ease), border-color 0.2s var(--kp-ease), background 0.2s var(--kp-ease);
+}
+.kp-film-dots button:hover { color: var(--kp-ink); border-color: var(--kp-ink-soft); }
+.kp-film-dots button[aria-current="step"] {
+  color: #221302;
+  background: var(--kp-accent);
+  border-color: var(--kp-accent);
+}
+
+.kp-film.is-live .kp-film-cap { position: relative; min-height: 190px; }
+
+.kp-film.is-live .kp-film-cap > * {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.35s var(--kp-ease), transform 0.35s var(--kp-ease);
+  margin: 0;
+}
+
+.kp-film.is-live .kp-film-cap > *.is-on {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.kp-film.is-live .kp-film-cap strong { font-size: 1.4rem; letter-spacing: -0.02em; }
+.kp-film.is-live .kp-film-cap p { font-size: 1rem; }
+
+.kp-film-out { margin: var(--kp-group) 0 0; }
+
+.kp-film-after {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 285px;
+  gap: var(--sp-8);
+  align-items: center;
+  margin: var(--kp-block) 0 0;
+}
+
+.kp-film-after h3 {
+  font-size: var(--kp-h3);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--sp-4);
+}
+
+.kp-film-after p {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--kp-ink-soft);
+  line-height: 1.8;
+}
+
+/* ---------- 9. states --------------------------------------------------- */
+
+.kp-state-layout {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: var(--sp-8);
+  margin: var(--kp-group) 0 0;
+  align-items: start;
+}
+
+.kp-state-legend ol {
+  list-style: none;
+  margin: 0 0 var(--sp-5);
+  padding: 0;
+}
+
+.kp-state-legend li {
+  display: flex;
+  gap: var(--sp-3);
+  border-top: 1px dotted var(--kp-line-strong);
+  padding: var(--sp-4) 0;
+}
+
+.kp-state-legend li > span {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--kp-accent);
+}
+
+.kp-state-legend strong {
+  display: block;
+  font-size: 0.94rem;
+  margin-bottom: var(--sp-1);
+  color: var(--kp-ink);
+}
+
+.kp-state-legend p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--kp-ink-soft);
+}
+
+.kp-state-legend .kp-text-link { margin-right: var(--sp-4); margin-bottom: var(--sp-3); }
+
+.kp-gallery-3,
+.kp-gallery-4 {
+  display: grid;
+  gap: var(--sp-6);
+  justify-items: center;
+}
+.kp-gallery-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.kp-gallery-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); margin: var(--kp-group) 0 0; }
+.kp-gallery-4 .kp-frame { max-width: 260px; }
+
+/* margin, not transform: .reveal.in owns transform and would win */
+.kp-state-mid { margin-top: calc(var(--sp-4) * -1); }
+
+/* State cards borrow the prototype index's manners: uniform, countable, and
+   they answer "what is this one?" the moment you point at it. The gallery
+   dims around whatever you are looking at, so one thing reads at a time. */
+.kp-states .kp-frame { transition: opacity 0.24s var(--kp-ease); }
+
+.kp-states .kp-frame img {
+  transition: border-color 0.24s var(--kp-ease), box-shadow 0.24s var(--kp-ease);
+}
+
+.kp-states .kp-frame figcaption strong {
+  color: var(--kp-ink-soft);
+  transition: color 0.24s var(--kp-ease);
+}
+
+.kp-states.is-lit .kp-frame.in { opacity: 0.38; }
+.kp-states.is-lit .kp-frame.in.is-on { opacity: 1; }
+
+.kp-states .kp-frame.is-on img {
+  border-color: var(--kp-accent);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
+}
+.kp-states .kp-frame.is-on figcaption strong { color: var(--kp-ink); }
+
+.kp-state-legend li {
+  transition: opacity 0.24s var(--kp-ease);
+}
+.kp-state-legend ol.is-lit li { opacity: 0.45; }
+.kp-state-legend ol.is-lit li.is-on { opacity: 1; }
+
+.kp-edge-head { margin: var(--kp-block) 0 var(--sp-6); }
+
+.kp-edge-head h3 {
+  font-size: var(--kp-h3);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--sp-3);
+}
+
+.kp-edge-head p {
+  margin: 0;
+  max-width: 620px;
+  color: var(--kp-ink-soft);
+  line-height: 1.7;
+}
+
+/* ---------- 10. rehire -------------------------------------------------- */
+
+.kp-proof { background: var(--kp-panel); }
+
+.kp-proof-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: var(--sp-8);
+  align-items: start; /* keeps the copy under its headline, not floating mid-frame */
+  margin: var(--kp-group) 0 0;
+}
+
+.kp-proof-grid p {
+  color: var(--kp-ink-soft);
+  line-height: 1.75;
+  margin: 0 0 var(--sp-5);
+}
+
+.kp-proof-line {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--kp-ink) !important;
+  border-left: 2px solid var(--kp-green);
+  padding-left: var(--sp-5);
+}
+
+/* ---------- 11. scorecard ----------------------------------------------- */
+
+.kp-score-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+  margin: var(--kp-group) 0 0;
+}
+
+.kp-score-card {
+  background: rgba(25, 23, 18, 0.04);
+  border: 1px solid var(--kp-paper-line);
+  border-radius: var(--radius);
+  padding: var(--sp-6);
+}
+
+.kp-score-card {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.24s var(--kp-ease), opacity 0.24s var(--kp-ease),
+    border-color 0.24s var(--kp-ease);
+}
+
+.kp-score-card > span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kp-paper-accent);
+}
+
+/* the tally: each column says how many things are in it, so the reader can
+   see the shape of the honesty before reading a word of it */
+.kp-score-card > b {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 2.4rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: rgba(25, 23, 18, 0.18);
+  margin: var(--sp-3) 0 var(--sp-4);
+  transition: color 0.24s var(--kp-ease);
+}
+
+.kp-score-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.kp-score-card li {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: var(--sp-3);
+  border-top: 1px dotted var(--kp-paper-line);
+  padding: var(--sp-3) 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--kp-paper-ink);
+}
+
+/* a different mark per column: done, unmeasured, would-change */
+.kp-score-card li::before {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--kp-paper-accent);
+}
+.kp-score-card.is-shipped li::before { content: "\2713"; }
+.kp-score-card.is-measure li::before { content: "\25CB"; opacity: 0.7; }
+.kp-score-card.is-redo li::before { content: "\21BA"; }
+
+/* prototype index */
+.kp-proto-head {
+  margin: var(--kp-block) 0 var(--sp-5);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--kp-paper-line);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  flex-wrap: wrap;
+}
+
+.kp-proto-head p {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.kp-proto-head p:first-child { color: var(--kp-paper-accent); }
+
+.kp-proto-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-4);
+}
+
+.kp-proto {
+  display: block;
+  text-decoration: none;
+  border: 1px solid var(--kp-paper-line);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-4);
+  background: rgba(25, 23, 18, 0.03);
+  transition: transform 0.22s var(--kp-ease), border-color 0.22s var(--kp-ease), background 0.22s var(--kp-ease);
+}
+
+.kp-case .kp-proto:hover {
+  transform: translateY(-3px);
+  border-color: var(--kp-paper-accent);
+  background: rgba(25, 23, 18, 0.07);
+}
+
+.kp-proto span {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  color: var(--kp-paper-accent);
+}
+
+.kp-proto strong {
+  display: block;
+  margin-top: var(--sp-2);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--kp-paper-ink);
+}
+
+/* ---------- 12. quote ----------------------------------------------------
+   A held beat between the scorecard and the orange finish: the page drops to
+   its deepest black and the stadium light from the hero comes back up, once,
+   on the one person who is not me. */
+
+.kp-quote {
+  position: relative;
+  overflow: hidden;
+  background: var(--kp-deeper);
+  border-top: 1px solid var(--kp-line);
+  border-bottom: 1px solid var(--kp-line);
+  padding: var(--kp-sec) 0;
+}
+
+.kp-quote::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(44% 58% at 24% 32%, rgba(240, 163, 68, 0.1), transparent 68%);
+}
+
+.kp-quote > .kp-shell {
+  position: relative;
+  z-index: 1;
+}
+
+/* the gap is not empty: the ghost quote mark fills it */
+.kp-quote .kp-sec-head { margin-bottom: var(--sp-9); }
+
+.kp-quote-card {
+  position: relative;
+  margin: 0;
+}
+
+/* big enough to read as tone rather than as a glyph sitting on the words */
+.kp-quote-mark {
+  position: absolute;
+  top: -0.3em;
+  left: -0.07em;
+  z-index: 0;
+  font-size: 15rem;
+  line-height: 1;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--kp-accent);
+  opacity: 0.08;
+  pointer-events: none;
+  transition: opacity 0.4s var(--kp-ease);
+}
+.kp-quote-card:hover .kp-quote-mark { opacity: 0.12; }
+
+.kp-quote blockquote {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 var(--sp-7);
+  font-size: clamp(1.45rem, 2.5vw, 2.05rem);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  color: var(--kp-ink);
+  max-width: 900px;
+  text-wrap: balance;
+}
+
+/* the shared highlighter sweep is scoped to figure.testimonial; this quote
+   is its own component, so it re-declares the effect against .reveal.in */
+.kp-quote .sweep {
+  color: var(--kp-ink);
+  background-image: linear-gradient(rgba(240, 163, 68, 0.24), rgba(240, 163, 68, 0.24));
+  background-repeat: no-repeat;
+  background-size: 0% 44%;
+  background-position: 0 80%;
+  transition: background-size 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.6s;
+}
+.kp-quote .reveal.in .sweep { background-size: 100% 44%; }
+
+.kp-quote figcaption {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--kp-line);
+}
+
+.kp-quote-monogram {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--kp-accent);
+  color: var(--kp-accent);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.kp-quote cite { font-style: normal; }
+
+.kp-quote cite strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--kp-ink);
+}
+
+.kp-quote cite small {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kp-muted);
+  margin-top: var(--sp-1);
+}
+
+/* the quote and the rehire are the same piece of evidence, so one points at
+   the other */
+.kp-case .kp-quote-src { margin-left: auto; }
+.kp-case .kp-quote-src span {
+  display: inline-block;
+  transition: transform 0.2s var(--kp-ease);
+}
+.kp-case .kp-quote-src:hover span { transform: translateY(-3px); }
+
+/* ---------- 13. closing ------------------------------------------------- */
+
+.kp-closing {
+  position: relative;
+  overflow: hidden;
+  background: var(--kp-accent);
+  color: var(--kp-on-accent);
+  padding: var(--kp-sec) 0;
+}
+
+/* the page opens on a dark field of dots and closes on a light one */
+.kp-closing-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image: radial-gradient(rgba(34, 19, 2, 0.2) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 28%, #000 72%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 28%, #000 72%, transparent);
+}
+
+.kp-closing-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
+  gap: var(--sp-8);
+  align-items: start;
+}
+
+.kp-closing .kp-overline { color: #7a4a10; }
+
+.kp-case .kp-closing h2 {
+  font-size: var(--kp-h2);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--kp-on-accent);
+  margin: 0 0 var(--sp-5);
+  max-width: 20ch;
+  text-wrap: balance;
+}
+
+.kp-closing-copy {
+  margin: 0 0 var(--sp-6);
+  max-width: 560px;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--kp-on-accent-soft);
+}
+
+.kp-closing-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* explicit colours so no inherited rule can bleach the CTA */
+.kp-case .kp-closing a.kp-button-dark {
+  background: #101010;
+  color: #f2f1ec;
+}
+.kp-case .kp-closing a.kp-button-dark:hover {
+  background: #0a0a09;
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+.kp-case .kp-closing a.kp-subtle-link {
+  color: var(--kp-on-accent);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(34, 19, 2, 0.4);
+  padding-bottom: var(--sp-1);
+}
+.kp-case .kp-closing a.kp-subtle-link:hover {
+  color: var(--kp-on-accent);
+  border-bottom-color: var(--kp-on-accent);
+}
+
+.kp-closing-ps {
+  margin: var(--sp-6) 0 0;
+  font-size: 0.85rem;
+  color: var(--kp-on-accent-soft);
+  position: relative;
+  z-index: 1;
+}
+
+.kp-case .kp-closing-ps kbd {
+  background: rgba(34, 19, 2, 0.14);
+  border-color: rgba(34, 19, 2, 0.3);
+  color: var(--kp-on-accent);
+}
+
+/* ---------- what the study actually taught ------------------------------
+   The takeaway had one sentence and a pitch. These are the three transferable
+   things, each one still attached to the chapter that earned it, so the claim
+   can be checked on the way out. */
+
+.kp-lessons {
+  border: 1px solid rgba(34, 19, 2, 0.2);
+  border-radius: 14px;
+  background: rgba(34, 19, 2, 0.045);
+  padding: var(--sp-5) var(--sp-6);
+}
+
+.kp-lessons-head {
+  margin: 0 0 var(--sp-4);
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(34, 19, 2, 0.58);
+}
+
+.kp-case .kp-lessons ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: none;
+}
+
+.kp-lessons li {
+  display: grid;
+  grid-template-columns: var(--sp-6) minmax(0, 1fr);
+  gap: var(--sp-4);
+  padding: var(--sp-5) 0;
+  border-top: 1px solid rgba(34, 19, 2, 0.16);
+  transition: opacity 0.24s var(--kp-ease);
+}
+.kp-lessons li:first-of-type { border-top: 0; padding-top: 0; }
+.kp-lessons li:last-of-type { padding-bottom: 0; }
+
+.kp-lesson-n {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: rgba(34, 19, 2, 0.42);
+  transition: color 0.24s var(--kp-ease);
+}
+
+.kp-lessons strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  color: var(--kp-on-accent);
+  margin-bottom: var(--sp-2);
+}
+
+.kp-lessons p {
+  margin: 0 0 var(--sp-3);
+  font-size: 0.88rem;
+  line-height: 1.62;
+  color: var(--kp-on-accent-soft);
+}
+
+.kp-case .kp-lessons a {
+  font-family: var(--font-mono);
+  font-size: 0.59rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(34, 19, 2, 0.52);
+  text-decoration: none;
+  transition: color 0.22s var(--kp-ease);
+}
+.kp-lessons a em {
+  font-style: normal;
+  display: inline-block;
+  transition: transform 0.22s var(--kp-ease);
+}
+.kp-case .kp-lessons a:hover { color: var(--kp-on-accent); }
+.kp-case .kp-lessons a:hover em { transform: translateY(-3px); }
+
+/* ==========================================================================
+   Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  .kp-hero-stack {
+    animation: kp-art-enter 1.2s var(--kp-ease) both;
+  }
+  .kp-hero-mock img {
+    animation: kp-image-settle 10s var(--kp-ease) both;
+  }
+  /* the resting state carries --kp-par so the scroll lag composes with the
+     entrance instead of being overridden by its fill-mode */
+  @keyframes kp-art-enter {
+    from { opacity: 0; transform: translateY(26px) rotate(1.4deg); }
+    to { opacity: 1; transform: translateY(var(--kp-par, 0px)); }
+  }
+  @keyframes kp-image-settle {
+    from { transform: scale(1.06); }
+    to { transform: scale(1); }
+  }
+
+  /* the title card assembles: art, then brackets closing on it, then one
+     pass of the scan, then the rule under the two words that matter */
+  .kp-hero-stack .kp-brackets b {
+    animation: kp-bracket-in 0.7s var(--kp-ease) both;
+  }
+  .kp-hero-stack .kp-brackets b:nth-child(1) { animation-delay: 0.85s; }
+  .kp-hero-stack .kp-brackets b:nth-child(2) { animation-delay: 0.93s; }
+  .kp-hero-stack .kp-brackets b:nth-child(3) { animation-delay: 1.01s; }
+  .kp-hero-stack .kp-brackets b:nth-child(4) { animation-delay: 1.09s; }
+  @keyframes kp-bracket-in {
+    from { opacity: 0; transform: scale(2.1); }
+    to { opacity: 0.5; transform: none; }
+  }
+
+  .kp-hero-scan { animation: kp-scan 2.4s var(--kp-ease) 1.15s 1 both; }
+  @keyframes kp-scan {
+    0% { opacity: 0; transform: translateY(-101%); }
+    14% { opacity: 0.6; }
+    86% { opacity: 0.45; }
+    100% { opacity: 0; transform: translateY(101%); }
+  }
+
+  .kp-hero-tag i { animation: kp-tag-pulse 3.4s ease-in-out 2s infinite; }
+  @keyframes kp-tag-pulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(240, 163, 68, 0.16); }
+    50% { box-shadow: 0 0 0 6px rgba(240, 163, 68, 0.04); }
+  }
+
+  .kp-hero-em::after { animation: kp-underline 0.85s var(--kp-ease) 0.7s both; }
+  @keyframes kp-underline {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kp-hero-stack,
+  .kp-hero-mock img { animation: none; }
+  .kp-hero-scan { display: none; }
+  .kp-hl { transition: none; background-size: 100% 40%; }
+  .kp-constraints li::before { transition: none; }
+  .kp-docket::before,
+  .kp-reframe-label i { transition: none; transform: scaleX(1); }
+  .kp-film-frame,
+  .kp-film-cap > *,
+  .kp-anno-dot,
+  .kp-anno-list li,
+  .kp-states .kp-frame { transition: none; }
+  .kp-quote .sweep { transition: none; background-size: 100% 44%; }
+  .kp-fin-rule { transition: none; transform: scaleX(1); }
+  .kp-fin-word,
+  .kp-fin-sub,
+  .kp-fin-by { transition: none; opacity: 1; }
+  .kp-fin-word { letter-spacing: 0.24em; text-indent: 0.24em; }
+  .kp-lens-band,
+  .kp-lens-row,
+  .kp-lens-rows li,
+  .kp-lens-count b { transition: none; }
+  .kp-relay-stage:hover,
+  .kp-score-card:hover,
+  .kp-proto:hover,
+  .kp-case .kp-button:hover { transform: none; }
+  .kp-tldr-cell::before { transition: none; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* ---- one thing at a time, applied to the reading sections too ----------
+     Every group of peers dims around whatever the reader has settled on.
+     Written against .in because .reveal owns opacity until an item enters,
+     and a bare rule here would out-specify it and pre-reveal the group. */
+
+  .kp-hero-meta:hover > div { opacity: 0.42; }
+  .kp-hero-meta > div:hover { opacity: 1; }
+  .kp-hero-meta > div:hover h4 { color: var(--kp-accent); }
+  .kp-hero-meta > div:hover p { color: var(--kp-ink); }
+
+  .kp-tldr-grid:hover .kp-tldr-cell.in { opacity: 0.42; }
+  .kp-tldr-grid .kp-tldr-cell.in:hover { opacity: 1; }
+  .kp-tldr-cell:hover::before { transform: scaleX(1); }
+  .kp-tldr-cell:hover > span { color: var(--kp-accent-soft); }
+
+  /* the scoreboard lights the cell you are aiming at */
+  .kp-stat-strip:hover .kp-stat { opacity: 0.45; }
+  .kp-stat-strip .kp-stat:hover {
+    opacity: 1;
+    background: rgba(240, 163, 68, 0.05);
+  }
+  .kp-stat-strip .kp-stat:hover b {
+    color: var(--kp-accent-soft);
+    text-shadow: 0 0 48px rgba(240, 163, 68, 0.45);
+  }
+  .kp-stat-strip .kp-stat:hover span {
+    color: var(--kp-ink);
+    border-top-color: var(--kp-accent);
+  }
+  .kp-stat-strip .kp-stat:hover em { color: var(--kp-accent); opacity: 1; }
+
+  .kp-constraints:hover li.in { opacity: 0.4; }
+  .kp-constraints li.in:hover { opacity: 1; }
+  .kp-constraints li:hover::before { transform: scaleY(1); }
+  .kp-constraints li:hover .kp-con-row { background: rgba(240, 163, 68, 0.04); }
+  .kp-constraints li:hover .kp-con-n { color: var(--kp-accent-soft); }
+  .kp-constraints li:hover .kp-con-body { color: var(--kp-ink-soft); }
+  .kp-constraints li:hover .kp-con-forced::before { color: var(--kp-accent); }
+  .kp-constraints li:hover .kp-con-forced em { color: var(--kp-ink); }
+  .kp-constraints li:hover .kp-con-forced b { color: var(--kp-accent); }
+  .kp-constraints li:hover .kp-con-forced b i { transform: translateY(3px); }
+
+  /* the docket dims its own rows the same way every other group does */
+  .kp-docket-facts:hover li { opacity: 0.45; }
+  .kp-docket-facts li:hover { opacity: 1; }
+  .kp-docket-facts li:hover b { color: var(--kp-accent-soft); }
+
+  .kp-lessons ol:hover li { opacity: 0.44; }
+  .kp-lessons li:hover { opacity: 1; }
+  .kp-lessons li:hover .kp-lesson-n { color: var(--kp-on-accent); }
+
+  .kp-process-steps:hover li { opacity: 0.42; }
+  .kp-process-steps li:hover { opacity: 1; }
+  .kp-process-steps li:hover { border-top-color: var(--kp-accent); }
+
+  .kp-score-grid:hover .kp-score-card.in { opacity: 0.42; }
+  .kp-score-grid .kp-score-card.in:hover {
+    opacity: 1;
+    transform: translateY(-4px);
+    border-color: var(--kp-paper-accent);
+  }
+  .kp-score-card:hover > b { color: var(--kp-paper-accent); }
+
+  /* the fold stacks dim around the layout you are reading, same as everywhere.
+     Written against .in: the stacks carry .reveal, which owns opacity. */
+  .kp-fold-cols:hover .kp-fold-col.in { opacity: 0.42; }
+  .kp-fold-cols .kp-fold-col.in:hover { opacity: 1; }
+  .kp-fold-col { transition: opacity 0.24s var(--kp-ease); }
+
+  .kp-lens-row:hover { border-left-color: var(--kp-line-strong); }
+  .kp-lens-rows li.is-on .kp-lens-row:hover { border-left-color: var(--kp-accent); }
+
+  /* the map dims around the leg you are considering */
+  .kp-relay:hover .kp-relay-stage { opacity: 0.4; }
+  .kp-relay .kp-relay-stage:hover { opacity: 1; transform: translateY(-5px); }
+  .kp-relay-stage:hover .kp-relay-no { color: var(--kp-paper-accent); }
+  .kp-relay-stage:hover .kp-relay-node i {
+    background: var(--kp-paper-accent);
+    transform: scale(1.45);
+    box-shadow: 0 0 0 7px rgba(150, 96, 26, 0.14);
+  }
+  .kp-relay-stage:hover .kp-relay-go em { transform: translateY(3px); }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .kp-closing-ps-egg { display: none; }
+}
+
+/* ==========================================================================
+   Responsive: 1419 / 1100 / 860 / 700 / 540
+   ========================================================================== */
+
+/* the five-cell spec plate stops being a single ruled row before the values
+   start wrapping to three lines */
+@media (max-width: 1180px) {
+  .kp-hero-meta {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--sp-6);
+    padding-bottom: var(--sp-5);
+  }
+  .kp-hero-meta > div {
+    border-right: 0;
+    padding: var(--sp-5) 0 0;
+  }
+}
+
+@media (max-width: 1100px) {
+  /* the reader rows need a readable measure before the frame needs width */
+  .kp-lens-body { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--sp-6); }
+  .kp-fold-body { grid-template-columns: minmax(0, 1fr) 190px; gap: var(--sp-5); }
+  .kp-fold-cols { gap: var(--sp-5); }
+
+  /* the docket gives up width before the claim does */
+  .kp-brief-top { grid-template-columns: 300px minmax(0, 1fr); gap: 0 var(--sp-7); }
+  .kp-conbox { --kp-con-grid: 66px minmax(0, 1fr) minmax(0, 0.95fr); }
+  .kp-case .kp-con-cols,
+  .kp-case .kp-con-row { gap: var(--sp-3) var(--sp-5); padding-inline: var(--sp-5); }
+
+  .kp-closing-inner { gap: var(--sp-7); }
+
+  .kp-tldr-grid { grid-template-columns: repeat(2, 1fr); }
+  .kp-tldr-cell:nth-child(2) { border-right: 0; padding-right: 0; }
+  .kp-tldr-cell:nth-child(3) { padding-left: 0; }
+  .kp-tldr-cell:nth-child(-n + 2) { border-bottom: 1px solid var(--kp-line); }
+
+  .kp-process-steps { grid-template-columns: 1fr; }
+  .kp-proto-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 860px) {
+  .kp-hero {
+    min-height: 0;
+    padding: calc(var(--kp-header-h) + var(--sp-6)) 0 0;
+  }
+  .kp-hero-inner {
+    grid-template-columns: 1fr;
+    gap: var(--sp-7);
+    padding-bottom: var(--sp-6);
+  }
+  .kp-hero-copy { max-width: none; }
+  .kp-hero-intro { max-width: none; }
+  .kp-hero-stack { max-width: none; justify-self: stretch; }
+  .kp-hero::after { display: none; }
+
+  .kp-state-layout,
+  .kp-annotated,
+  .kp-lens-body,
+  .kp-proof-grid,
+  .kp-film-after { grid-template-columns: 1fr; gap: var(--sp-6); }
+
+  /* stacked: the two orders, then the trade, then the phone */
+  .kp-fold-body { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .kp-fold-cols { grid-template-columns: 1fr; }
+  .kp-fold-body > .kp-frame { max-width: 285px; }
+
+  /* below the live width the pan bails, so .is-static already turns the reader
+     rows back into a list */
+  .kp-fold-delta { grid-template-columns: 1fr; gap: var(--sp-2); }
+
+  /* docket above claim: the reading order was always received, then reframed */
+  .kp-brief-top { grid-template-columns: 1fr; gap: var(--sp-7); }
+  .kp-docket { max-width: 520px; }
+  .kp-case .kp-reframe-body { font-size: 1.02rem; }
+
+  /* the consequence stops being a column and becomes the second half of the
+     row, still marked by the elbow so the "therefore" survives the stack */
+  .kp-conbox { --kp-con-grid: 60px minmax(0, 1fr); }
+  .kp-case .kp-con-cols { display: none; }
+  .kp-case .kp-con-row { gap: var(--sp-4) var(--sp-5); padding: var(--sp-5); }
+  .kp-con-forced { grid-column: 2; }
+
+  .kp-closing-inner { grid-template-columns: 1fr; gap: var(--sp-7); }
+  .kp-quote-mark { font-size: 8rem; }
+
+  .kp-score-grid { grid-template-columns: 1fr; }
+  .kp-gallery-3,
+  .kp-gallery-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kp-state-mid { margin-top: 0; }
+  .kp-browser-frame figcaption { grid-template-columns: 1fr; gap: var(--sp-3); }
+
+  .kp-anno-dot { display: none; }
+
+  /* stacked, the track turns into a rule above each station */
+  .kp-relay { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .kp-relay-ends { flex-direction: column; gap: var(--sp-2); margin-bottom: var(--sp-2); }
+  .kp-relay-stage { padding-right: 0; }
+  .kp-relay-no {
+    font-size: 1.1rem;
+    letter-spacing: 0.14em;
+    color: var(--kp-paper-accent);
+    margin-bottom: var(--sp-3);
+    order: 2;
+  }
+  .kp-relay-node { order: 1; margin-bottom: var(--sp-4); }
+  .kp-relay-node b { margin-right: 0; }
+  .kp-relay-stage strong { order: 3; }
+  .kp-relay-q { order: 4; flex: 0 1 auto; }
+  .kp-relay-go { order: 5; }
+
+  /* filmstrip: native horizontal snap scroller.
+     Every rule is also written against .kp-film.is-live, because that class
+     out-specifies a bare selector and can survive a desktop window being
+     dragged narrow without a reload. */
+  .kp-film-stage,
+  .kp-film.is-live .kp-film-stage {
+    display: flex;
+    gap: var(--sp-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: var(--sp-4);
+    -webkit-overflow-scrolling: touch;
+    height: auto;
+  }
+  .kp-film-frame,
+  .kp-film.is-live .kp-film-frame {
+    position: static;
+    flex: 0 0 min(72vw, 285px);
+    scroll-snap-align: center;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .kp-film.is-live .kp-film-frame img {
+    width: 100%;
+    max-width: 285px;
+    max-height: none;
+  }
+  .kp-film.is-live .kp-film-pin { height: auto; }
+  .kp-film.is-live .kp-film-sticky {
+    position: static;
+    height: auto;
+    display: block;
+  }
+  .kp-film.is-live .kp-film-sents,
+  .kp-film.is-live .kp-film-count,
+  .kp-film.is-live .kp-film-dots { display: none; }
+  .kp-film.is-live .kp-film-side { margin-top: var(--sp-6); }
+  .kp-film.is-live .kp-film-cap { position: static; min-height: 0; }
+  .kp-film.is-live .kp-film-cap > * {
+    position: static;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    margin: 0 0 var(--sp-4);
+  }
+  .kp-film-stage::-webkit-scrollbar { height: 3px; }
+  .kp-film-stage::-webkit-scrollbar-thumb { background: var(--kp-line-strong); border-radius: 3px; }
+}
+
+@media (max-width: 700px) {
+  .kp-case { --kp-shell-w: min(100% - var(--sp-7), 1280px); }
+  .kp-tldr-grid { grid-template-columns: 1fr; }
+  .kp-tldr-cell {
+    border-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    border-bottom: 1px solid var(--kp-line);
+  }
+  .kp-tldr-cell:last-child { border-bottom: 0; }
+
+  .kp-hero-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* the scoreboard folds to two by two and keeps its rules */
+  .kp-stat-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kp-case a.kp-stat { padding: var(--sp-5); }
+  .kp-case a.kp-stat:nth-child(2n) { border-right: 0; }
+  .kp-case a.kp-stat:nth-child(-n + 2) { border-bottom: 1px solid var(--kp-line); }
+
+  /* two lines of label in one cell, one in the next: pin the label box so the
+     destination hints still sit on a shared line */
+  .kp-stat span { min-height: 2.5em; }
+
+  .kp-proto-grid { grid-template-columns: 1fr; }
+  .kp-quote-mark { font-size: 7rem; }
+  .kp-quote figcaption { display: block; }
+  .kp-quote-monogram { float: left; margin-right: var(--sp-4); }
+  .kp-case .kp-quote-src { display: inline-block; margin: var(--sp-5) 0 0; }
+}
+
+@media (max-width: 540px) {
+  .kp-hero-meta { grid-template-columns: 1fr; }
+  .kp-hero-stack .kp-brackets { inset: calc(var(--sp-2) * -1); }
+  .kp-brackets b { width: 18px; height: 18px; }
+
+  /* a 60px gutter for "C-01" is a sixth of the screen; stack it instead */
+  .kp-conbox { --kp-con-grid: minmax(0, 1fr); }
+  .kp-case .kp-con-row { gap: var(--sp-3); padding-inline: var(--sp-4); }
+  .kp-con-forced { grid-column: 1; }
+  .kp-docket-facts { flex-wrap: wrap; gap: var(--sp-4) 0; }
+  .kp-gallery-3,
+  .kp-gallery-4 { grid-template-columns: 1fr; }
+  .kp-hero-actions { flex-direction: column; align-items: flex-start; gap: var(--sp-4); }
+  .kp-closing-actions { flex-direction: column; align-items: flex-start; gap: var(--sp-4); }
+  .kp-case .fm-step { gap: var(--sp-6); }
+}

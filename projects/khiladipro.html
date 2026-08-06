@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Designing India's First At-Home Sports Olympiad: Khiladipro | Priyank Agarwal</title>
-  <meta name="description" content="An 8-week solo freelance engagement: landing pages, paid registration, app onboarding, and the live olympiad experience for Khiladipro's AI-scored sports event.">
+  <title>Khiladipro: Making a living room feel like a stadium | Priyank Agarwal</title>
+  <meta name="description" content="Case study: designing India's first at-home sports olympiad. Landing, paid registration, onboarding, and the live AI-scored event, designed solo in eight weeks.">
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <meta name="theme-color" content="#0f0f0e">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css?v=25">
+  <link rel="stylesheet" href="../assets/css/style.css?v=26">
+  <link rel="stylesheet" href="../assets/css/khiladipro.css?v=8">
 </head>
-<body>
+<body class="kp-case">
 
   <header class="site-header">
     <div class="wrap">
@@ -25,375 +26,1232 @@
     </div>
   </header>
 
-  <main>
-    <!-- ============ Hero ============ -->
-    <div class="fm-hero">
-      <img src="../assets/images/khiladipro/3a6144d6_ChatGPT_Image_Apr_22_2026_02_58_47_PM.jpg" alt="The Khiladipro olympiad landing page and mobile app">
-      <div class="fm-hero-inner">
-        <div class="wrap">
-          <a class="back-link" href="../index.html#work">← All projects</a>
-          <p class="fm-kicker">Case study · Sports tech · 2024-25</p>
-          <h1>Designing India’s first at-home sports olympiad</h1>
+  <main class="kp-main case-body">
+
+    <!-- ============ 1. Hero ============ -->
+    <section class="kp-hero" id="top">
+      <canvas class="hero-grid" aria-hidden="true"></canvas>
+      <i class="kp-hero-flood" aria-hidden="true"></i>
+
+      <div class="kp-shell kp-hero-inner">
+        <div class="kp-hero-copy">
+          <a class="back-link" href="../index.html#work">&larr; All projects</a>
+          <p class="fm-kicker">Case study / Sports tech / 2024-25</p>
+          <h1>Making a living room feel like <span class="kp-hero-em">a stadium.</span></h1>
+          <p class="kp-hero-intro">India&rsquo;s first at-home sports olympiad: paid, camera-scored, for students aged 12 to 18. I designed everything a family would touch, from the first ad click to the final point total. Solo, in eight weeks.</p>
+          <div class="kp-hero-actions">
+            <a class="kp-button" href="#overview">Read the short version <span>&darr;</span></a>
+            <a class="kp-subtle-link kp-hero-alt" href="#believe">Start at Chapter 01 <span>&darr;</span></a>
+          </div>
+          <p class="kp-hero-note"><span>3 min skim</span><i aria-hidden="true"></i><span>9 min in full</span><i aria-hidden="true"></i><span>07 chapters</span></p>
+        </div>
+
+        <div class="kp-hero-stack">
+          <figure class="kp-hero-mock">
+            <img src="../assets/images/khiladipro/3a6144d6_ChatGPT_Image_Apr_22_2026_02_58_47_PM.jpg" width="1536" height="1024" alt="The Khiladipro olympiad website on a tablet beside the mobile app showing a competitor's points and stages" fetchpriority="high" decoding="async">
+            <i class="kp-hero-scan" aria-hidden="true"></i>
+            <figcaption class="kp-hero-tag"><i aria-hidden="true"></i>The shipped product</figcaption>
+          </figure>
+          <i class="kp-brackets" aria-hidden="true"><b></b><b></b><b></b><b></b></i>
         </div>
       </div>
-    </div>
 
-    <section class="fm-head">
-      <div class="wrap">
-        <p class="fm-sub">Khiladipro hired me to design every user-facing surface of a first-of-its-kind event: two landing pages, paid registration, app onboarding, and the olympiad itself, in about eight weeks, solo.</p>
+      <div class="kp-shell kp-hero-meta">
+        <div><h4>Client</h4><p>Khiladipro (Kpro.fit)</p></div>
+        <div><h4>Role</h4><p>Sole product designer, freelance</p></div>
+        <div><h4>Timeline</h4><p>~8 weeks &middot; 2024-25</p></div>
+        <div><h4>Platforms</h4><p>Web &middot; Android &middot; iOS</p></div>
+        <div><h4>Team</h4><p>Me, a PM, an engineer, the CEO</p></div>
+      </div>
+    </section>
 
-        <div class="case-meta">
-          <div><h4>Client</h4><p>Khiladipro (Kpro.fit)</p></div>
-          <div><h4>Role</h4><p>Sole Product Designer (freelance)</p></div>
-          <div><h4>Timeline</h4><p>~8 weeks · 2024-25</p></div>
-          <div><h4>Platform</h4><p>Web · Android · iOS</p></div>
+    <!-- ============ 2. The short version ============ -->
+    <section class="kp-tldr kp-shell" id="overview" aria-label="The short version">
+      <div class="kp-sec-head">
+        <p class="kp-overline reveal">The short version</p>
+        <p class="kp-sec-meta reveal">For people with ten portfolios open in tabs</p>
+      </div>
+
+      <div class="kp-tldr-grid">
+        <div class="kp-tldr-cell reveal">
+          <span>01 / The gig</span>
+          <h3>A national olympiad, refereed by a phone camera.</h3>
+          <p>Khiladipro scores sports drills with visual AI. For the summer holidays it went nationwide and paid, for students aged 12 to 18, and I was the sole product designer on it.</p>
+          <a class="kp-text-link" href="#believe" data-peek="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" data-peek-title="CH 01 &middot; The landing page" data-peek-cta="Jump to the chapter ↓">Chapter 01, the landing page &darr;</a>
         </div>
+        <div class="kp-tldr-cell reveal">
+          <span>02 / What I shipped</span>
+          <h3>Four surfaces, from the ad click to the final rep.</h3>
+          <p>The landing and registration experience on web, plus first-run onboarding and every live event state on Android and iOS. No design system, eight weeks, a four-person launch team.</p>
+          <a class="kp-text-link" href="#setup" data-peek="../assets/images/khiladipro/193c1397_Android_Large_-_243.png" data-peek-title="CH 03 &middot; First-run onboarding" data-peek-cta="Jump to the chapter ↓">Chapter 03, onboarding &darr;</a>
+        </div>
+        <div class="kp-tldr-cell reveal">
+          <span>03 / The hard part</span>
+          <h3>Three trust problems, none of them visual.</h3>
+          <p>Parents paid before installing anything. Teenagers set up a camera alone. And an AI referee had to feel fair from three metres away.</p>
+          <a class="kp-text-link" href="#compete" data-peek="../assets/images/khiladipro/92205d06_Android_Large_-_235.png" data-peek-title="CH 04 &middot; The scored drill" data-peek-cta="Jump to the chapter ↓">Chapter 04, the drill &darr;</a>
+        </div>
+        <div class="kp-tldr-cell reveal">
+          <span>04 / What happened</span>
+          <h3>They came back with a second brief.</h3>
+          <p>A rehire is the outcome I can publish with confidence. The analytics stayed with the client, and Chapter 07 says exactly what I would have measured.</p>
+          <a class="kp-text-link" href="#rehire" data-peek="../assets/images/khiladipro/69b8b1c0_Homepage.png" data-peek-title="CH 06 &middot; The second brief" data-peek-cta="Jump to the chapter ↓">Chapter 06, the outcome &darr;</a>
+        </div>
+      </div>
 
-        <p class="fm-note"><strong>Outcome data</strong>: Analytics for this project were owned by the client, and I won’t publish numbers I can’t verify. Chapter 06 covers what I would have measured.</p>
+      <div class="kp-strip-head">
+        <p class="kp-mini-label reveal">By the numbers</p>
+        <p class="kp-sec-meta reveal">Counted, not estimated</p>
+      </div>
+      <div class="kp-stat-strip reveal">
+        <a class="kp-stat" href="#brief"><b data-countup>08</b><span>Weeks, solo</span><em>The brief &darr;</em></a>
+        <a class="kp-stat" href="#map"><b data-countup>04</b><span>Surfaces shipped</span><em>The map &darr;</em></a>
+        <a class="kp-stat" href="#scorecard"><b data-countup>07</b><span>Clickable prototypes</span><em>The index &darr;</em></a>
+        <a class="kp-stat" href="#rehire"><b data-countup>01</b><span>Rehire</span><em>Chapter 06 &darr;</em></a>
+      </div>
+    </section>
 
-        <ul class="fm-contents">
-          <li><a href="#brief"><b>01</b>The brief</a></li>
-          <li><a href="#landing"><b>02</b>Landing &amp; registration</a></li>
-          <li><a href="#onboarding"><b>03</b>Onboarding</a></li>
-          <li><a href="#app"><b>04</b>The olympiad, live</a></li>
-          <li><a href="#rehire"><b>05</b>The rehire</a></li>
-          <li><a href="#scorecard"><b>06</b>Scorecard</a></li>
+    <!-- ============ 3. The brief ============
+         Sequenced as an argument rather than a description: here is what was
+         handed to me, here is what it actually turned out to be, and here are
+         the five limits all of it had to happen inside. The ledger doubles as
+         an index — each constraint carries an id, links to the chapter where
+         it bit, and is cited back by code from inside those chapters. -->
+    <section class="kp-brief kp-shell" id="brief">
+      <div class="kp-brief-top">
+        <aside class="kp-intake reveal">
+          <p class="kp-overline">The brief</p>
+          <div class="kp-docket">
+            <p class="kp-docket-head">As it came in</p>
+            <p class="kp-docket-ask">Khiladipro&rsquo;s camera-scoring technology was leaving the training app for a first-of-its-kind national event: paid, at home, students aged 12 to 18. Turn that into one coherent experience, from the first ad click to a child&rsquo;s final point total.</p>
+            <ul class="kp-docket-facts">
+              <li><b>~8</b><span>weeks</span></li>
+              <li><b>04</b><span>surfaces</span></li>
+              <li><b>03</b><span>audiences</span></li>
+            </ul>
+            <p class="kp-docket-window"><span>Window, locked</span><b>25 May &rarr; 15 Jun</b></p>
+          </div>
+        </aside>
+
+        <div class="kp-reframe reveal">
+          <p class="kp-reframe-label"><i aria-hidden="true"></i>What it actually was</p>
+          <h2>The hardest screen wasn&rsquo;t an exercise screen. It was the moment a parent decided to trust us with <span class="kp-hl">their child, their card, and their camera.</span></h2>
+          <p class="kp-reframe-body">Marketing could make the olympiad exciting. Design had to make it feel legitimate: worth paying for before the app was installed, possible for a 13-year-old to set up alone, and fair when a machine did the scoring.</p>
+        </div>
+      </div>
+
+      <div class="kp-box-head reveal">
+        <p class="kp-mini-label">The box I was working in</p>
+        <h3>Nothing here was a blank page.</h3>
+        <p>Five constraints shaped every decision in this study. Each row says what it forced, and opens the chapter where it bit.</p>
+      </div>
+
+      <div class="kp-conbox">
+        <i class="kp-brackets" aria-hidden="true"><b></b><b></b><b></b><b></b></i>
+        <p class="kp-conbox-label" aria-hidden="true">C-01 to C-05</p>
+        <p class="kp-con-cols" aria-hidden="true"><span>The constraint</span><span>What it forced</span></p>
+        <ul class="kp-constraints">
+          <li class="reveal" id="c-01">
+            <a class="kp-con-row" href="#return" data-peek="../assets/images/khiladipro/dab923c5_home_-_with_frame.png" data-peek-title="CH 05 &middot; The live event" data-peek-cta="Jump to the chapter ↓">
+              <span class="kp-con-n">C-01</span>
+              <span class="kp-con-body"><strong>An inherited design language, no design system.</strong>The app already existed; my screens had to look native to it, with only a little wiggle room.</span>
+              <span class="kp-con-forced"><em>Every state had to feel like an event while still passing as the app it lived in. Type, scale and pacing carried what a new visual language couldn&rsquo;t.</em><b>Bites in CH 05 <i aria-hidden="true">&darr;</i></b></span>
+            </a>
+          </li>
+          <li class="reveal" id="c-02">
+            <a class="kp-con-row" href="#believe" data-peek="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" data-peek-title="CH 01 &middot; The landing page" data-peek-cta="Jump to the chapter ↓">
+              <span class="kp-con-n">C-02</span>
+              <span class="kp-con-body"><strong>A calendar nobody could move.</strong>The window was locked to the school holidays, and marketing needed the pages live well before it opened.</span>
+              <span class="kp-con-forced"><em>The dates got hero billing on the landing page. With a door that closes on 15 June, the deadline was the argument.</em><b>Bites in CH 01 <i aria-hidden="true">&darr;</i></b></span>
+            </a>
+          </li>
+          <li class="reveal" id="c-03">
+            <a class="kp-con-row" href="#believe" data-peek="../assets/images/khiladipro/91415b1c_Landing_Page_Mobile.png" data-peek-title="CH 01 &middot; Where the ads land" data-peek-cta="Jump to the chapter ↓">
+              <span class="kp-con-n">C-03</span>
+              <span class="kp-con-body"><strong>Three audiences, one URL.</strong>Students compete, parents pay and supervise, academies bring whole cohorts &mdash; and paid ads landed all three on the same page.</span>
+              <span class="kp-con-forced"><em>One page had to make three different promises: prizes for the competitor, legitimacy for the parent, credibility for the academy.</em><b>Bites in CH 01 <i aria-hidden="true">&darr;</i></b></span>
+            </a>
+          </li>
+          <li class="reveal" id="c-04">
+            <a class="kp-con-row" href="#commit" data-peek="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" data-peek-title="CH 02 &middot; Registration and payment" data-peek-cta="Jump to the chapter ↓">
+              <span class="kp-con-n">C-04</span>
+              <span class="kp-con-body"><strong>Persuasion before install.</strong>Registration and payment happen on the web, before the app is ever downloaded.</span>
+              <span class="kp-con-forced"><em>Proof had to sit in the same viewport as the payment field. Nothing convincing could be deferred to a section further down.</em><b>Bites in CH 02 <i aria-hidden="true">&darr;</i></b></span>
+            </a>
+          </li>
+          <li class="reveal" id="c-05">
+            <a class="kp-con-row" href="#scorecard">
+              <span class="kp-con-n">C-05</span>
+              <span class="kp-con-body"><strong>A team of four.</strong>Me, a product manager, an engineer, and the CEO.</span>
+              <span class="kp-con-forced"><em>No second designer to review anything. Chapter 07 is me marking my own work.</em><b>Bites in CH 07 <i aria-hidden="true">&darr;</i></b></span>
+            </a>
+          </li>
         </ul>
       </div>
     </section>
 
-    <div class="case-body">
-
-      <!-- ============ Context ============ -->
-      <section class="case-section">
-        <div class="wrap">
-          <p>Khiladipro is a sports-tech startup whose app uses the phone camera and visual AI to score fitness drills. For the summer vacations, they planned something India hadn’t seen before: a <strong>sports &amp; fitness olympiad for students aged 12-18</strong>, competed entirely from home. Register, pay an entry fee, receive a kit, complete AI-scored drills on camera, win prizes.</p>
-          <p>For the business, the olympiad was also an acquisition wedge: a way to reach casual, non-serious users adjacent to their core audience of young athletes. Everything a user would touch, I designed.</p>
+    <!-- ============ 4. The relay map ============ -->
+    <section class="kp-paper-sec" id="map" aria-labelledby="map-title">
+      <div class="kp-shell">
+        <div class="kp-map-head reveal">
+          <p class="kp-overline">The experience map</p>
+          <h2 id="map-title">This wasn&rsquo;t a funnel. It was a relay.</h2>
+          <p>Every handoff had to preserve confidence: from a parent&rsquo;s browser to a child&rsquo;s bedroom, then from a physical drill back into a digital score. Five stages, one promise: this is going to work in my home.</p>
         </div>
-      </section>
 
-      <!-- ============ CH 01 ============ -->
-      <section class="case-section">
-        <div class="wrap">
-          <div class="fm-ch" id="brief">
-            <span class="idx">CH 01 / 06</span>
-            <h2>The brief &amp; the constraints</h2>
-          </div>
-          <p>The engagement was execution-focused: strategy and success metrics stayed with the client. My first job was to map “design the olympiad” into four concrete surfaces: a landing page that converts, a registration flow that collects payment, an onboarding that teaches the drill ritual, and the in-app event itself, and then design all four inside these constraints:</p>
-          <ul class="fm-checklist">
-            <li class="reveal"><span class="n">C-01</span><span><strong>An inherited design language, no design system.</strong> The app already existed; my screens had to look native to it, with only a little wiggle room.</span></li>
-            <li class="reveal"><span class="n">C-02</span><span><strong>A fixed calendar.</strong> The event window, 25 May to 15 June, was locked to school vacations, and marketing needed the pages well before that.</span></li>
-            <li class="reveal"><span class="n">C-03</span><span><strong>Three audiences, one page.</strong> Students compete, parents pay and supervise, academies bring whole cohorts. Each needed a different promise.</span></li>
-            <li class="reveal"><span class="n">C-04</span><span><strong>Persuasion before install.</strong> Registration and payment happen on the web, before the app is ever downloaded: the landing page had to carry the entire sell.</span></li>
-            <li class="reveal"><span class="n">C-05</span><span><strong>A team of four.</strong> Me, one product manager, one engineer, and the CEO. No other designers.</span></li>
-          </ul>
+        <div class="kp-relay reveal">
+          <p class="kp-relay-ends" aria-hidden="true"><span>Starts at an ad click</span><span>Ends at a final point total</span></p>
+          <a class="kp-relay-stage" href="#believe" data-peek="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" data-peek-title="CH 01 &middot; The landing page" data-peek-cta="Jump to the chapter ↓">
+            <span class="kp-relay-no">01</span>
+            <span class="kp-relay-node" aria-hidden="true"><i></i><b></b></span>
+            <strong>Believe</strong>
+            <span class="kp-relay-q">What is this, and is it real?</span>
+            <span class="kp-relay-go">The landing page <em>&darr;</em></span>
+          </a>
+          <a class="kp-relay-stage" href="#commit" data-peek="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" data-peek-title="CH 02 &middot; Registration and payment" data-peek-cta="Jump to the chapter ↓">
+            <span class="kp-relay-no">02</span>
+            <span class="kp-relay-node" aria-hidden="true"><i></i><b></b></span>
+            <strong>Commit</strong>
+            <span class="kp-relay-q">Worth paying for, before the install?</span>
+            <span class="kp-relay-go">Registration and payment <em>&darr;</em></span>
+          </a>
+          <a class="kp-relay-stage" href="#setup" data-peek="../assets/images/khiladipro/193c1397_Android_Large_-_243.png" data-peek-title="CH 03 &middot; First-run onboarding" data-peek-cta="Jump to the chapter ↓">
+            <span class="kp-relay-no">03</span>
+            <span class="kp-relay-node" aria-hidden="true"><i></i><b></b></span>
+            <strong>Set up</strong>
+            <span class="kp-relay-q">Can a 13-year-old do this alone?</span>
+            <span class="kp-relay-go">First-run onboarding <em>&darr;</em></span>
+          </a>
+          <a class="kp-relay-stage" href="#compete" data-peek="../assets/images/khiladipro/92205d06_Android_Large_-_235.png" data-peek-title="CH 04 &middot; The scored drill" data-peek-cta="Jump to the chapter ↓">
+            <span class="kp-relay-no">04</span>
+            <span class="kp-relay-node" aria-hidden="true"><i></i><b></b></span>
+            <strong>Compete</strong>
+            <span class="kp-relay-q">Does an AI referee feel fair?</span>
+            <span class="kp-relay-go">The scored drill <em>&darr;</em></span>
+          </a>
+          <a class="kp-relay-stage" href="#return" data-peek="../assets/images/khiladipro/dab923c5_home_-_with_frame.png" data-peek-title="CH 05 &middot; The live event" data-peek-cta="Jump to the chapter ↓">
+            <span class="kp-relay-no">05</span>
+            <span class="kp-relay-node" aria-hidden="true"><i></i><b></b></span>
+            <strong>Return</strong>
+            <span class="kp-relay-q">What did I earn, and what&rsquo;s next?</span>
+            <span class="kp-relay-go">The live event <em>&darr;</em></span>
+          </a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ============ CH 02 ============ -->
-      <section class="case-section">
-        <div class="wrap">
-          <div class="fm-ch" id="landing">
-            <span class="idx">CH 02 / 06</span>
-            <h2>One page, three audiences</h2>
+    <!-- ============ CH 01: Believe ============
+         The chapter's claim is that one page had to make three different
+         promises, so the evidence is one page answering three readers in turn.
+         The frame never moves; the lit band does. Pointing at a reader pans the
+         shipped page to the part written for them and dims the rest; letting go
+         hands the pan back to the reader's own scroll. Everything the rows
+         claim is legible in the screenshot beside them — no assertion here is
+         unverifiable from Fig. 01. -->
+    <section class="kp-work">
+      <div class="kp-shell">
+        <div class="kp-chapter-head reveal">
+          <p class="kp-overline">Stage 01 &middot; The landing page</p>
+          <div class="fm-ch" id="believe">
+            <span class="idx">CH 01 / 07</span>
+            <h2>Sell the stadium before it exists.</h2>
           </div>
-          <p>A 14-year-old wants prizes and recognition. Their parent, who holds the credit card, wants legitimacy and oversight. An academy wants credibility in front of its students. The landing page had to make all three promises without splitting into three pages.</p>
+        </div>
 
-          <p class="fm-pull reveal">The parent pays before the app is even installed, so the landing page has to do all of the convincing.</p>
+        <p class="kp-lead reveal">Paid ads dropped a 14-year-old, the parent holding the card, and an academy coach on the same URL <a class="kp-cref" href="#c-03">(C-03)</a>. Three readers, three different questions, one scroll to answer all of them &mdash; and nothing to demo, because the olympiad had never run before.</p>
 
-          <p>That funnel shaped the page: audience-specific value cards near the top (“For Khiladis”, “For Parents”), the age band stated plainly next to the CTA so unqualified visitors self-select out before clicking, and the event dates given hero billing: for a time-boxed event, urgency is the honest sell.</p>
+        <p class="fm-pull reveal">The parent pays before the app is even installed, so the landing page has to do all of the convincing.</p>
 
-          <figure class="shot reveal">
-            <div class="fm-crop">
-              <img src="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" alt="The olympiad landing page, hero section" loading="lazy">
-              <button class="fm-crop-btn" data-lightbox="../assets/images/khiladipro/93d81f60_Landing_Page-1.png">View full page ↗</button>
+        <!-- SWAP-WHEN-CLEAN: 93d81f60 (watermark + one lorem card, clean re-export pending) -->
+        <div class="kp-lens" data-lens>
+          <div class="kp-lens-head reveal">
+            <p class="kp-mini-label">One page, three readers</p>
+            <h3>Same scroll. Three different arguments.</h3>
+            <p><span class="kp-lens-live">Point at a reader and the shipped page settles on the part written for them. Let go and it drifts on with your scroll.</span><span class="kp-lens-static">Each of them is answered at a different depth of the page below, in the order it makes its three promises.</span></p>
+          </div>
+
+          <div class="kp-lens-body">
+            <figure class="kp-browser-frame kp-longpage reveal" data-longpage>
+              <div class="kp-browser-bar" aria-hidden="true"><span></span><span></span><span></span><b>khiladipro.com/olympiad</b><em class="kp-longpage-hint">Full page &middot; pans with your scroll</em></div>
+              <div class="kp-longpage-view">
+                <img src="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" width="1600" height="1841" data-lightbox="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" alt="The olympiad landing page with the event dates, audience value cards, and a register call to action" loading="lazy" decoding="async">
+                <i class="kp-lens-band" aria-hidden="true"><b></b></i>
+                <i class="kp-longpage-rail" aria-hidden="true"><b></b></i>
+              </div>
+              <figcaption>
+                <span class="fig-n">Fig. 01</span>
+                <p>The shipped olympiad page, top to bottom. Two of the three promises land before the fold; the third is the one a coach will scroll for. <a class="kp-text-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2030-4001&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">The shipped page, interactive <span>&#8599;</span></a></p>
+              </figcaption>
+            </figure>
+
+            <div class="kp-lens-side">
+              <p class="kp-lens-count" aria-hidden="true"><b data-lens-now>00</b><i>/03</i></p>
+              <ol class="kp-lens-rows">
+                <li>
+                  <button class="kp-lens-row" type="button" data-lens-band="0.086 0.333" data-lens-tag="The competitor" aria-pressed="false">
+                    <span class="kp-lens-n">01</span>
+                    <span class="kp-lens-who">The competitor<em>12 to 18</em></span>
+                    <span class="kp-lens-q">Is there anything in this for me?</span>
+                    <span class="kp-lens-a">A national first, a closing date <a class="kp-cref" href="#c-02">(C-02)</a>, and a prize &mdash; before a single word about the technology. Kids do not enter a scoring engine, they enter an olympiad.</span>
+                  </button>
+                </li>
+                <li>
+                  <button class="kp-lens-row" type="button" data-lens-band="0.333 0.480" data-lens-tag="The parent" aria-pressed="false">
+                    <span class="kp-lens-n">02</span>
+                    <span class="kp-lens-who">The parent<em>holds the card</em></span>
+                    <span class="kp-lens-q">Is this legitimate, and is my kid eligible?</span>
+                    <span class="kp-lens-a">Their own line of value, then the age band, then the button &mdash; in that order. The 12-to-18 rule is answered on the way to the click rather than in an FAQ after it.</span>
+                  </button>
+                </li>
+                <li>
+                  <button class="kp-lens-row" type="button" data-lens-band="0.538 0.820" data-lens-tag="The academy" aria-pressed="false">
+                    <span class="kp-lens-n">03</span>
+                    <span class="kp-lens-who">The academy<em>brings a cohort</em></span>
+                    <span class="kp-lens-q">Can I put twenty students through this?</span>
+                    <span class="kp-lens-a">Register, compete, win, with the kit and the leaderboard named. A coach can forward one link and let it explain the format to twenty families.</span>
+                  </button>
+                </li>
+              </ol>
+              <p class="kp-lens-foot">Three promises, one page. Splitting them into three would have meant three ad budgets.</p>
             </div>
-            <figcaption><span class="fig-n">Fig. 01</span>The olympiad landing page. The full page is long: open it to scroll, or <a class="proto-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2030-4001&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">view the interactive prototype →</a></figcaption>
+          </div>
+        </div>
+
+        <div class="kp-fold">
+          <div class="kp-fold-head reveal">
+            <p class="kp-mini-label">The fold, on the device that mattered</p>
+            <h3>Then most of that traffic arrived on a phone.</h3>
+            <p>The same argument, in roughly a third of the space. The order of proof survives the move; the quantity does not, and the button is what everything else has to make room for.</p>
+          </div>
+
+          <!-- the two running orders sit beside the phone that proves the
+               second one, and the trade note runs under the stacks only. The
+               left column is nested rather than placed on a shared grid: a
+               row-spanning figure gets its surplus height handed back to the
+               rows, which opens a gap above the note that no track sizing
+               will close. Nested, the note's offset is exactly what is set. -->
+          <div class="kp-fold-body">
+            <div class="kp-fold-main">
+              <div class="kp-fold-cols">
+              <div class="kp-fold-col reveal">
+                <p class="kp-fold-dev">Desktop <span>1440</span></p>
+                <ol>
+                  <li><b>01</b>India&rsquo;s first &middot; Sports &amp; Fitness Olympiad</li>
+                  <li><b>02</b>25 May &ndash; 15 June</li>
+                  <li><b>03</b>For Khiladis &middot; prizes and recognition</li>
+                  <li><b>04</b>For Parents &middot; stay on top of progress</li>
+                  <li><b>05</b>For ages 12&ndash;18</li>
+                  <li class="is-cta"><b>06</b>Register Now</li>
+                </ol>
+                <p class="kp-fold-rule"><i></i>the fold</p>
+                <p class="kp-fold-note">The photograph runs alongside, in a second column.</p>
+              </div>
+              <div class="kp-fold-col is-mobile reveal">
+                <p class="kp-fold-dev">Mobile <span>390</span></p>
+                <ol>
+                  <li class="is-edit"><b>01</b>India&rsquo;s first &middot; Sports Olympiad<em>two words lighter</em></li>
+                  <li><b>02</b>25 May &ndash; 15 June</li>
+                  <li class="is-edit"><b>03</b>The photograph<em>climbs the page</em></li>
+                  <li class="is-edit"><b>04</b>For Khiladis &middot; prizes and recognition<em>one chip, not two</em></li>
+                  <li class="is-cta"><b>05</b>Register Now</li>
+                </ol>
+                <p class="kp-fold-rule"><i></i>the fold</p>
+                <p class="kp-fold-note">Five things fit. The parent&rsquo;s line waits just below.</p>
+              </div>
+              </div>
+
+              <p class="kp-fold-delta reveal"><span>What the cut cost</span>The parent loses their line above the fold, so the dates and the photograph have to carry the legitimacy alone until they scroll. On a page selling a first-of-its-kind event, that is the trade I would put in front of a test before anything else on this page.</p>
+            </div>
+
+            <!-- SWAP-WHEN-CLEAN: 91415b1c (watermark, clean re-export pending) -->
+            <figure class="kp-frame reveal shot">
+              <img src="../assets/images/khiladipro/91415b1c_Landing_Page_Mobile.png" width="567" height="1227" alt="Mobile olympiad landing page: shortened headline, event dates, the photograph, one audience line, and a full-width register button" loading="lazy" decoding="async">
+              <figcaption>
+                <span class="fig-n">Fig. 02</span>
+                <strong>The phone version of the same argument, ending on a full-width button.</strong>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="kp-passes reveal">
+          <p class="kp-mini-label">How I got there &middot; three passes, three questions</p>
+          <ol class="kp-process-steps">
+            <li>
+              <span>01</span>
+              <div>
+                <strong>Who is this for, and what must each of them believe?</strong>
+                <p>Structure settled first, in grey boxes, before anyone could argue about a typeface.</p>
+                <a class="kp-text-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2254-23890&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">Lo-fi prototype <span>&#8599;</span></a>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <strong>What order makes all three arguments effortless to scan?</strong>
+                <p>Layout and the registration path, locked together, because the page only exists to reach that button.</p>
+                <a class="kp-text-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2254-23895&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">Mid-fi prototype <span>&#8599;</span></a>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <strong>How does an event page still read as the product it belongs to?</strong>
+                <p>Polish last, inside an inherited visual language with very little room to move <a class="kp-cref" href="#c-01">(C-01)</a>.</p>
+                <span class="kp-step-note">The shipped page, above.</span>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CH 02: Commit ============ -->
+    <section class="kp-work kp-work-alt">
+      <div class="kp-shell">
+        <div class="kp-chapter-head reveal">
+          <p class="kp-overline">Stage 02 &middot; Registration and payment</p>
+          <div class="fm-ch" id="commit">
+            <span class="idx">CH 02 / 07</span>
+            <h2>Reassurance belongs beside the payment field.</h2>
+          </div>
+        </div>
+
+        <p class="kp-lead reveal">The moment of maximum doubt is the payment step of an event that has never existed before. The answer wasn&rsquo;t a cleverer form. It was keeping proof in the same viewport as the commitment.</p>
+
+        <figure class="kp-annotated" data-anno-group>
+          <div class="kp-anno-media reveal">
+            <div class="kp-browser-frame">
+              <div class="kp-browser-bar" aria-hidden="true"><span></span><span></span><span></span><b>khiladipro.com/register</b></div>
+              <div class="kp-anno-plate">
+                <img src="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" width="1600" height="1045" data-lightbox="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" alt="Registration step one with name, phone, email and date of birth fields beside quotes from a cricketer and an academy coach" loading="lazy" decoding="async">
+                <button class="kp-anno-dot" type="button" data-anno="1" style="--x: 4.6%; --y: 15.6%" aria-label="Note 1: three steps, labelled">1</button>
+                <button class="kp-anno-dot" type="button" data-anno="2" style="--x: 55.6%; --y: 24%" aria-label="Note 2: proof beside the form">2</button>
+                <button class="kp-anno-dot" type="button" data-anno="3" style="--x: 6.2%; --y: 63%" aria-label="Note 3: date of birth does the qualifying">3</button>
+              </div>
+              <figcaption>
+                <span class="fig-n">Fig. 03</span>
+                <p>Step 1 of 3. Credibility sits in the same viewport as the commitment.</p>
+              </figcaption>
+            </div>
+          </div>
+
+          <ol class="kp-anno-list reveal">
+            <li data-anno="1"><b class="kp-anno-n">1</b><span><strong>Three steps, labelled.</strong> A parent can see exactly how long this will take before they start typing.</span></li>
+            <li data-anno="2"><b class="kp-anno-n">2</b><span><strong>Proof beside the form.</strong> A quote from Jonty Rhodes and one from an academy coach sit level with the fields, right where hesitation happens.</span></li>
+            <li data-anno="3"><b class="kp-anno-n">3</b><span><strong>Date of birth does the qualifying.</strong> The 12 to 18 band is enforced in the form rather than argued about in an FAQ <a class="kp-cref" href="#c-03">(C-03)</a>.</span></li>
+          </ol>
+        </figure>
+
+        <p class="kp-note reveal">Payment UI is trust UI. Nothing on this screen is decorative. <a class="kp-text-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2345-1923&amp;t=c1yya1PZsLvXzw1m-1" target="_blank" rel="noopener">Registration flow, steps 1 to 3 <span>&#8599;</span></a></p>
+      </div>
+    </section>
+
+    <!-- ============ CH 03: Set up ============ -->
+    <section class="kp-work">
+      <div class="kp-shell">
+        <div class="kp-chapter-head reveal">
+          <p class="kp-overline">Stage 03 &middot; First-run onboarding</p>
+          <div class="fm-ch" id="setup">
+            <span class="idx">CH 03 / 07</span>
+            <h2>Teaching a phone to watch you.</h2>
+          </div>
+        </div>
+
+        <p class="kp-lead reveal">The first session is where this product lives or dies. A first-time user, often a 13-year-old, unsupervised, has to prop their phone against a wall, grant camera access, walk three metres away, and trust that an AI is counting fairly. If setup fails, the drill can&rsquo;t be scored; for a paid event, that&rsquo;s a refund request. The whole flow is designed around that single failure mode.</p>
+
+        <div class="kp-ruler reveal" aria-label="Six screens between install and the first scored rep">
+          <span>Install</span><i></i><b>6 screens</b><i></i><span>First rep</span>
+        </div>
+
+        <div class="kp-film" data-film style="--kp-steps: 6">
+          <div class="kp-film-pin">
+            <div class="kp-film-sticky">
+              <div class="kp-film-stage">
+                <figure class="kp-film-frame is-on" data-step="0">
+                  <img src="../assets/images/khiladipro/cdb4e5d8_Android_Large_-_232.png" width="570" height="1230" alt="Onboarding screen introducing Supervision with a video of a cricketer bowling in the nets" loading="lazy" decoding="async">
+                </figure>
+                <figure class="kp-film-frame" data-step="1">
+                  <img src="../assets/images/khiladipro/c6f1e8fe_Android_Large_-_234.png" width="570" height="1230" alt="Face capture screen asking the player to place their head inside an oval guide, with a skip for now link below" loading="lazy" decoding="async">
+                </figure>
+                <figure class="kp-film-frame" data-step="2">
+                  <img src="../assets/images/khiladipro/61054391_Android_Large_-_242.png" width="570" height="1230" alt="Camera permissions sheet explaining that the camera tracks workouts and gives personalised feedback" loading="lazy" decoding="async">
+                </figure>
+                <figure class="kp-film-frame" data-step="3">
+                  <img src="../assets/images/khiladipro/193c1397_Android_Large_-_243.png" width="570" height="1230" alt="Phone placement sheet illustrating a phone propped against a wall with the camera framing a standing player" loading="lazy" decoding="async">
+                </figure>
+                <figure class="kp-film-frame" data-step="4">
+                  <img src="../assets/images/khiladipro/2c797f59_Android_Large_-_239.png" width="570" height="1230" alt="Body capture rehearsal asking the player to stand inside green outline guidelines" loading="lazy" decoding="async">
+                </figure>
+                <figure class="kp-film-frame" data-step="5">
+                  <img src="../assets/images/khiladipro/9773a5e1_Android_Large_-_237.png" width="570" height="1230" alt="Confetti celebration reading That was amazing with ten points earned and three of three drills complete" loading="lazy" decoding="async">
+                </figure>
+              </div>
+
+              <div class="kp-film-side">
+                <p class="kp-film-count" aria-hidden="true"><b data-film-now>01</b>/06</p>
+                <ol class="kp-film-dots">
+                  <li><button type="button" data-film-go="0" aria-label="Step 1: the explainer" aria-current="step">01</button></li>
+                  <li><button type="button" data-film-go="1" aria-label="Step 2: the exit">02</button></li>
+                  <li><button type="button" data-film-go="2" aria-label="Step 3: the permission">03</button></li>
+                  <li><button type="button" data-film-go="3" aria-label="Step 4: the placement">04</button></li>
+                  <li><button type="button" data-film-go="4" aria-label="Step 5: the rehearsal">05</button></li>
+                  <li><button type="button" data-film-go="5" aria-label="Step 6: the finish">06</button></li>
+                </ol>
+                <div class="kp-film-cap">
+                  <div class="is-on"><em>01 &middot; The explainer</em><strong>Show the magic before asking for anything.</strong><p>New users arrive from olympiad ads with zero context. A short video explains what the Supervision AI does before the app requests a single permission.</p></div>
+                  <div><em>02 &middot; The exit</em><strong>The way out is a feature.</strong><p>Every setup screen, face capture included, keeps a visible skip. Users who arrived organically and already know the drill are never held hostage by a tutorial built for strangers.</p></div>
+                  <div><em>03 &middot; The permission</em><strong>Earn the camera before the OS asks.</strong><p>A plain-language rationale precedes the system dialog: why the camera, what it sees, what it is used for. In an app aimed at minors, a refusal here is fatal.</p></div>
+                  <div><em>04 &middot; The placement</em><strong>Show the setup, don&rsquo;t describe it.</strong><p>Phone placement is the make-or-break moment of the whole product, and text fails at it. A real room, a phone propped on the floor, a camera cone reaching a full body: that lands.</p></div>
+                  <div><em>05 &middot; The rehearsal</em><strong>A first attempt that costs nothing.</strong><p>A throwaway body-capture drill introduces the visual AI, so the first scored attempt is never also the first attempt.</p></div>
+                  <div><em>06 &middot; The finish</em><strong>End on a win, not a dialog.</strong><p>The flow closes with a celebration: the peak-end rule, applied deliberately. The last memory of setup is ten points earned.</p></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="kp-film-sents" aria-hidden="true">
+              <i data-film-sent="0"></i><i data-film-sent="1"></i><i data-film-sent="2"></i><i data-film-sent="3"></i><i data-film-sent="4"></i><i data-film-sent="5"></i>
+            </div>
+          </div>
+        </div>
+
+        <p class="fm-pull reveal">If setup fails, the drill cannot be scored, and for a paid event that is a refund request. Every screen here is built around that one failure.</p>
+
+        <p class="reveal kp-film-out"><a class="kp-text-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=326-3609&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">Walk the complete onboarding flow <span>&#8599;</span></a></p>
+      </div>
+    </section>
+
+    <!-- ============ CH 04: Compete (the set piece) ============ -->
+    <section class="kp-film-sec">
+      <div class="kp-shell">
+        <div class="kp-chapter-head reveal">
+          <p class="kp-overline">Stage 04 &middot; The scored drill</p>
+          <div class="fm-ch" id="compete">
+            <span class="idx">CH 04 / 07</span>
+            <h2>Three metres from the nearest tap.</h2>
+          </div>
+        </div>
+
+        <p class="kp-lead reveal">During a scored drill the phone is propped against a wall and the player is across the room. No taps, no scrolling, no second chances. The interface has to coach, count, and celebrate from three metres away. This is what the player sees.</p>
+
+        <div class="kp-ruler reveal" aria-label="The phone sits about three metres from the player">
+          <span>Phone</span><i></i><b>3m</b><i></i><span>Player</span>
+        </div>
+
+        <div class="kp-film" data-film>
+          <div class="kp-film-pin">
+            <div class="kp-film-sticky">
+              <div class="kp-film-stage">
+                <figure class="kp-film-frame is-on" data-step="0">
+                  <img src="../assets/images/khiladipro/309e4ad6_Android_Large_-_234.png" width="570" height="1230" alt="Full screen drill card announcing Drill 1, twenty squats, in oversized type" loading="lazy" decoding="async">
+                </figure>
+                <figure class="kp-film-frame" data-step="1">
+                  <img src="../assets/images/khiladipro/92205d06_Android_Large_-_235.png" width="570" height="1230" alt="Live drill screen outlining the player's body in green with a large counter reading 13 of 20" loading="lazy" decoding="async">
+                </figure>
+                <figure class="kp-film-frame" data-step="2">
+                  <img src="../assets/images/khiladipro/76cc61d9_Android_Large_-_240.png" width="570" height="1230" alt="Full screen feedback card reading Perfect!" loading="lazy" decoding="async">
+                </figure>
+                <figure class="kp-film-frame" data-step="3">
+                  <img src="../assets/images/khiladipro/ebf4a7be_Android_Large_-_241.png" width="570" height="1230" alt="Handoff card announcing the next drill, six jumping jacks" loading="lazy" decoding="async">
+                </figure>
+              </div>
+
+              <div class="kp-film-side">
+                <p class="kp-film-count" aria-hidden="true"><b data-film-now>01</b>/04</p>
+                <ol class="kp-film-dots">
+                  <li><button type="button" data-film-go="0" aria-label="Step 1: the call" aria-current="step">01</button></li>
+                  <li><button type="button" data-film-go="1" aria-label="Step 2: the count">02</button></li>
+                  <li><button type="button" data-film-go="2" aria-label="Step 3: the verdict">03</button></li>
+                  <li><button type="button" data-film-go="3" aria-label="Step 4: the handoff">04</button></li>
+                </ol>
+                <div class="kp-film-cap">
+                  <div class="is-on"><em>01 &middot; The call</em><strong>One drill, one instruction.</strong><p>Type sized for the far side of a bedroom. Nothing else on the screen competes with it.</p></div>
+                  <div><em>02 &middot; The count</em><strong>The score is the interface.</strong><p>The AI outlines the body it is tracking and counts every rep. Thirteen of twenty, readable from the sofa.</p></div>
+                  <div><em>03 &middot; The verdict</em><strong>Instant, unmissable, one word.</strong><p>A judgement a player can read mid-movement, without walking back to the phone.</p></div>
+                  <div><em>04 &middot; The handoff</em><strong>Momentum carries into the next drill.</strong><p>No menus between reps. The event keeps its rhythm while the player is still breathing hard.</p></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="kp-film-sents" aria-hidden="true">
+              <i data-film-sent="0"></i><i data-film-sent="1"></i><i data-film-sent="2"></i><i data-film-sent="3"></i>
+            </div>
+          </div>
+        </div>
+
+        <p class="fm-pull reveal">Once the user walks away from the phone, tap targets stop mattering: type size is everything.</p>
+
+        <div class="kp-film-after">
+          <div class="reveal">
+            <h3>Progress has to read at a glance too.</h3>
+            <p>Mid-drill, a player needs three facts without touching anything: which drill this is, how many reps are left, and how far through the set they are. Pills for the set, a single oversized fraction for the count, and a body large enough to check your own form against.</p>
+          </div>
+          <figure class="kp-frame reveal shot">
+            <img src="../assets/images/khiladipro/c028b04b_Android_Large_-_236.png" width="570" height="1230" alt="Jumping jacks drill screen with progress pills and a large counter reading 3 of 6" loading="lazy" decoding="async">
+            <figcaption><span class="fig-n">Fig. 10</span><strong>Drill 3 of 3, counted in room-scale type.</strong></figcaption>
           </figure>
+        </div>
+      </div>
+    </section>
 
+    <!-- ============ CH 05: Return ============ -->
+    <section class="kp-work">
+      <div class="kp-shell">
+        <div class="kp-chapter-head reveal">
+          <p class="kp-overline">Stage 05 &middot; The live event</p>
+          <div class="fm-ch" id="return">
+            <span class="idx">CH 05 / 07</span>
+            <h2>Designing the waiting.</h2>
+          </div>
         </div>
 
-        <!-- mixed aspect pair: columns proportional to image aspect ratios so both render equal height -->
-        <div class="fm-wide">
-          <div class="shot-row duo" style="--duo: 462fr 1531fr;">
-            <figure class="shot reveal">
-              <img src="../assets/images/khiladipro/91415b1c_Landing_Page_Mobile.png" alt="Mobile landing page with sticky CTA" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 02</span>On mobile, the register CTA is sticky: most traffic from ads would land here.</figcaption>
+        <p class="kp-lead reveal">An event app spends most of its life between moments of action. The interesting work wasn&rsquo;t the happy path, it was the states: waiting, error, progress, and completion all had to carry the energy of the event, inside an inherited design language with a little wiggle room <a class="kp-cref" href="#c-01">(C-01)</a>.</p>
+
+        <div class="kp-state-layout">
+          <aside class="kp-state-legend reveal">
+            <p class="kp-mini-label">State strategy</p>
+            <ol data-state-legend>
+              <li data-state="before"><span>01</span><div><strong>Before</strong><p>Make anticipation informative, not empty.</p></div></li>
+              <li data-state="during"><span>02</span><div><strong>During</strong><p>Lead with points and the next test.</p></div></li>
+              <li data-state="after"><span>03</span><div><strong>After</strong><p>Keep every point earned one tap away.</p></div></li>
+            </ol>
+            <a class="kp-text-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2069-19430&amp;t=fLSKV7D53Q7fKG46-1" target="_blank" rel="noopener">Pre-event flow <span>&#8599;</span></a>
+            <a class="kp-text-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2069-16207&amp;t=fLSKV7D53Q7fKG46-1" target="_blank" rel="noopener">Live-event flow <span>&#8599;</span></a>
+          </aside>
+
+          <div class="kp-gallery-3 kp-states" data-state-cards>
+            <figure class="kp-frame reveal shot" data-state="before">
+              <img src="../assets/images/khiladipro/86f18431_Registered.png" width="570" height="1230" alt="Pre-event home screen selling the olympiad with an access code field for registered players" loading="lazy" decoding="async">
+              <figcaption><span class="fig-n">Fig. 11 &middot; Before</span><strong>The unregistered state still sells the event.</strong></figcaption>
             </figure>
-            <figure class="shot reveal">
-              <img src="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" alt="Registration flow step 1 with testimonials beside the form" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 03</span>Registration, step 1 of 3. Persuasion doesn’t stop at the form: testimonials from a pro cricketer and an academy coach sit beside it, right where payment hesitation happens. <a class="proto-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2345-1923&amp;t=c1yya1PZsLvXzw1m-1" target="_blank" rel="noopener">View the flow →</a></figcaption>
+            <figure class="kp-frame kp-state-mid reveal shot" data-state="during">
+              <img src="../assets/images/khiladipro/dab923c5_home_-_with_frame.png" width="570" height="1230" alt="Olympiad home screen leading with total points earned and the next test to complete" loading="lazy" decoding="async">
+              <figcaption><span class="fig-n">Fig. 12 &middot; During</span><strong>Points first, next test second.</strong></figcaption>
+            </figure>
+            <figure class="kp-frame reveal shot" data-state="after">
+              <img src="../assets/images/khiladipro/5ca9d7ce_Points_Earned_-_with_frame.png" width="570" height="1230" alt="Points history sheet listing each completed drill with the points it earned" loading="lazy" decoding="async">
+              <figcaption><span class="fig-n">Fig. 13 &middot; After</span><strong>Every point stays one tap away.</strong></figcaption>
             </figure>
           </div>
         </div>
 
-        <div class="wrap">
-          <div class="callout plain reveal">
-            <p><strong>Process:</strong> the page went through three fidelity passes, each answering a different question: a low-fidelity pass to agree on structure and content before any pixels, a mid-fidelity pass to lock the layout, and the high-fidelity polish above. The first two are still up: <a href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2254-23890&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">lo-fi prototype →</a> · <a href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2254-23895&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">mid-fi prototype →</a></p>
-          </div>
+        <div class="kp-edge-head reveal">
+          <p class="kp-mini-label">The other four states &middot; 04</p>
+          <h3>Don&rsquo;t leave users alone between the hero moments.</h3>
+          <p>The event had to stay useful when a code failed, while a participant waited for the window to open, and before a child committed to a test that takes twenty-four minutes.</p>
         </div>
-      </section>
 
-      <!-- ============ CH 03 ============ -->
-      <section class="case-section">
-        <div class="wrap">
-          <div class="fm-ch" id="onboarding">
-            <span class="idx">CH 03 / 06</span>
-            <h2>Teaching a phone to watch you</h2>
-          </div>
-          <p>The first session is where this product lives or dies. A first-time user, often a 13-year-old, unsupervised, has to prop their phone against a wall, grant camera access, walk three metres away, and trust that an AI is counting their reps fairly. If setup fails, the drill can’t be scored; for a paid event, that’s a refund request. The onboarding flow was designed around that single failure mode.</p>
-
-          <div class="fm-step">
-            <div class="reveal">
-              <p class="fm-step-num">Step 01</p>
-              <h3>Show the magic before asking for anything</h3>
-              <p>New users arrive from olympiad ads with zero context. A short video explains what the Supervision AI actually does, before the app requests a single permission.</p>
-            </div>
-            <div class="fm-step-media">
-              <figure class="shot reveal">
-                <img src="../assets/images/khiladipro/cdb4e5d8_Android_Large_-_232.png" alt="Video explainer of the Supervision AI" loading="lazy">
-                <figcaption><span class="fig-n">Fig. 04</span>Video-first explainer</figcaption>
-              </figure>
-            </div>
-          </div>
-
-          <div class="fm-step flip">
-            <div class="reveal">
-              <p class="fm-step-num">Step 02</p>
-              <h3>The exit is a feature</h3>
-              <p>The entire tour is skippable from the start. Users who arrived organically and already know the drill are never held hostage by a tutorial built for strangers.</p>
-            </div>
-            <div class="fm-step-media">
-              <figure class="shot reveal">
-                <img src="../assets/images/khiladipro/c6f1e8fe_Android_Large_-_234.png" alt="Onboarding screen with a skip option" loading="lazy">
-                <figcaption><span class="fig-n">Fig. 05</span>Skippable throughout</figcaption>
-              </figure>
-            </div>
-          </div>
-
-          <div class="fm-step">
-            <div class="reveal">
-              <p class="fm-step-num">Step 03</p>
-              <h3>Earn the camera permission</h3>
-              <p>The OS permission dialog is preceded by a plain-language rationale: why the camera, what it sees, what it’s used for. In an app aimed at minors, a refusal here is fatal: nothing can be scored without it.</p>
-            </div>
-            <div class="fm-step-media">
-              <figure class="shot reveal">
-                <img src="../assets/images/khiladipro/61054391_Android_Large_-_242.png" alt="Camera permission rationale screen" loading="lazy">
-                <figcaption><span class="fig-n">Fig. 06</span>Rationale before the OS dialog</figcaption>
-              </figure>
-            </div>
-          </div>
-
-          <div class="fm-step flip">
-            <div class="reveal">
-              <p class="fm-step-num">Step 04</p>
-              <h3>Show placement, don’t describe it</h3>
-              <p>Correct phone placement is the make-or-break moment of the whole product. Text instructions fail at this; an illustration of a real room, phone propped up, full body in frame, succeeds.</p>
-            </div>
-            <div class="fm-step-media">
-              <figure class="shot reveal">
-                <img src="../assets/images/khiladipro/193c1397_Android_Large_-_243.png" alt="Illustration showing how to place the phone" loading="lazy">
-                <figcaption><span class="fig-n">Fig. 07</span>Placement, illustrated</figcaption>
-              </figure>
-            </div>
-          </div>
-
-          <div class="fm-step">
-            <div class="reveal">
-              <p class="fm-step-num">Step 05</p>
-              <h3>Rehearse before it counts</h3>
-              <p>The flow introduces the visual AI through a simple practice drill, so the user’s first scored attempt is never also their first attempt.</p>
-            </div>
-            <div class="fm-step-media">
-              <figure class="shot reveal">
-                <img src="../assets/images/khiladipro/2c797f59_Android_Large_-_239.png" alt="Practice drill introducing the visual AI" loading="lazy">
-                <figcaption><span class="fig-n">Fig. 08</span>A throwaway first drill</figcaption>
-              </figure>
-            </div>
-          </div>
-
-          <p class="fm-pull reveal">Once the user walks away from the phone, tap targets stop mattering: type size is everything.</p>
-
-          <div class="fm-step flip">
-            <div class="reveal">
-              <p class="fm-step-num">Step 06</p>
-              <h3>Design for three metres</h3>
-              <p>During a drill the user is across the room. Prompts and rep counters are sized to be read at that distance, an accessibility constraint most mobile design never has to think about.</p>
-            </div>
-            <div class="fm-step-media pair">
-              <figure class="shot reveal">
-                <img src="../assets/images/khiladipro/76cc61d9_Android_Large_-_240.png" alt="Drill screen with oversized type" loading="lazy">
-                <figcaption><span class="fig-n">Fig. 09</span>Room-scale type</figcaption>
-              </figure>
-              <figure class="shot reveal">
-                <img src="../assets/images/khiladipro/c028b04b_Android_Large_-_236.png" alt="Large rep counter for the final drill" loading="lazy">
-                <figcaption><span class="fig-n">Fig. 10</span>The rep counter</figcaption>
-              </figure>
-            </div>
-          </div>
-
-          <div class="fm-step">
-            <div class="reveal">
-              <p class="fm-step-num">Step 07</p>
-              <h3>End on a high</h3>
-              <p>The flow closes with a celebration: the peak-end rule, applied deliberately. The last memory of setup is a win, not a permissions dialog.</p>
-            </div>
-            <div class="fm-step-media">
-              <figure class="shot reveal">
-                <img src="../assets/images/khiladipro/9773a5e1_Android_Large_-_237.png" alt="Celebratory end of the onboarding flow" loading="lazy">
-                <figcaption><span class="fig-n">Fig. 11</span>Peak-end</figcaption>
-              </figure>
-            </div>
-          </div>
-
-          <p><a class="proto-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=326-3609&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">Walk the complete interactive onboarding flow →</a></p>
+        <div class="kp-gallery-4 kp-states" data-state-cards>
+          <figure class="kp-frame reveal shot" data-state="error">
+            <img src="../assets/images/khiladipro/841af6ac_Registered-2.png" width="570" height="1230" alt="Access code field showing an incorrect code error with the keyboard still open" loading="lazy" decoding="async">
+            <figcaption><span class="fig-n">Fig. 14 &middot; Error</span><strong>Clear recovery from a bad access code.</strong></figcaption>
+          </figure>
+          <figure class="kp-frame reveal shot" data-state="waiting">
+            <img src="../assets/images/khiladipro/56a1c588_Registered-3.png" width="570" height="1230" alt="Countdown card reading unlocking in nine days with a button to check redeemable rewards" loading="lazy" decoding="async">
+            <figcaption><span class="fig-n">Fig. 15 &middot; Waiting</span><strong>A countdown that hands you something to do.</strong></figcaption>
+          </figure>
+          <figure class="kp-frame reveal shot" data-state="progress">
+            <img src="../assets/images/khiladipro/fc0c74bc_View_Remaining_Tests_-_frame.png" width="570" height="1230" alt="Remaining tests screen showing four incomplete tests and 520 points up for grabs" loading="lazy" decoding="async">
+            <figcaption><span class="fig-n">Fig. 16 &middot; Progress</span><strong>The points still on the table stay visible.</strong></figcaption>
+          </figure>
+          <figure class="kp-frame reveal shot" data-state="commitment">
+            <img src="../assets/images/khiladipro/7c76d0dd_Stage_Details.png" width="570" height="1230" alt="Stage detail screen showing 360 khiladis have completed this, points earned, and the drills in each test" loading="lazy" decoding="async">
+            <figcaption><span class="fig-n">Fig. 17 &middot; Commitment</span><strong>Time, drills, and peers who finished it.</strong></figcaption>
+          </figure>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ============ CH 04 ============ -->
-      <section class="case-section">
-        <div class="wrap">
-          <div class="fm-ch" id="app">
-            <span class="idx">CH 04 / 06</span>
-            <h2>The olympiad, live</h2>
-          </div>
-          <p>The app screens had to look native to Khiladipro’s existing product: an inherited design language, no design system, a little wiggle room. The interesting work here wasn’t the happy path; it was the states.</p>
-
-          <h3>Before the event</h3>
-          <p>An event app spends most of its life waiting. Instead of a countdown and a spinner, the pre-olympiad states carry real information: what you’ve registered for, what happens next, what you can win.</p>
-          <div class="shot-row cols-3">
-            <figure class="shot reveal">
-              <img src="../assets/images/khiladipro/86f18431_Registered.png" alt="Pre-event screen for unregistered users" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 12</span>The unregistered state still sells the event</figcaption>
-            </figure>
-            <figure class="shot reveal">
-              <img src="../assets/images/khiladipro/841af6ac_Registered-2.png" alt="Error state for an invalid access code" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 13</span>Access-code error state</figcaption>
-            </figure>
-            <figure class="shot reveal">
-              <img src="../assets/images/khiladipro/56a1c588_Registered-3.png" alt="Rewards browsing while waiting for the event" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 14</span>Browsing prizes while waiting</figcaption>
-            </figure>
-          </div>
-          <p><a class="proto-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2069-19430&amp;t=fLSKV7D53Q7fKG46-1" target="_blank" rel="noopener">View the pre-event flow →</a></p>
-
-          <h3>During the event</h3>
-          <p>Once the olympiad opens, the loop is daily: open the app, check your points, do the remaining tests. The home screen leads with the two things a competing kid actually cares about: total points and the next test, and bottom sheets keep every detail one tap away without losing context.</p>
-          <div class="shot-row cols-3">
-            <figure class="shot reveal">
-              <img src="../assets/images/khiladipro/dab923c5_home_-_with_frame.png" alt="Olympiad home screen with points at the top" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 15</span>Points first, next test second</figcaption>
-            </figure>
-            <figure class="shot reveal">
-              <img src="../assets/images/khiladipro/5ca9d7ce_Points_Earned_-_with_frame.png" alt="Points history bottom sheet" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 16</span>Points history, in a sheet</figcaption>
-            </figure>
-            <figure class="shot reveal">
-              <img src="../assets/images/khiladipro/fc0c74bc_View_Remaining_Tests_-_frame.png" alt="Remaining tests screen" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 17</span>Remaining tests: points up for grabs</figcaption>
-            </figure>
-            <figure class="shot reveal">
-              <img src="../assets/images/khiladipro/7c76d0dd_Stage_Details.png" alt="Start test bottom sheet listing equipment and drills" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 18</span>Equipment and drills listed before commitment</figcaption>
-            </figure>
-            <figure class="shot reveal">
-              <img src="../assets/images/khiladipro/fec8b8bf_Android_Large_-_238.png" alt="Drill instruction screen" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 19</span>Drill instructions reuse onboarding patterns</figcaption>
-            </figure>
-            <figure class="shot reveal">
-              <img src="../assets/images/khiladipro/7f0f10ab_Android_Large_-_237.png" alt="Celebratory end screen with confetti and points won" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 20</span>Every completed test ends on a win</figcaption>
-            </figure>
-          </div>
-          <p><a class="proto-link" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2069-16207&amp;t=fLSKV7D53Q7fKG46-1" target="_blank" rel="noopener">View the live-event flow →</a></p>
-        </div>
-      </section>
-
-      <!-- ============ CH 05 ============ -->
-      <section class="case-section">
-        <div class="wrap">
+    <!-- ============ CH 06: After the race ============ -->
+    <section class="kp-work kp-proof">
+      <div class="kp-shell">
+        <div class="kp-chapter-head reveal">
+          <p class="kp-overline">After the race &middot; The outcome</p>
           <div class="fm-ch" id="rehire">
-            <span class="idx">CH 05 / 06</span>
-            <h2>The rehire<span class="hl-green">Rehired<span class="badge-tip" role="tooltip">A good sign, they came back</span></span></h2>
+            <span class="idx">CH 06 / 07</span>
+            <h2>The work earned a second brief.<span class="hl-green">Rehired<span class="badge-tip" role="tooltip">A good sign, they came back</span></span></h2>
           </div>
-          <p>After the olympiad shipped, Khiladipro’s growth team came back with a second brief: a landing page for a fan campaign timed to the IPL, the world’s biggest cricket league. Their in-house team designed the app screens; I designed the page, desktop and mobile.</p>
-          <p><strong>A rehire is the one outcome metric I can publish.</strong></p>
-          <figure class="shot reveal">
-            <img src="../assets/images/khiladipro/69b8b1c0_Homepage.png" alt="IPL fan campaign landing page" loading="lazy">
-            <figcaption><span class="fig-n">Fig. 21</span>The IPL campaign page: pick your team, sweat for it, climb the leaderboard.</figcaption>
-          </figure>
         </div>
-      </section>
 
-      <!-- ============ CH 06 ============ -->
-      <section class="case-section">
-        <div class="wrap">
-          <div class="fm-ch" id="scorecard">
-            <span class="idx">CH 06 / 06</span>
-            <h2>An honest scorecard</h2>
+        <div class="kp-proof-grid">
+          <div class="reveal">
+            <p>After the olympiad shipped, Khiladipro&rsquo;s growth team came back: a landing page for a fan campaign timed to the IPL, the world&rsquo;s biggest cricket league. Their in-house team took the app screens; I designed the campaign page, desktop and mobile.</p>
+            <p class="kp-proof-line">A rehire is the one outcome metric I can publish.</p>
           </div>
-          <p>This was an execution engagement: the client owned the analytics, and I never had access to them. Rather than decorate the ending with numbers I can’t stand behind, here is what shipped, what I would have measured, and what I’d do differently.</p>
-
-          <div class="fm-cols">
-            <div class="fm-col reveal">
-              <h3>Shipped</h3>
-              <ul>
-                <li>2 landing pages: responsive, desktop &amp; mobile</li>
-                <li>Web registration &amp; payment flow</li>
-                <li>First-run mobile onboarding</li>
-                <li>Olympiad app flows: pre-event, live, error &amp; waiting states</li>
-                <li>~8 weeks, sole designer</li>
-              </ul>
-            </div>
-            <div class="fm-col reveal">
-              <h3>What I’d measure</h3>
-              <ul>
-                <li>Landing → paid registration conversion, split by audience</li>
-                <li>Onboarding completion, and the exact drop-off step</li>
-                <li>Setup-failure rate on the first scored drill</li>
-                <li>Daily return rate through the event window</li>
-                <li>Share of drill submissions flagged unscoreable</li>
-              </ul>
-            </div>
-            <div class="fm-col reveal">
-              <h3>What I’d do differently</h3>
-              <ul>
-                <li>Comprehension-test the onboarding with actual 12-year-olds, not adults</li>
-                <li>Negotiate analytics access into the engagement, not after it</li>
-                <li>Revisit the binary gender field on registration</li>
-                <li>Design the poor-network and failed-upload states for drill videos</li>
-              </ul>
-            </div>
-          </div>
-
-          <figure class="testimonial reveal">
-            <blockquote>Priyank is a talented designer with great skills. He showed <span class="sweep">intuitive product thinking</span>. He is very proactive with his contributions and gives a lot of attention to detail. Working with him was a pleasure. I highly recommend him.</blockquote>
+          <figure class="kp-browser-frame reveal">
+            <div class="kp-browser-bar" aria-hidden="true"><span></span><span></span><span></span><b>kpro.fit</b></div>
+            <img src="../assets/images/khiladipro/69b8b1c0_Homepage.png" width="1600" height="1039" data-lightbox="../assets/images/khiladipro/69b8b1c0_Homepage.png" alt="IPL fan campaign landing page inviting fans to pick a team and climb a leaderboard" loading="lazy" decoding="async">
             <figcaption>
-              <span class="t-monogram" aria-hidden="true">AV</span>
-              <cite><strong>Aakash Verma</strong>Product Head, Khiladipro</cite>
+              <span class="fig-n">Fig. 18</span>
+              <p>The IPL campaign page: pick your team, sweat for it, climb the leaderboard.</p>
             </figcaption>
           </figure>
-
-          <p class="fin">Fin.</p>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <!-- ============ CH 07: Scorecard ============ -->
+    <section class="kp-paper-sec">
+      <div class="kp-shell">
+        <div class="kp-chapter-head reveal">
+          <p class="kp-overline">The honest scorecard</p>
+          <div class="fm-ch" id="scorecard">
+            <span class="idx">CH 07 / 07</span>
+            <h2>No numbers I can&rsquo;t stand behind.</h2>
+          </div>
+        </div>
+
+        <p class="kp-score-lead reveal">This was an execution engagement: the client owned the analytics, and I never had access to them. Rather than decorate the ending with numbers I can&rsquo;t verify, here is exactly what shipped, what I would have measured, and what I&rsquo;d do differently.</p>
+
+        <div class="kp-score-grid">
+          <article class="kp-score-card is-shipped reveal">
+            <span>What I shipped</span><b>05</b>
+            <ul>
+              <li>2 landing pages: responsive, desktop and mobile</li>
+              <li>Web registration and payment flow</li>
+              <li>First-run mobile onboarding</li>
+              <li>Olympiad app flows: pre-event, live, error and waiting states</li>
+              <li>~8 weeks, sole designer</li>
+            </ul>
+          </article>
+          <article class="kp-score-card is-measure reveal">
+            <span>What I&rsquo;d measure</span><b>05</b>
+            <ul>
+              <li>Landing to paid registration conversion, split by audience</li>
+              <li>Onboarding completion, and the exact drop-off step</li>
+              <li>Setup-failure rate on the first scored drill</li>
+              <li>Daily return rate through the event window</li>
+              <li>Share of drill submissions flagged unscoreable</li>
+            </ul>
+          </article>
+          <article class="kp-score-card is-redo reveal">
+            <span>What I&rsquo;d do differently</span><b>04</b>
+            <ul>
+              <li>Comprehension-test the onboarding with actual 12-year-olds, not adults</li>
+              <li>Negotiate analytics access into the engagement, not after it</li>
+              <li>Revisit the binary gender field on registration</li>
+              <li>Design the poor-network and failed-upload states for drill videos</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="kp-proto-head reveal">
+          <p>Everything clickable in this study</p>
+          <p>07 Figma prototypes</p>
+        </div>
+        <div class="kp-proto-grid">
+          <a class="kp-proto reveal" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2254-23890&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener" data-peek="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" data-peek-title="Lo-fi prototype" data-peek-cta="Open in Figma ↗"><span>01 &#8599;</span><strong>Lo-fi prototype: structure</strong></a>
+          <a class="kp-proto reveal" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2254-23895&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener" data-peek="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" data-peek-title="Mid-fi prototype" data-peek-cta="Open in Figma ↗"><span>02 &#8599;</span><strong>Mid-fi prototype: layout</strong></a>
+          <a class="kp-proto reveal" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2030-4001&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener" data-peek="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" data-peek-title="The shipped landing page" data-peek-cta="Open in Figma ↗"><span>03 &#8599;</span><strong>The shipped landing page</strong></a>
+          <a class="kp-proto reveal" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2345-1923&amp;t=c1yya1PZsLvXzw1m-1" target="_blank" rel="noopener" data-peek="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" data-peek-title="Registration flow" data-peek-cta="Open in Figma ↗"><span>04 &#8599;</span><strong>Registration, steps 1 to 3</strong></a>
+          <a class="kp-proto reveal" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=326-3609&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener" data-peek="../assets/images/khiladipro/cdb4e5d8_Android_Large_-_232.png" data-peek-title="Onboarding flow" data-peek-cta="Open in Figma ↗"><span>05 &#8599;</span><strong>The complete onboarding flow</strong></a>
+          <a class="kp-proto reveal" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2069-19430&amp;t=fLSKV7D53Q7fKG46-1" target="_blank" rel="noopener" data-peek="../assets/images/khiladipro/86f18431_Registered.png" data-peek-title="Pre-event flow" data-peek-cta="Open in Figma ↗"><span>06 &#8599;</span><strong>Pre-event flow</strong></a>
+          <a class="kp-proto reveal" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2069-16207&amp;t=fLSKV7D53Q7fKG46-1" target="_blank" rel="noopener" data-peek="../assets/images/khiladipro/dab923c5_home_-_with_frame.png" data-peek-title="Live-event flow" data-peek-cta="Open in Figma ↗"><span>07 &#8599;</span><strong>Live-event flow</strong></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Testimonial ============ -->
+    <section class="kp-quote" aria-label="Client testimonial">
+      <div class="kp-shell">
+        <div class="kp-sec-head">
+          <p class="kp-overline reveal">In their words</p>
+          <p class="kp-sec-meta reveal">Verbatim, unedited</p>
+        </div>
+
+        <figure class="kp-quote-card reveal">
+          <i class="kp-quote-mark" aria-hidden="true">&ldquo;</i>
+          <blockquote>Priyank is a talented designer with great skills. He showed <span class="sweep">intuitive product thinking</span>. He is very proactive with his contributions and gives a lot of attention to detail. Working with him was a pleasure. I highly recommend him.</blockquote>
+          <figcaption>
+            <span class="kp-quote-monogram" aria-hidden="true">AV</span>
+            <cite><strong>Aakash Verma</strong><small>Product Head, Khiladipro</small></cite>
+            <a class="kp-text-link kp-quote-src" href="#rehire">Then they rehired me <span>&uarr;</span></a>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ Closing ============ -->
+    <section class="kp-closing" id="closing">
+      <i class="kp-closing-field" aria-hidden="true"></i>
+      <div class="kp-shell kp-closing-inner">
+        <div class="kp-closing-pitch">
+          <p class="kp-overline reveal">The takeaway</p>
+          <h2 class="reveal">Good product design is how a big promise survives contact with real life.</h2>
+          <p class="kp-closing-copy reveal">I&rsquo;m a senior product designer for 0&rarr;1 and growth-stage teams. If you&rsquo;re building something complex, or need a designer who carries the story all the way to shipped detail, I&rsquo;d love to talk.</p>
+          <div class="kp-closing-actions reveal">
+            <a class="kp-button kp-button-dark" href="mailto:hello@priyank.design">Start a conversation <span>&rarr;</span></a>
+            <a class="kp-subtle-link" href="../index.html#work">Back to selected work</a>
+          </div>
+          <p class="kp-closing-ps kp-closing-ps-egg reveal">P.S. Feeling decisive? Type <kbd>h</kbd><kbd>i</kbd><kbd>r</kbd><kbd>e</kbd> anywhere on this page.</p>
+        </div>
+
+        <div class="kp-lessons reveal">
+          <p class="kp-lessons-head">Three things this one taught me</p>
+          <ol>
+            <li>
+              <span class="kp-lesson-n">01</span>
+              <div>
+                <strong>Trust is a screen, not a feature.</strong>
+                <p>A page in front of a parent decided whether the product got used at all.</p>
+                <a href="#believe">Chapter 01 <em>&uarr;</em></a>
+              </div>
+            </li>
+            <li>
+              <span class="kp-lesson-n">02</span>
+              <div>
+                <strong>A machine has to show its work.</strong>
+                <p>An AI referee reads as fair only if you can watch it count.</p>
+                <a href="#compete">Chapter 04 <em>&uarr;</em></a>
+              </div>
+            </li>
+            <li>
+              <span class="kp-lesson-n">03</span>
+              <div>
+                <strong>Design the waiting, not just the winning.</strong>
+                <p>Most of an event is the time between attempts, and those states carry it.</p>
+                <a href="#return">Chapter 05 <em>&uarr;</em></a>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ End card ============ -->
+    <section class="kp-fin" aria-label="End of the case study">
+      <div class="kp-fin-card reveal">
+        <i class="kp-fin-rule" aria-hidden="true"></i>
+        <p class="kp-fin-word">Fin<span aria-hidden="true">.</span></p>
+        <i class="kp-fin-rule" aria-hidden="true"></i>
+        <p class="kp-fin-sub">Khiladipro &middot; India&rsquo;s first at-home sports olympiad &middot; 2024&ndash;25</p>
+        <p class="kp-fin-by">Designed by Priyank Agarwal</p>
+      </div>
+    </section>
 
     <nav class="case-nav">
       <div class="wrap">
-        <a class="next" href="sedp-dashboard.html" data-peek="../assets/images/home/414e7003_ceda.jpg" data-peek-title="Economic Dashboard Redesign"><span>Next project →</span><strong>Economic Dashboard Redesign: SEDP</strong></a>
+        <a class="next" href="sedp-dashboard.html" data-peek="../assets/images/home/414e7003_ceda.jpg" data-peek-title="Economic Dashboard Redesign"><span>Next project &rarr;</span><strong>Economic Dashboard Redesign: SEDP</strong></a>
       </div>
     </nav>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
-      <span>Copyright © 2026 Priyank Agarwal | All rights reserved</span>
-      <span><a href="mailto:hello@priyank.design">hello@priyank.design</a> · <a href="https://www.linkedin.com/in/priyank1205/" target="_blank" rel="noopener">LinkedIn</a></span>
+      <span>Copyright &copy; 2026 Priyank Agarwal | All rights reserved</span>
+      <span><a href="mailto:hello@priyank.design">hello@priyank.design</a> &middot; <a href="https://www.linkedin.com/in/priyank1205/" target="_blank" rel="noopener">LinkedIn</a></span>
     </div>
   </footer>
 
-  <script src="../assets/js/main.js?v=21"></script>
+  <script src="../assets/js/main.js?v=26"></script>
+  <script>
+    /* The filmstrips. Sticky stage plus IntersectionObserver sentinels: the
+       wheel is never intercepted. Chapters 03 and 04 both use this; the only
+       difference is how many steps each declares. Falls back to the static
+       strip whenever JS, motion, or width says no. */
+    (function () {
+      var films = document.querySelectorAll("[data-film]");
+      if (!films.length || !("IntersectionObserver" in window)) return;
+      if (typeof noMotion !== "undefined" && noMotion) return;
+      if (!window.matchMedia("(min-width: 861px)").matches) return;
+
+      films.forEach(function (film) {
+        film.classList.add("is-live");
+
+        var frames = film.querySelectorAll(".kp-film-frame");
+        // only one frame is visible once pinned, so the rest leave the a11y
+        // tree immediately rather than only after the first step
+        frames.forEach(function (f, i) {
+          f.setAttribute("aria-hidden", i === 0 ? "false" : "true");
+        });
+        var caps = film.querySelectorAll(".kp-film-cap > *");
+        var dots = film.querySelectorAll("[data-film-go]");
+        var now = film.querySelector("[data-film-now]");
+        var current = 0;
+
+        function setStep(n) {
+          if (n === current) return;
+          for (var i = 0; i < frames.length; i++) {
+            var on = i === n;
+            frames[i].classList.toggle("is-on", on);
+            frames[i].setAttribute("aria-hidden", on ? "false" : "true");
+            if (caps[i]) caps[i].classList.toggle("is-on", on);
+            if (dots[i]) {
+              if (on) dots[i].setAttribute("aria-current", "step");
+              else dots[i].removeAttribute("aria-current");
+            }
+          }
+          if (now) now.textContent = String(n + 1).padStart(2, "0");
+          if (typeof sfx !== "undefined") sfx.play("pluck", n);
+          current = n;
+        }
+
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) setStep(+entry.target.dataset.filmSent);
+          });
+        }, { rootMargin: "-45% 0px -45% 0px" });
+
+        film.querySelectorAll("[data-film-sent]").forEach(function (s) { io.observe(s); });
+
+        dots.forEach(function (b) {
+          b.addEventListener("click", function () {
+            if (typeof sfx !== "undefined") sfx.play("tap");
+            var target = film.querySelector('[data-film-sent="' + b.dataset.filmGo + '"]');
+            if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
+          });
+        });
+
+        // dragging a desktop window below the pinned layout's width hands the
+        // strip back to the CSS scroller, and stops step sounds firing on scroll
+        var narrow = window.matchMedia("(max-width: 860px)");
+        var onNarrow = function (e) {
+          if (!e.matches) return;
+          io.disconnect();
+          film.classList.remove("is-live");
+          narrow.removeEventListener("change", onNarrow);
+        };
+        narrow.addEventListener("change", onNarrow);
+      });
+    })();
+
+    /* Hero depth. The product shot and the light behind it lag the page by a
+       few dozen pixels as the hero leaves. It is the only parallax here, and
+       it is composed through a custom property so it never fights the
+       entrance animation's fill-mode, which owns the same transform. */
+    (function () {
+      if (typeof noMotion !== "undefined" && noMotion) return;
+      var hero = document.querySelector(".kp-hero");
+      var stack = hero && hero.querySelector(".kp-hero-stack");
+      if (!stack) return;
+      if (!window.matchMedia("(min-width: 861px)").matches) return;
+
+      var flood = hero.querySelector(".kp-hero-flood");
+      var queued = false;
+
+      function paint() {
+        queued = false;
+        var h = hero.offsetHeight || 1;
+        var p = Math.max(0, Math.min(1, -hero.getBoundingClientRect().top / h));
+        stack.style.setProperty("--kp-par", (p * 54).toFixed(1) + "px");
+        if (flood) flood.style.transform = "translate3d(0," + (p * 34).toFixed(1) + "px,0)";
+      }
+
+      function onScroll() {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(paint);
+      }
+
+      paint();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+    })();
+
+    /* The full-page frame. A landing page taller than any figure pans inside
+       a browser-shaped viewport, driven by where the frame sits on screen.
+       The wheel is never intercepted; without this the page renders in full.
+
+       The pan can also be borrowed: CH 01's lens locks it to a fraction while
+       a reader is lit, and hands it straight back on release. Anything that
+       borrows it gets `fig._pan`, which is only ever present when the live
+       pan actually exists, so callers can treat its absence as "not live". */
+    (function () {
+      var figs = document.querySelectorAll("[data-longpage]");
+      if (!figs.length) return;
+      if (typeof noMotion !== "undefined" && noMotion) return;
+      if (!window.matchMedia("(min-width: 861px)").matches) return;
+
+      figs.forEach(function (fig) {
+        var view = fig.querySelector(".kp-longpage-view");
+        var img = view && view.querySelector("img");
+        var rail = fig.querySelector(".kp-longpage-rail");
+        if (!img) return;
+
+        fig.classList.add("is-live");
+
+        var travel = 0;
+        var target = 0;
+        var eased = 0;
+        var running = false;
+        var lock = null; // a fraction to hold, or null while the scroll drives
+
+        function metrics() {
+          var w = img.naturalWidth || +img.getAttribute("width");
+          var h = img.naturalHeight || +img.getAttribute("height");
+          return {
+            imgH: (view.clientWidth * h) / w,
+            viewH: view.clientHeight,
+            travel: travel,
+          };
+        }
+
+        function measure() {
+          travel = Math.max(0, metrics().imgH - view.clientHeight);
+          aim();
+          eased = target;
+          paint();
+        }
+
+        // the pan starts at the top of the page the moment the frame is fully
+        // in view and finishes only once the frame is most of the way past the
+        // top: a long window for a short travel, so it drifts rather than races
+        function aim() {
+          if (lock !== null) {
+            target = lock;
+            return;
+          }
+          var r = view.getBoundingClientRect();
+          var start = window.innerHeight - r.height;
+          var end = -r.height * 0.85;
+          var span = start - end;
+          var p = span > 0
+            ? (start - r.top) / span
+            : (window.innerHeight - r.top) / (window.innerHeight + r.height);
+          target = Math.max(0, Math.min(1, p));
+        }
+
+        function paint() {
+          view.style.setProperty("--kp-pan", (-eased * travel).toFixed(1));
+          if (rail) rail.style.setProperty("--kp-rail-p", eased.toFixed(4));
+        }
+
+        // a light lerp toward the scroll position: the page settles into place
+        // instead of being nailed to the wheel
+        function tick() {
+          var d = target - eased;
+          if (Math.abs(d) < 0.0004) {
+            eased = target;
+            paint();
+            running = false;
+            return;
+          }
+          eased += d * 0.12;
+          paint();
+          requestAnimationFrame(tick);
+        }
+
+        function run() {
+          if (running) return;
+          running = true;
+          requestAnimationFrame(tick);
+        }
+
+        function onScroll() {
+          if (lock !== null) return;
+          var r = view.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > window.innerHeight) return;
+          aim();
+          run();
+        }
+
+        fig._pan = {
+          metrics: metrics,
+          lockTo: function (frac) {
+            lock = Math.max(0, Math.min(1, frac));
+            target = lock;
+            run();
+          },
+          release: function () {
+            lock = null;
+            aim();
+            run();
+          },
+        };
+
+        if (img.complete) measure();
+        else img.addEventListener("load", measure);
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", measure);
+      });
+    })();
+
+    /* CH 01's lens. Three readers of one landing page: pointing at a reader
+       lights the band of the shipped page written for them and borrows the pan
+       to centre it; leaving hands the pan back to the visitor's own scroll.
+       Clicking pins a reader so this works on touch, where there is no hover.
+       Below the pan's live width `fig._pan` is absent, the page renders in
+       full, and the rows quietly stay a list. */
+    (function () {
+      var lens = document.querySelector("[data-lens]");
+      if (!lens) return;
+
+      var fig = lens.querySelector("[data-longpage]");
+      var side = lens.querySelector(".kp-lens-side");
+      var list = lens.querySelector(".kp-lens-rows");
+      var band = lens.querySelector(".kp-lens-band");
+      var chip = band && band.querySelector("b");
+      var now = lens.querySelector("[data-lens-now]");
+      var rows = [].slice.call(lens.querySelectorAll(".kp-lens-row"));
+      if (!rows.length || !list) return;
+
+      // the pan publishes _pan only when it is actually live, so its absence
+      // is the single signal that this is the static reading of the section
+      if (!fig || !fig._pan) lens.classList.add("is-static");
+
+      var pinned = -1;
+      var shown = -1;
+
+      function edges(i) {
+        var p = rows[i].dataset.lensBand.split(" ");
+        return { top: parseFloat(p[0]), bottom: parseFloat(p[1]) };
+      }
+
+      function show(i, force) {
+        if (i === shown && !force) return;
+        var was = shown;
+        shown = i;
+        var lit = i >= 0;
+
+        list.classList.toggle("is-lit", lit);
+        if (side) side.classList.toggle("is-lit", lit);
+        rows.forEach(function (row, n) {
+          row.parentElement.classList.toggle("is-on", n === i);
+          row.setAttribute("aria-pressed", n === pinned ? "true" : "false");
+        });
+        if (now) now.textContent = lit ? "0" + (i + 1) : "00";
+
+        var pan = fig && fig._pan;
+        if (!pan) return;
+
+        if (!lit) {
+          fig.classList.remove("is-locked");
+          pan.release();
+          return;
+        }
+
+        var m = pan.metrics();
+        var e = edges(i);
+        if (band) {
+          // arriving from nothing, the band should appear at full size rather
+          // than grow out of a zero-height sliver at the top of the page
+          if (was < 0) band.style.transition = "none";
+          band.style.top = (e.top * m.imgH).toFixed(1) + "px";
+          band.style.height = ((e.bottom - e.top) * m.imgH).toFixed(1) + "px";
+          if (was < 0) {
+            void band.offsetWidth;
+            band.style.transition = "";
+          }
+          if (chip) chip.textContent = "0" + (i + 1) + " \u00B7 " + rows[i].dataset.lensTag;
+        }
+
+        var centre = ((e.top + e.bottom) / 2) * m.imgH;
+        fig.classList.add("is-locked");
+        pan.lockTo(m.travel > 0 ? (centre - m.viewH / 2) / m.travel : 0);
+      }
+
+      rows.forEach(function (row, i) {
+        row.addEventListener("pointerenter", function () { show(i); });
+        row.addEventListener("focus", function () { show(i); });
+        row.addEventListener("click", function () {
+          pinned = pinned === i ? -1 : i;
+          if (typeof sfx !== "undefined") sfx.play("tap");
+          show(pinned, true);
+        });
+      });
+
+      list.addEventListener("pointerleave", function () { show(pinned); });
+      list.addEventListener("focusout", function (e) {
+        if (!list.contains(e.relatedTarget)) show(pinned);
+      });
+
+      // the band's geometry is measured in pixels off the image, so a resize
+      // has to re-derive it; the pan re-measures itself on the same event
+      window.addEventListener("resize", function () {
+        if (shown >= 0) show(shown, true);
+      });
+    })();
+
+    /* Annotations, linked both ways: the numbered notes and the dots pinned to
+       the screenshot are the same three facts, so pointing at either one dims
+       everything else. */
+    (function () {
+      var group = document.querySelector("[data-anno-group]");
+      if (!group) return;
+
+      var dots = [].slice.call(group.querySelectorAll(".kp-anno-dot"));
+      var rows = [].slice.call(group.querySelectorAll(".kp-anno-list li"));
+
+      function light(key) {
+        group.classList.toggle("is-lit", !!key);
+        dots.concat(rows).forEach(function (el) {
+          el.classList.toggle("is-on", !!key && el.dataset.anno === key);
+        });
+      }
+
+      dots.concat(rows).forEach(function (el) {
+        el.addEventListener("pointerenter", function () { light(el.dataset.anno); });
+        el.addEventListener("pointerleave", function () { light(null); });
+        el.addEventListener("focus", function () { light(el.dataset.anno); });
+        el.addEventListener("blur", function () { light(null); });
+      });
+    })();
+
+    /* Event states: the strategy list and the screens are the same three
+       decisions, so they light each other, and each gallery dims around
+       whichever card you are looking at. */
+    (function () {
+      var legend = document.querySelector("[data-state-legend]");
+      var grids = [].slice.call(document.querySelectorAll("[data-state-cards]"));
+      if (!grids.length) return;
+
+      var rows = legend ? [].slice.call(legend.querySelectorAll("li")) : [];
+      var cards = grids.reduce(function (all, g) {
+        return all.concat([].slice.call(g.querySelectorAll(".kp-frame")));
+      }, []);
+
+      function light(key) {
+        if (legend) legend.classList.toggle("is-lit", !!key);
+        grids.forEach(function (g) {
+          // only the gallery that owns the lit card should dim
+          var owns = !!key && !!g.querySelector('[data-state="' + key + '"]');
+          g.classList.toggle("is-lit", owns);
+        });
+        rows.concat(cards).forEach(function (el) {
+          el.classList.toggle("is-on", !!key && el.dataset.state === key);
+        });
+      }
+
+      rows.concat(cards).forEach(function (el) {
+        el.addEventListener("pointerenter", function () { light(el.dataset.state); });
+        el.addEventListener("pointerleave", function () { light(null); });
+      });
+    })();
+
+    /* Stat-strip count-ups. Final values ship in the markup, so this only
+       ever animates toward text that is already correct. */
+    (function () {
+      if (typeof noMotion !== "undefined" && noMotion) return;
+      if (!("IntersectionObserver" in window)) return;
+
+      var nums = document.querySelectorAll("[data-countup]");
+      if (!nums.length) return;
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          io.unobserve(el);
+
+          var final = el.textContent.trim();
+          var target = parseInt(final, 10);
+          if (isNaN(target)) return;
+          var pad = final.length;
+          var start = performance.now();
+
+          function frame(t) {
+            var p = Math.min((t - start) / 700, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = String(Math.round(target * eased)).padStart(pad, "0");
+            if (p < 1) requestAnimationFrame(frame);
+            else el.textContent = final;
+          }
+          requestAnimationFrame(frame);
+        });
+      }, { threshold: 0.6 });
+
+      nums.forEach(function (n) { io.observe(n); });
+    })();
+  </script>
 </body>
 </html>
