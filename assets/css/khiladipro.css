@@ -34,12 +34,42 @@
   --kp-on-accent: #221302;
   --kp-on-accent-soft: rgba(34, 19, 2, 0.72);
 
-  /* type scale */
+  /* ---------- type scale ------------------------------------------------
+     The ladder the page is tuned to is the one CH 06 already had right:
+     a heading, then a clear drop to a reading voice, then one small step
+     up for the sentence that matters (43 / 16.5 / 19). The rule that keeps
+     it honest: nothing between a heading and body is allowed to sit
+     halfway. A lead sized up towards its heading competes with it, and a
+     quote sized up towards the lead flattens both — three near-equal
+     sizes in one column read as a wall, not a hierarchy.
+
+     body   the page's reading voice, 16.5px, set on <body>. Chapter leads
+            use it unchanged: the drop from h2 to body IS the hierarchy.
+     lead   only for intros that carry a whole section on their own — the
+            hero and the reframe — one step over body, never two.
+     quote  pull quotes. One step over body, and it earns its weight from
+            600 + full-strength ink + the accent rule, not from size. */
   --kp-h1: clamp(2.5rem, 5.5vw, 4.3rem);
   --kp-h2: clamp(1.9rem, 3vw, 2.7rem);
   --kp-h3: clamp(1.25rem, 1.8vw, 1.6rem);
-  --kp-lead: clamp(1.1rem, 1.5vw, 1.35rem);
+  --kp-lead: clamp(1.05rem, 1.2vw, 1.16rem);
+  --kp-quote: clamp(1.08rem, 1.3vw, 1.18rem);
   --kp-label: 0.72rem;
+
+  /* One measure for every column of running text a chapter opens with.
+     520px is the CH 06 copy column, which is the width the rest of the
+     page is being tuned to: ~65 characters at the reading voice, and
+     narrower than the 20ch headline above it, so a chapter reads as one
+     column rather than three widths stacked. */
+  --kp-measure: 520px;
+
+  /* The display measure, for the one place a heading and running text stand
+     side by side: a chapter masthead. 44% of the shell is the split that
+     keeps every chapter heading here to two lines — the same break the old
+     20ch cap produced — while leaving the deck a full reading measure and
+     enough slack between them to read as a gutter. Proportional rather than
+     fixed so the two columns and the gap never stop fitting the shell. */
+  --kp-head: 44%;
 
   /* ---------- the spacing scale ---------------------------------------
      One rhythm for the whole page. A 4px base stepped alternately by a
@@ -57,6 +87,7 @@
   --sp-8: 64px;
   --sp-9: 96px;
   --sp-10: 128px;
+  --sp-11: 192px;
 
   /* The three rhythms above the element scale.
 
@@ -70,9 +101,20 @@
              filmstrip, the edge-case gallery.
      group — between a head and the thing it introduces, and around the
              pull quotes. Half a section, two thirds of a block. */
-  --kp-sec: clamp(var(--sp-8), 9vw, var(--sp-10));
-  --kp-block: clamp(var(--sp-7), 6vw, var(--sp-9));
-  --kp-group: var(--sp-7);
+  --kp-sec: clamp(var(--sp-8), 10vw, var(--sp-11));
+  --kp-block: clamp(var(--sp-7), 7vw, var(--sp-10));
+  --kp-group: clamp(var(--sp-6), 4.5vw, var(--sp-8));
+
+  /* The head rhythm, which is what the filmstrip actually gets right and
+     the rest of the page did not. Every head on this page is the same
+     three things — a mono label, a heading, a line of body — and they now
+     sit at the same three intervals everywhere:
+
+       label   --sp-5 (24)  heading   --sp-5 (24)  body
+                            --kp-group (64) down to whatever it introduces
+
+     Nothing between a head and its figure is ever smaller than 64, so a
+     heading always has more air under it than the lines inside it. */
 
   /* an inbound #anchor has to land clear of the header, not under it */
   --kp-anchor: calc(var(--kp-header-h) + var(--sp-5));
@@ -117,10 +159,9 @@
    rhythm. Two owners is how a ladder drifts. */
 .kp-case .kp-lead {
   margin: 0;
-  font-size: var(--kp-lead);
-  line-height: 1.6;
+  line-height: 1.75;
   color: var(--kp-ink-soft);
-  max-width: 680px;
+  max-width: var(--kp-measure);
 }
 
 /* shared chrome widened to match the shell (header markup stays identical) */
@@ -136,8 +177,56 @@
 .kp-case .case-body { padding-bottom: 0; }
 .kp-case .case-nav { padding: var(--kp-group) 0 var(--sp-9); }
 
-/* the fixed chapter rail occupies roughly x22 to x75; it only reads
-   comfortably once the shell's side gutter clears it by a margin */
+/* ---------- the chapter rail --------------------------------------------
+   Collapsed, the rail is seven ticks in the gutter and costs nothing. Open,
+   it wants ~270px, and a centred 1280 shell only leaves ~110px of gutter at
+   this width — so the labels have always landed on top of whatever was
+   scrolling past.
+
+   The fix is to give the open state a surface instead of borrowing the
+   page's. The ticks never move; a panel fades in underneath them and grows
+   with the labels, so the rail reads as a drawer sliding open over the
+   page rather than as type set on top of type. It is the page's own panel
+   colour, near-opaque, with the same hairline and radius as every other
+   frame here, which is why it can sit over the paper interludes too. */
+.kp-case .fm-rail {
+  left: var(--sp-2);
+  padding: var(--sp-4) var(--sp-5) var(--sp-4) var(--sp-4);
+}
+
+.kp-case .fm-rail::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 1px solid var(--kp-line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--kp-deep) 94%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s var(--kp-ease);
+  pointer-events: none;
+}
+
+.kp-case .fm-rail:hover::before,
+.kp-case .fm-rail:focus-within::before { opacity: 1; }
+
+/* the label is only legible once the drawer is under it, so it waits for
+   the panel rather than racing it. It also opens far enough for the
+   longest chapter title to arrive whole: a drawer that clips its own
+   labels at a hard edge looks like a bug, and an index that cannot say
+   what chapter 02 is called is not an index. */
+.kp-case .fm-rail a .t {
+  text-overflow: ellipsis;
+  transition: max-width 0.35s var(--kp-ease), opacity 0.24s ease 0.08s;
+}
+
+.kp-case .fm-rail:hover a .t,
+.kp-case .fm-rail:focus-within a .t { max-width: 340px; }
+
+/* the rail occupies roughly x8 to x75 closed; it only reads comfortably
+   once the shell's side gutter clears it by a margin */
 @media (max-width: 1499px) {
   .kp-case .fm-rail { display: none; }
 }
@@ -163,7 +252,7 @@
 
 .kp-case .fm-ch .idx {
   display: block;
-  margin-bottom: var(--sp-3);
+  margin-bottom: var(--sp-4);
 }
 
 .kp-case section[id],
@@ -171,12 +260,20 @@
   scroll-margin-top: var(--kp-anchor);
 }
 
+/* The pull quote is the CH 06 proof line: one step over body, ruled in the
+   accent, indented off the lead's left edge and stopping on its right one,
+   so the two share a column instead of stacking two widths. */
 .kp-case .fm-pull {
-  max-width: 900px;
+  max-width: var(--kp-measure);
+  font-size: var(--kp-quote);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.55;
+  color: var(--kp-ink);
   border-left: 2px solid var(--kp-accent);
   border-top: 0;
   border-bottom: 0;
-  padding: var(--sp-2) 0 var(--sp-2) var(--sp-6);
+  padding: var(--sp-1) 0 var(--sp-1) var(--sp-5);
   margin: var(--kp-group) 0;
 }
 
@@ -193,7 +290,7 @@
 
 .kp-fin {
   background: #000;
-  padding: clamp(var(--sp-9), 16vh, calc(var(--sp-10) + var(--sp-6))) var(--sp-6);
+  padding: clamp(var(--sp-10), 18vh, var(--sp-11)) var(--sp-6);
   display: grid;
   place-items: center;
   text-align: center;
@@ -273,7 +370,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--kp-accent);
-  margin: 0 0 var(--sp-4);
+  margin: 0 0 var(--sp-5);
 }
 
 .kp-mini-label {
@@ -282,7 +379,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--kp-muted);
-  margin: 0 0 var(--sp-3);
+  margin: 0 0 var(--sp-5);
 }
 
 .kp-case .kp-text-link {
@@ -388,7 +485,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: calc(var(--kp-header-h) + var(--sp-5)) 0 0;
+  /* the header is in flow, so the hero already starts under it: this padding
+     is a hairline of air above the back link, not a second header's worth. */
+  padding: var(--sp-4) 0 0;
 }
 
 .kp-hero .hero-grid {
@@ -433,7 +532,7 @@
   gap: var(--sp-8);
   align-items: center;
   flex: 1;
-  padding-bottom: var(--sp-6);
+  padding-bottom: var(--sp-7);
 }
 
 .kp-hero-copy { max-width: 620px; }
@@ -441,7 +540,7 @@
 .kp-case .kp-hero .back-link { margin-bottom: var(--sp-5); }
 
 .kp-case .kp-hero .fm-kicker {
-  margin: 0 0 var(--sp-4);
+  margin: 0 0 var(--sp-5);
 }
 
 .kp-case .kp-hero h1 {
@@ -449,7 +548,7 @@
   font-weight: 700;
   letter-spacing: -0.035em;
   line-height: 1.02;
-  margin: 0 0 var(--sp-5);
+  margin: 0 0 var(--sp-6);
   text-wrap: balance;
 }
 
@@ -473,12 +572,16 @@
 }
 
 /* the copy column already sets the measure; a ch cap on top of it only
-   produced a five-line paragraph with a two-word last line */
+   produced a five-line paragraph with a two-word last line.
+   Three lines is the ceiling here: the headline is 68px and three lines
+   deep, so anything longer under it turns the whole column into one
+   block of text. What the plate below already states — solo, eight
+   weeks — is not repeated in the paragraph. */
 .kp-hero-intro {
   font-size: var(--kp-lead);
-  line-height: 1.62;
+  line-height: 1.7;
   color: var(--kp-ink-soft);
-  margin: 0 0 var(--sp-6);
+  margin: 0 0 var(--sp-7);
 }
 
 .kp-hero-actions {
@@ -486,7 +589,7 @@
   align-items: center;
   gap: var(--sp-5);
   flex-wrap: wrap;
-  margin-bottom: var(--sp-4);
+  margin-bottom: var(--sp-5);
 }
 
 /* two honest ways in: the summary, or the first chapter. The line underneath
@@ -592,6 +695,21 @@
 
 .kp-hero-stack .kp-brackets { inset: calc(var(--sp-4) * -1); }
 
+/* The hero is the one composition on this page measured against the window
+   rather than against the page, so it is the one place the rhythm has to
+   give. In a short window every interval in the copy stack steps down
+   exactly one notch on the same scale — nothing lands off it — which buys
+   back the ~70px that keeps the spec plate above the fold on a laptop. */
+@media (max-height: 980px) {
+  .kp-case .kp-hero .back-link { margin-bottom: var(--sp-4); }
+  .kp-case .kp-hero .fm-kicker { margin: 0 0 var(--sp-4); }
+  .kp-case .kp-hero h1 { margin: 0 0 var(--sp-5); }
+  .kp-hero-intro { margin: 0 0 var(--sp-6); }
+  .kp-hero-actions { margin-bottom: var(--sp-4); }
+  .kp-hero-inner { padding-bottom: var(--sp-6); }
+  .kp-hero-meta > div { padding: var(--sp-5); }
+}
+
 /* ---------- hero meta: the spec plate ------------------------------------
    Five facts, ruled like a record rather than floated like a caption. The
    accent tick on the top rule marks where the record starts. */
@@ -615,7 +733,7 @@
 }
 
 .kp-hero-meta > div {
-  padding: var(--sp-5);
+  padding: var(--sp-6) var(--sp-5);
   border-right: 1px solid var(--kp-line);
   transition: opacity 0.24s var(--kp-ease);
 }
@@ -629,7 +747,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--kp-muted);
-  margin: 0 0 var(--sp-2);
+  margin: 0 0 var(--sp-3);
   transition: color 0.24s var(--kp-ease);
 }
 
@@ -651,7 +769,7 @@
   justify-content: space-between;
   gap: var(--sp-2) var(--sp-5);
   flex-wrap: wrap;
-  margin-bottom: var(--sp-6);
+  margin-bottom: var(--sp-7);
 }
 
 .kp-sec-meta {
@@ -671,11 +789,11 @@
 
 .kp-tldr-cell {
   position: relative;
-  padding: var(--sp-6);
+  padding: var(--sp-7) var(--sp-6);
   border-right: 1px solid var(--kp-line);
   display: flex;
   flex-direction: column;
-  gap: var(--sp-4);
+  gap: var(--sp-5);
   transition: opacity 0.24s var(--kp-ease);
 }
 .kp-tldr-cell:first-child { padding-left: 0; }
@@ -737,7 +855,7 @@
   justify-content: space-between;
   gap: var(--sp-2) var(--sp-5);
   flex-wrap: wrap;
-  margin: var(--sp-8) 0 var(--sp-4);
+  margin: var(--kp-block) 0 var(--sp-5);
 }
 .kp-case .kp-strip-head .kp-mini-label { margin: 0; }
 
@@ -753,7 +871,7 @@
 .kp-case a.kp-stat {
   position: relative;
   display: block;
-  padding: var(--sp-6);
+  padding: var(--sp-7) var(--sp-6);
   text-decoration: none;
   border-right: 1px solid var(--kp-line);
   transition: background 0.26s var(--kp-ease), opacity 0.24s var(--kp-ease);
@@ -775,8 +893,8 @@
 
 .kp-stat span {
   display: block;
-  margin-top: var(--sp-4);
-  padding-top: var(--sp-3);
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
   border-top: 1px solid var(--kp-line);
   font-family: var(--font-mono);
   font-size: 0.63rem;
@@ -819,7 +937,7 @@
 
 .kp-docket {
   position: relative;
-  padding: var(--sp-5);
+  padding: var(--sp-6);
   border: 1px solid var(--kp-line);
   border-radius: 10px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.032), rgba(255, 255, 255, 0.004));
@@ -830,8 +948,8 @@
   content: "";
   position: absolute;
   top: -1px;
-  left: var(--sp-5);
-  right: var(--sp-5);
+  left: var(--sp-6);
+  right: var(--sp-6);
   height: 2px;
   background: linear-gradient(90deg, var(--kp-accent), transparent);
   transform: scaleX(0);
@@ -841,7 +959,7 @@
 .kp-intake.in .kp-docket::before { transform: scaleX(1); }
 
 .kp-case .kp-docket-head {
-  margin: 0 0 var(--sp-4);
+  margin: 0 0 var(--sp-5);
   font-family: var(--font-mono);
   font-size: 0.6rem;
   letter-spacing: 0.2em;
@@ -861,8 +979,8 @@
 .kp-case .kp-docket-facts {
   list-style: none;
   display: flex;
-  margin: var(--sp-5) 0 0;
-  padding: var(--sp-4) 0 0;
+  margin: var(--sp-6) 0 0;
+  padding: var(--sp-5) 0 0;
   border-top: 1px solid var(--kp-line);
 }
 
@@ -900,8 +1018,8 @@
   align-items: baseline;
   justify-content: space-between;
   gap: var(--sp-3);
-  margin: var(--sp-5) 0 0;
-  padding-top: var(--sp-4);
+  margin: var(--sp-6) 0 0;
+  padding-top: var(--sp-5);
   border-top: 1px solid var(--kp-line);
   font-family: var(--font-mono);
   font-size: 0.57rem;
@@ -924,7 +1042,7 @@
   display: flex;
   align-items: center;
   gap: var(--sp-3);
-  margin: 0 0 var(--sp-4);
+  margin: 0 0 var(--sp-5);
   font-family: var(--font-mono);
   font-size: var(--kp-label);
   letter-spacing: 0.16em;
@@ -955,7 +1073,7 @@
 }
 
 .kp-case .kp-reframe-body {
-  margin: var(--sp-6) 0 0;
+  margin: var(--sp-7) 0 0;
   max-width: 62ch;
   font-size: var(--kp-lead);
   line-height: 1.65;
@@ -994,7 +1112,7 @@
 }
 
 .kp-case .kp-box-head p:last-child {
-  margin: var(--sp-3) 0 0;
+  margin: var(--sp-5) 0 0;
   max-width: 62ch;
   color: var(--kp-ink-soft);
   line-height: 1.75;
@@ -1004,12 +1122,15 @@
    smaller, plus a legend sitting on the border like a drawing callout. */
 .kp-conbox {
   position: relative;
-  margin: var(--sp-6) 0 0;
+  margin: var(--sp-7) 0 0;
   border: 1px solid var(--kp-line);
   border-radius: 6px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.016), transparent 62%);
-  /* one track definition for the header row and every row under it */
+  /* one track definition for the header row and every row under it, and
+     one inline padding shared by the rows, the column headings and the
+     legend on the border, so all three stand on the same vertical */
   --kp-con-grid: 76px minmax(0, 1fr) minmax(0, 0.92fr);
+  --kp-con-pad: var(--sp-6);
 }
 
 .kp-conbox .kp-brackets { inset: calc(var(--sp-2) * -1); }
@@ -1018,7 +1139,7 @@
 .kp-conbox-label {
   position: absolute;
   top: -0.55em;
-  left: calc(var(--sp-6) - var(--sp-2));
+  left: calc(var(--kp-con-pad) - var(--sp-2));
   margin: 0;
   padding: 0 var(--sp-2);
   background: var(--kp-deep);
@@ -1035,7 +1156,7 @@
   grid-template-columns: var(--kp-con-grid);
   gap: var(--sp-6);
   margin: 0;
-  padding: var(--sp-5) var(--sp-6) var(--sp-3);
+  padding: var(--sp-6) var(--kp-con-pad) var(--sp-4);
   border-bottom: 1px solid var(--kp-line);
   font-family: var(--font-mono);
   font-size: 0.57rem;
@@ -1087,7 +1208,7 @@
   grid-template-columns: var(--kp-con-grid);
   gap: var(--sp-3) var(--sp-6);
   align-items: baseline;
-  padding: var(--sp-6);
+  padding: var(--sp-7) var(--kp-con-pad);
   text-decoration: none;
   color: inherit;
   transition: background 0.26s var(--kp-ease);
@@ -1117,7 +1238,7 @@
   font-size: 1.06rem;
   font-weight: 600;
   color: var(--kp-ink);
-  margin-bottom: var(--sp-1);
+  margin-bottom: var(--sp-2);
   letter-spacing: -0.01em;
   transition: color 0.24s var(--kp-ease);
 }
@@ -1151,7 +1272,7 @@
 
 .kp-con-forced b {
   display: block;
-  margin-top: var(--sp-3);
+  margin-top: var(--sp-4);
   font-family: var(--font-mono);
   font-size: 0.6rem;
   font-weight: 500;
@@ -1205,7 +1326,7 @@
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.1;
-  margin: 0 0 var(--sp-4);
+  margin: 0 0 var(--sp-5);
 }
 
 .kp-map-head p { margin: 0; line-height: 1.7; }
@@ -1214,7 +1335,7 @@
    station owns its own leg of it (the b element), so the line is always
    pixel-aligned with the node above it, at any column width. */
 .kp-relay {
-  --kp-relay-gap: var(--sp-6);
+  --kp-relay-gap: var(--sp-7);
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: var(--kp-relay-gap);
@@ -1226,7 +1347,7 @@
   display: flex;
   justify-content: space-between;
   gap: var(--sp-5);
-  margin: 0 0 var(--sp-5);
+  margin: 0 0 var(--sp-6);
   font-family: var(--font-mono);
   font-size: 0.64rem;
   letter-spacing: 0.14em;
@@ -1252,7 +1373,7 @@
   line-height: 1;
   letter-spacing: -0.03em;
   color: rgba(25, 23, 18, 0.22);
-  margin-bottom: var(--sp-4);
+  margin-bottom: var(--sp-5);
   transition: color 0.26s var(--kp-ease);
 }
 
@@ -1260,7 +1381,7 @@
   display: flex;
   align-items: center;
   align-self: stretch;
-  margin: 0 0 var(--sp-5);
+  margin: 0 0 var(--sp-6);
 }
 
 .kp-relay-node i {
@@ -1296,7 +1417,7 @@
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--kp-paper-ink);
-  margin-bottom: var(--sp-2);
+  margin-bottom: var(--sp-3);
 }
 
 .kp-relay-q {
@@ -1304,7 +1425,7 @@
   font-size: 0.92rem;
   line-height: 1.55;
   color: var(--kp-paper-muted);
-  margin-bottom: var(--sp-4);
+  margin-bottom: var(--sp-5);
   flex: 1; /* pushes every chapter link onto a shared baseline */
 }
 
@@ -1316,7 +1437,7 @@
   text-transform: uppercase;
   color: var(--kp-paper-accent);
   border-top: 1px solid var(--kp-paper-line);
-  padding-top: var(--sp-3);
+  padding-top: var(--sp-4);
   align-self: stretch;
 }
 
@@ -1331,14 +1452,121 @@
 .kp-work { padding: var(--kp-sec) 0; }
 .kp-work-alt { background: var(--kp-panel); }
 
-.kp-chapter-head { margin-bottom: var(--kp-group); }
+/* Every chapter opens on the same drawn line, whether or not it has a deck
+   beside it: rule across the shell, accent tick at the left, then the head.
+   CH 06 and CH 07 have no masthead grid to inherit it from, so they draw it
+   themselves — without this the two of them are the only chapters on the
+   page that start out of nowhere. */
+.kp-chapter-head {
+  position: relative;
+  margin-bottom: var(--kp-group);
+  border-top: 1px solid var(--kp-line);
+  padding-top: var(--kp-group);
+}
+
+.kp-chapter-head::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 58px;
+  height: 1px;
+  background: var(--kp-accent);
+}
+
+/* in a masthead the rule spans both columns, so it belongs to the grid and
+   the head inside it must not draw a second one */
+.kp-opener .kp-chapter-head {
+  border-top: 0;
+  padding-top: 0;
+}
+.kp-opener .kp-chapter-head::before { content: none; }
+
+/* the paper interlude has its own ink */
+.kp-paper-sec .kp-chapter-head { border-top-color: var(--kp-paper-line); }
+.kp-paper-sec .kp-chapter-head::before { background: var(--kp-paper-accent); }
 
 .kp-case .kp-chapter-head .kp-overline {
-  margin: 0 0 var(--sp-3);
+  margin: 0 0 var(--sp-5);
   color: var(--kp-muted);
 }
 
 .kp-case .kp-chapter-head .fm-ch { margin-bottom: 0; }
+
+/* ---------- the chapter masthead ---------------------------------------
+   A chapter opens across the canvas, not down its left edge. Running text
+   has to stay at a reading measure, and a reading measure alone in a
+   1280 shell leaves half the page empty — so the heading takes the left
+   side and the deck takes the right, and the two read as one composition
+   the width of every other set piece on the page.
+
+   Both columns hang from one drawn rule, and that rule is the whole fix.
+   The earlier version started the deck level with the chapter number via a
+   subgrid, so the deck's first line landed at a height nothing else on the
+   page occupied: it read as floating rather than placed. There is now a
+   hairline across the full shell with the accent tick the hero's spec plate
+   uses, and everything in the masthead starts on it.
+
+   The two tracks are sized to their contents rather than split down the
+   middle, and the slack between them is the gutter. Each column is exactly
+   as wide as the measure it sets — display left, reading right — and both
+   sit flush against the shell's own edges, so the masthead stands on the
+   same two verticals as every set piece under it. Split 1fr/1fr instead and
+   the heading's cap leaves a third of its track empty: the gutter a reader
+   sees is then leftover rather than anything that was set, which is what
+   made this composition read as ungridded. */
+.kp-opener {
+  position: relative;
+  display: grid;
+  grid-template-columns:
+    minmax(0, var(--kp-head))
+    minmax(var(--sp-6), 1fr)
+    minmax(0, var(--kp-measure));
+  column-gap: 0;
+  /* deck to pull quote. One step under the head rhythm on purpose: the two
+     belong to each other, and holding them together is what keeps the right
+     column from outrunning the heading beside it. */
+  row-gap: var(--sp-6);
+  align-items: start;
+  border-top: 1px solid var(--kp-line);
+  padding-top: var(--kp-group);
+}
+
+/* the same tick that marks where the hero's record starts */
+.kp-opener::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 58px;
+  height: 1px;
+  background: var(--kp-accent);
+}
+
+.kp-opener .kp-chapter-head {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  margin-bottom: 0;
+}
+
+/* the track is the cap here, so the heading fills the column it was given
+   instead of stopping short of it */
+.kp-opener .fm-ch h2 { max-width: none; }
+
+.kp-opener .kp-lead {
+  grid-column: 3;
+  grid-row: 1;
+  max-width: none;
+}
+
+/* in the masthead the pull quote closes the right column, and the block
+   below owns the gap under it — one owner per gap */
+.kp-opener .fm-pull {
+  grid-column: 3;
+  grid-row: 2;
+  max-width: none;
+  margin: 0;
+}
 
 /* browser frame */
 .kp-browser-frame {
@@ -1354,7 +1582,7 @@
   align-items: center;
   gap: var(--sp-2);
   height: 40px;
-  padding: 0 var(--sp-4);
+  padding: 0 var(--sp-5);
   background: var(--kp-panel);
   border-bottom: 1px solid var(--kp-line);
 }
@@ -1459,8 +1687,8 @@
 .kp-browser-frame figcaption {
   display: grid;
   grid-template-columns: 150px minmax(0, 1fr);
-  gap: var(--sp-5);
-  padding: var(--sp-5) var(--sp-4);
+  gap: var(--sp-6);
+  padding: var(--sp-6) var(--sp-5);
   border-top: 1px solid var(--kp-line);
 }
 
@@ -1479,8 +1707,12 @@
   color: var(--kp-ink-soft);
 }
 
-/* phone mount */
-.kp-frame {
+/* Phone mount. The `.kp-case` prefix is load-bearing: every one of these
+   figures also carries `.shot`, and style.css's `figure.shot { margin: 30px 0 }`
+   out-specifies a bare `.kp-frame`. That stray 30px is what left the phone in
+   the fold hanging below the stacks it is supposed to sit beside — this page
+   spaces figures from the grid they sit on, never from a figure margin. */
+.kp-case .kp-frame {
   margin: 0;
   max-width: 285px;
   width: 100%;
@@ -1496,7 +1728,7 @@
   cursor: zoom-in;
 }
 
-.kp-frame figcaption { padding-top: var(--sp-4); }
+.kp-frame figcaption { padding-top: var(--sp-5); }
 
 .kp-frame figcaption span {
   display: block;
@@ -1505,7 +1737,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--kp-accent);
-  margin-bottom: var(--sp-1);
+  margin-bottom: var(--sp-2);
 }
 
 .kp-frame figcaption strong {
@@ -1537,7 +1769,7 @@
   font-size: var(--kp-h3);
   font-weight: 600;
   letter-spacing: -0.02em;
-  margin: 0 0 var(--sp-4);
+  margin: 0 0 var(--sp-5);
 }
 
 .kp-lens-head p,
@@ -1550,9 +1782,9 @@
 .kp-lens-body {
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-  gap: var(--sp-7);
+  gap: var(--sp-8);
   align-items: start;
-  margin: var(--sp-6) 0 0;
+  margin: var(--kp-group) 0 0;
 }
 
 /* the lit band. top/height arrive in pixels from the script because they are
@@ -1605,7 +1837,7 @@
   display: flex;
   align-items: baseline;
   gap: var(--sp-2);
-  margin: 0 0 var(--sp-5);
+  margin: 0 0 var(--sp-6);
   font-family: var(--font-mono);
 }
 
@@ -1644,7 +1876,7 @@
   column-gap: var(--sp-4);
   width: 100%;
   margin: 0;
-  padding: var(--sp-5) 0 var(--sp-5) var(--sp-4);
+  padding: var(--sp-6) 0 var(--sp-6) var(--sp-5);
   border: 0;
   border-top: 1px dotted var(--kp-line-strong);
   border-left: 2px solid transparent;
@@ -1698,7 +1930,7 @@
 
 .kp-lens-q {
   grid-column: 2;
-  margin-top: var(--sp-3);
+  margin-top: var(--sp-4);
   font-size: 1.02rem;
   line-height: 1.4;
   color: var(--kp-ink);
@@ -1708,7 +1940,7 @@
 
 .kp-lens-a {
   grid-column: 2;
-  margin-top: var(--sp-2);
+  margin-top: var(--sp-3);
   font-size: 0.87rem;
   line-height: 1.62;
   color: var(--kp-ink-soft);
@@ -1727,8 +1959,8 @@
 .kp-lens:not(.is-static) .kp-lens-static { display: none; }
 
 .kp-lens-foot {
-  margin: var(--sp-5) 0 0;
-  padding-top: var(--sp-5);
+  margin: var(--sp-6) 0 0;
+  padding-top: var(--sp-6);
   border-top: 1px solid var(--kp-line);
   font-size: 0.82rem;
   line-height: 1.6;
@@ -1752,9 +1984,9 @@
 .kp-fold-body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 218px;
-  gap: var(--sp-6);
+  gap: var(--sp-7);
   align-items: start;
-  margin: var(--sp-6) 0 0;
+  margin: var(--kp-group) 0 0;
 }
 
 /* a grid item holding another grid needs this or the stacks size to their
@@ -1766,21 +1998,21 @@
 .kp-fold-cols {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--sp-6);
+  gap: var(--sp-7);
 }
 
 .kp-fold-col {
   background: var(--kp-panel);
   border: 1px solid var(--kp-line);
   border-radius: var(--radius);
-  padding: var(--sp-5);
+  padding: var(--sp-6);
 }
 
 .kp-fold-dev {
   display: flex;
   align-items: baseline;
   gap: var(--sp-2);
-  margin: 0 0 var(--sp-4);
+  margin: 0 0 var(--sp-5);
   font-family: var(--font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.14em;
@@ -1806,7 +2038,7 @@
   align-items: baseline;
   gap: var(--sp-1) var(--sp-3);
   margin-bottom: var(--sp-2);
-  padding: var(--sp-2) var(--sp-3);
+  padding: var(--sp-3);
   border: 1px solid var(--kp-line);
   border-radius: 7px;
   background: rgba(255, 255, 255, 0.022);
@@ -1846,7 +2078,7 @@
   display: flex;
   align-items: center;
   gap: var(--sp-3);
-  margin: var(--sp-4) 0 var(--sp-3);
+  margin: var(--sp-5) 0 var(--sp-4);
   font-family: var(--font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.16em;
@@ -1879,8 +2111,8 @@
   display: grid;
   grid-template-columns: 150px minmax(0, 720px);
   gap: var(--sp-5);
-  margin: var(--sp-6) 0 0;
-  padding-top: var(--sp-5);
+  margin: var(--sp-7) 0 0;
+  padding-top: var(--sp-6);
   border-top: 1px solid var(--kp-line);
   font-size: 0.9rem;
   line-height: 1.7;
@@ -1899,7 +2131,7 @@
 
 .kp-passes { margin: var(--kp-block) 0 0; }
 
-.kp-passes .kp-process-steps { margin-top: var(--sp-5); }
+.kp-passes .kp-process-steps { margin-top: var(--sp-7); }
 
 .kp-passes .kp-process-steps strong {
   font-size: 0.95rem;
@@ -1909,18 +2141,18 @@
 
 .kp-process-steps {
   list-style: none;
-  margin: var(--sp-5) 0 0;
+  margin: var(--sp-7) 0 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-6);
+  gap: var(--sp-7);
 }
 
 .kp-process-steps li {
   border-top: 1px dotted var(--kp-line-strong);
-  padding-top: var(--sp-4);
+  padding-top: var(--sp-5);
   display: flex;
-  gap: var(--sp-4);
+  gap: var(--sp-5);
   transition: opacity 0.24s var(--kp-ease), border-color 0.24s var(--kp-ease);
 }
 
@@ -1937,7 +2169,7 @@
 .kp-process-steps strong {
   display: block;
   font-size: 0.98rem;
-  margin-bottom: var(--sp-2);
+  margin-bottom: var(--sp-3);
   color: var(--kp-ink);
 }
 
@@ -1961,7 +2193,7 @@
 .kp-annotated {
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-  gap: var(--sp-7);
+  gap: var(--sp-8);
   align-items: start;
   margin: var(--kp-group) 0 0;
 }
@@ -2013,9 +2245,9 @@
 
 .kp-anno-list li {
   display: flex;
-  gap: var(--sp-4);
+  gap: var(--sp-5);
   border-top: 1px dotted var(--kp-line-strong);
-  padding: var(--sp-5) 0;
+  padding: var(--sp-6) 0;
   cursor: default;
   transition: opacity 0.22s var(--kp-ease);
 }
@@ -2079,7 +2311,7 @@
   display: flex;
   align-items: center;
   gap: var(--sp-4);
-  margin: var(--sp-6) 0 0;
+  margin: var(--sp-7) 0 0;
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.14em;
@@ -2300,26 +2532,81 @@
 
 .kp-film-out { margin: var(--kp-group) 0 0; }
 
+/* The coda to the filmstrip. It used to centre a three-line paragraph
+   against a 613px screenshot, so the copy floated in the middle of a column
+   of nothing with void above and below it and no label to say what the block
+   was. It now has the anatomy every other block on this page has — a mono
+   label, a heading, a line of body, then the evidence — and the two columns
+   are flush to the shell's edges with the slack between them as the gutter,
+   the same grid the chapter masthead stands on. */
 .kp-film-after {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 285px;
   gap: var(--sp-8);
-  align-items: center;
+  align-items: start;
   margin: var(--kp-block) 0 0;
 }
+
+/* the copy carries its own measure and the track carries the slack, the way
+   the fold's trade note does — a fixed track here would outgrow the shell
+   just above the width at which this block stacks */
+.kp-film-after-copy { max-width: 720px; }
 
 .kp-film-after h3 {
   font-size: var(--kp-h3);
   font-weight: 600;
   letter-spacing: -0.02em;
-  margin: 0 0 var(--sp-4);
+  margin: 0 0 var(--sp-5);
 }
 
 .kp-film-after p {
   margin: 0;
-  max-width: 60ch;
   color: var(--kp-ink-soft);
   line-height: 1.8;
+}
+
+/* The three answers, ruled like the state legend: one a row, each on its own
+   hairline, so "three facts" is a shape and not just a claim. Deliberately
+   unnumbered — the facts above and the devices here are not a 1:1 mapping
+   (the pills answer the third fact, not the first), and numbering them would
+   assert a pairing the screen does not make. */
+/* .kp-film-after p sets margin 0 on every paragraph in the block and
+   out-specifies a bare class, so this one has to reach the same weight */
+.kp-film-after .kp-glance-label {
+  margin: var(--kp-group) 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kp-accent);
+}
+
+.kp-glance {
+  list-style: none;
+  margin: var(--sp-5) 0 0;
+  padding: 0;
+}
+
+.kp-glance li {
+  display: grid;
+  grid-template-columns: var(--sp-6) minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--sp-4);
+  padding: var(--sp-6) 0;
+  border-top: 1px dotted var(--kp-line-strong);
+  font-size: 0.94rem;
+  line-height: 1.55;
+  color: var(--kp-ink);
+}
+
+.kp-glance li::before {
+  content: "";
+  display: block;
+  height: 1px;
+  background: var(--kp-accent);
+  /* baseline alignment puts a 1px box on the text baseline; this lifts it
+     to the optical centre of the line beside it */
+  transform: translateY(-0.42em);
 }
 
 /* ---------- 9. states --------------------------------------------------- */
@@ -2334,7 +2621,7 @@
 
 .kp-state-legend ol {
   list-style: none;
-  margin: 0 0 var(--sp-5);
+  margin: 0 0 var(--sp-7);
   padding: 0;
 }
 
@@ -2342,7 +2629,7 @@
   display: flex;
   gap: var(--sp-3);
   border-top: 1px dotted var(--kp-line-strong);
-  padding: var(--sp-4) 0;
+  padding: var(--sp-5) 0;
 }
 
 .kp-state-legend li > span {
@@ -2354,7 +2641,7 @@
 .kp-state-legend strong {
   display: block;
   font-size: 0.94rem;
-  margin-bottom: var(--sp-1);
+  margin-bottom: var(--sp-2);
   color: var(--kp-ink);
 }
 
@@ -2370,7 +2657,7 @@
 .kp-gallery-3,
 .kp-gallery-4 {
   display: grid;
-  gap: var(--sp-6);
+  gap: var(--sp-7);
   justify-items: center;
 }
 .kp-gallery-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -2409,13 +2696,13 @@
 .kp-state-legend ol.is-lit li { opacity: 0.45; }
 .kp-state-legend ol.is-lit li.is-on { opacity: 1; }
 
-.kp-edge-head { margin: var(--kp-block) 0 var(--sp-6); }
+.kp-edge-head { margin: var(--kp-block) 0 var(--kp-group); }
 
 .kp-edge-head h3 {
   font-size: var(--kp-h3);
   font-weight: 600;
   letter-spacing: -0.02em;
-  margin: 0 0 var(--sp-3);
+  margin: 0 0 var(--sp-5);
 }
 
 .kp-edge-head p {
@@ -2440,7 +2727,7 @@
 .kp-proof-grid p {
   color: var(--kp-ink-soft);
   line-height: 1.75;
-  margin: 0 0 var(--sp-5);
+  margin: 0 0 var(--sp-6);
 }
 
 .kp-proof-line {
@@ -2456,7 +2743,7 @@
 .kp-score-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-6);
+  gap: var(--sp-7);
   margin: var(--kp-group) 0 0;
 }
 
@@ -2464,7 +2751,7 @@
   background: rgba(25, 23, 18, 0.04);
   border: 1px solid var(--kp-paper-line);
   border-radius: var(--radius);
-  padding: var(--sp-6);
+  padding: var(--sp-7) var(--sp-6);
 }
 
 .kp-score-card {
@@ -2493,7 +2780,7 @@
   line-height: 1;
   letter-spacing: -0.03em;
   color: rgba(25, 23, 18, 0.18);
-  margin: var(--sp-3) 0 var(--sp-4);
+  margin: var(--sp-4) 0 var(--sp-5);
   transition: color 0.24s var(--kp-ease);
 }
 
@@ -2508,7 +2795,7 @@
   grid-template-columns: 20px minmax(0, 1fr);
   gap: var(--sp-3);
   border-top: 1px dotted var(--kp-paper-line);
-  padding: var(--sp-3) 0;
+  padding: var(--sp-4) 0;
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--kp-paper-ink);
@@ -2527,8 +2814,8 @@
 
 /* prototype index */
 .kp-proto-head {
-  margin: var(--kp-block) 0 var(--sp-5);
-  padding-top: var(--sp-6);
+  margin: var(--kp-block) 0 var(--sp-6);
+  padding-top: var(--sp-7);
   border-top: 1px solid var(--kp-paper-line);
   display: flex;
   align-items: baseline;
@@ -2549,7 +2836,7 @@
 .kp-proto-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--sp-4);
+  gap: var(--sp-5);
 }
 
 .kp-proto {
@@ -2557,7 +2844,7 @@
   text-decoration: none;
   border: 1px solid var(--kp-paper-line);
   border-radius: var(--radius-sm);
-  padding: var(--sp-4);
+  padding: var(--sp-5);
   background: rgba(25, 23, 18, 0.03);
   transition: transform 0.22s var(--kp-ease), border-color 0.22s var(--kp-ease), background 0.22s var(--kp-ease);
 }
@@ -2577,7 +2864,7 @@
 
 .kp-proto strong {
   display: block;
-  margin-top: var(--sp-2);
+  margin-top: var(--sp-3);
   font-size: 0.9rem;
   font-weight: 500;
   line-height: 1.4;
@@ -2639,7 +2926,7 @@
 .kp-quote blockquote {
   position: relative;
   z-index: 1;
-  margin: 0 0 var(--sp-7);
+  margin: 0 0 var(--sp-8);
   font-size: clamp(1.45rem, 2.5vw, 2.05rem);
   font-weight: 500;
   line-height: 1.45;
@@ -2668,7 +2955,7 @@
   align-items: center;
   gap: var(--sp-4);
   flex-wrap: wrap;
-  padding-top: var(--sp-5);
+  padding-top: var(--sp-6);
   border-top: 1px solid var(--kp-line);
 }
 
@@ -2738,7 +3025,7 @@
   z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
-  gap: var(--sp-8);
+  gap: var(--sp-9);
   align-items: start;
 }
 
@@ -2750,13 +3037,13 @@
   letter-spacing: -0.03em;
   line-height: 1.1;
   color: var(--kp-on-accent);
-  margin: 0 0 var(--sp-5);
+  margin: 0 0 var(--sp-6);
   max-width: 20ch;
   text-wrap: balance;
 }
 
 .kp-closing-copy {
-  margin: 0 0 var(--sp-6);
+  margin: 0 0 var(--sp-7);
   max-width: 560px;
   font-size: 1.02rem;
   line-height: 1.7;
@@ -2799,7 +3086,7 @@
 }
 
 .kp-closing-ps {
-  margin: var(--sp-6) 0 0;
+  margin: var(--sp-7) 0 0;
   font-size: 0.85rem;
   color: var(--kp-on-accent-soft);
   position: relative;
@@ -2821,11 +3108,11 @@
   border: 1px solid rgba(34, 19, 2, 0.2);
   border-radius: 14px;
   background: rgba(34, 19, 2, 0.045);
-  padding: var(--sp-5) var(--sp-6);
+  padding: var(--sp-6);
 }
 
 .kp-lessons-head {
-  margin: 0 0 var(--sp-4);
+  margin: 0 0 var(--sp-5);
   padding: 0;
   font-family: var(--font-mono);
   font-size: 0.63rem;
@@ -2844,8 +3131,8 @@
 .kp-lessons li {
   display: grid;
   grid-template-columns: var(--sp-6) minmax(0, 1fr);
-  gap: var(--sp-4);
-  padding: var(--sp-5) 0;
+  gap: var(--sp-5);
+  padding: var(--sp-6) 0;
   border-top: 1px solid rgba(34, 19, 2, 0.16);
   transition: opacity 0.24s var(--kp-ease);
 }
@@ -2867,7 +3154,7 @@
   letter-spacing: -0.01em;
   line-height: 1.4;
   color: var(--kp-on-accent);
-  margin-bottom: var(--sp-2);
+  margin-bottom: var(--sp-3);
 }
 
 .kp-lessons p {
@@ -3089,16 +3376,41 @@
 }
 
 @media (max-width: 1100px) {
+  /* the masthead needs two real columns or none: below this the lead would
+     be reading at 45 characters a line to keep the heading company. Stacked,
+     the rule and its tick stay — they are what the chapter opens on — and
+     the gaps step back up to the head rhythm, since nothing is being held
+     level with anything any more. */
+  .kp-opener {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--kp-group);
+  }
+  .kp-opener .kp-chapter-head {
+    grid-column: 1;
+    grid-row: auto;
+    margin-bottom: 0;
+  }
+  .kp-opener .fm-ch h2 { max-width: 20ch; }
+  .kp-opener .kp-lead,
+  .kp-opener .fm-pull {
+    grid-column: 1;
+    grid-row: auto;
+    max-width: var(--kp-measure);
+  }
+
   /* the reader rows need a readable measure before the frame needs width */
-  .kp-lens-body { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--sp-6); }
-  .kp-fold-body { grid-template-columns: minmax(0, 1fr) 190px; gap: var(--sp-5); }
-  .kp-fold-cols { gap: var(--sp-5); }
+  .kp-lens-body { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--sp-7); }
+  .kp-fold-body { grid-template-columns: minmax(0, 1fr) 190px; gap: var(--sp-6); }
+  .kp-fold-cols { gap: var(--sp-6); }
 
   /* the docket gives up width before the claim does */
   .kp-brief-top { grid-template-columns: 300px minmax(0, 1fr); gap: 0 var(--sp-7); }
-  .kp-conbox { --kp-con-grid: 66px minmax(0, 1fr) minmax(0, 0.95fr); }
+  .kp-conbox {
+    --kp-con-grid: 66px minmax(0, 1fr) minmax(0, 0.95fr);
+    --kp-con-pad: var(--sp-5);
+  }
   .kp-case .kp-con-cols,
-  .kp-case .kp-con-row { gap: var(--sp-3) var(--sp-5); padding-inline: var(--sp-5); }
+  .kp-case .kp-con-row { gap: var(--sp-3) var(--sp-5); }
 
   .kp-closing-inner { gap: var(--sp-7); }
 
@@ -3114,7 +3426,8 @@
 @media (max-width: 860px) {
   .kp-hero {
     min-height: 0;
-    padding: calc(var(--kp-header-h) + var(--sp-6)) 0 0;
+    /* same as the wide layout: the header is in flow and pays for itself */
+    padding-top: var(--sp-4);
   }
   .kp-hero-inner {
     grid-template-columns: 1fr;
@@ -3130,10 +3443,10 @@
   .kp-annotated,
   .kp-lens-body,
   .kp-proof-grid,
-  .kp-film-after { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .kp-film-after { grid-template-columns: 1fr; gap: var(--sp-7); }
 
   /* stacked: the two orders, then the trade, then the phone */
-  .kp-fold-body { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .kp-fold-body { grid-template-columns: 1fr; gap: var(--sp-7); }
   .kp-fold-cols { grid-template-columns: 1fr; }
   .kp-fold-body > .kp-frame { max-width: 285px; }
 
@@ -3150,7 +3463,7 @@
      row, still marked by the elbow so the "therefore" survives the stack */
   .kp-conbox { --kp-con-grid: 60px minmax(0, 1fr); }
   .kp-case .kp-con-cols { display: none; }
-  .kp-case .kp-con-row { gap: var(--sp-4) var(--sp-5); padding: var(--sp-5); }
+  .kp-case .kp-con-row { gap: var(--sp-4) var(--sp-5); padding-block: var(--sp-6); }
   .kp-con-forced { grid-column: 2; }
 
   .kp-closing-inner { grid-template-columns: 1fr; gap: var(--sp-7); }
@@ -3165,7 +3478,7 @@
   .kp-anno-dot { display: none; }
 
   /* stacked, the track turns into a rule above each station */
-  .kp-relay { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .kp-relay { grid-template-columns: 1fr; gap: var(--sp-7); }
   .kp-relay-ends { flex-direction: column; gap: var(--sp-2); margin-bottom: var(--sp-2); }
   .kp-relay-stage { padding-right: 0; }
   .kp-relay-no {
@@ -3246,7 +3559,7 @@
 
   /* the scoreboard folds to two by two and keeps its rules */
   .kp-stat-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .kp-case a.kp-stat { padding: var(--sp-5); }
+  .kp-case a.kp-stat { padding: var(--sp-6) var(--sp-5); }
   .kp-case a.kp-stat:nth-child(2n) { border-right: 0; }
   .kp-case a.kp-stat:nth-child(-n + 2) { border-bottom: 1px solid var(--kp-line); }
 
@@ -3267,8 +3580,11 @@
   .kp-brackets b { width: 18px; height: 18px; }
 
   /* a 60px gutter for "C-01" is a sixth of the screen; stack it instead */
-  .kp-conbox { --kp-con-grid: minmax(0, 1fr); }
-  .kp-case .kp-con-row { gap: var(--sp-3); padding-inline: var(--sp-4); }
+  .kp-conbox {
+    --kp-con-grid: minmax(0, 1fr);
+    --kp-con-pad: var(--sp-4);
+  }
+  .kp-case .kp-con-row { gap: var(--sp-3); }
   .kp-con-forced { grid-column: 1; }
   .kp-docket-facts { flex-wrap: wrap; gap: var(--sp-4) 0; }
   .kp-gallery-3,
