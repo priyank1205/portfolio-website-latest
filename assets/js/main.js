@@ -544,6 +544,7 @@ async function copyEmail() {
   if (copied) {
     sfx.play("chime");
     showToast('<span class="ok">✓</span>' + EMAIL + " copied to clipboard");
+    window.dispatchEvent(new CustomEvent("portfolio:email_copied"));
   } else {
     showToast("Email: " + EMAIL);
   }
@@ -1181,6 +1182,7 @@ function scrambleText(el, dur = 800) {
       .join("");
   }
   function openPal() {
+    window.dispatchEvent(new CustomEvent("portfolio:command_palette"));
     sfx.play("palOpen");
     overlay.classList.add("open");
     document.body.style.overflow = "hidden";
@@ -1263,6 +1265,7 @@ function scrambleText(el, dur = 800) {
 
 // ---------- Typed easter egg ----------
 function hireEgg() {
+  window.dispatchEvent(new CustomEvent("portfolio:hire_typed"));
   function confetti() {
     if (noMotion) return;
     const c = document.createElement("canvas");
