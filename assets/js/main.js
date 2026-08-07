@@ -1159,6 +1159,7 @@ function scrambleText(el, dur = 800) {
       .join("");
   }
   function openPal() {
+    window.dispatchEvent(new CustomEvent("portfolio:command_palette"));
     sfx.play("palOpen");
     overlay.classList.add("open");
     document.body.style.overflow = "hidden";

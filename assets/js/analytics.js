@@ -163,7 +163,7 @@
     // Custom DOM events from main.js
     window.addEventListener('portfolio:email_copied', () => {
       clarityEvent('email_copied');
-      claritySet('recruiter_signal', 'email_copied_custom');
+      claritySet('recruiter_signal', 'email_copied');
     });
 
     window.addEventListener('portfolio:hire_typed', () => {
@@ -173,20 +173,6 @@
 
     window.addEventListener('portfolio:command_palette', () => {
       clarityEvent('command_palette_opened');
-    });
-
-    // Keyboard interaction fallbacks
-    document.addEventListener('keydown', (e) => {
-      const activeEl = document.activeElement;
-      const isInput = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || activeEl.isContentEditable);
-      if (isInput || e.metaKey || e.ctrlKey || e.altKey) return;
-
-      const key = e.key.toLowerCase();
-      if (key === 'c') {
-        clarityEvent('email_copied_keyboard');
-      } else if (key === '/') {
-        clarityEvent('command_palette_opened_keyboard');
-      }
     });
   }
 
