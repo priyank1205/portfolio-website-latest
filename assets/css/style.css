@@ -129,17 +129,9 @@ kbd {
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 10px;
   white-space: nowrap;
 }
 .brand:hover { color: var(--ink); }
-
-.brand .dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  display: inline-block;
-}
 
 .site-nav { display: flex; gap: 22px; align-items: center; }
 
