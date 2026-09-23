@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KhiladiPro: designing for the far side of the room | Priyank Agarwal</title>
+<meta name="description" content="A paid sports olympiad played at home. Sole product designer across web, Android and iOS: registration, camera onboarding and the event experience. Every screen shipped.">
+<meta name="theme-color" content="#08080a">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="../assets/images/khiladipro/91415b1c_Landing_Page_Mobile.png">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="../assets/css/khiladipro-redesign-claude.css?v=43">
+</head>
+<body>
+<a class="skip" href="#brief">Skip to case study</a>
+
+<nav class="nav" aria-label="Site">
+  <a class="nav-home" href="../index.html"><span class="mark" aria-hidden="true">pa</span>Priyank Agarwal</a>
+  <span class="nav-sep" aria-hidden="true"></span>
+  <span class="nav-links">
+    <a href="../index.html#work">Work</a>
+    <a href="../about.html">About</a>
+  </span>
+  <a class="btn" href="mailto:hello@priyank.design">Get in touch</a>
+</nav>
+
+<main id="top">
+
+<!-- ═══ Hero ═══════════════════════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="hero-chips">
+        <span class="chip"><span class="dot" aria-hidden="true"></span>Sports &amp; fitness olympiad</span>
+        <span class="chip">Sole product designer</span>
+        <span class="chip">2026</span>
+      </div>
+
+      <h1 class="h1">Designing for the <em>far side of the room.</em></h1>
+
+      <p class="lead">A paid sports competition for 12 to 18 year olds, played at home and scored by a phone camera. I designed every surface: the landing page, registration, first-run onboarding and the event itself.</p>
+
+      <div class="hero-actions">
+        <a class="btn btn--primary" href="#onboarding">
+          Walk the onboarding
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+        <a class="btn" href="#prototypes">
+          Seven Figma prototypes
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Stacked and cross-faded on a wide screen; a swipeable filmstrip on a
+         phone, where three screens side by side beat one that changes itself. -->
+    <figure class="hero-device" data-cycler>
+      <div class="deck" data-deck>
+        <div class="deck-item is-on" data-deck-item>
+          <div class="phone"><div class="phone-screen">
+            <img src="../assets/images/khiladipro/91415b1c_Landing_Page_Mobile.png" alt="Olympiad mobile landing page with event dates and registration" width="567" height="1227" fetchpriority="high" decoding="async">
+          </div></div>
+        </div>
+        <div class="deck-item" data-deck-item>
+          <div class="phone"><div class="phone-screen">
+            <img src="../assets/images/khiladipro/92205d06_Android_Large_-_235.png" alt="Scored drill counting 13 of 20 squats" width="570" height="1230" fetchpriority="high" decoding="async">
+          </div></div>
+        </div>
+        <div class="deck-item" data-deck-item>
+          <div class="phone"><div class="phone-screen">
+            <img src="../assets/images/khiladipro/dab923c5_home_-_with_frame.png" alt="Event home with points earned and the next test" width="570" height="1230" fetchpriority="high" decoding="async">
+          </div></div>
+        </div>
+      </div>
+      <div class="segments" role="tablist" aria-label="Featured screens">
+        <button type="button" role="tab" aria-current="true" aria-label="Register"><span aria-hidden="true"></span></button>
+        <button type="button" role="tab" aria-current="false" aria-label="Compete"><span aria-hidden="true"></span></button>
+        <button type="button" role="tab" aria-current="false" aria-label="Return"><span aria-hidden="true"></span></button>
+      </div>
+      <figcaption>
+        <span class="note" data-cycler-label>Register: the paid entry, on the web</span>
+        <span class="num" data-cycler-count>1/3</span>
+      </figcaption>
+    </figure>
+  </div>
+</header>
+
+<section class="facts-block wrap" aria-label="Engagement facts">
+  <!-- The thirty-second read. The one thing it cannot show is said once, in
+       the card itself, with a way to what replaces it. -->
+  <div class="facts-card rise" data-spotlight>
+    <dl class="facts">
+      <div class="fact">
+        <dt><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Role</dt>
+        <dd><b>Sole product designer</b><span>Lo-fi to shipped</span></dd>
+      </div>
+      <div class="fact">
+        <dt><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="10" rx="1.5"/><path d="M6 18h6M9 14v4"/><rect x="17" y="8" width="5" height="12" rx="1.2"/></svg>Platforms</dt>
+        <dd><b>Web · Android · iOS</b><span>Landing to live event</span></dd>
+      </div>
+      <div class="fact">
+        <dt><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Duration</dt>
+        <dd><b>~8 weeks</b><span>Fixed start: 25 May</span></dd>
+      </div>
+      <div class="fact">
+        <dt><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M18 14.3a6.5 6.5 0 0 1 3.5 5.7"/></svg>Team</dt>
+        <dd><b>A team of four</b><span>PM, engineer, CEO and me</span></dd>
+      </div>
+      <div class="fact fact--outcome">
+        <dt><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.2 2.3 2.3 4.7-4.8"/></svg>Outcome</dt>
+        <dd><b>Every screen shipped</b><a class="fact-proof" href="#outcome">Rehired for a second engagement <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a></dd>
+      </div>
+    </dl>
+    <p class="facts-note">
+      <span class="facts-note-text"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6h.01"/></svg>No analytics access, so there are no impact metrics on this page.</span>
+      <a class="facts-note-link" href="#next-up">What I would measure next <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+    </p>
+  </div>
+</section>
+
+<!-- ═══ Chapter rail ═══════════════════════════════════════════════════════ -->
+<nav class="rail" aria-label="Case study sections">
+  <div class="wrap">
+    <a class="rail-home" href="../index.html#work" aria-label="All projects">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    </a>
+    <a href="#brief"><span class="num">00</span>Brief</a>
+    <a href="#onboarding"><span class="num">01</span>First-run onboarding</a>
+    <a href="#landing"><span class="num">02</span>Landing &amp; registration</a>
+    <a href="#event"><span class="num">03</span>The in-app event</a>
+    <a href="#outcome"><span class="num">04</span>Outcome</a>
+    <a href="#prototypes"><span class="num">05</span>Prototypes</a>
+  </div>
+  <span class="progress" aria-hidden="true"></span>
+</nav>
+
+<!-- ═══ 00 Brief ═══════════════════════════════════════════════════════════ -->
+<section class="section" id="brief" aria-labelledby="brief-t">
+  <div class="wrap">
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip"><span class="dot" aria-hidden="true"></span>The brief</span>
+        <span class="num">00 / 05</span>
+      </p>
+      <h2 id="brief-t">“Design the olympiad.”</h2>
+      <p class="lead">That was the whole brief. Strategy and success metrics stayed with the client, for whom the olympiad was an acquisition play into casual sports participants. The design was mine: four surfaces, shaped by five constraints.</p>
+    </header>
+
+    <div class="surfaces rise" id="surfaces">
+      <p class="block-label num">The four surfaces</p>
+      <div class="surface-grid">
+        <a class="surface" href="#landing">
+          <span class="surface-top"><span class="num">01</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
+          <span class="surface-body">
+            <strong>Landing page</strong>
+            <span>Three audiences, one URL, a fixed date window.</span>
+          </span>
+          <img class="surface-thumb" src="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        </a>
+        <a class="surface" href="#landing">
+          <span class="surface-top"><span class="num">02</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
+          <span class="surface-body">
+            <strong>Registration &amp; payment</strong>
+            <span>On the web, before anyone installs anything.</span>
+          </span>
+          <img class="surface-thumb" src="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        </a>
+        <a class="surface" href="#onboarding">
+          <span class="surface-top"><span class="num">03</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
+          <span class="surface-body">
+            <strong>First-run onboarding</strong>
+            <span>Teach a camera-scored drill to a 12 year old.</span>
+          </span>
+          <img class="surface-thumb" src="../assets/images/khiladipro/cdb4e5d8_Android_Large_-_232.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        </a>
+        <a class="surface" href="#event">
+          <span class="surface-top"><span class="num">04</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
+          <span class="surface-body">
+            <strong>The in-app event</strong>
+            <span>Mostly the time between attempts.</span>
+          </span>
+          <img class="surface-thumb" src="../assets/images/khiladipro/dab923c5_home_-_with_frame.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        </a>
+      </div>
+    </div>
+
+    <!-- Five constraints, each drawn as the thing it constrained, with the
+         decision it forced and a way to the chapter where that decision shows. -->
+    <div class="constraints" id="constraints">
+      <p class="block-label num rise">The five constraints</p>
+      <ol class="cgrid">
+      <li class="cons cons--wide rise" style="--i:0" data-spotlight>
+        <div class="cons-top">
+          <span class="num">01</span>
+          <a class="cons-link" href="#landing"><span>Landing page</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+        </div>
+        <div class="cviz cviz--window" aria-hidden="true">
+          <p class="cw-figure"><b>22</b><span>days</span></p>
+          <div class="cw">
+            <div class="cw-months"><span>May</span><span style="--p:50.8%">June</span></div>
+            <div class="cw-track">
+              <span class="cw-lead"></span>
+              <span class="cw-win"></span>
+              <span class="cw-tick" style="--p:50.8%"></span>
+            </div>
+            <div class="cw-dates"><span style="--p:39.3%">25 May</span><span style="--p:75.4%">15 June</span></div>
+          </div>
+        </div>
+        <h3>A fixed holiday window</h3>
+        <p class="cons-given">The olympiad ran 25 May to 15 June, and marketing needed the pages before it opened.</p>
+        <p class="cons-forced"><span class="num">What it forced</span>Dates lead the page, and the deadline stays visible everywhere.</p>
+      </li>
+      <li class="cons cons--wide rise" style="--i:1" data-spotlight>
+        <div class="cons-top">
+          <span class="num">02</span>
+          <a class="cons-link" href="#landing"><span>The three readers</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+        </div>
+        <div class="cviz cviz--merge" aria-hidden="true">
+          <ul class="cm-from">
+            <li style="--c:var(--coral)"><span class="dot"></span>Competitor</li>
+            <li style="--c:var(--amber)"><span class="dot"></span>Parent</li>
+            <li style="--c:var(--mint)"><span class="dot"></span>Academy</li>
+          </ul>
+          <svg class="cm-lines" viewBox="0 0 100 94" preserveAspectRatio="none">
+            <path d="M0 13 C 52 13, 48 47, 100 47"/>
+            <path d="M0 47 L 100 47"/>
+            <path d="M0 81 C 52 81, 48 47, 100 47"/>
+            <path class="run" d="M0 13 C 52 13, 48 47, 100 47"/>
+            <path class="run" d="M0 47 L 100 47"/>
+            <path class="run" d="M0 81 C 52 81, 48 47, 100 47"/>
+          </svg>
+          <span class="cm-to"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>kpro.fit</span>
+        </div>
+        <h3>Three audiences, one URL</h3>
+        <p class="cons-given">Students compete, parents pay, academies bring whole cohorts.</p>
+        <p class="cons-forced"><span class="num">What it forced</span>Three distinct promises, sequenced down a single landing page.</p>
+      </li>
+      <li class="cons rise" style="--i:2" data-spotlight>
+        <div class="cons-top">
+          <span class="num">03</span>
+          <a class="cons-link" href="#registration"><span>Registration</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+        </div>
+        <div class="cviz cviz--steps" aria-hidden="true">
+          <div class="cs-group">
+            <span class="cs-label">On the web</span>
+            <span class="cs-row"><span class="cs-step"><i>1</i>Register</span><span class="cs-arrow"></span><span class="cs-step"><i>2</i>Pay</span></span>
+          </div>
+          <span class="cs-then"></span>
+          <div class="cs-group cs-group--later">
+            <span class="cs-label">Then</span>
+            <span class="cs-row"><span class="cs-step"><i>3</i>Install</span></span>
+          </div>
+        </div>
+        <h3>Payment before install</h3>
+        <p class="cons-given">Registration and payment both happen on the web.</p>
+        <p class="cons-forced"><span class="num">What it forced</span>Reassurance beside the form, before anyone downloads the app.</p>
+      </li>
+      <li class="cons rise" style="--i:3" data-spotlight>
+        <div class="cons-top">
+          <span class="num">04</span>
+          <a class="cons-link" href="#event"><span>In-app event</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+        </div>
+        <div class="cviz cviz--palette" aria-hidden="true">
+          <span class="cp" style="--c:linear-gradient(90deg,#e1734c,#e14d5c)"><i></i>Action</span>
+          <span class="cp" style="--c:linear-gradient(90deg,#00654d,#013226)"><i></i>Progress</span>
+          <span class="cp" style="--c:#0d0d0d"><i></i>Surface</span>
+        </div>
+        <h3>Inherited app language</h3>
+        <p class="cons-given">No formal design system. New screens had to feel native.</p>
+        <p class="cons-forced"><span class="num">What it forced</span>Type, scale and state patterns, all inside the existing language.</p>
+      </li>
+      <li class="cons rise" style="--i:4" data-spotlight>
+        <div class="cons-top">
+          <span class="num">05</span>
+          <a class="cons-link" href="#prototypes"><span>Seven prototypes</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+        </div>
+        <div class="cviz cviz--team" aria-hidden="true">
+          <span class="ct is-me"><i><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/></svg></i>Me</span>
+          <span class="ct"><i><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6M9 16h4"/></svg></i>PM</span>
+          <span class="ct"><i><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></i>Engineer</span>
+          <span class="ct"><i><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></i>CEO</span>
+        </div>
+        <h3>A team of four</h3>
+        <p class="cons-given">One designer, a PM, an engineer and the CEO.</p>
+        <p class="cons-forced"><span class="num">What it forced</span>Owning every screen: website, onboarding and the live event.</p>
+      </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 01 First-run onboarding ════════════════════════════════════════════ -->
+<section id="onboarding" aria-labelledby="onboarding-t">
+  <div class="wrap section-head">
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip"><span class="dot" aria-hidden="true"></span>First-run onboarding</span>
+        <span class="num">01 / 05</span>
+      </p>
+      <h2 id="onboarding-t">The moment the phone leaves your hand</h2>
+      <p class="lead">If onboarding fails, the drill cannot be scored, and in a paid event that becomes a refund request. So I designed it as a rehearsal: hold the phone, prop it up, step away, then move. Scroll to walk all nine screens, or step through them yourself.</p>
+    </header>
+  </div>
+
+  <!-- Scroll-driven, with explicit step controls for anyone presenting. -->
+  <div class="flow" data-flow style="--steps:9">
+    <div class="flow-sticky">
+      <div class="wrap flow-inner">
+        <div class="flow-copy">
+          <div class="flow-meter">
+            <button class="ibtn" type="button" data-flow-prev aria-label="Previous screen">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18 9 12l6-6"/></svg>
+            </button>
+            <button class="ibtn" type="button" data-flow-next aria-label="Next screen">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <span class="num" data-flow-count>01 / 09</span>
+            <span class="flow-ticks" data-flow-ticks role="tablist" aria-label="Onboarding screens"></span>
+          </div>
+
+          <span class="chip chip--mint" data-flow-phase><span class="dot" aria-hidden="true"></span>In the hand</span>
+          <h3 data-flow-title>Introducing Supervision</h3>
+          <p data-flow-copy>A video introduces camera-based scoring before the app asks for access.</p>
+
+          <div class="room" data-room>
+            <div class="room-head">
+              <span class="note">Where the phone is</span>
+              <span class="num" data-room-phase>In the hand</span>
+            </div>
+            <div class="room-stage">
+              <span class="room-beam" aria-hidden="true"></span>
+              <span class="room-floor" aria-hidden="true"></span>
+              <span class="room-phone" aria-hidden="true"></span>
+              <span class="room-player" aria-hidden="true"></span>
+            </div>
+            <div class="room-scale">
+              <span class="num">phone</span>
+              <span class="num">across the room</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-stage">
+          <div class="phone">
+            <div class="phone-screen" data-flow-screen>
+              <img data-frame class="is-on" src="../assets/images/khiladipro/cdb4e5d8_Android_Large_-_232.png" alt="Introducing Supervision" width="570" height="1230" decoding="async">
+              <img data-frame src="../assets/images/khiladipro/61054391_Android_Large_-_242.png" alt="Camera permission" width="570" height="1230" loading="lazy" decoding="async">
+              <img data-frame src="../assets/images/khiladipro/c6f1e8fe_Android_Large_-_234.png" alt="Face capture" width="570" height="1230" loading="lazy" decoding="async">
+              <img data-frame src="../assets/images/khiladipro/193c1397_Android_Large_-_243.png" alt="Phone placement" width="570" height="1230" loading="lazy" decoding="async">
+              <img data-frame src="../assets/images/khiladipro/2c797f59_Android_Large_-_239.png" alt="Body capture" width="570" height="1230" loading="lazy" decoding="async">
+              <img data-frame src="../assets/images/khiladipro/76cc61d9_Android_Large_-_240.png" alt="The verdict" width="570" height="1230" loading="lazy" decoding="async">
+              <img data-frame src="../assets/images/khiladipro/ebf4a7be_Android_Large_-_241.png" alt="The next drill" width="570" height="1230" loading="lazy" decoding="async">
+              <img data-frame src="../assets/images/khiladipro/c028b04b_Android_Large_-_236.png" alt="Counting reps" width="570" height="1230" loading="lazy" decoding="async">
+              <img data-frame src="../assets/images/khiladipro/9773a5e1_Android_Large_-_237.png" alt="The finish" width="570" height="1230" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step data: drives the flow, and is the full content without scripting. -->
+  <ol class="flow-fallback wrap" data-steps>
+    <li data-phase="In the hand" data-phone="13" data-player="19" data-title="Introducing Supervision">A video introduces camera-based scoring before the app asks for access.</li>
+    <li data-phase="In the hand" data-phone="13" data-player="19" data-title="Camera permission">Explain what the camera tracks before the system permission request appears.</li>
+    <li data-phase="In the hand" data-phone="13" data-player="19" data-title="Face capture">The first drill asks the player to fit their face inside an oval.</li>
+    <li data-phase="Still in the hand" data-phone="13" data-player="19" data-title="Phone placement">A placement guide, read while still holding the phone, prepares the player to prop it up and step away.</li>
+    <li data-phase="Across the room" data-phone="8" data-player="74" data-title="Body capture">The phone is down. The second drill asks the player to stand inside a full-body guide.</li>
+    <li data-phase="Across the room" data-phone="8" data-player="74" data-title="The verdict">A single, oversized “Perfect!” confirms the position from across the room.</li>
+    <li data-phase="In motion" data-phone="8" data-player="74" data-moving="1" data-title="The next drill">Six jumping jacks appear as the next instruction, without a trip through a menu.</li>
+    <li data-phase="In motion" data-phone="8" data-player="74" data-moving="1" data-title="Counting reps">The third drill combines a body guide, set progress and a large 3/6 counter.</li>
+    <li data-phase="Back in the hand" data-phone="13" data-player="19" data-title="The finish">The player walks back and picks the phone up: three drills complete, ten points earned.</li>
+  </ol>
+
+  <!-- The argument is that the skeleton never moves, so both screens stand
+       side by side on one stage with the three zones drawn across them. The
+       point is visible before anything is clicked. -->
+  <div class="wrap section section--follow">
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip">Why rehearse at all</span>
+      </p>
+      <h2>Same frame, <em>different stakes</em></h2>
+      <p class="lead">Onboarding does not explain the app. It runs the exact screen the scored test will use, so the first time it counts is the second time you have seen it. Side by side, only the drill and the stakes change.</p>
+    </header>
+
+    <div class="rehearsal rise" data-rehearsal>
+      <div class="rehearsal-stage">
+        <figure class="rehearsal-screen">
+          <figcaption class="rehearsal-cap">
+            <span class="chip chip--mint"><span class="dot" aria-hidden="true"></span>Rehearsal</span>
+            <span class="num">Onboarding, screen 8 of 9</span>
+          </figcaption>
+          <div class="rehearsal-device">
+            <div class="phone"><div class="phone-screen">
+              <img src="../assets/images/khiladipro/c028b04b_Android_Large_-_236.png" alt="Rehearsal drill: six jumping jacks with a body guide and a 3 of 6 counter" width="570" height="1230" loading="lazy" decoding="async">
+            </div></div>
+            <div class="zones" aria-hidden="true">
+              <span class="zone" data-zone="0" style="--t:5%;--b:79%"></span>
+              <span class="zone" data-zone="1" style="--t:23%;--b:30%"></span>
+              <span class="zone" data-zone="2" style="--t:71%;--b:11%"></span>
+            </div>
+          </div>
+          <dl class="stakes">
+            <div><dt>Drill</dt><dd>Jumping jacks</dd></div>
+            <div><dt>Reps</dt><dd>6</dd></div>
+            <div><dt>Counts towards</dt><dd>Nothing</dd></div>
+          </dl>
+        </figure>
+
+        <p class="rehearsal-lock note"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> The frame is locked across both</p>
+
+        <div class="rehearsal-gutter">
+          <button type="button" class="zone-label" data-zone="0" style="--c:13%" aria-pressed="false">
+            <span class="zone-n">1</span>
+            <span class="zone-text"><b>The instruction</b><span>What to do next, in one line, at the top of the screen.</span></span>
+          </button>
+          <button type="button" class="zone-label" data-zone="1" style="--c:46.5%" aria-pressed="false">
+            <span class="zone-n">2</span>
+            <span class="zone-text"><b>The body guide</b><span>The outline you have to fill: the only feedback that reads at four metres.</span></span>
+          </button>
+          <button type="button" class="zone-label" data-zone="2" style="--c:80%" aria-pressed="false">
+            <span class="zone-n">3</span>
+            <span class="zone-text"><b>The count</b><span>Set at display size, because it is the one thing you read mid-rep.</span></span>
+          </button>
+        </div>
+
+        <figure class="rehearsal-screen is-scored">
+          <figcaption class="rehearsal-cap">
+            <span class="chip"><span class="dot" aria-hidden="true"></span>The real test</span>
+            <span class="num">Scored, drill 1 of 3</span>
+          </figcaption>
+          <div class="rehearsal-device">
+            <div class="phone"><div class="phone-screen">
+              <img src="../assets/images/khiladipro/92205d06_Android_Large_-_235.png" alt="Scored drill: twenty squats with a body guide and a 13 of 20 counter" width="570" height="1230" loading="lazy" decoding="async">
+            </div></div>
+            <div class="zones" aria-hidden="true">
+              <span class="zone" data-zone="0" style="--t:5%;--b:79%"></span>
+              <span class="zone" data-zone="1" style="--t:23%;--b:30%"></span>
+              <span class="zone" data-zone="2" style="--t:71%;--b:11%"></span>
+            </div>
+          </div>
+          <dl class="stakes">
+            <div><dt>Drill</dt><dd>Squats</dd></div>
+            <div><dt>Reps</dt><dd>20</dd></div>
+            <div><dt>Counts towards</dt><dd>The olympiad</dd></div>
+          </dl>
+        </figure>
+      </div>
+
+      <div class="rehearsal-foot">
+        <div class="tradeoff tradeoff--gain">
+          <p class="block-label num">What it buys</p>
+          <p class="cost-line">A player’s first scored drill is never their <em>first drill</em>.</p>
+          <p class="cost-copy">The instruction, the body guide and the counter have all been seen once already, with nothing at stake. The first attempt that counts should never fail because the screen was new.</p>
+        </div>
+        <div class="tradeoff">
+          <p class="block-label num">What it costs</p>
+          <p class="cost-line">Every onboarding step keeps <em>“Skip for now”</em>.</p>
+          <p class="cost-copy">It gives returning users a way through, and also lets a first-timer skip the rehearsal that makes their first drill scoreable. I shipped that trade-off knowingly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 Landing & registration ══════════════════════════════════════════ -->
+<section class="section" id="landing" aria-labelledby="landing-t">
+  <div class="wrap">
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip"><span class="dot" aria-hidden="true"></span>Landing &amp; registration</span>
+        <span class="num">02 / 05</span>
+      </p>
+      <h2 id="landing-t">One page, three readers, one fold</h2>
+      <p class="lead">The student, the parent paying and the academy coach all arrive at the same URL. Pick a screen size below and watch what each of them still gets, and what the narrow fold takes away.</p>
+    </header>
+
+    <!-- The fold is the bottom edge of a real window: inside it is what each
+         reader sees first, and the rest of the page runs on beneath it. -->
+    <div class="lab rise" data-lab>
+      <div class="lab-head">
+        <div class="choice" role="group" aria-label="Screen size">
+          <button type="button" data-vp-btn="desktop" aria-pressed="true">
+            <span class="choice-mark choice-mark--desktop" aria-hidden="true"></span>
+            <span class="choice-name">Desktop</span>
+            <span class="num">1440 px</span>
+          </button>
+          <button type="button" data-vp-btn="mobile" aria-pressed="false">
+            <span class="choice-mark choice-mark--mobile" aria-hidden="true"></span>
+            <span class="choice-name">Mobile</span>
+            <span class="num">390 px</span>
+          </button>
+        </div>
+        <p class="lab-hint note">Pick a reader: the page lights up where it answers them.</p>
+        <button class="btn lab-zoom" type="button" data-zoom data-zoom-src="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" data-zoom-alt="Full olympiad landing page">
+          <span class="lab-zoom-text">View full size</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8"/></svg>
+        </button>
+      </div>
+
+      <div class="lab-body">
+        <div class="lab-side">
+          <p class="block-label num">Who is reading</p>
+          <div class="readers">
+            <button type="button" class="reader" data-band-desktop="8.6,33.3" data-band-mobile="7,93" aria-pressed="false">
+              <span class="num">01</span>
+              <span>
+                <span class="who">The competitor</span>
+                <span class="ask">What can I win?</span>
+                <span class="why">Dates, prizes and recognition: a reason to enter before the page explains any scoring technology.</span>
+                <span class="reader-state" data-reader-state></span>
+              </span>
+            </button>
+            <button type="button" class="reader" data-band-desktop="33.3,48" data-band-mobile="cut" aria-pressed="false">
+              <span class="num">02</span>
+              <span>
+                <span class="who">The parent</span>
+                <span class="ask">Is this right for my child?</span>
+                <span class="why">A dedicated benefit and the 12 to 18 age band, sitting right beside the registration button.</span>
+                <span class="reader-state" data-reader-state></span>
+              </span>
+            </button>
+            <button type="button" class="reader" data-band-desktop="53.8,82" data-band-mobile="cut" aria-pressed="false">
+              <span class="num">03</span>
+              <span>
+                <span class="who">The academy</span>
+                <span class="ask">How will participation work?</span>
+                <span class="why">Register, compete, win: the kit, activities and rewards, so a coach can share one link with every family.</span>
+                <span class="reader-state" data-reader-state></span>
+              </span>
+            </button>
+          </div>
+
+          <div class="fold-readout">
+            <p class="num">Above the fold at <b data-fold-width>1440</b> px</p>
+            <ul class="fold-list" data-fold-list></ul>
+            <p class="fold-note" data-fold-note></p>
+          </div>
+        </div>
+
+        <div class="lab-stage">
+          <div class="panx">
+            <div class="panx-inner">
+              <div class="viewport" data-viewport>
+                <div class="viewport-bar" aria-hidden="true">
+                  <span class="viewport-dots"><i></i><i></i><i></i></span>
+                  <span class="viewport-url">kpro.fit</span>
+                  <span class="num" data-ruler-label>1440 × 900</span>
+                </div>
+                <div class="viewport-page" style="--fold:54%">
+                  <div class="vp-shot" data-vp-shot="desktop">
+                    <img class="lens-base" src="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" alt="Full olympiad landing page: dates, audience benefits, eligibility, and the register, compete, win sequence" width="1600" height="1841" loading="lazy" decoding="async">
+                    <img class="lens-top" src="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                  </div>
+                  <div class="vp-shot" data-vp-shot="mobile" hidden>
+                    <img class="lens-base" src="../assets/images/khiladipro/91415b1c_Landing_Page_Mobile.png" alt="Mobile landing export: photograph, student benefit and a full-width Register Now button" width="567" height="1227" loading="lazy" decoding="async">
+                    <img class="lens-top" src="../assets/images/khiladipro/91415b1c_Landing_Page_Mobile.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                  </div>
+                  <span class="viewport-below" aria-hidden="true"></span>
+                  <span class="lens-band" aria-hidden="true"><span class="lens-tag" data-lens-tag></span></span>
+                  <span class="viewport-fold" aria-hidden="true"><span>The fold</span></span>
+                  <div class="lab-cut" data-lab-cut hidden>
+                    <p><b>Not on the first screen.</b><span data-cut-copy></span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="lab-caption note">Design-stage export. A clean re-export is pending.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Each decision on the form can be pointed at: choose a note and the
+         form lights up where that decision lives. -->
+    <div class="reg rise" id="registration" data-reg>
+      <header class="chead">
+        <p class="chead-rule">
+          <span class="chip">From the page to the form</span>
+        </p>
+        <h2>The form has to do the convincing</h2>
+        <p class="lead">Payment happens on the web, before anyone installs anything. A parent is deciding with no product to try, so three decisions all carry the same job: keep them typing.</p>
+      </header>
+
+      <div class="reg-body">
+        <div class="reg-side">
+          <p class="block-label num">Three decisions</p>
+          <ol class="reg-notes">
+            <li>
+              <button type="button" class="reg-note" data-note="0" aria-pressed="false">
+                <span class="fig-n">1</span>
+                <span><h4>Three steps, labelled</h4><p>The whole sequence sits above the first field, so nobody starts typing without knowing where it ends.</p></span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="reg-note" data-note="1" aria-pressed="false">
+                <span class="fig-n">2</span>
+                <span><h4>Named people beside the fields</h4><p>Jonty Rhodes and academy coach Saurabh Dwivedi are quoted next to the inputs, not on a page the parent has already scrolled past.</p></span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="reg-note" data-note="2" aria-pressed="false">
+                <span class="fig-n">3</span>
+                <span><h4>Date of birth as a gate</h4><p>Eligible birth years are picked inside the form. The 12 to 18 rule is never parked in an FAQ.</p></span>
+              </button>
+            </li>
+          </ol>
+        </div>
+
+        <figure class="reg-stage">
+          <div class="reg-head">
+            <div class="reg-steps" role="tablist" aria-label="Registration steps">
+              <button type="button" role="tab" aria-selected="true" aria-controls="reg-screen" data-step="0"><span class="num">01</span>Basic details</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="reg-screen" data-step="1"><span class="num">02</span>Step 2</button>
+              <span class="num reg-steps-total">of 3</span>
+            </div>
+            <button class="ibtn" type="button" data-zoom data-zoom-src="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" data-zoom-alt="Registration design: three labelled steps, quotes from Jonty Rhodes and Saurabh Dwivedi, and date-of-birth fields" aria-label="View the full-size design">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8"/></svg>
+            </button>
+          </div>
+          <div class="reg-frame panx">
+            <div class="panx-inner reg-screen" id="reg-screen" data-reg-screen data-shown="0">
+              <img data-frame class="is-on" src="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" alt="Registration, step 1 of 3, basic details: three labelled steps, quotes from Jonty Rhodes and Saurabh Dwivedi, and date-of-birth fields" width="1600" height="1045" loading="lazy" decoding="async">
+              <!-- Placeholder until the step 2 mockup arrives: swap this src and
+                   the tab label above. -->
+              <img data-frame src="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" alt="Registration, step 2 of 3" width="1600" height="1045" loading="lazy" decoding="async">
+              <img class="reg-lit" src="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+              <span class="reg-spot" aria-hidden="true"></span>
+              <span class="fig-pin" style="--x:5.4%;--y:16.4%" data-pin="0" aria-hidden="true">1</span>
+              <span class="fig-pin" style="--x:55.6%;--y:24%" data-pin="1" aria-hidden="true">2</span>
+              <span class="fig-pin" style="--x:7%;--y:63%" data-pin="2" aria-hidden="true">3</span>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 The in-app event ═══════════════════════════════════════════════ -->
+<section id="event" aria-labelledby="event-t">
+  <div class="wrap section-head">
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip"><span class="dot" aria-hidden="true"></span>The in-app event</span>
+        <span class="num">03 / 05</span>
+      </p>
+      <h2 id="event-t">The screens players opened every day of the event</h2>
+      <p class="lead">The olympiad ran inside KhiladiPro’s main app. Between drills, this is where participants spent their days: getting in, seeing what came next, deciding whether to start a 24-minute test and checking what counted. Scroll through all seven screens, or jump straight to one.</p>
+    </header>
+  </div>
+
+  <!-- Pinned like the onboarding flow, so no screen can be scrolled past. -->
+  <div class="flow flow--states" data-states-flow style="--steps:7">
+    <div class="flow-sticky">
+      <div class="wrap states" data-states>
+        <div class="states-stage">
+          <div class="phone">
+            <div class="phone-screen" id="states-screen" data-states-screen>
+            <img data-frame class="is-on" src="../assets/images/khiladipro/86f18431_Registered.png" alt="Unregistered: an event introduction and the access code sent by email" width="570" height="1230" loading="lazy" decoding="async">
+            <img data-frame src="../assets/images/khiladipro/841af6ac_Registered-2.png" alt="Code error: an inline error keeps the code field available to retry" width="570" height="1230" loading="lazy" decoding="async">
+            <img data-frame src="../assets/images/khiladipro/56a1c588_Registered-3.png" alt="Countdown: while the event is locked, the next action opens rewards" width="570" height="1230" loading="lazy" decoding="async">
+            <img data-frame src="../assets/images/khiladipro/dab923c5_home_-_with_frame.png" alt="Event home: points earned, the next test and the event stages" width="570" height="1230" loading="lazy" decoding="async">
+            <img data-frame src="../assets/images/khiladipro/7c76d0dd_Stage_Details.png" alt="Stage sheet: estimated 24 minutes, the drills included, and peer completion" width="570" height="1230" loading="lazy" decoding="async">
+            <img data-frame src="../assets/images/khiladipro/5ca9d7ce_Points_Earned_-_with_frame.png" alt="Points ledger: a drill-by-drill record of what counted" width="570" height="1230" loading="lazy" decoding="async">
+            <img data-frame src="../assets/images/khiladipro/fc0c74bc_View_Remaining_Tests_-_frame.png" alt="Remaining tests: unfinished tests and the points still available" width="570" height="1230" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </div>
+
+        <div class="states-copy">
+          <div class="flow-meter">
+            <button class="ibtn" type="button" data-states-prev aria-label="Previous screen">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18 9 12l6-6"/></svg>
+            </button>
+            <button class="ibtn" type="button" data-states-next aria-label="Next screen">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <span class="num" data-states-count>01 / 07</span>
+          </div>
+          <span class="chip" data-state-group>Before it opens</span>
+          <h3 data-state-title>Unregistered</h3>
+          <p class="body" data-state-copy>An event introduction and the access code sent by email.</p>
+          <div class="state-q">
+            <span class="num">The question it answers</span>
+            <p data-state-q>“I paid on the web. How do I get in?”</p>
+          </div>
+        </div>
+
+        <div class="state-picker" role="tablist" aria-label="Event screens">
+          <p class="num state-group">Before it opens</p>
+          <button type="button" role="tab" aria-selected="true" aria-controls="states-screen" data-state="0" data-group="Before it opens" data-title="Unregistered" data-q="“I paid on the web. How do I get in?”">
+            <span class="pick-thumb"><img src="../assets/images/khiladipro/86f18431_Registered.png" alt="" aria-hidden="true" width="570" height="1230" loading="lazy" decoding="async"></span>
+            <span class="num">01</span><span class="pick-name">Unregistered</span>
+          </button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="states-screen" data-state="1" data-group="Before it opens" data-title="Code error" data-q="“I typed the code and it did not work.”">
+            <span class="pick-thumb"><img src="../assets/images/khiladipro/841af6ac_Registered-2.png" alt="" aria-hidden="true" width="570" height="1230" loading="lazy" decoding="async"></span>
+            <span class="num">02</span><span class="pick-name">Code error</span>
+          </button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="states-screen" data-state="2" data-group="Before it opens" data-title="Countdown" data-q="“I am in, but nothing starts for days.”">
+            <span class="pick-thumb"><img src="../assets/images/khiladipro/56a1c588_Registered-3.png" alt="" aria-hidden="true" width="570" height="1230" loading="lazy" decoding="async"></span>
+            <span class="num">03</span><span class="pick-name">Countdown</span>
+          </button>
+          <p class="num state-group">During the event</p>
+          <button type="button" role="tab" aria-selected="false" aria-controls="states-screen" data-state="3" data-group="During the event" data-title="Event home" data-q="“Where am I, and what is next?”">
+            <span class="pick-thumb"><img src="../assets/images/khiladipro/dab923c5_home_-_with_frame.png" alt="" aria-hidden="true" width="570" height="1230" loading="lazy" decoding="async"></span>
+            <span class="num">04</span><span class="pick-name">Event home</span>
+          </button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="states-screen" data-state="4" data-group="During the event" data-title="Stage sheet" data-q="“Do I have time for this right now?”">
+            <span class="pick-thumb"><img src="../assets/images/khiladipro/7c76d0dd_Stage_Details.png" alt="" aria-hidden="true" width="570" height="1230" loading="lazy" decoding="async"></span>
+            <span class="num">05</span><span class="pick-name">Stage sheet</span>
+          </button>
+          <p class="num state-group">After each test</p>
+          <button type="button" role="tab" aria-selected="false" aria-controls="states-screen" data-state="5" data-group="After each test" data-title="Points ledger" data-q="“Which reps actually counted?”">
+            <span class="pick-thumb"><img src="../assets/images/khiladipro/5ca9d7ce_Points_Earned_-_with_frame.png" alt="" aria-hidden="true" width="570" height="1230" loading="lazy" decoding="async"></span>
+            <span class="num">06</span><span class="pick-name">Points ledger</span>
+          </button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="states-screen" data-state="6" data-group="After each test" data-title="Remaining tests" data-q="“How much is still on the table?”">
+            <span class="pick-thumb"><img src="../assets/images/khiladipro/fc0c74bc_View_Remaining_Tests_-_frame.png" alt="" aria-hidden="true" width="570" height="1230" loading="lazy" decoding="async"></span>
+            <span class="num">07</span><span class="pick-name">Remaining tests</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ol class="state-copies" data-state-copies hidden>
+    <li>An event introduction and the access code sent by email.</li>
+    <li>An inline error keeps the code field available to retry.</li>
+    <li>While the event is locked, the next action opens rewards.</li>
+    <li>Points earned, the next test and the event’s stages.</li>
+    <li>Estimated time, the drills and peer completion, before committing to 24 minutes.</li>
+    <li>A drill-by-drill record of what actually counted.</li>
+    <li>Unfinished tests and the points still available.</li>
+  </ol>
+</section>
+
+<!-- ═══ 04 Outcome ═════════════════════════════════════════════════════════ -->
+<section class="section" id="outcome" aria-labelledby="rehire-t">
+  <div class="wrap">
+    <!-- The rehire leads: it is what the client did in response to the work. -->
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip chip--mint"><span class="dot" aria-hidden="true"></span>They came back</span>
+        <span class="num">04 / 05</span>
+      </p>
+      <h2 id="rehire-t">Then the growth team asked for a second one</h2>
+      <p class="lead">After the olympiad, the growth team brought me back for a second engagement: the landing page for an IPL fan campaign, on desktop and mobile.</p>
+    </header>
+
+    <!-- The two engagements side by side, joined by the decision between them. -->
+    <div class="rehire rise">
+      <article class="eng">
+        <div class="eng-media">
+          <div class="eng-window">
+            <div class="eng-bar" aria-hidden="true"><span class="viewport-dots"><i></i><i></i><i></i></span><span class="eng-url">kpro.fit</span></div>
+            <button class="eng-shot" type="button" data-zoom data-zoom-src="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" data-zoom-alt="The olympiad landing page, from the first engagement">
+              <img src="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" alt="The olympiad landing page, from the first engagement" width="1600" height="1841" loading="lazy" decoding="async">
+              <span class="eng-zoom" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8"/></svg></span>
+            </button>
+          </div>
+          <div class="eng-phone phone" aria-hidden="true"><div class="phone-screen"><img src="../assets/images/khiladipro/dab923c5_home_-_with_frame.png" alt="" width="570" height="1230" loading="lazy" decoding="async"></div></div>
+        </div>
+        <div class="eng-body">
+          <p class="num">Engagement 01</p>
+          <h3>The olympiad</h3>
+          <p class="eng-desc">The landing page, registration, onboarding and the in-app event, across the website and the app.</p>
+          <ul class="eng-tags"><li>~8 weeks</li><li>Web · Android · iOS</li></ul>
+        </div>
+      </article>
+
+      <article class="eng eng--return">
+        <div class="eng-media">
+          <span class="rehire-link" aria-hidden="true"><span class="rehire-line"></span><span class="chip chip--mint"><span class="dot"></span>Rehired</span></span>
+          <div class="eng-window">
+            <div class="eng-bar" aria-hidden="true"><span class="viewport-dots"><i></i><i></i><i></i></span><span class="eng-url">IPL fan campaign</span></div>
+            <button class="eng-shot" type="button" data-zoom data-zoom-src="../assets/images/khiladipro/69b8b1c0_Homepage.png" data-zoom-alt="IPL fan-campaign landing page, from the second engagement">
+              <img src="../assets/images/khiladipro/69b8b1c0_Homepage.png" alt="IPL fan-campaign landing page, from the second engagement" width="1600" height="1039" loading="lazy" decoding="async">
+              <span class="eng-zoom" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8"/></svg></span>
+            </button>
+          </div>
+        </div>
+        <div class="eng-body">
+          <p class="num">Engagement 02</p>
+          <h3>The IPL fan campaign</h3>
+          <p class="eng-desc">A page that had to convert fans during a live tournament. The in-house team owned the app screens.</p>
+          <ul class="eng-tags"><li>Landing page</li><li>Desktop · Mobile</li></ul>
+        </div>
+      </article>
+    </div>
+
+    <!-- Then the outcome of the first engagement. -->
+    <div class="outcome-block rise">
+      <header class="chead">
+        <p class="chead-rule">
+          <span class="chip"><span class="dot" aria-hidden="true"></span>Outcome</span>
+        </p>
+        <h2 id="outcome-t">Shipped as designed</h2>
+        <p class="lead">Everything I designed for KhiladiPro shipped: the web journey, the onboarding and the event screens. Nothing was redrawn by someone else on the way to build.</p>
+      </header>
+
+      <dl class="tally" data-tally>
+        <div><dt data-count-to="4">0</dt><dd><span class="tally-viz tally-viz--blocks" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i></span><b>surfaces designed</b><span>Landing, registration, onboarding, event</span></dd></div>
+        <div><dt data-count-to="9">0</dt><dd><span class="tally-viz tally-viz--screens" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i></span><b>onboarding screens</b><span>All nine shipped, in order</span></dd></div>
+        <div><dt data-count-to="7">0</dt><dd><span class="tally-viz tally-viz--dots" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i></span><b>Figma prototypes</b><span>Lo-fi through to the live event</span></dd></div>
+        <div><dt data-count-to="2">0</dt><dd><span class="tally-viz tally-viz--nodes" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i></span><b>engagements</b><span>The olympiad, then the IPL campaign</span></dd></div>
+      </dl>
+    </div>
+
+    <div class="next-up" id="next-up">
+      <header class="chead rise">
+        <p class="chead-rule">
+          <span class="chip">Unfinished business</span>
+        </p>
+        <h2>If I picked it back up</h2>
+        <p class="lead">No analytics access meant no impact story. These are the two things I would set up first if the olympiad ran again.</p>
+      </header>
+
+      <div class="cards">
+        <article class="card card--mint rise">
+          <span class="card-rule" aria-hidden="true"></span>
+          <span class="card-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 20V10M12 20V4M18 20v-7"/></svg>
+          </span>
+          <h3>Measure</h3>
+          <p class="card-lead">Three funnels, none of which existed.</p>
+          <ul>
+            <li><b>Registration</b>Visitor to paid entry, split by audience and by device.</li>
+            <li><b>First use</b>First scoreable drill, onboarding drop-offs, failed attempts.</li>
+            <li><b>Participation</b>Return to the next test, and unscoreable submissions.</li>
+          </ul>
+        </article>
+
+        <article class="card card--coral rise" style="--i:1">
+          <span class="card-rule" aria-hidden="true"></span>
+          <span class="card-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+          </span>
+          <h3>Test</h3>
+          <p class="card-lead">In their own rooms, not in a lab.</p>
+          <ul>
+            <li><b>Can they set it up?</b>Position the phone, read feedback while moving, finish a scoreable drill.</li>
+            <li><b>Can they read it from the mat?</b>How much of the screen, the instruction and the count still land once the phone is on the ground, and how comfortable that angle is to hold for a whole drill.</li>
+            <li><b>Can they hear the cues?</b>Audio prompts with music playing, with a television in the room, outdoors, and from the far side of the room.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 05 Prototypes ══════════════════════════════════════════════════════ -->
+<section class="section" id="prototypes" aria-labelledby="protos-t">
+  <div class="wrap">
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip"><span class="dot" aria-hidden="true"></span>Source material</span>
+        <span class="num">05 / 05</span>
+      </p>
+      <h2 id="protos-t">Everything clickable</h2>
+      <p class="lead">Seven Figma prototypes, from the first lo-fi structure through to the live-event flow. All of them open in a new tab.</p>
+    </header>
+
+    <div class="protos rise">
+      <a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2254-23890&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">
+        <span class="proto-top"><span class="num">01</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <strong>Lo-fi prototype: structure</strong>
+        <img class="proto-thumb" src="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+      </a>
+      <a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2254-23895&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">
+        <span class="proto-top"><span class="num">02</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <strong>Mid-fi prototype: layout</strong>
+        <img class="proto-thumb" src="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+      </a>
+      <a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2030-4001&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">
+        <span class="proto-top"><span class="num">03</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <strong>The shipped landing page</strong>
+        <img class="proto-thumb" src="../assets/images/khiladipro/93d81f60_Landing_Page-1.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+      </a>
+      <a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2345-1923&amp;t=c1yya1PZsLvXzw1m-1" target="_blank" rel="noopener">
+        <span class="proto-top"><span class="num">04</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <strong>Registration, steps 1 to 3</strong>
+        <img class="proto-thumb" src="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+      </a>
+      <a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=326-3609&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">
+        <span class="proto-top"><span class="num">05</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <strong>The complete onboarding flow</strong>
+        <img class="proto-thumb" src="../assets/images/khiladipro/cdb4e5d8_Android_Large_-_232.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+      </a>
+      <a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2069-19430&amp;t=fLSKV7D53Q7fKG46-1" target="_blank" rel="noopener">
+        <span class="proto-top"><span class="num">06</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <strong>Pre-event flow</strong>
+        <img class="proto-thumb" src="../assets/images/khiladipro/86f18431_Registered.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+      </a>
+      <a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2069-16207&amp;t=fLSKV7D53Q7fKG46-1" target="_blank" rel="noopener">
+        <span class="proto-top"><span class="num">07</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <strong>Live-event flow</strong>
+        <img class="proto-thumb" src="../assets/images/khiladipro/dab923c5_home_-_with_frame.png" alt="" loading="lazy" decoding="async" aria-hidden="true">
+      </a>
+      <a class="proto proto--cta" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=326-3609&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">
+        <span class="proto-top"><span class="num">↗</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <strong>Open the onboarding prototype and walk it yourself</strong>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Close ══════════════════════════════════════════════════════════════ -->
+<section class="section" aria-label="Testimonial and next case study">
+  <div class="wrap">
+    <figure class="quote rise">
+      <div class="quote-card">
+        <svg class="quote-glyph" width="44" height="34" viewBox="0 0 44 34" aria-hidden="true"><defs><linearGradient id="qg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#e14d5c"/><stop offset="1" stop-color="#e0724c"/></linearGradient></defs><path fill="url(#qg)" d="M0 34V21.5C0 9.6 5.5 2.4 16.4 0l2.2 4.3C12.4 6.4 9.5 10.4 9.3 16.4H18V34H0Zm26 0V21.5C26 9.6 31.5 2.4 42.4 0l2.2 4.3c-6.2 2.1-9.1 6.1-9.3 12.1H44V34H26Z"/></svg>
+        <blockquote>He showed <em>intuitive product thinking</em>, is very proactive with his contributions and gives a lot of attention to detail.</blockquote>
+        <figcaption class="quote-by">
+          <span class="avatar" aria-hidden="true">AV</span>
+          <span class="quote-who"><b>Aakash Verma</b><span>Product Head at KhiladiPro</span></span>
+          <span class="chip quote-src">via LinkedIn</span>
+        </figcaption>
+      </div>
+    </figure>
+
+    <a class="next rise" href="sedp-dashboard.html">
+      <span class="next-copy">
+        <span>
+          <span class="note">Next case study</span>
+          <strong>Economic Dashboard Redesign: SEDP</strong>
+        </span>
+        <span class="arrow" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </span>
+      <span class="next-media" aria-hidden="true">
+        <img src="../assets/images/home/4000b5be_ceda2.jpg" alt="" width="1536" height="1024" loading="lazy" decoding="async">
+      </span>
+    </a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="foot">
+    <a class="note" href="../index.html#work">← All projects</a>
+    <a class="note link" href="mailto:hello@priyank.design">hello@priyank.design</a>
+    <span class="num">© 2026 Priyank Agarwal</span>
+  </div>
+</footer>
+
+</main>
+
+<dialog class="viewer" aria-label="Artifact detail">
+  <div class="bar">
+    <span class="bar-title" data-viewer-caption>Artifact detail</span>
+    <span class="bar-spacer"></span>
+    <button class="ibtn" type="button" data-viewer-close aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="viewer-body"><img alt=""></div>
+</dialog>
+
+<script src="../assets/js/khiladipro-redesign-claude.js?v=29" defer></script>
+</body>
+</html>
