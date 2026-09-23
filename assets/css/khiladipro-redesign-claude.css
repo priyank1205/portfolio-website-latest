@@ -2157,3 +2157,10 @@
     transform: none;
   }
 }
+
+/* The registration notes start level with the design, below its step tabs. */
+@media (min-width: 1081px) {
+  .reg .annot-side {
+    padding-top: var(--sp-5);
+  }
+}

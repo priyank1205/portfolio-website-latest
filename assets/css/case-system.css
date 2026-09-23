@@ -3196,10 +3196,11 @@ body:has(.viewer[open]) {
   align-items: start;
 }
 
-/* Clears the step tabs, so the notes' top rule meets the mockup's top edge. */
+/* Notes start level with the artifact. A study with step tabs above its
+   design offsets them itself. */
 
 .annot-side {
-  padding-top: var(--sp-5);
+  padding-top: 0;
 }
 
 .annot-notes {
@@ -3498,4 +3499,323 @@ body:has(.viewer[open]) {
     width: 22px;
     height: 22px;
   }
+}
+
+/* ============================================================================
+   Patterns promoted from Getmega (2026-09-24), on their second use in SEDP.
+   ========================================================================== */
+
+/* Hidden from sight, kept for assistive technology. */
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The expand button that opens an annotated artifact full size. */
+.annot-zoom {
+  position: absolute;
+  z-index: 2;
+  top: var(--sp-3);
+  right: var(--sp-3);
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  justify-content: center;
+  border-color: var(--line-2);
+  border-radius: var(--r-4);
+  background: rgb(var(--bg-rgb) / var(--scrim-2));
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.annot-zoom svg {
+  opacity: 1;
+}
+
+/* A chapter head inside a chapter: one block-gap above it, unless it opens
+   a .block, which already carries the gap. */
+.chead--sub {
+  margin-top: var(--block-gap);
+}
+
+.block > .chead--sub:first-child {
+  margin-top: 0;
+}
+
+/* A callout: the one line a section turns on, with a quieter line under it. */
+.callout {
+  max-width: 62ch;
+  padding: var(--sp-1) 0 var(--sp-1) var(--sp-5);
+  border-left: 2px solid var(--accent);
+}
+
+.callout--caution {
+  border-left-color: var(--caution);
+}
+
+.callout--quiet {
+  border-left-color: var(--line-2);
+}
+
+.callout-line {
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.012em;
+}
+
+.callout-copy {
+  margin-top: var(--sp-2);
+  color: var(--fg-2);
+}
+
+/* A statement that closes an argument, at the lead size in full ink. */
+.standout {
+  max-width: 58ch;
+  margin-top: var(--block-gap);
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.012em;
+}
+
+/* Copy beside media, centred on each other; --flip puts the media first. */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+
+.split--flip .split-copy {
+  order: 2;
+}
+
+.split-copy h3 {
+  margin: var(--sp-3) 0;
+}
+
+.split-media {
+  margin: 0;
+}
+
+.split-media figcaption {
+  margin-top: var(--sp-3);
+}
+
+/* Two figures side by side. --devices caps each at a phone's width. */
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-5);
+  align-items: start;
+}
+
+.pair--devices {
+  grid-template-columns: repeat(2, minmax(0, 240px));
+  justify-content: center;
+}
+
+.pair figure {
+  margin: 0;
+}
+
+.pair--devices figcaption {
+  margin-top: var(--sp-3);
+  text-align: center;
+}
+
+/* A numbered sequence of figures in the order a reader meets them. On a
+   phone it becomes a swiped set with a pager ([data-strip]). */
+.strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--sp-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.strip-item .phone {
+  width: min(100%, 240px);
+  margin-inline: auto;
+}
+
+.strip-cap {
+  max-width: 34ch;
+  margin: var(--sp-5) auto 0;
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--fg-3);
+}
+
+.strip-cap .num {
+  display: block;
+  margin-bottom: var(--sp-2);
+  color: var(--accent);
+}
+
+.strip-cap b {
+  display: block;
+  margin-bottom: var(--sp-1);
+  font-size: var(--fs-ui);
+  font-weight: 500;
+  color: var(--fg);
+}
+
+/* Label and value rows on hairlines: facts that are read, not scanned. */
+.rows {
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.rows > div {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: var(--sp-4);
+  align-items: baseline;
+  padding: var(--sp-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.rows dd {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--fg-2);
+}
+
+/* A browser window around a web artifact. --fixed crops every screen in a
+   deck to one shape, from the top. */
+.window {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-5);
+  background: var(--bg-1);
+  box-shadow: var(--shadow-4), var(--hi-edge);
+}
+
+.window-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  height: 36px;
+  padding-inline: var(--sp-4);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-1);
+}
+
+.window-url {
+  font-family: var(--mono);
+  font-size: var(--fs-label);
+  color: var(--fg-3);
+}
+
+.window-screen img {
+  display: block;
+  width: 100%;
+}
+
+.window-screen--fixed {
+  aspect-ratio: 16 / 10;
+  background: var(--white);
+}
+
+.window-screen--fixed img {
+  height: 100%;
+  object-fit: cover;
+  object-position: 0 0;
+}
+
+/* A hero for a product seen in a browser: more room for the device side. */
+.hero--wide > .wrap {
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+}
+
+.hero--wide .hero-device {
+  width: 100%;
+}
+
+/* A wide hero stacks sooner than a phone hero: a browser window needs the
+   full width to be read. */
+@media (max-width: 900px) {
+  .hero--wide > .wrap {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-7);
+  }
+}
+
+@media (max-width: 1080px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-6);
+  }
+
+  .split--flip .split-copy {
+    order: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .annot-zoom {
+    width: 44px;
+    height: 44px;
+  }
+
+  .pair {
+    gap: var(--sp-3);
+  }
+
+  .strip {
+    display: flex;
+    gap: var(--sp-3);
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .strip-item {
+    flex: 0 0 calc(100vw - 2 * var(--gutter) - var(--sp-9));
+    scroll-snap-align: start;
+  }
+
+  .strip-cap {
+    margin-top: var(--sp-4);
+  }
+
+  .rows > div {
+    grid-template-columns: 88px minmax(0, 1fr);
+  }
+
+  /* Wide screens in a filmstrip: one window and the edge of the next. */
+  .hero--wide .deck {
+    --item: calc(100vw - 2 * var(--gutter) - var(--sp-6));
+  }
+}
+
+/* ============================================================================
+   Patterns promoted from SEDP (2026-09-24), on their second use in Mega Poker.
+   ========================================================================== */
+
+/* The caption under an annotated artifact. */
+.fig-note {
+  margin-top: var(--sp-3);
+}
+
+/* A closer step than a block: a note that belongs to the figure above it. */
+.block-sm {
+  margin-top: var(--sp-5);
 }

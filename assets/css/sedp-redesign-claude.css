@@ -1,0 +1,256 @@
+/* ============================================================================
+   SEDP case study (Claude): this page's own styles
+
+   Loaded after the case study system (case-system.css). This file sets the
+   accents sampled from CEDA's dashboards, then frames the light desktop
+   artifacts this story is told through. Tokens only.
+   ========================================================================== */
+
+/* Accents, sampled from the dashboards: the heatmap's pink for emphasis,
+   CEDA's navy (lifted to read on the dark ground) for what went well, the
+   heatmap's light end for limits, and its peach-to-crimson ramp. */
+:root {
+  --accent-rgb: 232 80 104;
+  --positive-rgb: 127 159 224;
+  --caution-rgb: 240 160 112;
+  --action-a-rgb: 240 128 96;
+  --action-b-rgb: 232 56 104;
+  --on-accent: #1a0509;
+}
+
+/* A square export inside the hero's 16:10 window is shown whole. */
+.window-screen--fixed img.fit {
+  object-fit: contain;
+}
+
+.anchor {
+  display: block;
+  height: 0;
+}
+
+/* --- Framed artifacts ------------------------------------------------------ */
+
+/* The dashboards are light; each crop sits on its own white plate with a
+   hairline, so it reads as an artifact rather than a hole in the page. */
+.frame {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-5);
+  background: var(--white);
+}
+
+.frame img {
+  display: block;
+  width: 100%;
+}
+
+/* Small crops never grow past their natural size, where they would blur. */
+.frame--small {
+  width: fit-content;
+  max-width: min(100%, 440px);
+  margin-inline: auto;
+}
+
+.frame--small img {
+  width: auto;
+  max-width: 100%;
+}
+
+.frame--narrow {
+  max-width: 240px;
+}
+
+.frame--strip {
+  max-width: 560px;
+  padding: var(--sp-4) var(--sp-5);
+}
+
+/* One shape for every item in a strip, whatever the crop. */
+.frame--fixed {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+}
+
+.frame--fixed img {
+  height: 100%;
+  object-fit: contain;
+}
+
+.frame--zoom {
+  padding: 0;
+  cursor: zoom-in;
+  transition: border-color var(--quick);
+}
+
+@media (hover: hover) {
+  .frame--zoom:hover {
+    border-color: var(--line-3);
+  }
+}
+
+.split-media .note,
+.pair figcaption {
+  margin-top: var(--sp-3);
+}
+
+.split-copy .callout {
+  margin-top: var(--sp-5);
+}
+
+/* --- 00 Starting point ---------------------------------------------------- */
+
+.brief {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+
+.brief-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: brief;
+  border-top: 1px solid var(--line);
+}
+
+.brief-list li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: var(--sp-3);
+  padding: var(--sp-4) 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--fg-2);
+  counter-increment: brief;
+}
+
+.brief-list li::before {
+  content: counter(brief, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: var(--fs-label);
+  line-height: 1.9;
+  color: var(--accent);
+}
+
+/* --- 01 Chart first ------------------------------------------------------- */
+
+/* The old controls, narrow, beside the workspace that replaced them. */
+.before-after {
+  display: grid;
+  grid-template-columns: minmax(0, 0.3fr) minmax(0, 1fr);
+  gap: clamp(24px, 3vw, 48px);
+  align-items: start;
+}
+
+.before-after figure {
+  margin: 0;
+}
+
+.before-after figcaption {
+  margin-top: var(--sp-3);
+}
+
+.before-after .annot-body--below .annot-notes {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Twelve parts are too many for a side list: the workspace runs full width
+   and the parts sit under it as a compact index. */
+.annot-body--below {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-6);
+}
+
+.annot-body--below .annot-stage {
+  order: -1;
+}
+
+.annot-body--below .annot-notes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--sp-5);
+}
+
+.annot-body--below .annot-note {
+  align-items: center;
+  padding-block: var(--sp-3);
+}
+
+.annot-body--below .annot-note h4 {
+  margin: 0;
+  font-size: var(--fs-ui);
+  font-weight: 500;
+}
+
+.pair--notes {
+  align-items: stretch;
+}
+
+/* --- 06 Outcome ------------------------------------------------------------ */
+
+#outcome .tally {
+  margin-top: 0;
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+
+@media (max-width: 1080px) {
+  .annot-body--below .annot-notes,
+  .before-after .annot-body--below .annot-notes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .brief,
+  .pair--notes,
+  .details {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-6);
+  }
+
+  /* The old controls are a tall crop: beside the workspace they would be a
+     sliver, so on a phone they stack, capped at a readable width. */
+  .before-after {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-6);
+  }
+
+  .before-after figure:first-child .frame {
+    max-width: 240px;
+  }
+
+  /* Twelve short names: two columns keep the index to six rows. */
+  .annot-body--below .annot-notes,
+  .before-after .annot-body--below .annot-notes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--sp-3);
+  }
+
+  .annot-body--below .annot-note {
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: var(--sp-2);
+    padding-inline: var(--sp-1);
+  }
+
+  .annot-body--below .annot-n {
+    width: 22px;
+    height: 22px;
+  }
+
+  .annot-body--below .annot-note h4 {
+    font-size: var(--fs-small);
+  }
+
+  .modals {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-6);
+  }
+
+  .frame--strip {
+    padding: var(--sp-3);
+  }
+}

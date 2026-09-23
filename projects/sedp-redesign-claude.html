@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEDP: public data, made legible | Priyank Agarwal</title>
+<meta name="description" content="Sole product designer on CEDA's Socio-Economic Data Portal, September 2023 to April 2024: a chart-first workspace, comparison and self-contained share exports, plus the Ecometer and Agrimarket dashboards.">
+<meta name="theme-color" content="#08080a">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="../assets/images/sedp/clean/workspace.webp">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="../assets/css/case-system.css?v=13">
+<link rel="stylesheet" href="../assets/css/sedp-redesign-claude.css?v=4">
+</head>
+<body>
+<a class="skip" href="#starting-point">Skip to case study</a>
+
+<nav class="nav" aria-label="Site">
+  <a class="nav-home" href="../index.html"><span class="mark" aria-hidden="true">pa</span>Priyank Agarwal</a>
+  <span class="nav-sep" aria-hidden="true"></span>
+  <span class="nav-links">
+    <a href="../index.html#work">Work</a>
+    <a href="../about.html">About</a>
+  </span>
+  <a class="btn" href="mailto:hello@priyank.design">Get in touch</a>
+</nav>
+
+<main id="top">
+
+<!-- ═══ Hero ═══════════════════════════════════════════════════════════════ -->
+<header class="hero hero--wide" id="overview">
+  <div class="wrap">
+    <div>
+      <div class="hero-chips">
+        <span class="chip"><span class="dot" aria-hidden="true"></span>Public data</span>
+        <span class="chip">Sole product designer</span>
+        <span class="chip">2023 to 2024</span>
+      </div>
+
+      <h1 class="h1">Public data. <em>Made legible.</em></h1>
+
+      <p class="lead">I redesigned CEDA’s Socio-Economic Data Portal around three jobs: find a chart, compare indicators, and share an insight that makes sense on its own.</p>
+
+      <div class="hero-actions">
+        <a class="btn btn--primary" href="#decision-1">
+          Walk the redesign
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+        <a class="btn" href="#export-proof">
+          See it in public use
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <figure class="hero-device" data-cycler>
+      <div class="deck" data-deck>
+        <div class="deck-item is-on" data-deck-item data-caption="Explore: start with a chart, refine the question as you go">
+          <div class="window">
+            <div class="window-bar" aria-hidden="true"><span class="viewport-dots"><i></i><i></i><i></i></span><span class="window-url">Socio-Economic Data</span></div>
+            <div class="window-screen window-screen--fixed">
+              <img src="../assets/images/sedp/clean/workspace.webp" alt="The SEDP map workspace: indicator navigation, chart controls, filters and timeline. Design frame, sample data." width="1600" height="915" fetchpriority="high" decoding="async">
+            </div>
+          </div>
+        </div>
+        <div class="deck-item" data-deck-item data-caption="Compare: a second indicator in the same workspace">
+          <div class="window">
+            <div class="window-bar" aria-hidden="true"><span class="viewport-dots"><i></i><i></i><i></i></span><span class="window-url">Socio-Economic Data</span></div>
+            <div class="window-screen window-screen--fixed">
+              <img src="../assets/images/sedp/clean/compare-pair.webp" alt="Two SEDP maps with separate indicators, filters and timelines. Design frame, sample data." width="1600" height="915" decoding="async">
+            </div>
+          </div>
+        </div>
+        <div class="deck-item" data-deck-item data-caption="Share: the question, the readout and the source leave together">
+          <div class="window">
+            <div class="window-bar" aria-hidden="true"><span class="viewport-dots"><i></i><i></i><i></i></span><span class="window-url">Share chart</span></div>
+            <div class="window-screen window-screen--fixed">
+              <img class="fit" src="../assets/images/sedp/clean/export-map.webp" alt="A map export with its title, state labels, rankings, national average, legend and CEDA source. Design frame, sample data." width="1600" height="1600" decoding="async">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="segments" role="tablist" aria-label="Featured screens">
+        <button type="button" role="tab" aria-current="true" aria-label="Explore"><span aria-hidden="true"></span></button>
+        <button type="button" role="tab" aria-current="false" aria-label="Compare"><span aria-hidden="true"></span></button>
+        <button type="button" role="tab" aria-current="false" aria-label="Share"><span aria-hidden="true"></span></button>
+      </div>
+      <figcaption>
+        <span class="note" data-cycler-label>Explore: start with a chart, refine the question as you go</span>
+        <span class="num" data-cycler-count>1/3</span>
+      </figcaption>
+    </figure>
+  </div>
+</header>
+
+<section class="facts-block wrap" aria-label="Engagement facts">
+  <div class="facts-card rise" data-spotlight>
+    <dl class="facts">
+      <div class="fact">
+        <dt><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Role</dt>
+        <dd><b>Sole product designer</b><span>Workspace to share exports</span></dd>
+      </div>
+      <div class="fact">
+        <dt><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg>Client</dt>
+        <dd><b>CEDA, Ashoka University</b><span>Centre for Economic Data and Analysis</span></dd>
+      </div>
+      <div class="fact">
+        <dt><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Window</dt>
+        <dd><b>Sept 2023 to April 2024</b><span>Handover for internal testing, 15 April 2024</span></dd>
+      </div>
+      <div class="fact">
+        <dt><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M18 14.3a6.5 6.5 0 0 1 3.5 5.7"/></svg>Team</dt>
+        <dd><b>Two developers, a department head</b><span>Within CEDA’s brand</span></dd>
+      </div>
+      <div class="fact fact--outcome">
+        <dt><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.2 2.3 2.3 4.7-4.8"/></svg>Outcome</dt>
+        <dd><b>Everything designed for SEDP shipped</b><a class="fact-proof" href="#export-proof">Published by CEDA in March 2026 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a></dd>
+      </div>
+    </dl>
+    <p class="facts-note">
+      <span class="facts-note-text"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h10"/></svg>Also here, from earlier CEDA work: Ecometer, for reading economic series, and Agrimarket, for exact prices beside their patterns.</span>
+      <a class="facts-note-link" href="#dashboard-suite">The supporting work <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+    </p>
+  </div>
+</section>
+
+<!-- ═══ Chapter rail ═══════════════════════════════════════════════════════ -->
+<nav class="rail" aria-label="Case study sections">
+  <div class="wrap">
+    <a class="rail-home" href="../index.html#work" aria-label="All projects">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    </a>
+    <a href="#starting-point"><span class="num">00</span>Starting point</a>
+    <a href="#decision-1"><span class="num">01</span>Chart first</a>
+    <a href="#decision-2"><span class="num">02</span>Compare</a>
+    <a href="#decision-3"><span class="num">03</span>Export</a>
+    <a href="#ecometer"><span class="num">04</span>Ecometer</a>
+    <a href="#agrimarket"><span class="num">05</span>Agrimarket</a>
+    <a href="#outcome"><span class="num">06</span>Outcome</a>
+  </div>
+  <span class="progress" aria-hidden="true"></span>
+</nav>
+
+<!-- ═══ 00 Starting point ══════════════════════════════════════════════════ -->
+<section class="section" id="starting-point" aria-labelledby="start-t">
+  <div class="wrap">
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip"><span class="dot" aria-hidden="true"></span>The starting point</span>
+        <span class="num">00 / 06</span>
+      </p>
+      <h2 id="start-t">The data was public. Getting to it took work.</h2>
+      <p class="lead">Journalists, researchers and government readers could get the same numbers elsewhere. CEDA’s old portal asked them to log in, configure a chart, then click “Get Visualization” to see it.</p>
+    </header>
+
+    <div class="rise">
+      <p class="block-label num">At kickoff, from my notes of 13 September 2023</p>
+      <dl class="rows">
+        <div><dt class="num">Readers</dt><dd>Journalists, researchers and government.</dd></div>
+        <div><dt class="num">Baseline</dt><dd>About two visitors a day, as CEDA reported it.</dd></div>
+        <div><dt class="num">Alternatives</dt><dd>NDAP, the India Data Portal, or the data in CSV and Excel.</dd></div>
+      </dl>
+    </div>
+
+    <!-- The original portal, with each point of friction pointed at. -->
+    <div class="annot-body block rise" data-annot>
+      <div class="annot-side">
+        <p class="block-label num">Where the old portal made readers work</p>
+        <ol class="annot-notes">
+          <li>
+            <button type="button" class="annot-note" data-note="0" data-region="1.5,5,89.5,1.5" aria-pressed="false">
+              <span class="annot-n">1</span>
+              <span><h4>Comparison as an instruction</h4><p>The only route to a second chart was a sentence under the search bar.</p></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="annot-note" data-note="1" data-region="16,8,74.5,59" aria-pressed="false">
+              <span class="annot-n">2</span>
+              <span><h4>Time, away from the chart</h4><p>The year slider sat in a toolbar, apart from the map it changed.</p></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="annot-note" data-note="2" data-region="26.5,49,56,7.5" aria-pressed="false">
+              <span class="annot-n">3</span>
+              <span><h4>Terms before answers</h4><p>“Binning Style” and its options asked readers to know charting vocabulary first.</p></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="annot-note" data-note="3" data-region="27.5,11,16,62.5" aria-pressed="false">
+              <span class="annot-n">4</span>
+              <span><h4>Configure, then ask</h4><p>Every filter waited for “Get Visualization” before the chart changed.</p></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="annot-note" data-note="4" data-region="91.5,45.5,1.5,28.5" aria-pressed="false">
+              <span class="annot-n">5</span>
+              <span><h4>Notes out of sight</h4><p>Definitions sat behind a small Notes button under the chart.</p></span>
+            </button>
+          </li>
+        </ol>
+      </div>
+
+      <figure class="annot-stage">
+        <div class="annot-frame">
+          <div class="annot-screen" data-annot-screen data-shown="0">
+            <img data-frame class="is-on" src="../assets/images/sedp/clean/old-portal.webp" alt="The original SEDP portal: an instruction for comparison, a detached year slider, binning options, filters and a Get Visualization button" width="1600" height="1560" loading="lazy" decoding="async">
+            <img class="annot-lit" src="../assets/images/sedp/clean/old-portal.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+            <span class="annot-spot" aria-hidden="true"></span>
+            <span class="annot-pin" style="--x:2.5%;--y:2.5%" data-pin="0" aria-hidden="true">1</span>
+            <span class="annot-pin" style="--x:60%;--y:16.5%" data-pin="1" aria-hidden="true">2</span>
+            <span class="annot-pin" style="--x:8%;--y:27%" data-pin="2" aria-hidden="true">3</span>
+            <span class="annot-pin" style="--x:62.5%;--y:28%" data-pin="3" aria-hidden="true">4</span>
+            <span class="annot-pin" style="--x:28.5%;--y:92.5%" data-pin="4" aria-hidden="true">5</span>
+          </div>
+        </div>
+        <button class="btn annot-zoom" type="button" data-zoom data-zoom-src="../assets/images/sedp/clean/old-portal.webp" data-zoom-alt="The original SEDP portal. Original portal capture, March 2023 archive.">
+          <span class="vh">View full size</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8"/></svg>
+        </button>
+        <figcaption class="note fig-note">Original portal capture, March 2023 archive.</figcaption>
+      </figure>
+    </div>
+
+    <div class="split block rise">
+      <div class="split-copy">
+        <p class="block-label num">Before any of it</p>
+        <h3>A gate before the value.</h3>
+        <p class="body">An account came before the data. The old portal’s front door was a login page, so a reader had to commit before seeing a single chart. That was the old product; it says nothing about how the redesign is accessed.</p>
+      </div>
+      <figure class="split-media">
+        <div class="frame frame--small">
+          <img src="../assets/images/sedp/clean/login-archive.webp" alt="The old portal's login page" width="524" height="394" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="note">The old portal’s login page. Archived 31 March 2023.</figcaption>
+      </figure>
+    </div>
+
+    <div class="brief block rise">
+      <div>
+        <p class="block-label num">The brief</p>
+        <ol class="brief-list">
+          <li>Make the dashboards easier to use.</li>
+          <li>Bring their visual language together.</li>
+          <li>Help charts reach people beyond the portal.</li>
+        </ol>
+      </div>
+      <div>
+        <p class="block-label num">The constraints</p>
+        <dl class="rows">
+          <div><dt class="num">Brand</dt><dd>CEDA’s existing identity.</dd></div>
+          <div><dt class="num">Team</dt><dd>Two developers and one department head.</dd></div>
+          <div><dt class="num">Window</dt><dd>Handover for internal testing on 15 April 2024.</dd></div>
+          <div><dt class="num">Consistency</dt><dd>A visual language shared with CEDA’s related dashboards.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 01 Chart first ═════════════════════════════════════════════════════ -->
+<section class="section" id="decision-1" aria-labelledby="d1-t">
+  <div class="wrap">
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip"><span class="dot" aria-hidden="true"></span>The workspace</span>
+        <span class="num">01 / 06</span>
+      </p>
+      <h2 id="d1-t">Show the chart first. Let the controls redraw it.</h2>
+      <p class="lead">I made the chart the starting point and organised the controls around it. A change to an indicator, filter or year redraws the visualisation, removing the extra “Get Visualization” step. The structure holds map, bar and line views at state and district level.</p>
+    </header>
+
+    <blockquote class="callout rise">
+      <p class="callout-line">“Should not wait for the user to click CTA every time they change some parameter”</p>
+      <p class="callout-copy num">My first-impressions notes, 8 October 2023</p>
+    </blockquote>
+
+    <!-- Before: the old controls. After: the workspace that replaced them, with
+         the twelve parts of the February 2024 inventory drawn onto it. -->
+    <div class="before-after block rise">
+      <figure>
+        <p class="block-label num">Before</p>
+        <div class="frame">
+          <img src="../assets/images/sedp/clean/old-controls.webp" alt="The old portal's controls: filters stacked above a Get Visualization button" width="425" height="875" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="note">Configure first, then generate. Original portal capture.</figcaption>
+      </figure>
+      <div>
+        <p class="block-label num">After: the chart first, in twelve parts</p>
+      <!-- The February 2024 inventory, drawn onto the workspace it describes. -->
+      <div class="annot-body annot-body--below inventory" data-annot>
+        <div class="annot-side">
+          <p class="block-label num">From my inventory of 20 February 2024</p>
+          <ol class="annot-notes">
+            <li><button type="button" class="annot-note" data-note="0" data-region="13,84,11,1" aria-pressed="false"><span class="annot-n">1</span><span><h4>Navigation</h4></span></button></li>
+            <li><button type="button" class="annot-note" data-note="1" data-region="12.5,38.5,82,18.5" aria-pressed="false"><span class="annot-n">2</span><span><h4>Chart and geography selectors</h4></span></button></li>
+            <li><button type="button" class="annot-note" data-note="2" data-region="19,19,77.5,18.8" aria-pressed="false"><span class="annot-n">3</span><span><h4>Title</h4></span></button></li>
+            <li><button type="button" class="annot-note" data-note="3" data-region="22,51,74.5,18.8" aria-pressed="false"><span class="annot-n">4</span><span><h4>Selected filters</h4></span></button></li>
+            <li><button type="button" class="annot-note" data-note="4" data-region="28.5,53,18,19" aria-pressed="false"><span class="annot-n">5</span><span><h4>The chart</h4></span></button></li>
+            <li><button type="button" class="annot-note" data-note="5" data-region="53.5,60.8,38,28.8" aria-pressed="false"><span class="annot-n">6</span><span><h4>Hover</h4></span></button></li>
+            <li><button type="button" class="annot-note" data-note="6" data-region="86.5,49,7.5,18.8" aria-pressed="false"><span class="annot-n">7</span><span><h4>Timeline</h4></span></button></li>
+            <li><button type="button" class="annot-note" data-note="7" data-region="93.8,72,1.8,19" aria-pressed="false"><span class="annot-n">8</span><span><h4>Download</h4></span></button></li>
+            <li><button type="button" class="annot-note" data-note="8" data-region="93.8,63.5,1.8,28.8" aria-pressed="false"><span class="annot-n">9</span><span><h4>Share</h4></span></button></li>
+            <li><button type="button" class="annot-note" data-note="9" data-region="29,24,60,56" aria-pressed="false"><span class="annot-n">10</span><span><h4>Heatmap</h4></span></button></li>
+            <li><button type="button" class="annot-note" data-note="10" data-region="29,2,15.5,78" aria-pressed="false"><span class="annot-n">11</span><span><h4>Displayed states</h4></span></button></li>
+            <li><button type="button" class="annot-note" data-note="11" data-region="43.5,24,15,56" aria-pressed="false"><span class="annot-n">12</span><span><h4>Filters</h4></span></button></li>
+          </ol>
+        </div>
+
+        <figure class="annot-stage">
+          <div class="annot-frame">
+            <div class="annot-screen" data-annot-screen data-shown="0">
+              <img data-frame class="is-on" src="../assets/images/sedp/clean/workspace.webp" alt="The SEDP workspace, with the twelve parts of the February 2024 inventory numbered on it" width="1600" height="915" loading="lazy" decoding="async">
+              <img class="annot-lit" src="../assets/images/sedp/clean/workspace.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+              <span class="annot-spot" aria-hidden="true"></span>
+              <span class="annot-pin" style="--x:1%;--y:13%" data-pin="0" aria-hidden="true">1</span>
+              <span class="annot-pin" style="--x:18.5%;--y:12.5%" data-pin="1" aria-hidden="true">2</span>
+              <span class="annot-pin" style="--x:83%;--y:20.5%" data-pin="2" aria-hidden="true">3</span>
+              <span class="annot-pin" style="--x:51%;--y:23.5%" data-pin="3" aria-hidden="true">4</span>
+              <span class="annot-pin" style="--x:19%;--y:31%" data-pin="4" aria-hidden="true">5</span>
+              <span class="annot-pin" style="--x:40%;--y:53.5%" data-pin="5" aria-hidden="true">6</span>
+              <span class="annot-pin" style="--x:52.5%;--y:89%" data-pin="6" aria-hidden="true">7</span>
+              <span class="annot-pin" style="--x:18%;--y:96%" data-pin="7" aria-hidden="true">8</span>
+              <span class="annot-pin" style="--x:37.5%;--y:96%" data-pin="8" aria-hidden="true">9</span>
+              <span class="annot-pin" style="--x:56%;--y:29%" data-pin="9" aria-hidden="true">10</span>
+              <span class="annot-pin" style="--x:78%;--y:29%" data-pin="10" aria-hidden="true">11</span>
+              <span class="annot-pin" style="--x:56%;--y:43.5%" data-pin="11" aria-hidden="true">12</span>
+            </div>
+          </div>
+          <button class="btn annot-zoom" type="button" data-zoom data-zoom-src="../assets/images/sedp/clean/workspace.webp" data-zoom-alt="The SEDP workspace. Design frame, sample data.">
+            <span class="vh">View full size</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8"/></svg>
+          </button>
+          <figcaption class="note fig-note">Design frame, sample data. The inventory describes this analytical workspace, not every page.</figcaption>
+        </figure>
+      </div>
+      </div>
+    </div>
+
+    <div class="split block rise">
+      <div class="split-copy">
+        <p class="block-label num">The taxonomy</p>
+        <h3>Nine categories. Twelve in the data.</h3>
+        <p class="body">The taxonomy also needed room to grow: my note of 4 March 2024 identified nine existing categories against twelve in the data. The rail had to hold all of them.</p>
+      </div>
+      <figure class="split-media">
+        <div class="frame frame--small frame--narrow">
+          <img src="../assets/images/sedp/clean/category-rail.webp" alt="The SEDP indicator categories rail" width="235" height="443" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="note">The category rail. Design detail.</figcaption>
+      </figure>
+    </div>
+
+    <div class="block rise">
+      <p class="block-label num">Clarity lives in the details</p>
+      <ol class="strip strip--frames" data-strip>
+        <li class="strip-item">
+          <div class="frame frame--fixed"><img src="../assets/images/sedp/clean/heatmap.webp" alt="The heatmap panel: by value or by count, with its scale" width="1508" height="658" loading="lazy" decoding="async"></div>
+          <p class="strip-cap"><span class="num">01</span><b>The heatmap</b>By value or by count, with the scale beside the map. Design detail, sample data.</p>
+        </li>
+        <li class="strip-item">
+          <div class="frame frame--fixed"><img src="../assets/images/sedp/clean/tooltip.webp" alt="A map tooltip showing a state, a year, a value and its unit" width="1600" height="951" loading="lazy" decoding="async"></div>
+          <p class="strip-cap"><span class="num">02</span><b>The tooltip</b>Read the place, year, value and unit together. Design detail, sample data.</p>
+        </li>
+        <li class="strip-item">
+          <div class="frame frame--fixed"><img src="../assets/images/sedp/clean/selectors.webp" alt="Chart-type and geography selectors above the chart" width="1600" height="289" loading="lazy" decoding="async"></div>
+          <p class="strip-cap"><span class="num">03</span><b>The selectors</b>Chart type and geography sit above the chart they change. Design detail.</p>
+        </li>
+        <li class="strip-item">
+          <div class="frame frame--fixed"><img src="../assets/images/sedp/clean/timeline.webp" alt="The year slider beneath the chart" width="1600" height="499" loading="lazy" decoding="async"></div>
+          <p class="strip-cap"><span class="num">04</span><b>The timeline</b>Change the year beside the chart it affects. Design detail, sample data.</p>
+        </li>
+      </ol>
+    </div>
+
+    <div class="pair pair--notes block rise">
+      <div class="callout callout--quiet">
+        <p class="callout-line">What the screens don’t show.</p>
+        <p class="callout-copy">Units, an India comparison value and legend logic were implementation dependencies, and the inventory still listed negative values as under consideration.</p>
+      </div>
+      <div class="callout callout--caution">
+        <p class="callout-line">The boundary I chose.</p>
+        <p class="callout-copy">One non-scrolling workspace at desktop width. That keeps the controls in view, but the same arrangement needs separate validation on small screens.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 Compare ═════════════════════════════════════════════════════════ -->
+<section class="section" id="decision-2" aria-labelledby="d2-t">
+  <div class="wrap">
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip"><span class="dot" aria-hidden="true"></span>Comparison</span>
+        <span class="num">02 / 06</span>
+      </p>
+      <h2 id="d2-t">Make the second chart as easy to find as the first.</h2>
+      <p class="lead">Side-by-side comparison already existed; its entry point was an instruction in the old top bar. I gave it an explicit “Compare Chart” action, then adapted the selection pattern from our earlier Ecometer work. Search serves readers who know the indicator’s name; categories give everyone else a place to begin.</p>
+    </header>
+
+    <blockquote class="callout rise">
+      <p class="callout-line">“Need a button to compare data - Same design as in ecometer - Popup with browsing as well as search capabilities”</p>
+      <p class="callout-copy num">CEDA feedback, 8 October 2023</p>
+    </blockquote>
+
+    <figure class="block rise">
+      <p class="block-label num">From the chart</p>
+      <div class="frame frame--strip">
+        <img src="../assets/images/sedp/clean/compare-action.webp" alt="The Compare Chart action beside the chart and geography selectors" width="695" height="57" loading="lazy" decoding="async">
+      </div>
+      <figcaption class="note fig-note">An explicit way in, beside the selectors. Design detail.</figcaption>
+    </figure>
+
+    <!-- The only modal pair on the page: the earlier pattern, then SEDP's. -->
+    <div class="pair modals block rise">
+      <figure>
+        <p class="block-label num">Ecometer, earlier</p>
+        <div class="frame"><img src="../assets/images/sedp/clean/ecometer-modal.webp" alt="Ecometer's Add Chart dialog: categories and market configuration, with no search field" width="527" height="373" loading="lazy" decoding="async"></div>
+        <figcaption class="note">Browse, then configure a series. No search field. Ecometer design frame, sample data.</figcaption>
+      </figure>
+      <figure>
+        <p class="block-label num">SEDP</p>
+        <div class="frame"><img src="../assets/images/sedp/clean/compare-modal.webp" alt="SEDP's Select chart to compare dialog: title search, categories and matching indicators" width="759" height="493" loading="lazy" decoding="async"></div>
+        <figcaption class="note">Search by title, or browse by category. SEDP design frame, sample data.</figcaption>
+      </figure>
+    </div>
+    <p class="note fig-note rise">This was intentional reuse of a selection pattern, adapted to SEDP. The frames show the adaptation; they do not establish shared code.</p>
+
+    <div class="block rise">
+      <div class="window">
+        <div class="window-bar" aria-hidden="true"><span class="viewport-dots"><i></i><i></i><i></i></span><span class="window-url">Socio-Economic Data</span></div>
+        <div class="window-screen">
+          <img src="../assets/images/sedp/clean/compare-pair.webp" alt="Side-by-side SEDP maps with independent titles, filters and year controls" width="1600" height="915" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <p class="note fig-note">Two questions, room for both. Each chart keeps its own filters and timeline. Design frame, sample data; linked highlighting across the maps is part of the shipped behaviour, not something this still can show.</p>
+    </div>
+
+    <div class="callout callout--caution block rise">
+      <p class="callout-line">The tradeoff.</p>
+      <p class="callout-copy">Independent controls make comparison flexible, but allow different years and filters. I tracked the choice on 8 October 2023 (“Filters and Timeline separate in Compare Charts Flow”), and I would test whether readers can explain a difference while accounting for each chart’s year, unit and scale.</p>
+    </div>
+
+    <div class="split split--flip block rise">
+      <div class="split-copy">
+        <p class="block-label num">Another view of the same question</p>
+        <h3>Find a state’s position without leaving the workspace.</h3>
+        <p class="body">The bar view ranks every state by name, with Top 20 and Bottom 20 options, so a reader can locate one place in the distribution.</p>
+      </div>
+      <figure class="split-media">
+        <div class="window">
+          <div class="window-bar" aria-hidden="true"><span class="viewport-dots"><i></i><i></i><i></i></span><span class="window-url">Socio-Economic Data</span></div>
+          <div class="window-screen"><img src="../assets/images/sedp/clean/bar-workspace.webp" alt="Ranked horizontal bars of Indian states with Top 20 and Bottom 20 options" width="1600" height="915" loading="lazy" decoding="async"></div>
+        </div>
+        <figcaption class="note">Design frame, sample data.</figcaption>
+      </figure>
+    </div>
+
+    <div class="block rise">
+      <header class="chead chead--sub">
+        <p class="chead-rule"><span class="chip">From feedback to the shipped page</span></p>
+        <h3>A discovery page for the first chart.</h3>
+        <p class="lead">CEDA’s feedback moved region selection into visible All, District and State controls, and gave “Browse charts by source” its own section.</p>
+      </header>
+      <div class="pair">
+        <figure>
+          <p class="block-label num">The design</p>
+          <div class="frame"><img src="../assets/images/sedp/clean/landing-design.webp" alt="The SEDP landing page design: featured charts, region controls, search and categories" width="1600" height="1158" loading="lazy" decoding="async"></div>
+          <figcaption class="note">Design frame, sample data.</figcaption>
+        </figure>
+        <figure>
+          <p class="block-label num">In production</p>
+          <div class="frame"><img src="../assets/images/sedp/clean/landing-archive.webp" alt="The archived SEDP landing page: featured charts, region controls, search and Browse charts by source" width="2544" height="1769" loading="lazy" decoding="async"></div>
+          <figcaption class="note">Archived 4 August 2026, captured 19 September 2026. The page shell renders; the category and source lists do not load in the archive.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 Export ══════════════════════════════════════════════════════════ -->
+<section class="section" id="decision-3" aria-labelledby="d3-t">
+  <div class="wrap">
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip"><span class="dot" aria-hidden="true"></span>The chart that leaves</span>
+        <span class="num">03 / 06</span>
+      </p>
+      <h2 id="d3-t">An exported chart has to explain itself.</h2>
+      <p class="lead">A reader on social media has none of the portal’s context. I designed the export as its own surface: the question, the selected filters, labelled values, a readout and a route back to the data.</p>
+    </header>
+
+    <div class="annot-body export rise" data-annot>
+      <div class="annot-side">
+        <p class="block-label num">Three questions it answers alone</p>
+        <ol class="annot-notes">
+          <li>
+            <button type="button" class="annot-note" data-note="0" data-region="3,6,85,3" aria-pressed="false">
+              <span class="annot-n">1</span>
+              <span><h4>What am I looking at?</h4><p>The indicator and the selected filters keep the scope.</p></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="annot-note" data-note="1" data-region="20.5,67.5,19.5,3" aria-pressed="false">
+              <span class="annot-n">2</span>
+              <span><h4>What does it mean?</h4><p>Top and bottom states, the median and the India average.</p></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="annot-note" data-note="2" data-region="18.5,3.5,16.5,36" aria-pressed="false">
+              <span class="annot-n">3</span>
+              <span><h4>Where is each value?</h4><p>Labels on the states, with the legend beside the map.</p></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="annot-note" data-note="3" data-region="87.5,63,2.5,3" aria-pressed="false">
+              <span class="annot-n">4</span>
+              <span><h4>Where did it come from?</h4><p>CEDA’s identity and the portal link travel with the image.</p></span>
+            </button>
+          </li>
+        </ol>
+      </div>
+
+      <figure class="annot-stage">
+        <div class="annot-frame">
+          <div class="annot-screen" data-annot-screen data-shown="0">
+            <img data-frame class="is-on" src="../assets/images/sedp/clean/export-map.webp" alt="A map export with its title, state labels, top and bottom states, median, India average, legend and CEDA source" width="1600" height="1600" loading="lazy" decoding="async">
+            <img class="annot-lit" src="../assets/images/sedp/clean/export-map.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+            <span class="annot-spot" aria-hidden="true"></span>
+            <span class="annot-pin" style="--x:3%;--y:3%" data-pin="0" aria-hidden="true">1</span>
+            <span class="annot-pin" style="--x:3.5%;--y:20.5%" data-pin="1" aria-hidden="true">2</span>
+            <span class="annot-pin" style="--x:36%;--y:18.5%" data-pin="2" aria-hidden="true">3</span>
+            <span class="annot-pin" style="--x:3%;--y:87.5%" data-pin="3" aria-hidden="true">4</span>
+          </div>
+        </div>
+        <button class="btn annot-zoom" type="button" data-zoom data-zoom-src="../assets/images/sedp/clean/export-map.webp" data-zoom-alt="The map export. Design frame, sample data.">
+          <span class="vh">View full size</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8"/></svg>
+        </button>
+        <figcaption class="note fig-note">Design frame, sample data. It demonstrates structure, not numerical accuracy.</figcaption>
+      </figure>
+    </div>
+
+    <div class="block rise">
+      <header class="chead chead--sub">
+        <p class="chead-rule"><span class="chip chip--positive"><span class="dot" aria-hidden="true"></span>The decision I held onto</span></p>
+        <h2>The labels were the feature</h2>
+        <p class="lead">The export proved difficult to implement. I had positioned the labels and typography by hand; the values needed to populate from the selected chart. CEDA proposed exporting the heatmap alone. That would have removed the information that made the image readable outside the portal. I researched implementation approaches and worked with the developer until we could build the intended design.</p>
+      </header>
+      <blockquote class="callout">
+        <p class="callout-line">“We have been able to find a way to show exactly how the design looked”</p>
+        <p class="callout-copy num">My handover email note, 9 April 2024</p>
+      </blockquote>
+    </div>
+
+    <div class="block rise" id="export-proof">
+      <header class="chead chead--sub">
+        <p class="chead-rule"><span class="chip chip--positive"><span class="dot" aria-hidden="true"></span>From design to public use</span></p>
+        <h2>The format travelled</h2>
+        <p class="lead">CEDA’s posts on 8 and 24 March 2026 use the self-contained export format, almost two years after handover.</p>
+      </header>
+      <div class="pair">
+        <figure>
+          <p class="block-label num">The design</p>
+          <div class="frame"><img src="../assets/images/sedp/clean/export-map.webp" alt="The map export design" width="1600" height="1600" loading="lazy" decoding="async"></div>
+          <figcaption class="note">Design frame, sample data.</figcaption>
+        </figure>
+        <figure>
+          <p class="block-label num">Published by CEDA, 8 March 2026</p>
+          <button class="frame frame--zoom" type="button" data-zoom data-zoom-src="../assets/images/sedp/clean/ceda-post-2026-03-08.webp" data-zoom-alt="CEDA's post of 8 March 2026, full dated capture">
+            <img src="../assets/images/sedp/clean/published-export-2026-03-08.webp" alt="A real SEDP export published by CEDA on 8 March 2026" width="1130" height="1130" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="note">Real output, cropped from the supplied post. Opens the full dated capture.</figcaption>
+        </figure>
+      </div>
+      <p class="callout callout--quiet block-sm">
+        <span class="callout-copy">The published output includes the year and unit in its title, two-decimal values, “Indian Average” and “NA” for missing data. These are visible production differences; I do not attribute those refinements to myself.</span>
+      </p>
+    </div>
+
+    <div class="block rise">
+      <p class="block-label num">The same format, again and in other shapes</p>
+      <ol class="strip strip--frames" data-strip>
+        <li class="strip-item">
+          <button class="frame frame--fixed frame--zoom" type="button" data-zoom data-zoom-src="../assets/images/sedp/clean/ceda-post-2026-03-24.webp" data-zoom-alt="CEDA's World TB Day post of 24 March 2026, full dated capture"><img src="../assets/images/sedp/clean/ceda-post-2026-03-24.webp" alt="CEDA's World TB Day post of 24 March 2026, using the same labelled export format" width="1191" height="1695" loading="lazy" decoding="async"></button>
+          <p class="strip-cap"><span class="num">24 March 2026</span><b>A second topic</b>The same labelled format, on World TB Day. Supplied post capture.</p>
+        </li>
+        <li class="strip-item">
+          <div class="frame frame--fixed"><img src="../assets/images/sedp/clean/export-bar.webp" alt="A bar-chart export with state names, values, title and source" width="1536" height="1536" loading="lazy" decoding="async"></div>
+          <p class="strip-cap"><span class="num">Bar</span><b>The ranking travels</b>State names, values and the source together. Design frame, sample data.</p>
+        </li>
+        <li class="strip-item">
+          <div class="frame frame--fixed"><img src="../assets/images/sedp/clean/export-line.webp" alt="A line-chart export with title, selected filters, state legend and CEDA source" width="1536" height="1536" loading="lazy" decoding="async"></div>
+          <p class="strip-cap"><span class="num">Line</span><b>The trend travels</b>The legend and the source go with it. Design frame, sample data.</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 Ecometer ════════════════════════════════════════════════════════ -->
+<section class="section" id="ecometer" aria-labelledby="eco-t">
+  <span id="dashboard-suite" class="anchor" aria-hidden="true"></span>
+  <div class="wrap">
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip"><span class="dot" aria-hidden="true"></span>Earlier CEDA work</span>
+        <span class="num">04 / 06</span>
+      </p>
+      <h2 id="eco-t">Ecometer: series, their transformations and their sources</h2>
+      <p class="lead">Ecometer brings a different analytical task into the CEDA work: reading high-frequency economic series. I designed the workspace, series controls, transformations and indicator explanations shown here. The redesign shipped; these are the supplied design mockups.</p>
+    </header>
+
+    <div class="annot-body rise" data-annot>
+      <div class="annot-side">
+        <p class="block-label num">From indicator, to chart, to selected series</p>
+        <ol class="annot-notes">
+          <li>
+            <button type="button" class="annot-note" data-note="0" data-region="15.5,84,40,1.5" aria-pressed="false">
+              <span class="annot-n">1</span>
+              <span><h4>Locate the indicator</h4><p>Categories of economic data, in a rail beside the chart.</p></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="annot-note" data-note="1" data-region="13,23.5,15,18" aria-pressed="false">
+              <span class="annot-n">2</span>
+              <span><h4>Inspect the chart</h4><p>The series over time, with its transformation beside the title.</p></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="annot-note" data-note="2" data-region="22,2,42,79.5" aria-pressed="false">
+              <span class="annot-n">3</span>
+              <span><h4>Manage the selected series</h4><p>Each name with its colour, its market, and its visibility.</p></span>
+            </button>
+          </li>
+        </ol>
+      </div>
+      <figure class="annot-stage">
+        <div class="annot-frame">
+          <div class="annot-screen" data-annot-screen data-shown="0">
+            <img data-frame class="is-on" src="../assets/images/sedp/supporting/ecometer-workspace.webp" alt="The Ecometer workspace: indicator navigation, a food-price chart and the selected retail and wholesale series" width="1600" height="917" loading="lazy" decoding="async">
+            <img class="annot-lit" src="../assets/images/sedp/supporting/ecometer-workspace.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+            <span class="annot-spot" aria-hidden="true"></span>
+            <span class="annot-pin" style="--x:1.5%;--y:15.5%" data-pin="0" aria-hidden="true">1</span>
+            <span class="annot-pin" style="--x:18%;--y:13%" data-pin="1" aria-hidden="true">2</span>
+            <span class="annot-pin" style="--x:79.5%;--y:22%" data-pin="2" aria-hidden="true">3</span>
+          </div>
+        </div>
+        <button class="btn annot-zoom" type="button" data-zoom data-zoom-src="../assets/images/ecometer/e6f9dcfb_1._Main.png" data-zoom-alt="The Ecometer workspace, full supplied frame. Design mockup, sample data.">
+          <span class="vh">View full size</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8"/></svg>
+        </button>
+        <figcaption class="note fig-note">Design mockup, sample data. Its plot and range-control dates conflict; it demonstrates layout and control relationships.</figcaption>
+      </figure>
+    </div>
+
+    <div class="split block rise">
+      <div class="split-copy">
+        <p class="block-label num">Reading the selection</p>
+        <h3>A series is more than a coloured line.</h3>
+        <p class="body">Vegetables, pulses and grains carry individual retail or wholesale labels. The panel connects each name to its chart colour and exposes visibility and removal. Edible Oils stays listed in a faded state, so the selection can be inspected even when a series is not prominent. Adding a series uses the dialog shown in the comparison chapter.</p>
+      </div>
+      <figure class="split-media">
+        <div class="frame frame--small"><img src="../assets/images/sedp/supporting/ecometer-series.webp" alt="The Displayed Charts panel: retail and wholesale labels, colour keys, visibility and removal controls" width="330" height="380" loading="lazy" decoding="async"></div>
+        <figcaption class="note">Selected-series detail. Design mockup, sample data.</figcaption>
+      </figure>
+    </div>
+
+    <div class="split split--flip block rise">
+      <div class="split-copy">
+        <p class="block-label num">Levels to rates of change</p>
+        <h3>Change the analytical question.</h3>
+        <p class="body">The growth control sits beside the indicator title. It separates absolute values from Year on Year, Quarter on Quarter and Month on Month growth, then explains that a rate changes the y-axis to a percentage scale. The frame shows the choice and its explanation, not a calculated result.</p>
+      </div>
+      <figure class="split-media">
+        <div class="frame frame--small"><img src="../assets/images/sedp/supporting/ecometer-growth.webp" alt="The Chart Growth Rate popover: Absolute Values, YoY, QoQ and MoM, with the percentage-axis explanation" width="425" height="496" loading="lazy" decoding="async"></div>
+        <figcaption class="note">Design mockup, sample data.</figcaption>
+      </figure>
+    </div>
+
+    <div class="split block rise">
+      <div class="split-copy">
+        <p class="block-label num">Definition beside the measure</p>
+        <h3>Keep the source within reach.</h3>
+        <p class="body">The information control opens the indicator’s definition: how CEDA’s retail and wholesale food-price indices relate to the underlying data, with a source-portal link and a methodology note.</p>
+        <div class="callout callout--caution">
+          <p class="callout-copy">My reading of the tradeoff: exposing selection, transformation and provenance makes analytical choices inspectable, but also asks readers to understand them. These frames do not establish frequency or unit safeguards.</p>
+        </div>
+      </div>
+      <figure class="split-media">
+        <div class="frame frame--small"><img src="../assets/images/sedp/supporting/ecometer-provenance.webp" alt="The Daily Food Price Index description: retail and wholesale definition, data source and methodology link" width="583" height="446" loading="lazy" decoding="async"></div>
+        <figcaption class="note">Definition, source and methodology. Design mockup, sample data.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 05 Agrimarket ══════════════════════════════════════════════════════ -->
+<section class="section" id="agrimarket" aria-labelledby="agri-t">
+  <div class="wrap">
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip"><span class="dot" aria-hidden="true"></span>Earlier CEDA work</span>
+        <span class="num">05 / 06</span>
+      </p>
+      <h2 id="agri-t">Agrimarket: exact observations beside the bigger pattern</h2>
+      <p class="lead">For agricultural prices and arrivals, I brought the dated records and the visual analysis into one workspace. The redesign and its interaction states shipped; the old interface captures and redesign mockups below show the change in organisation.</p>
+    </header>
+
+    <div class="rise">
+      <p class="block-label num">Before: separate entry and configuration</p>
+      <div class="pair">
+        <figure>
+          <div class="frame"><img src="../assets/images/sedp/supporting/agrimarket-entry.webp" alt="The old Agrimarket entry screen: separate Time Series, Heat Map and Data Download routes" width="1350" height="634" loading="lazy" decoding="async"></div>
+          <figcaption class="note">The old entry screen: Time Series, Heat Map and Data Download already existed, as separate routes.</figcaption>
+        </figure>
+        <figure>
+          <div class="frame"><img src="../assets/images/sedp/supporting/agrimarket-configuration.webp" alt="The old Agrimarket configuration: price or quantity, commodity, time and Submit" width="1403" height="227" loading="lazy" decoding="async"></div>
+          <figcaption class="note">The old configuration: a measure, commodity and time, before Submit. Two old states, not a recording of one path.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="annot-body block rise" data-annot>
+      <div class="annot-side">
+        <p class="block-label num">After: records and patterns together</p>
+        <ol class="annot-notes">
+          <li>
+            <button type="button" class="annot-note" data-note="0" data-region="13,10,79.5,1.5" aria-pressed="false">
+              <span class="annot-n">1</span>
+              <span><h4>Commodity and geography</h4><p>The selection frames both sides of the workspace.</p></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="annot-note" data-note="1" data-region="24,65.5,4.5,2" aria-pressed="false">
+              <span class="annot-n">2</span>
+              <span><h4>Summary and dated table</h4><p>Individual dates, quantities and prices, kept on screen.</p></span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="annot-note" data-note="2" data-region="22,2,4.5,36.5" aria-pressed="false">
+              <span class="annot-n">3</span>
+              <span><h4>Chart, view and time</h4><p>The same records as a pattern, with representation and range controls.</p></span>
+            </button>
+          </li>
+        </ol>
+      </div>
+      <figure class="annot-stage">
+        <div class="annot-frame">
+          <div class="annot-screen" data-annot-screen data-shown="0">
+            <img data-frame class="is-on" src="../assets/images/sedp/supporting/agrimarket-workspace.webp" alt="The redesigned Agrimarket workspace: commodity and geography controls, a dated price and quantity table, and a time-series chart" width="1600" height="917" loading="lazy" decoding="async">
+            <img class="annot-lit" src="../assets/images/sedp/supporting/agrimarket-workspace.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+            <span class="annot-spot" aria-hidden="true"></span>
+            <span class="annot-pin" style="--x:1.5%;--y:13%" data-pin="0" aria-hidden="true">1</span>
+            <span class="annot-pin" style="--x:2%;--y:24%" data-pin="1" aria-hidden="true">2</span>
+            <span class="annot-pin" style="--x:36.5%;--y:22%" data-pin="2" aria-hidden="true">3</span>
+          </div>
+        </div>
+        <button class="btn annot-zoom" type="button" data-zoom data-zoom-src="../assets/images/sedp/supporting/agrimarket-workspace.webp" data-zoom-alt="The redesigned Agrimarket workspace. Design mockup, sample data.">
+          <span class="vh">View full size</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8"/></svg>
+        </button>
+        <figcaption class="note fig-note">Design mockup, sample data. Its arithmetic is inconsistent; it shows the information structure, not calculation accuracy. An entry and workspace comparison, not a timed task.</figcaption>
+      </figure>
+    </div>
+
+    <div class="pair details block rise">
+      <figure>
+        <p class="block-label num">Explain the reference point</p>
+        <div class="frame"><img src="../assets/images/sedp/supporting/agrimarket-price-explanation.webp" alt="The Change-column tooltip: comparison with the last available price, generally the next table row" width="423" height="157" loading="lazy" decoding="async"></div>
+        <figcaption class="note">“Change” from which price? The last available one, generally the next row, instead of an assumed previous day. The displayed arithmetic does not verify the rule.</figcaption>
+      </figure>
+      <figure>
+        <p class="block-label num">Separate one signal</p>
+        <div class="frame"><img src="../assets/images/sedp/supporting/agrimarket-isolation.webp" alt="The legend-isolation state: the Modal Price line prominent, the other series subdued" width="984" height="480" loading="lazy" decoding="async"></div>
+        <figcaption class="note">Modal price in focus while the other lines recede. A separate design state, not a recording of a hover; it uses a 30-day average where the default frame uses 7.</figcaption>
+      </figure>
+    </div>
+
+    <div class="split block rise">
+      <div class="split-copy">
+        <p class="block-label num">Time to geography</p>
+        <h3>Change the view. Keep the observations.</h3>
+        <p class="body">The alternate map keeps the summary and table beside geographical variation, with highest and lowest price cards and the scale around the map. The map and the latest table entry show different dates, so this still does not establish live synchronisation.</p>
+      </div>
+      <figure class="split-media">
+        <div class="window">
+          <div class="window-bar" aria-hidden="true"><span class="viewport-dots"><i></i><i></i><i></i></span><span class="window-url">Agri-Market Data</span></div>
+          <div class="window-screen"><img src="../assets/images/sedp/supporting/agrimarket-map-workspace.webp" alt="Agrimarket's alternate map, with the price summary and dated table still on the left" width="1600" height="917" loading="lazy" decoding="async"></div>
+        </div>
+        <figcaption class="note">Design mockup, sample data.</figcaption>
+      </figure>
+    </div>
+
+    <div class="split split--flip block rise">
+      <div class="split-copy">
+        <p class="block-label num">Take a scoped result</p>
+        <h3>Make the download selection explicit.</h3>
+        <p class="body">The dialog carries commodity, geography and measure into the download, with period controls and CSV, PNG and PDF choices; the action names the selected format. SEDP’s export has a different job: explaining itself to someone outside the portal.</p>
+        <div class="callout callout--caution">
+          <p class="callout-copy">My reading of the tradeoff: keeping records and patterns together demands space. The desktop mockups do not establish keyboard or touch equivalents, small-screen behaviour, or numerical correctness, and an exported file is not part of the evidence.</p>
+        </div>
+      </div>
+      <figure class="split-media">
+        <div class="frame frame--small"><img src="../assets/images/sedp/supporting/agrimarket-download.webp" alt="Agrimarket's Download Data dialog: Apples, All of India, Price and Qty, period controls, CSV, PNG and PDF, and a Download CSV action" width="380" height="504" loading="lazy" decoding="async"></div>
+        <figcaption class="note">Context, then period, then format. Design mockup, sample data.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 06 Outcome ═════════════════════════════════════════════════════════ -->
+<section class="section" id="outcome" aria-labelledby="outcome-t">
+  <div class="wrap">
+    <header class="chead rise">
+      <p class="chead-rule">
+        <span class="chip chip--positive"><span class="dot" aria-hidden="true"></span>What changed</span>
+        <span class="num">06 / 06</span>
+      </p>
+      <h2 id="outcome-t">A shipped workspace. An insight people could share.</h2>
+      <p class="lead">Everything I designed for SEDP shipped: the chart workspace, comparison, discovery page and share exports. The March 2026 posts give dated evidence of the export format in use. CEDA told me faculty across Ashoka used the dashboards for research, and reported a broader audience through social media. I had no access to usage data after handover, so I claim no adoption or retention figures.</p>
+    </header>
+
+    <dl class="tally rise" data-tally>
+      <div><dt data-count-to="3">0</dt><dd><span class="tally-viz tally-viz--blocks" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i></span><b>jobs designed for</b><span>Find a chart, compare, share</span></dd></div>
+      <div><dt data-count-to="12">0</dt><dd><span class="tally-viz tally-viz--screens" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i><i style="--k:10"></i><i style="--k:11"></i></span><b>parts in the workspace</b><span>From the February 2024 inventory</span></dd></div>
+      <div><dt data-count-to="3">0</dt><dd><span class="tally-viz tally-viz--dots" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i></span><b>export formats</b><span>Map, bar and line</span></dd></div>
+      <div><dt data-count-to="2">0</dt><dd><span class="tally-viz tally-viz--nodes" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i></span><b>dated public uses</b><span>CEDA’s posts, 8 and 24 March 2026</span></dd></div>
+    </dl>
+
+    <div class="cards block">
+      <article class="card card--positive rise">
+        <span class="card-rule" aria-hidden="true"></span>
+        <span class="card-icon" aria-hidden="true">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+        </span>
+        <h3>What the record shows</h3>
+        <p class="card-lead">Each product, at the strength of its evidence.</p>
+        <ul>
+          <li><b>SEDP</b>Everything designed shipped. Handover for internal testing on 15 April 2024; the export format in public use in March 2026.</li>
+          <li><b>Ecometer and Agrimarket</b>Both redesigns shipped. They are shown here through supplied design mockups, with sample data.</li>
+          <li><b>Usage</b>No access to usage data after handover. CEDA’s report of faculty use is its own assessment.</li>
+        </ul>
+      </article>
+
+      <article class="card card--caution rise" style="--i:1">
+        <span class="card-rule" aria-hidden="true"></span>
+        <span class="card-icon" aria-hidden="true">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+        </span>
+        <h3>What I would test next</h3>
+        <p class="card-lead">For SEDP, before anything else.</p>
+        <ul>
+          <li><b>Comparison</b>Whether readers understand two charts with different years or filters.</li>
+          <li><b>The export</b>Whether a shared chart leads someone back to the data.</li>
+          <li><b>Access</b>Whether values stay accessible with a keyboard, without colour, and on a small screen.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Close ══════════════════════════════════════════════════════════════ -->
+<section class="section" aria-label="Testimonial and next case study">
+  <div class="wrap">
+    <figure class="quote rise">
+      <div class="quote-card">
+        <svg class="quote-glyph" width="44" height="34" viewBox="0 0 44 34" aria-hidden="true"><defs><linearGradient id="qg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#f08060"/><stop offset="1" stop-color="#e83868"/></linearGradient></defs><path fill="url(#qg)" d="M0 34V21.5C0 9.6 5.5 2.4 16.4 0l2.2 4.3C12.4 6.4 9.5 10.4 9.3 16.4H18V34H0Zm26 0V21.5C26 9.6 31.5 2.4 42.4 0l2.2 4.3c-6.2 2.1-9.1 6.1-9.3 12.1H44V34H26Z"/></svg>
+        <blockquote>We hired Priyank to redesign our dated suite of economic dashboards. And he did an excellent job. The redesigned dashboards are <em>a treat to interact with.</em></blockquote>
+        <figcaption class="quote-by">
+          <span class="avatar" aria-hidden="true">AC</span>
+          <span class="quote-who"><b>Akshi Chawla</b><span>Ex-Director, Centre for Economic Data and Analysis, Ashoka University</span></span>
+          <span class="chip quote-src">Excerpt</span>
+        </figcaption>
+      </div>
+    </figure>
+
+    <a class="next rise" href="getmega-redesign-claude.html">
+      <span class="next-copy">
+        <span>
+          <span class="note">Next case study</span>
+          <strong>Getmega: the game changed, so did the design</strong>
+        </span>
+        <span class="arrow" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </span>
+      <span class="next-media" aria-hidden="true">
+        <img src="../assets/images/getmega/4b854647_states.png" alt="" loading="lazy" decoding="async">
+      </span>
+    </a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="foot">
+    <a class="note" href="../index.html#work">← All projects</a>
+    <a class="note link" href="mailto:hello@priyank.design">hello@priyank.design</a>
+    <span class="num">© 2026 Priyank Agarwal</span>
+  </div>
+</footer>
+
+</main>
+
+<dialog class="viewer" aria-label="Artifact detail">
+  <div class="bar">
+    <span class="bar-title" data-viewer-caption>Artifact detail</span>
+    <span class="bar-spacer"></span>
+    <button class="ibtn" type="button" data-viewer-close aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="viewer-body"><img alt=""></div>
+</dialog>
+
+<script src="../assets/js/case-system.js?v=5" defer></script>
+</body>
+</html>

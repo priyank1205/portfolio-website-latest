@@ -27,16 +27,6 @@
   object-position: 50% 0;
 }
 
-/* --- Blocks ---------------------------------------------------------------- */
-
-.chead--sub {
-  margin-top: var(--block-gap);
-}
-
-.block > .chead--sub:first-child {
-  margin-top: 0;
-}
-
 /* --- 00 The job: what was mine ------------------------------------------ */
 
 .scope {
@@ -85,63 +75,8 @@
   margin-bottom: var(--sp-3);
 }
 
-/* Why the next model had to exist, on its own line. */
-.hinge {
-  max-width: 62ch;
-  padding: var(--sp-1) 0 var(--sp-1) var(--sp-5);
-  border-left: 2px solid var(--accent);
-}
-
-.hinge-line {
-  font-size: var(--fs-lead);
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: -0.012em;
-}
-
-.hinge-copy {
-  margin-top: var(--sp-2);
-  color: var(--fg-2);
-}
-
-/* The sit flow and the state board are shown whole; no step tabs above them,
-   so their notes start level with the artifact. */
-.sit .annot-side,
-.board .annot-side {
-  padding-top: 0;
-}
-
 .annot-screen img[data-frame] {
   border-radius: var(--r-5);
-}
-
-.annot-zoom {
-  position: absolute;
-  z-index: 2;
-  top: var(--sp-3);
-  right: var(--sp-3);
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  justify-content: center;
-  border-color: var(--line-2);
-  border-radius: var(--r-4);
-  background: rgb(var(--bg-rgb) / var(--scrim-2));
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-}
-
-.annot-zoom svg {
-  opacity: 1;
-}
-
-.lab-zoom-text {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
 }
 
 .board-note {
@@ -158,48 +93,6 @@
 
 .board-note footer {
   margin-top: var(--sp-2);
-}
-
-/* From the flow, to one step, to one interaction: copy beside two devices. */
-.zoomin {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: clamp(32px, 5vw, 80px);
-  align-items: center;
-  margin-top: var(--block-gap);
-}
-
-.zoomin--flip .zoomin-copy {
-  order: 2;
-}
-
-.zoomin-copy h3 {
-  margin: var(--sp-3) 0;
-}
-
-.duo {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 240px));
-  justify-content: center;
-  gap: var(--sp-5);
-}
-
-.duo figure {
-  margin: 0;
-}
-
-.duo figcaption {
-  margin-top: var(--sp-3);
-  text-align: center;
-}
-
-.standout {
-  max-width: 58ch;
-  margin-top: var(--block-gap);
-  font-size: var(--fs-lead);
-  font-weight: 500;
-  line-height: 1.5;
-  letter-spacing: -0.012em;
 }
 
 /* Tournaments: copy beside the top of the details page. */
@@ -242,65 +135,7 @@
   margin-bottom: 0;
 }
 
-/* --- 03 Reasons to return: the mechanism, in the order a player meets it - */
-
-.mech {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--sp-6);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.mech-step .phone {
-  width: min(100%, 240px);
-  margin-inline: auto;
-}
-
-.mech-cap {
-  max-width: 34ch;
-  margin: var(--sp-5) auto 0;
-  font-size: var(--fs-small);
-  line-height: 1.55;
-  color: var(--fg-3);
-}
-
-.mech-cap .num {
-  display: block;
-  margin-bottom: var(--sp-2);
-  color: var(--accent);
-}
-
-.mech-cap b {
-  display: block;
-  margin-bottom: var(--sp-1);
-  font-size: var(--fs-ui);
-  font-weight: 500;
-  color: var(--fg);
-}
-
 /* --- 04 Outcome ----------------------------------------------------------- */
-
-.ran {
-  margin: 0;
-  border-top: 1px solid var(--line);
-}
-
-.ran > div {
-  display: grid;
-  grid-template-columns: 120px minmax(0, 1fr);
-  gap: var(--sp-4);
-  align-items: baseline;
-  padding: var(--sp-4) 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.ran dd {
-  margin: 0;
-  max-width: 62ch;
-  color: var(--fg-2);
-}
 
 .outcome-block {
   margin-top: var(--block-gap);
@@ -386,14 +221,9 @@
 /* --- Responsive ----------------------------------------------------------- */
 
 @media (max-width: 1080px) {
-  .zoomin,
   .feature {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--sp-6);
-  }
-
-  .zoomin--flip .zoomin-copy {
-    order: 0;
   }
 
   .shots {
@@ -402,45 +232,6 @@
 }
 
 @media (max-width: 760px) {
-  .annot-zoom {
-    width: 44px;
-    height: 44px;
-  }
-
-  .duo {
-    gap: var(--sp-3);
-  }
-
-  /* Three steps of one mechanism swipe, like any set of the same shape. */
-  .mech {
-    display: flex;
-    gap: var(--sp-3);
-    margin-inline: calc(var(--gutter) * -1);
-    padding-inline: var(--gutter);
-    scroll-padding-inline: var(--gutter);
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .mech::-webkit-scrollbar {
-    display: none;
-  }
-
-  .mech-step {
-    flex: 0 0 calc(100vw - 2 * var(--gutter) - var(--sp-9));
-    scroll-snap-align: start;
-  }
-
-  .mech-cap {
-    margin-top: var(--sp-4);
-  }
-
-  .ran > div {
-    grid-template-columns: 88px minmax(0, 1fr);
-  }
-
   .shots {
     gap: var(--sp-5) var(--sp-3);
   }

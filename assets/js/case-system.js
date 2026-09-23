@@ -105,7 +105,8 @@
   // A set that swipes on a phone gets a pager: one segment per item, lit for
   // the item at the start edge, each one a way straight to its item. The
   // stylesheet only shows it where the set actually scrolls.
-  function swipePager(track, items, labelFor) {
+  // onChange(index), if given, hears which item has settled at the start.
+  function swipePager(track, items, labelFor, onChange) {
     const edge = () => parseFloat(getComputedStyle(track).scrollPaddingLeft) || 0;
     const pager = document.createElement('div');
     pager.className = 'segments segments--pager';
@@ -139,6 +140,7 @@
       if (best === current) return;
       current = best;
       buttons.forEach((button, i) => button.setAttribute('aria-current', String(i === best)));
+      if (onChange) onChange(best);
     }
 
     let frame = 0;
@@ -493,6 +495,16 @@
   /* --- Annotated artifacts ------------------------------------------------ */
 
   $$('[data-annot]').forEach(annotate);
+
+  /* --- Strips: a numbered sequence that swipes on a phone ---------------- */
+
+  $$('[data-strip]').forEach(track => {
+    const items = $$('.strip-item', track);
+    swipePager(track, items, (item, i) => {
+      const name = $('b', item) || $('figcaption', item);
+      return `${i + 1} of ${items.length}${name ? `: ${name.textContent.trim()}` : ''}`;
+    });
+  });
 
   /* --- Pointer light on cards ------------------------------------------ */
 

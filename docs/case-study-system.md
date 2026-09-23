@@ -11,7 +11,7 @@ The shared design system every case study on this site is built on. It was extra
 
 ## 1. How a case study is put together
 
-**Naming.** Every case study built on the system is `projects/<study>-redesign-claude.html` with `assets/css/<study>-redesign-claude.css` and `assets/js/<study>-redesign-claude.js`, beside the earlier version, which stays until the new one is approved and linked. For example: `khiladipro-redesign-claude`, `getmega-redesign-claude`.
+**Naming.** Every case study built on the system is `projects/<study>-redesign-claude.html` with `assets/css/<study>-redesign-claude.css` and `assets/js/<study>-redesign-claude.js`, beside the earlier version, which stays until the new one is approved and linked. For example: `khiladipro-redesign-claude`, `getmega-redesign-claude`, `sedp-redesign-claude`, `mega-poker-redesign-claude`. The four link to each other in a ring through their next-study cards (KhiladiPro, SEDP, Getmega, Mega Poker).
 
 ```html
 <link rel="stylesheet" href="../assets/css/case-system.css?v=N">
@@ -29,7 +29,7 @@ A case study's own stylesheet does three things only:
 
 Its own script starts with `const { … } = window.CaseSystem;` and builds its demos from the engines in §8.
 
-**Promote on the second use.** A pattern moves from a case study into the system the second time a case study needs it, not before. The KhiladiPro demos listed in §9 are waiting for that second use.
+**Promote on the second use.** A pattern moves from a case study into the system the second time a case study needs it, not before. The demos listed in §9 are waiting for that second use.
 
 ---
 
@@ -164,9 +164,24 @@ Class names and hooks, with the KhiladiPro page as the working example of each.
 - **Annotated artifact** (`[data-annot]`, `.annot-*`). A design shown whole, with numbered pins and notes; each note carries `data-region="top,right,bottom,left"` in percent and spotlights it. Optional step tabs switch the design shown. Promoted from KhiladiPro's registration form on its second use, Getmega's sit flow and state board.
 - **Block spacer** (`.block`): one block-gap above.
 - **Video in a device:** muted, looping, `playsinline`, with a poster, a WebM source first and an MP4 after it. Never a GIF (Getmega's 1.5 MB GIF became 160 KB).
-- **Swiped set** (`swipePager()`). Parallel cards of one shape sit side by side on a phone, with the next card's edge showing and a pager beneath, instead of a long stack.
+- **Swiped set** (`swipePager()`). Parallel cards of one shape sit side by side on a phone, with the next card's edge showing and a pager beneath, instead of a long stack. An optional `onChange(index)` hears which card has settled.
 
-**Engines** (`window.CaseSystem`): `walk(root, stepList, onStep)`, `annotate(root)` (automatic on `[data-annot]`), `pinnedSequence(root, count, render)`, `stack(el, texts)`, `swap(...els)`, `showFrame(screen, i)`, `swipePager(track, items, labelFor)`, plus the shared scroll loop (`onScroll`, `queueScroll`, `runScroll`) and helpers (`$`, `$$`, `pad`, `clamp`, `reduced`).
+Promoted from Getmega on their second use in SEDP:
+
+- **Rows** (`.rows`): label and value pairs on hairlines, for facts that are read rather than scanned.
+- **Callout** (`.callout`, `--caution`, `--quiet`): the one line a section turns on (`.callout-line`) with a quieter line under it (`.callout-copy`). Either line can stand alone.
+- **Standout** (`.standout`): a closing statement at lead size in full ink.
+- **Split** (`.split`, `--flip`): copy beside media, centred on each other. Stacks at 1080.
+- **Pair** (`.pair`, `--devices`): two figures side by side; `--devices` caps each at 240px and centres the pair.
+- **Strip** (`.strip` with `[data-strip]`, `.strip-item`, `.strip-cap`): a numbered sequence of figures in reading order, becoming a swiped set with a pager on a phone.
+- **Window** (`.window`, `.window-bar`, `.window-url`, `.window-screen`, `--fixed`): a browser window around a web artifact; `--fixed` crops every screen in a deck to one 16:10 shape from the top.
+- **Wide hero** (`.hero--wide`): more room for a browser window on the device side, a filmstrip of windows on a phone.
+- **Sub-head** (`.chead--sub`): a chapter head inside a chapter, one block-gap down, or none as a block's first child.
+- **Expand** (`.annot-zoom`) on an annotated artifact, and **`.vh`** for text kept for assistive technology only.
+
+Promoted from SEDP on their second use in Mega Poker: **`.fig-note`** (the caption under an annotated artifact) and **`.block-sm`** (a note one closer step below the figure it belongs to).
+
+**Engines** (`window.CaseSystem`): `walk(root, stepList, onStep)`, `annotate(root)` (automatic on `[data-annot]`), `pinnedSequence(root, count, render)`, `stack(el, texts)`, `swap(...els)`, `showFrame(screen, i)`, `swipePager(track, items, labelFor, onChange)`, plus the shared scroll loop (`onScroll`, `queueScroll`, `runScroll`) and helpers (`$`, `$$`, `pad`, `clamp`, `reduced`).
 
 ## 9. Demos still owned by one study (candidates for promotion)
 
@@ -185,12 +200,27 @@ From Getmega:
 - **Gallery** (`.shots`): uniform frames per shape, each opening full size.
 - **Scope chips** (`.scope`), the **hinge** line (`.hinge`), and **how the work ran** (`.ran`).
 
+From SEDP:
+
+- **Plates** (`.frame`, `--small`, `--narrow`, `--strip`, `--fixed`, `--zoom`): light desktop crops on white plates, never upscaled past their natural size.
+- **Notes as an index** (`.annot-body--below`): an annotated artifact too wide for a side list runs full width, with its notes under it in columns.
+- **Before and after** (`.before-after`): the old control panel, narrow, beside the workspace that replaced it.
+- **Numbered brief** (`.brief`, `.brief-list`).
+
+From Mega Poker:
+
+- **One device, read alone** (`.split--device`, `.annot-body--device`): a single phone at the hero's 300px, centred in its half of a split, so copy keeps the chapter's left edge and the devices step from side to side down the page. Two columns hold down to 760. On a phone an annotated device puts its notes first, as a swiped set that lights the note settling in place, with the screen under them, because a phone screen and its notes are taller than a phone's view.
+- **Sample mismatch** (`.mismatch`, `--wide`): a design sample whose figures do not add up says so beside the figure, in the caution colour, at caption size.
+- **Aligned pairs**: paired devices share rows through subgrid, so a label that wraps in one column does not push its device below the other. Promote with `.pair--devices` when a second study labels its pairs.
+
 ## 9a. Studies on the system
 
 | Study | Page | Accents (sampled from the product) |
 |---|---|---|
 | KhiladiPro | `projects/khiladipro-redesign-claude.html` | Coral, mint, amber, red-to-orange action gradient |
 | Getmega | `projects/getmega-redesign-claude.html` | Teal (its play colour), gold (winnings), red (alerts), flat teal action |
+| SEDP (with Ecometer and Agrimarket) | `projects/sedp-redesign-claude.html` | The heatmap's pink, CEDA's navy lifted for the dark ground, the heatmap's light end for limits, its peach-to-crimson ramp |
+| Mega Poker | `projects/mega-poker-redesign-claude.html` | Copper (its primary buttons), teal (its live cards, lifted), red (the unavailable offer), the copper button's own ramp |
 
 ## 10. Phones and tablets
 
@@ -212,6 +242,8 @@ A phone layout is designed, not shrunk. "It still looks so bad on mobile" was sa
 - **Say it once.** Never show the same artifact twice (a landing page shown twice was rejected).
 - **The author's words.** Keep the case study's wording; list any line you wrote or changed so the author can check it.
 - **Per-study vocabulary** belongs to that study (KhiladiPro: "onboarding", never "setup"; no link to and no screenshot of the live kpro.fit site).
+- **Evidence stays what it is.** A design export is never captioned into a production capture. A sample whose figures do not add up is shown unchanged, with the exact mismatch beside it, never silently repaired or cropped away. Sample dates and amounts are labelled as samples where a reader could mistake them for the engagement's.
+- **Getmega and Mega Poker** are separate studies. Mega Poker's CEO had been Getmega's Growth Head; Mega Poker was a different, restructured company. Never "the same company rehired me". Each page tells that connection once.
 - **Every section must be clear on a scan.** "What is it meant for? It should be very clear on just a scan what it is trying to say."
 
 ## 12. Decision log

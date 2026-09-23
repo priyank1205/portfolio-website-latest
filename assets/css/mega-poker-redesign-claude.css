@@ -1,0 +1,188 @@
+/* ============================================================================
+   Mega Poker case study (Claude): this page's own styles
+
+   Loaded after the case study system (case-system.css). This file sets the
+   accents sampled from Mega Poker's screens, then places the one kind of
+   artifact this story is told through: a phone export, read on its own
+   beside its copy, pointed at, or disclosed where its sample figures do not
+   add up. Tokens only.
+   ========================================================================== */
+
+/* Accents, sampled from the screens: the copper of the primary buttons for
+   emphasis, the teal of the live cards (lifted to read on the dark ground)
+   for what went well, the red of the unavailable offer for limits, and the
+   copper button's own left-to-right ramp. The exports carry their own frame,
+   at the system's default screen shape. */
+:root {
+  --accent-rgb: 211 164 134;
+  --positive-rgb: 47 163 156;
+  --caution-rgb: 248 96 96;
+  --action-a-rgb: 201 153 122;
+  --action-b-rgb: 237 198 171;
+  --on-accent: #1c130d;
+}
+
+/* --- One screen, read on its own ----------------------------------------- */
+
+/* A single device is read at the hero's width, centred in its half of a
+   split, so copy keeps the chapter's left edge and the devices step from
+   side to side down the page. A device column is narrow enough to keep its
+   side down to the phone breakpoint. */
+.split--device,
+.annot-body--device {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  column-gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+
+.split--device.split--flip,
+.annot-body--device.annot-body--flip {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+}
+
+.split--device.split--flip .split-copy {
+  order: 2;
+}
+
+.split--device .split-media,
+.annot-body--device .annot-stage {
+  justify-self: center;
+  width: min(100%, 300px);
+}
+
+.annot-body--device .annot-stage {
+  order: 0;
+}
+
+.annot-body--device.annot-body--flip .annot-stage {
+  order: -1;
+}
+
+.split--device .split-media figcaption,
+.annot-body--device .fig-note {
+  text-align: center;
+}
+
+/* Paired devices share their rows, so a label that wraps in one column
+   does not push its device below the other. */
+.pair--devices {
+  grid-template-rows: auto auto auto;
+}
+
+.pair--devices figure {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  align-content: start;
+}
+
+/* --- A sample that does not add up --------------------------------------- */
+
+/* Said beside the figure, in the limits colour, at caption size. */
+.mismatch {
+  max-width: 34ch;
+  margin: var(--sp-4) auto 0;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid rgb(var(--caution-rgb) / var(--a-3));
+  border-radius: var(--r-4);
+  background: rgb(var(--caution-rgb) / var(--a-0));
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+
+.mismatch b {
+  font-weight: 500;
+  color: var(--caution);
+}
+
+/* Under a pair, as wide as the pair. */
+.mismatch--wide {
+  max-width: calc(2 * 240px + var(--sp-5));
+  margin-top: var(--sp-5);
+}
+
+.split-copy .mismatch {
+  max-width: none;
+  margin: var(--sp-5) 0 0;
+}
+
+.pair--devices .block-label {
+  text-align: center;
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .split--device,
+  .split--device.split--flip,
+  .annot-body--device,
+  .annot-body--device.annot-body--flip {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--sp-6);
+  }
+
+  .split--device.split--flip .split-copy {
+    order: 0;
+  }
+
+  .split--device .split-media {
+    width: min(100%, 240px);
+  }
+
+  /* A phone screen and its notes are taller than a phone's view, so the
+     notes come first and the screen they light sits under them: a note and
+     its whole screen share one view. */
+  .annot-body--device,
+  .annot-body--device.annot-body--flip {
+    row-gap: var(--sp-5);
+  }
+
+  .annot-body--device .annot-stage,
+  .annot-body--device.annot-body--flip .annot-stage {
+    order: 1;
+    width: min(100%, 240px);
+  }
+
+  /* The notes become a swiped set with a pager. The script lights the note
+     that settles in place once the reader starts swiping. */
+  .annot-body--device .annot-notes {
+    display: flex;
+    gap: var(--sp-3);
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    border-top: 0;
+  }
+
+  .annot-body--device .annot-notes::-webkit-scrollbar {
+    display: none;
+  }
+
+  .annot-body--device .annot-notes li {
+    display: flex;
+    flex: 0 0 calc(100vw - 2 * var(--gutter) - var(--sp-7));
+    scroll-snap-align: start;
+  }
+
+  .annot-body--device .annot-note {
+    padding: var(--sp-4);
+    border: 1px solid var(--line);
+    border-radius: var(--r-5);
+    background: var(--bg-1);
+  }
+
+  .annot-body--device .annot-note[aria-pressed="true"] {
+    border-color: rgb(var(--accent-rgb) / var(--a-6));
+    background: linear-gradient(90deg, rgb(var(--accent-rgb) / var(--a-2)), transparent 85%), var(--bg-1);
+  }
+
+  .mismatch--wide {
+    max-width: none;
+  }
+}
