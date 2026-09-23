@@ -12,7 +12,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="../assets/images/khiladipro/91415b1c_Landing_Page_Mobile.png">
 <script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="../assets/css/khiladipro-redesign-claude.css?v=43">
+<link rel="stylesheet" href="../assets/css/case-system.css?v=9">
+<link rel="stylesheet" href="../assets/css/khiladipro-redesign-claude.css?v=48">
 </head>
 <body>
 <a class="skip" href="#brief">Skip to case study</a>
@@ -59,17 +60,17 @@
          phone, where three screens side by side beat one that changes itself. -->
     <figure class="hero-device" data-cycler>
       <div class="deck" data-deck>
-        <div class="deck-item is-on" data-deck-item>
+        <div class="deck-item is-on" data-deck-item data-caption="Register: the paid entry, on the web">
           <div class="phone"><div class="phone-screen">
             <img src="../assets/images/khiladipro/91415b1c_Landing_Page_Mobile.png" alt="Olympiad mobile landing page with event dates and registration" width="567" height="1227" fetchpriority="high" decoding="async">
           </div></div>
         </div>
-        <div class="deck-item" data-deck-item>
+        <div class="deck-item" data-deck-item data-caption="Compete: a drill scored by the camera">
           <div class="phone"><div class="phone-screen">
             <img src="../assets/images/khiladipro/92205d06_Android_Large_-_235.png" alt="Scored drill counting 13 of 20 squats" width="570" height="1230" fetchpriority="high" decoding="async">
           </div></div>
         </div>
-        <div class="deck-item" data-deck-item>
+        <div class="deck-item" data-deck-item data-caption="Return: points, stages and the next test">
           <div class="phone"><div class="phone-screen">
             <img src="../assets/images/khiladipro/dab923c5_home_-_with_frame.png" alt="Event home with points earned and the next test" width="570" height="1230" fetchpriority="high" decoding="async">
           </div></div>
@@ -220,9 +221,9 @@
         </div>
         <div class="cviz cviz--merge" aria-hidden="true">
           <ul class="cm-from">
-            <li style="--c:var(--coral)"><span class="dot"></span>Competitor</li>
-            <li style="--c:var(--amber)"><span class="dot"></span>Parent</li>
-            <li style="--c:var(--mint)"><span class="dot"></span>Academy</li>
+            <li style="--c:var(--accent)"><span class="dot"></span>Competitor</li>
+            <li style="--c:var(--caution)"><span class="dot"></span>Parent</li>
+            <li style="--c:var(--positive)"><span class="dot"></span>Academy</li>
           </ul>
           <svg class="cm-lines" viewBox="0 0 100 94" preserveAspectRatio="none">
             <path d="M0 13 C 52 13, 48 47, 100 47"/>
@@ -321,7 +322,7 @@
             <span class="flow-ticks" data-flow-ticks role="tablist" aria-label="Onboarding screens"></span>
           </div>
 
-          <span class="chip chip--mint" data-flow-phase><span class="dot" aria-hidden="true"></span>In the hand</span>
+          <span class="chip chip--positive" data-flow-phase><span class="dot" aria-hidden="true"></span>In the hand</span>
           <h3 data-flow-title>Introducing Supervision</h3>
           <p data-flow-copy>A video introduces camera-based scoring before the app asks for access.</p>
 
@@ -391,7 +392,7 @@
       <div class="rehearsal-stage">
         <figure class="rehearsal-screen">
           <figcaption class="rehearsal-cap">
-            <span class="chip chip--mint"><span class="dot" aria-hidden="true"></span>Rehearsal</span>
+            <span class="chip chip--positive"><span class="dot" aria-hidden="true"></span>Rehearsal</span>
             <span class="num">Onboarding, screen 8 of 9</span>
           </figcaption>
           <div class="rehearsal-device">
@@ -577,7 +578,7 @@
 
     <!-- Each decision on the form can be pointed at: choose a note and the
          form lights up where that decision lives. -->
-    <div class="reg rise" id="registration" data-reg>
+    <div class="reg rise" id="registration" data-annot>
       <header class="chead">
         <p class="chead-rule">
           <span class="chip">From the page to the form</span>
@@ -586,53 +587,53 @@
         <p class="lead">Payment happens on the web, before anyone installs anything. A parent is deciding with no product to try, so three decisions all carry the same job: keep them typing.</p>
       </header>
 
-      <div class="reg-body">
-        <div class="reg-side">
+      <div class="annot-body">
+        <div class="annot-side">
           <p class="block-label num">Three decisions</p>
-          <ol class="reg-notes">
+          <ol class="annot-notes">
             <li>
-              <button type="button" class="reg-note" data-note="0" aria-pressed="false">
-                <span class="fig-n">1</span>
+              <button type="button" class="annot-note" data-note="0" data-region="13.4,61.6,76.2,6.2" aria-pressed="false">
+                <span class="annot-n">1</span>
                 <span><h4>Three steps, labelled</h4><p>The whole sequence sits above the first field, so nobody starts typing without knowing where it ends.</p></span>
               </button>
             </li>
             <li>
-              <button type="button" class="reg-note" data-note="1" aria-pressed="false">
-                <span class="fig-n">2</span>
+              <button type="button" class="annot-note" data-note="1" data-region="17.4,2.4,44.2,54.6" aria-pressed="false">
+                <span class="annot-n">2</span>
                 <span><h4>Named people beside the fields</h4><p>Jonty Rhodes and academy coach Saurabh Dwivedi are quoted next to the inputs, not on a page the parent has already scrolled past.</p></span>
               </button>
             </li>
             <li>
-              <button type="button" class="reg-note" data-note="2" aria-pressed="false">
-                <span class="fig-n">3</span>
+              <button type="button" class="annot-note" data-note="2" data-region="60.6,69.4,29.6,8.4" aria-pressed="false">
+                <span class="annot-n">3</span>
                 <span><h4>Date of birth as a gate</h4><p>Eligible birth years are picked inside the form. The 12 to 18 rule is never parked in an FAQ.</p></span>
               </button>
             </li>
           </ol>
         </div>
 
-        <figure class="reg-stage">
-          <div class="reg-head">
-            <div class="reg-steps" role="tablist" aria-label="Registration steps">
-              <button type="button" role="tab" aria-selected="true" aria-controls="reg-screen" data-step="0"><span class="num">01</span>Basic details</button>
-              <button type="button" role="tab" aria-selected="false" aria-controls="reg-screen" data-step="1"><span class="num">02</span>Step 2</button>
-              <span class="num reg-steps-total">of 3</span>
+        <figure class="annot-stage">
+          <div class="annot-head">
+            <div class="annot-steps" role="tablist" aria-label="Registration steps">
+              <button type="button" role="tab" aria-selected="true" aria-controls="annot-screen" data-step="0"><span class="num">01</span>Basic details</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="annot-screen" data-step="1"><span class="num">02</span>Step 2</button>
+              <span class="num annot-steps-total">of 3</span>
             </div>
             <button class="ibtn" type="button" data-zoom data-zoom-src="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" data-zoom-alt="Registration design: three labelled steps, quotes from Jonty Rhodes and Saurabh Dwivedi, and date-of-birth fields" aria-label="View the full-size design">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8"/></svg>
             </button>
           </div>
-          <div class="reg-frame panx">
-            <div class="panx-inner reg-screen" id="reg-screen" data-reg-screen data-shown="0">
+          <div class="annot-frame panx">
+            <div class="panx-inner annot-screen" id="annot-screen" data-annot-screen data-shown="0">
               <img data-frame class="is-on" src="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" alt="Registration, step 1 of 3, basic details: three labelled steps, quotes from Jonty Rhodes and Saurabh Dwivedi, and date-of-birth fields" width="1600" height="1045" loading="lazy" decoding="async">
               <!-- Placeholder until the step 2 mockup arrives: swap this src and
                    the tab label above. -->
               <img data-frame src="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" alt="Registration, step 2 of 3" width="1600" height="1045" loading="lazy" decoding="async">
-              <img class="reg-lit" src="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
-              <span class="reg-spot" aria-hidden="true"></span>
-              <span class="fig-pin" style="--x:5.4%;--y:16.4%" data-pin="0" aria-hidden="true">1</span>
-              <span class="fig-pin" style="--x:55.6%;--y:24%" data-pin="1" aria-hidden="true">2</span>
-              <span class="fig-pin" style="--x:7%;--y:63%" data-pin="2" aria-hidden="true">3</span>
+              <img class="annot-lit" src="../assets/images/khiladipro/242735a7_2.1_Registration_Flow_Step_1_-_Basic_Details.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+              <span class="annot-spot" aria-hidden="true"></span>
+              <span class="annot-pin" style="--x:5.4%;--y:16.4%" data-pin="0" aria-hidden="true">1</span>
+              <span class="annot-pin" style="--x:55.6%;--y:24%" data-pin="1" aria-hidden="true">2</span>
+              <span class="annot-pin" style="--x:7%;--y:63%" data-pin="2" aria-hidden="true">3</span>
             </div>
           </div>
         </figure>
@@ -642,7 +643,7 @@
 </section>
 
 <!-- ═══ 03 The in-app event ═══════════════════════════════════════════════ -->
-<section id="event" aria-labelledby="event-t">
+<section class="ends-pinned" id="event" aria-labelledby="event-t">
   <div class="wrap section-head">
     <header class="chead rise">
       <p class="chead-rule">
@@ -745,7 +746,7 @@
     <!-- The rehire leads: it is what the client did in response to the work. -->
     <header class="chead rise">
       <p class="chead-rule">
-        <span class="chip chip--mint"><span class="dot" aria-hidden="true"></span>They came back</span>
+        <span class="chip chip--positive"><span class="dot" aria-hidden="true"></span>They came back</span>
         <span class="num">04 / 05</span>
       </p>
       <h2 id="rehire-t">Then the growth team asked for a second one</h2>
@@ -775,7 +776,7 @@
 
       <article class="eng eng--return">
         <div class="eng-media">
-          <span class="rehire-link" aria-hidden="true"><span class="rehire-line"></span><span class="chip chip--mint"><span class="dot"></span>Rehired</span></span>
+          <span class="rehire-link" aria-hidden="true"><span class="rehire-line"></span><span class="chip chip--positive"><span class="dot"></span>Rehired</span></span>
           <div class="eng-window">
             <div class="eng-bar" aria-hidden="true"><span class="viewport-dots"><i></i><i></i><i></i></span><span class="eng-url">IPL fan campaign</span></div>
             <button class="eng-shot" type="button" data-zoom data-zoom-src="../assets/images/khiladipro/69b8b1c0_Homepage.png" data-zoom-alt="IPL fan-campaign landing page, from the second engagement">
@@ -821,7 +822,7 @@
       </header>
 
       <div class="cards">
-        <article class="card card--mint rise">
+        <article class="card card--positive rise">
           <span class="card-rule" aria-hidden="true"></span>
           <span class="card-icon" aria-hidden="true">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 20V10M12 20V4M18 20v-7"/></svg>
@@ -835,7 +836,7 @@
           </ul>
         </article>
 
-        <article class="card card--coral rise" style="--i:1">
+        <article class="card card--accent rise" style="--i:1">
           <span class="card-rule" aria-hidden="true"></span>
           <span class="card-icon" aria-hidden="true">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
@@ -960,6 +961,7 @@
   <div class="viewer-body"><img alt=""></div>
 </dialog>
 
-<script src="../assets/js/khiladipro-redesign-claude.js?v=29" defer></script>
+<script src="../assets/js/case-system.js?v=3" defer></script>
+<script src="../assets/js/khiladipro-redesign-claude.js?v=31" defer></script>
 </body>
 </html>

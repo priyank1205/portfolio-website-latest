@@ -1,0 +1,447 @@
+/* ============================================================================
+   Getmega case study (Claude): this page's own styles
+
+   Loaded after the case study system (case-system.css). This file sets the
+   accents and screen shape sampled from Getmega's shipped screens, then lays
+   out the few blocks only this story has. Tokens only.
+   ========================================================================== */
+
+/* Accents, sampled from the app: teal is its play colour (Claim, Your Turn,
+   tournaments), gold its winnings and progress, red its alerts. The app's
+   buttons are flat teal, so the action gradient barely moves. */
+:root {
+  --accent-rgb: 60 192 156;
+  --positive-rgb: 240 180 0;
+  --caution-rgb: 216 60 84;
+  --action-a-rgb: 76 204 168;
+  --action-b-rgb: 48 168 144;
+  --on-accent: #04130f;
+
+  /* Getmega's exports are 9:16 and carry no frame of their own. */
+  --screen-ratio: 9 / 16;
+  --device-ratio: 0.573;
+}
+
+/* Taller 1:2 screenshots crop to 9:16 from the bottom unless told otherwise. */
+.phone-screen img {
+  object-position: 50% 0;
+}
+
+/* --- Blocks ---------------------------------------------------------------- */
+
+.chead--sub {
+  margin-top: var(--block-gap);
+}
+
+.block > .chead--sub:first-child {
+  margin-top: 0;
+}
+
+/* --- 00 The job: what was mine ------------------------------------------ */
+
+.scope {
+  margin-top: var(--block-gap);
+}
+
+.scope-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.scope-list li {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding-inline: var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--bg-1);
+  font-size: var(--fs-small);
+  color: var(--fg-2);
+}
+
+.scope-note {
+  margin-top: var(--sp-5);
+  max-width: 62ch;
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--fg-3);
+}
+
+/* --- 01 Product models -------------------------------------------------- */
+
+/* The model before the pivots: said, not shown, because nothing survives. */
+.origin {
+  max-width: 62ch;
+  padding-left: var(--sp-5);
+  border-left: 2px solid var(--line-2);
+}
+
+.origin h3 {
+  margin-bottom: var(--sp-3);
+}
+
+/* Why the next model had to exist, on its own line. */
+.hinge {
+  max-width: 62ch;
+  padding: var(--sp-1) 0 var(--sp-1) var(--sp-5);
+  border-left: 2px solid var(--accent);
+}
+
+.hinge-line {
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.012em;
+}
+
+.hinge-copy {
+  margin-top: var(--sp-2);
+  color: var(--fg-2);
+}
+
+/* The sit flow and the state board are shown whole; no step tabs above them,
+   so their notes start level with the artifact. */
+.sit .annot-side,
+.board .annot-side {
+  padding-top: 0;
+}
+
+.annot-screen img[data-frame] {
+  border-radius: var(--r-5);
+}
+
+.annot-zoom {
+  position: absolute;
+  z-index: 2;
+  top: var(--sp-3);
+  right: var(--sp-3);
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  justify-content: center;
+  border-color: var(--line-2);
+  border-radius: var(--r-4);
+  background: rgb(var(--bg-rgb) / var(--scrim-2));
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.annot-zoom svg {
+  opacity: 1;
+}
+
+.lab-zoom-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.board-note {
+  margin: var(--sp-6) 0 0;
+  padding-left: var(--sp-4);
+  border-left: 2px solid var(--line-2);
+}
+
+.board-note p {
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+
+.board-note footer {
+  margin-top: var(--sp-2);
+}
+
+/* From the flow, to one step, to one interaction: copy beside two devices. */
+.zoomin {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+  margin-top: var(--block-gap);
+}
+
+.zoomin--flip .zoomin-copy {
+  order: 2;
+}
+
+.zoomin-copy h3 {
+  margin: var(--sp-3) 0;
+}
+
+.duo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 240px));
+  justify-content: center;
+  gap: var(--sp-5);
+}
+
+.duo figure {
+  margin: 0;
+}
+
+.duo figcaption {
+  margin-top: var(--sp-3);
+  text-align: center;
+}
+
+.standout {
+  max-width: 58ch;
+  margin-top: var(--block-gap);
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.012em;
+}
+
+/* Tournaments: copy beside the top of the details page. */
+.feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+
+.feature-copy .lead {
+  margin-top: var(--sp-4);
+}
+
+.feature-media {
+  margin: 0;
+  justify-self: center;
+  width: min(100%, 340px);
+}
+
+/* The top of the page only: the rank-payout table below it is not shown. */
+.crop {
+  aspect-ratio: 720 / 780;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-6);
+  box-shadow: var(--shadow-4);
+}
+
+.crop img {
+  width: 100%;
+}
+
+.feature-media figcaption {
+  margin-top: var(--sp-3);
+  text-align: center;
+}
+
+.turn-head {
+  margin-bottom: 0;
+}
+
+/* --- 03 Reasons to return: the mechanism, in the order a player meets it - */
+
+.mech {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mech-step .phone {
+  width: min(100%, 240px);
+  margin-inline: auto;
+}
+
+.mech-cap {
+  max-width: 34ch;
+  margin: var(--sp-5) auto 0;
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--fg-3);
+}
+
+.mech-cap .num {
+  display: block;
+  margin-bottom: var(--sp-2);
+  color: var(--accent);
+}
+
+.mech-cap b {
+  display: block;
+  margin-bottom: var(--sp-1);
+  font-size: var(--fs-ui);
+  font-weight: 500;
+  color: var(--fg);
+}
+
+/* --- 04 Outcome ----------------------------------------------------------- */
+
+.ran {
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.ran > div {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: var(--sp-4);
+  align-items: baseline;
+  padding: var(--sp-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.ran dd {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--fg-2);
+}
+
+.outcome-block {
+  margin-top: var(--block-gap);
+}
+
+.outcome-block .tally {
+  margin-top: 0;
+}
+
+.next-up {
+  margin-top: var(--block-gap);
+}
+
+/* --- 05 More work --------------------------------------------------------- */
+
+.shots {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--sp-6) var(--sp-5);
+}
+
+.shot {
+  margin: 0;
+}
+
+.shot--wide {
+  grid-column: span 2;
+}
+
+.shot button {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-5);
+  background: var(--bg-1);
+  cursor: zoom-in;
+  transition: border-color var(--quick);
+}
+
+/* One frame per shape, so rows line up whatever the export's height. */
+.shot img {
+  width: 100%;
+  aspect-ratio: var(--screen-ratio);
+  object-fit: cover;
+  object-position: 50% 0;
+}
+
+.shot--wide img {
+  aspect-ratio: 16 / 9;
+}
+
+@media (hover: hover) {
+  .shot button:hover {
+    border-color: var(--line-3);
+  }
+}
+
+.shot figcaption {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--fg-3);
+}
+
+.shot figcaption b {
+  display: block;
+  margin-bottom: 2px;
+  font-weight: 500;
+  color: var(--fg);
+}
+
+/* --- Close ---------------------------------------------------------------- */
+
+.coda {
+  max-width: 720px;
+}
+
+.coda .lead {
+  margin-top: var(--sp-4);
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+
+@media (max-width: 1080px) {
+  .zoomin,
+  .feature {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-6);
+  }
+
+  .zoomin--flip .zoomin-copy {
+    order: 0;
+  }
+
+  .shots {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .annot-zoom {
+    width: 44px;
+    height: 44px;
+  }
+
+  .duo {
+    gap: var(--sp-3);
+  }
+
+  /* Three steps of one mechanism swipe, like any set of the same shape. */
+  .mech {
+    display: flex;
+    gap: var(--sp-3);
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .mech::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mech-step {
+    flex: 0 0 calc(100vw - 2 * var(--gutter) - var(--sp-9));
+    scroll-snap-align: start;
+  }
+
+  .mech-cap {
+    margin-top: var(--sp-4);
+  }
+
+  .ran > div {
+    grid-template-columns: 88px minmax(0, 1fr);
+  }
+
+  .shots {
+    gap: var(--sp-5) var(--sp-3);
+  }
+}

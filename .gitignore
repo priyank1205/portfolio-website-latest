@@ -4,3 +4,6 @@ CLAUDE.md
 
 # Generated static deployment output
 /dist/
+
+# Verification captures (scripts/case-verify.py)
+/audits/captures/

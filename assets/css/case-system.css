@@ -1,0 +1,3501 @@
+/* ============================================================================
+   Case study system
+
+   The shared foundation every case study is built on: tokens, base type,
+   components, the interaction patterns, motion and the phone rules. A case
+   study loads this first, then its own stylesheet, which only sets its
+   accents and styles its own demos, using these tokens and nothing else.
+
+   Reference points: Raycast, Vercel, Linear, rauno.me. What they share and
+   this system borrows: one grotesque doing every job, a true near-black
+   ground, hairline surfaces instead of cards, monospace reserved for
+   readouts, and demos you can actually operate.
+
+   The why behind every token, and what was tried and rejected, lives in
+   docs/case-study-system.md.
+   ========================================================================== */
+
+/* --- Tokens --------------------------------------------------------------- */
+
+:root {
+  color-scheme: dark;
+
+  /* Ground. Four near-black steps; surfaces rise by value, not by shadow. */
+  --bg: #08080a;
+  --bg-1: #0c0c0f;
+  --bg-2: #121216;
+  --bg-3: #191920;
+  --bg-rgb: 8 8 10;
+  --bg-1-rgb: 12 12 15;
+
+  /* Ink. One off-white and two alphas of it: body copy, then quiet copy.
+     The lead sits at the quiet step on purpose, so the heading leads. */
+  --fg: #f2f2f3;
+  --fg-2: rgba(242, 242, 243, 0.72);
+  --fg-3: rgba(242, 242, 243, 0.52);
+  --fg-lead: rgba(242, 242, 243, 0.52);
+  --on-fg: #0a0a0c;
+  --white: #fff;
+
+  /* Hairlines, from the white alpha ramp. */
+  --hi-rgb: 255 255 255;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.14);
+  --line-3: rgba(255, 255, 255, 0.24);
+
+  /* Accents, by role. Each case study sets these from its own product
+     (sampled from its shipped screens), in its own stylesheet. These
+     defaults are KhiladiPro's. Every tint of an accent is its channels over
+     one step of the alpha ladder below, so all accents tint the same way. */
+  --accent-rgb: 255 122 99;
+  --positive-rgb: 25 207 163;
+  --caution-rgb: 224 160 92;
+  --action-a-rgb: 225 77 92;
+  --action-b-rgb: 224 114 76;
+  --accent: rgb(var(--accent-rgb));
+  --positive: rgb(var(--positive-rgb));
+  --caution: rgb(var(--caution-rgb));
+  --action: linear-gradient(90deg, rgb(var(--action-a-rgb)), rgb(var(--action-b-rgb)));
+  --on-accent: #180706;
+
+  /* The alpha ladder, for every tint, glow, ring and wash. */
+  --a-0: 0.03;
+  --a-1: 0.06;
+  --a-2: 0.1;
+  --a-3: 0.14;
+  --a-4: 0.2;
+  --a-5: 0.28;
+  --a-6: 0.4;
+  --a-7: 0.6;
+
+  /* Scrims: glass and overlays over the ground. */
+  --scrim-1: 0.5;
+  --scrim-2: 0.72;
+  --scrim-3: 0.86;
+  --scrim-4: 0.92;
+
+  /* Elevation. Rare: most surfaces are separated by a hairline or a value
+     step. These are the only shadows, from a small press to a device. */
+  --hi-edge: inset 0 1px 0 rgb(var(--hi-rgb) / var(--a-1));
+  --shadow-1: 0 6px 16px -8px rgba(0, 0, 0, 0.7);
+  --shadow-2: 0 12px 24px -14px rgba(0, 0, 0, 0.9);
+  --shadow-3: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-4: 0 40px 80px -40px rgba(0, 0, 0, 0.85);
+  --shadow-device: 0 40px 70px -24px rgba(0, 0, 0, 0.9), 0 8px 20px -8px rgba(0, 0, 0, 0.6);
+
+  --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Type scale. Eight steps, each with one job. Headings use Inter's Display
+     cut through the optical-size axis, so they tighten on their own. */
+  --fs-display: clamp(34px, 3.2vw, 44px);
+  --fs-title: clamp(24px, 2.1vw, 30px);
+  --fs-heading: clamp(18px, 1.4vw, 20px);
+  --fs-lead: clamp(15px, 1.2vw, 17px);
+  --fs-body: 15px;
+  --fs-ui: 14px;
+  --fs-small: 13px;
+  --fs-label: 12px;
+
+  /* Space, on a 4px base. */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+  --sp-10: 128px;
+
+  /* Radius, by role: marks, glyphs, thumbnails, small controls and zones,
+     controls and windows, tiles and sheets, cards and plates. Nested
+     corners step down by the padding between them. */
+  --r-1: 2px;
+  --r-2: 4px;
+  --r-3: 6px;
+  --r-4: 8px;
+  --r-5: 12px;
+  --r-6: 16px;
+  --r-7: 20px;
+  --r-pill: 999px;
+  /* The screenshots ship with a rounded mask at r≈55 on a 570px export;
+     these elliptical radii reproduce it, and the frame around it, at any size. */
+  --r-device: 12.4% / 5.7%;
+  --r-screen: 9.7% / 4.5%;
+  /* The shape of the study's screenshots, and of the device around one
+     (the screen plus its 2.1% bezel), so a pinned stage can size the device
+     from its height. KhiladiPro's exports are 570 x 1230. */
+  --screen-ratio: 570 / 1230;
+  --device-ratio: 0.4743;
+
+  --gutter: max(clamp(20px, 3.4vw, 48px), env(safe-area-inset-left), env(safe-area-inset-right));
+  --maxw: 1240px;
+  /* Vertical rhythm, three steps and nothing between them: the space around
+     a chapter, between the blocks inside one, and under a chapter head.
+     256 / 128 / 64 on a wide screen, 128 / 72 / 32 on a phone. */
+  --section-y: clamp(72px, 9vw, 128px);
+  --block-gap: clamp(72px, 9vw, 128px);
+  --head-gap: clamp(36px, 4.4vw, 64px);
+  --rail-h: 52px;
+
+  /* Motion. One easing, fast out and a long settle, and durations named
+     by what they do. Loops that demonstrate something set their own. */
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --t-press: 90ms;
+  --t-quick: 180ms;
+  --t-state: 260ms;
+  --t-swap: 380ms;
+  --t-move: 420ms;
+  --t-travel: 620ms;
+  --t-enter: 700ms;
+  --t-draw: 900ms;
+  --stagger: 60ms;
+  --quick: var(--t-quick) var(--ease);
+}
+
+/* --- Base ----------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 112px;
+  -webkit-text-size-adjust: 100%;
+  /* Touch devices get their feedback from the pressed states below, not from
+     the grey box the browser paints over whatever was tapped. */
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 var(--fs-body)/1.6 var(--sans);
+  letter-spacing: -0.011em;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd,
+ol,
+ul {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+h2 em,
+h3 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-2);
+}
+
+.wrap {
+  width: min(100% - (2 * var(--gutter)), var(--maxw));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--section-y);
+  position: relative;
+}
+
+.section-head {
+  padding-block: var(--section-y) clamp(28px, 3.2vw, 44px);
+}
+
+/* A block inside a chapter: one block-gap below whatever came before it. */
+.block {
+  margin-top: var(--block-gap);
+}
+
+/* A block that follows a pinned stage inside the same chapter. The stage is
+   centred in a full screen, so on a wide screen it brings its own space. */
+.section--follow {
+  padding-top: 0;
+}
+
+.skip {
+  position: fixed;
+  z-index: 200;
+  top: var(--sp-3);
+  left: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--fg);
+  color: var(--bg);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  border-radius: var(--r-4);
+  transform: translateY(-200%);
+}
+
+.skip:focus {
+  transform: none;
+}
+
+/* --- Type ----------------------------------------------------------------- */
+
+.h1 {
+  font-size: var(--fs-display);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: var(--fs-title);
+  line-height: 1.14;
+  letter-spacing: -0.024em;
+}
+
+h3 {
+  font-size: var(--fs-heading);
+  line-height: 1.3;
+  letter-spacing: -0.018em;
+}
+
+h4 {
+  font-size: var(--fs-body);
+  line-height: 1.45;
+  letter-spacing: -0.016em;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--fg-lead);
+  max-width: 58ch;
+  letter-spacing: -0.014em;
+}
+
+.body {
+  font-size: var(--fs-body);
+  line-height: 1.62;
+  color: var(--fg-2);
+  max-width: 62ch;
+}
+
+.body + .body {
+  margin-top: var(--sp-4);
+}
+
+.note {
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--fg-3);
+}
+
+/* Monospace is for readouts only: counters, pixel values, indices. */
+
+.num {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-label);
+  letter-spacing: 0;
+  color: var(--fg-3);
+}
+
+.link {
+  color: var(--fg);
+  box-shadow: inset 0 -1px 0 var(--line-3);
+  transition: box-shadow var(--quick), color var(--quick);
+}
+
+@media (hover: hover) {
+  .link:hover {
+    color: var(--accent);
+    box-shadow: inset 0 -1px 0 var(--accent);
+  }
+}
+
+/* --- Chips + buttons ------------------------------------------------------ */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  height: 26px;
+  padding-inline: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--bg-2);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  color: var(--fg-2);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.chip .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.chip--positive .dot {
+  background: var(--positive);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  height: 38px;
+  padding-inline: var(--sp-4);
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line-2);
+  background: var(--bg-2);
+  font-size: var(--fs-ui);
+  font-weight: 500;
+  letter-spacing: -0.014em;
+  color: var(--fg);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background var(--quick), border-color var(--quick),
+    transform var(--quick);
+}
+
+@media (hover: hover) {
+  .btn:hover {
+    background: var(--bg-3);
+    border-color: var(--line-3);
+  }
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn svg {
+  opacity: 0.6;
+  transition: transform var(--quick), opacity var(--quick);
+}
+
+@media (hover: hover) {
+  .btn:hover svg {
+    opacity: 1;
+    transform: translateY(2px);
+  }
+}
+
+.btn--primary {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--on-fg);
+}
+
+@media (hover: hover) {
+  .btn--primary:hover {
+    background: var(--white);
+    border-color: var(--white);
+  }
+}
+
+.ibtn {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: var(--r-4);
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--fg-2);
+  transition: background var(--quick), color var(--quick),
+    border-color var(--quick);
+}
+
+@media (hover: hover) {
+  .ibtn:hover {
+    background: var(--bg-3);
+    border-color: var(--line-2);
+    color: var(--fg);
+  }
+}
+
+/* --- Nav ------------------------------------------------------------------ */
+
+.nav {
+  position: fixed;
+  z-index: 80;
+  top: var(--sp-4);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  height: 48px;
+  padding: 0 6px 0 var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: rgb(var(--bg-rgb) / var(--scrim-2));
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: var(--shadow-3), var(--hi-edge);
+  max-width: calc(100% - (2 * var(--gutter)));
+  transition: opacity var(--t-state) var(--ease), transform var(--t-state) var(--ease),
+    visibility var(--t-state);
+}
+
+.nav.is-off {
+  opacity: 0;
+  transform: translate(-50%, -140%);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.nav-home {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: -0.014em;
+  white-space: nowrap;
+}
+
+.nav-home .mark {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--r-3);
+  background: var(--action);
+  color: var(--white);
+  font-size: var(--fs-label);
+  font-weight: 600;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  font-size: var(--fs-small);
+  color: var(--fg-3);
+}
+
+.nav-links a {
+  transition: color var(--quick);
+}
+
+@media (hover: hover) {
+  .nav-links a:hover {
+    color: var(--fg);
+  }
+}
+
+.nav .btn {
+  height: 34px;
+  font-size: var(--fs-small);
+}
+
+.nav-sep {
+  width: 1px;
+  height: 18px;
+  background: var(--line);
+}
+
+/* --- Hero ----------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  padding-top: clamp(120px, 14vw, 180px);
+  padding-bottom: clamp(56px, 6.6vw, 96px);
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -20% -10% auto;
+  height: 780px;
+  background: radial-gradient(
+      52% 60% at 72% 34%,
+      rgb(var(--action-a-rgb) / var(--a-3)),
+      transparent 68%
+    ),
+    radial-gradient(40% 46% at 84% 22%, rgb(var(--action-b-rgb) / var(--a-3)), transparent 70%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.5;
+  mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent 75%);
+  pointer-events: none;
+}
+
+.hero > .wrap {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: center;
+}
+
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-6);
+}
+
+.hero .h1 {
+  max-width: 19ch;
+}
+
+.hero .h1 em {
+  font-style: normal;
+  background: var(--action);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero .lead {
+  margin-top: var(--sp-5);
+  max-width: 44ch;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-7);
+}
+
+/* --- Phone ---------------------------------------------------------------- */
+
+/* The screenshots ship with a rounded alpha mask at r≈55 on a 570px export;
+   the elliptical percentage radius reproduces it at any rendered size. */
+
+.phone {
+  display: block;
+  position: relative;
+  padding: 2.1%;
+  border-radius: var(--r-device);
+  background: linear-gradient(160deg, #26262b, #131317 42%, #1d1d22);
+  box-shadow: inset 0 0 0 1px rgb(var(--hi-rgb) / var(--a-2)),
+    var(--shadow-device);
+}
+
+.phone-screen {
+  display: block;
+  position: relative;
+  aspect-ratio: var(--screen-ratio);
+  border-radius: var(--r-screen);
+  overflow: hidden;
+  background: #000;
+}
+
+.phone-screen img,
+.phone-screen video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.phone-screen img[data-frame] {
+  opacity: 0;
+  transition: opacity var(--t-state) var(--ease);
+}
+
+.phone-screen img[data-frame].is-on {
+  opacity: 1;
+}
+
+.hero-device {
+  position: relative;
+  width: min(100%, 300px);
+  margin-inline: auto;
+}
+
+/* Wide screens stack the three screens and cross-fade them. */
+
+.deck {
+  display: grid;
+}
+
+.deck-item {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transition: opacity var(--t-swap) var(--ease);
+}
+
+.deck-item.is-on {
+  opacity: 1;
+}
+
+.segments {
+  display: flex;
+  gap: 5px;
+  margin-top: var(--sp-5);
+}
+
+.segments button {
+  flex: 1;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.segments span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: var(--r-1);
+  background: var(--line-2);
+  overflow: hidden;
+}
+
+.segments span::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: var(--r-1);
+  background: var(--fg);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.segments button[aria-current="true"] span::after {
+  animation: seg 4s linear forwards;
+}
+
+.segments button.is-done span::after {
+  transform: scaleX(1);
+}
+
+@keyframes seg {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.hero-device figcaption {
+  margin-top: var(--sp-3);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+/* --- Chapter rail --------------------------------------------------------- */
+
+.rail {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: rgb(var(--bg-rgb) / var(--scrim-3));
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+
+.rail .wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+  height: var(--rail-h);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.rail .wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.rail a {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  white-space: nowrap;
+  font-size: var(--fs-small);
+  color: var(--fg-3);
+  padding-block: var(--sp-4);
+  transition: color var(--quick);
+}
+
+@media (hover: hover) {
+  .rail a:hover {
+    color: var(--fg-2);
+  }
+}
+
+.rail a[aria-current] {
+  color: var(--fg);
+}
+
+.rail a[aria-current]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1.5px;
+  background: var(--accent);
+}
+
+.rail a .num {
+  font-size: var(--fs-label);
+}
+
+.rail a[aria-current] .num {
+  color: var(--accent);
+}
+
+.rail-home {
+  display: grid !important;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  padding: 0 !important;
+  margin-right: calc(var(--sp-6) * -0.4);
+  color: var(--fg-3);
+}
+
+@media (hover: hover) {
+  .rail-home:hover {
+    border-color: var(--line-3);
+    color: var(--fg);
+  }
+}
+
+.rail-home::after {
+  content: none !important;
+}
+
+.progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 0;
+  background: linear-gradient(90deg, transparent, var(--accent));
+  opacity: 0.6;
+}
+
+/* --- Chapter heads -------------------------------------------------------- */
+
+/* Chapters stack left under their label. No rule across the top: the break
+   between sections is carried by space alone. */
+
+.chead {
+  margin-bottom: var(--head-gap);
+}
+
+.chead-rule {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-bottom: clamp(20px, 2.2vw, 32px);
+}
+
+.chead h2 {
+  max-width: 34ch;
+}
+
+.chead .lead {
+  margin-top: clamp(16px, 1.8vw, 24px);
+  max-width: 58ch;
+}
+
+.block-label {
+  margin-bottom: var(--sp-4);
+}
+
+/* Each surface links to the chapter that covers it, and previews it on
+   hover the way the prototype cards do. */
+
+.surface-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--sp-4);
+}
+
+.surface {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--sp-8);
+  overflow: hidden;
+  min-height: 168px;
+  padding: var(--sp-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-6);
+  background: var(--bg-1);
+  transition: border-color var(--quick), background var(--quick),
+    transform var(--quick);
+}
+
+@media (hover: hover) {
+  .surface:hover {
+    border-color: var(--line-3);
+    background: var(--bg-2);
+    transform: translateY(-3px);
+  }
+}
+
+.surface-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.surface-top svg {
+  color: var(--fg-3);
+  transition: color var(--quick), transform var(--quick);
+}
+
+@media (hover: hover) {
+  .surface:hover .surface-top svg {
+    color: var(--accent);
+    transform: translateY(2px);
+  }
+}
+
+@media (hover: hover) {
+  .surface:hover .surface-top .num {
+    color: var(--accent);
+  }
+}
+
+.surface-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.surface-body strong {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+}
+
+.surface-body > span {
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--fg-3);
+  max-width: 22ch;
+}
+
+.surface-thumb {
+  position: absolute;
+  right: -26px;
+  bottom: -20px;
+  width: 92px;
+  border-radius: var(--r-4);
+  opacity: 0;
+  transform: translateY(12px) rotate(-6deg);
+  transition: opacity var(--t-state) var(--ease), transform var(--t-state) var(--ease);
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .surface:hover .surface-thumb {
+    opacity: 0.45;
+    transform: translateY(0) rotate(-6deg);
+  }
+}
+
+/* --- 01 Setup: the scroll-driven flow ------------------------------------- */
+
+.flow {
+  position: relative;
+}
+
+.js .flow.is-live {
+  height: calc(100svh + (var(--steps) - 1) * 58svh);
+}
+
+.js .flow--states.is-live {
+  height: calc(100svh + (var(--steps) - 1) * 44svh);
+}
+
+.flow-sticky {
+  position: sticky;
+  top: var(--rail-h);
+  height: calc(100svh - var(--rail-h));
+  display: flex;
+  align-items: center;
+}
+
+.flow-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--phone-w, min(300px, 31svh));
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+
+.flow-stage .phone {
+  width: var(--phone-w, min(300px, 31svh));
+  margin-inline: auto;
+}
+
+/* Scrolling drives the flow; these let anyone presenting hit an exact step. */
+
+.flow-meter {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+}
+
+.flow-meter .num {
+  margin-left: var(--sp-2);
+  margin-right: var(--sp-2);
+}
+
+.flow-ticks {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+  max-width: 220px;
+}
+
+.flow-ticks button {
+  flex: 1;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.flow-ticks button::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 3px;
+  border-radius: var(--r-1);
+  background: var(--line-2);
+  transition: background var(--t-state) var(--ease), height var(--t-quick) var(--ease);
+}
+
+@media (hover: hover) {
+  .flow-ticks button:hover::before {
+    background: var(--line-3);
+    height: 6px;
+  }
+}
+
+.flow-ticks button.is-past::before {
+  background: rgb(var(--accent-rgb) / var(--a-6));
+}
+
+.flow-ticks button.is-on::before {
+  background: var(--accent);
+  height: 6px;
+}
+
+.flow-copy h3 {
+  margin: var(--sp-4) 0 var(--sp-3);
+}
+
+.flow-copy > p {
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--fg-2);
+  max-width: 44ch;
+}
+
+.swap {
+  animation: swapIn var(--t-swap) var(--ease);
+}
+
+@keyframes swapIn {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+}
+
+/* A line that changes with the step (the script stacks every version):
+   all of them share one cell, so the box keeps the height of the longest
+   and the device beside or above it never resizes between steps. */
+.stack {
+  display: grid;
+}
+
+.stack > span {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.stack > span.is-on {
+  visibility: visible;
+}
+
+/* No-JS fallback: the same nine steps, as a plain list. */
+
+.flow-fallback {
+  list-style: none;
+  padding: 0;
+  margin-block: var(--sp-6) var(--sp-8);
+  border-top: 1px solid var(--line);
+}
+
+.flow-fallback li {
+  border-bottom: 1px solid var(--line);
+  padding: var(--sp-4) 0;
+  font-size: var(--fs-ui);
+  color: var(--fg-3);
+}
+
+.flow-fallback li::before {
+  content: attr(data-title);
+  display: block;
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 3px;
+}
+
+.js .flow-fallback {
+  display: none;
+}
+
+.bar-title {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: -0.014em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar-spacer {
+  flex: 1;
+  min-width: var(--sp-2);
+}
+
+@keyframes hint {
+  0%, 100% { opacity: 0; transform: scale(0.98); }
+  45% { opacity: 0.85; transform: scale(1); }
+}
+
+/* The frame a wide artifact sits in. It is shown whole at every width: on a
+   phone the argument is where things sit, and the full-size viewer is where
+   the detail becomes legible. */
+
+.panx {
+  position: relative;
+}
+
+.panx-inner {
+  position: relative;
+  width: 100%;
+}
+
+.panx-inner img {
+  display: block;
+  width: 100%;
+}
+
+/* --- 03 Between attempts -------------------------------------------------- */
+
+/* Pinned like the onboarding flow, so nothing can be scanned past, with the
+   picker still there for direct access. */
+
+.flow--states .flow-sticky {
+  height: calc(100svh - var(--rail-h));
+}
+
+.states {
+  display: grid;
+  grid-template-columns: var(--states-phone, min(268px, 30svh)) minmax(0, 1fr) 286px;
+  gap: clamp(24px, 3.2vw, 56px);
+  align-items: center;
+  width: min(100% - (2 * var(--gutter)), var(--maxw));
+}
+
+.states-stage .phone {
+  width: 100%;
+}
+
+.states-copy .flow-meter {
+  margin-bottom: var(--sp-5);
+}
+
+.states-copy h3 {
+  margin: var(--sp-4) 0 var(--sp-3);
+}
+
+.state-q {
+  margin-top: var(--sp-6);
+  padding: var(--sp-4) var(--sp-5);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 var(--r-5) var(--r-5) 0;
+  background: var(--bg-1);
+}
+
+.state-q p {
+  font-size: var(--fs-heading);
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  line-height: 1.35;
+  margin-top: 6px;
+}
+
+.state-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.state-group {
+  margin: var(--sp-4) 0 var(--sp-2) var(--sp-2);
+}
+
+.state-group:first-child {
+  margin-top: 0;
+}
+
+.state-picker button {
+  display: grid;
+  grid-template-columns: 28px 20px minmax(0, 1fr);
+  gap: var(--sp-3);
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  padding: var(--sp-2);
+  border: 1px solid transparent;
+  border-radius: var(--r-5);
+  transition: background var(--quick), border-color var(--quick);
+}
+
+@media (hover: hover) {
+  .state-picker button:hover {
+    background: var(--bg-1);
+  }
+}
+
+.state-picker button[aria-selected="true"] {
+  background: var(--bg-2);
+  border-color: var(--line);
+}
+
+.pick-thumb {
+  display: block;
+  width: 28px;
+  aspect-ratio: var(--screen-ratio);
+  border-radius: var(--r-2);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #000;
+  transition: border-color var(--quick), box-shadow var(--quick);
+}
+
+.pick-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+  transition: opacity var(--quick);
+}
+
+.state-picker button[aria-selected="true"] .pick-thumb img {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .state-picker button:hover .pick-thumb img {
+    opacity: 1;
+  }
+}
+
+.state-picker button[aria-selected="true"] .pick-thumb {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgb(var(--accent-rgb) / var(--a-4));
+}
+
+.state-picker button[aria-selected="true"] .num {
+  color: var(--accent);
+}
+
+.pick-name {
+  font-size: var(--fs-small);
+  letter-spacing: -0.014em;
+  color: var(--fg-3);
+  transition: color var(--quick);
+}
+
+.state-picker button[aria-selected="true"] .pick-name {
+  color: var(--fg);
+}
+
+@media (hover: hover) {
+  .state-picker button:hover .pick-name {
+    color: var(--fg);
+  }
+}
+
+/* --- 04 Outcome ----------------------------------------------------------- */
+
+.tally {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-top: clamp(40px, 5vw, 72px);
+}
+
+.tally > div {
+  padding: var(--sp-6) var(--sp-5);
+  border-right: 1px solid var(--line);
+  transition: background var(--quick);
+}
+
+.tally > div:first-child {
+  padding-left: 0;
+}
+
+.tally > div:last-child {
+  border-right: 0;
+}
+
+@media (hover: hover) {
+  .tally > div:hover {
+    background: var(--bg-1);
+  }
+}
+
+.tally dt {
+  font-size: var(--fs-title);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  background: var(--action);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tally dd {
+  margin: var(--sp-4) 0 0;
+}
+
+.tally dd b {
+  display: block;
+  font-size: var(--fs-ui);
+  font-weight: 500;
+}
+
+.tally dd span {
+  display: block;
+  margin-top: var(--sp-1);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--fg-3);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-4);
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(20px, 2.4vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: var(--r-7);
+  background: linear-gradient(180deg, var(--bg-1), var(--bg));
+  transition: border-color var(--quick), transform var(--quick);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    border-color: var(--line-3);
+    transform: translateY(-3px);
+  }
+}
+
+/* Each card carries one accent role, for its rule and its icon. */
+.card {
+  --card-accent: var(--accent);
+}
+
+.card--positive {
+  --card-accent: var(--positive);
+}
+
+.card--caution {
+  --card-accent: var(--caution);
+}
+
+.card-rule {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--card-accent),
+    color-mix(in srgb, var(--card-accent) 10%, transparent)
+  );
+  transform: scaleX(0.28);
+  transform-origin: left;
+  transition: transform var(--t-travel) var(--ease);
+}
+
+@media (hover: hover) {
+  .card:hover .card-rule {
+    transform: scaleX(1);
+  }
+}
+
+.card-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: var(--sp-5);
+  border-radius: var(--r-5);
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--card-accent);
+}
+
+.card h3 {
+  font-size: var(--fs-heading);
+}
+
+.card-lead {
+  margin-top: 6px;
+  font-size: var(--fs-small);
+  color: var(--fg-3);
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--sp-5);
+}
+
+.card li {
+  border-top: 1px solid var(--line);
+  padding: var(--sp-4) 0;
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--fg-3);
+}
+
+.card li:last-child {
+  padding-bottom: 0;
+}
+
+.card li b {
+  display: block;
+  margin-bottom: 3px;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--fg);
+}
+
+/* --- 05 Prototypes -------------------------------------------------------- */
+
+.protos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--sp-4);
+}
+
+.proto {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--sp-8);
+  min-height: 150px;
+  padding: var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-5);
+  background: var(--bg-1);
+  overflow: hidden;
+  transition: border-color var(--quick), background var(--quick),
+    transform var(--quick);
+}
+
+@media (hover: hover) {
+  .proto:hover {
+    border-color: var(--line-3);
+    background: var(--bg-2);
+    transform: translateY(-2px);
+  }
+}
+
+.proto--cta {
+  background: linear-gradient(
+    135deg,
+    rgb(var(--action-a-rgb) / var(--a-3)),
+    rgb(var(--action-b-rgb) / var(--a-1))
+  );
+}
+
+.proto-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.proto strong {
+  font-size: var(--fs-ui);
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  max-width: 18ch;
+}
+
+.proto-thumb {
+  position: absolute;
+  right: -28px;
+  bottom: -18px;
+  width: 84px;
+  border-radius: var(--r-4);
+  opacity: 0;
+  transform: translateY(10px) rotate(-6deg);
+  transition: opacity var(--t-state) var(--ease), transform var(--t-state) var(--ease);
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .proto:hover .proto-thumb {
+    opacity: 0.5;
+    transform: translateY(0) rotate(-6deg);
+  }
+}
+
+.proto svg {
+  color: var(--fg-3);
+  transition: color var(--quick), transform var(--quick);
+}
+
+@media (hover: hover) {
+  .proto:hover svg {
+    color: var(--accent);
+    transform: translate(2px, -2px);
+  }
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  border-top: 1px solid var(--line);
+  padding-block: var(--sp-6) var(--sp-8);
+}
+
+@media (hover: hover) {
+  .foot a:hover {
+    color: var(--fg);
+  }
+}
+
+/* --- Viewer --------------------------------------------------------------- */
+
+.viewer {
+  width: min(1100px, 94vw);
+  max-width: 94vw;
+  max-height: 92dvh;
+  padding: 0;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-6);
+  background: var(--bg-1);
+  color: var(--fg);
+  overflow: hidden;
+}
+
+.viewer .bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  height: 46px;
+  padding-inline: var(--sp-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.viewer::backdrop {
+  background: rgb(var(--bg-rgb) / var(--scrim-3));
+  backdrop-filter: blur(6px);
+}
+
+.viewer-body {
+  padding: var(--sp-5);
+  max-height: calc(92dvh - 46px);
+  overflow: auto;
+}
+
+.viewer-body img {
+  margin-inline: auto;
+  width: 100%;
+  border-radius: var(--r-3);
+}
+
+.viewer-body img.is-portrait {
+  width: auto;
+  max-width: min(100%, 400px);
+  max-height: calc(92dvh - 110px);
+}
+
+.viewer:has(img.is-portrait) {
+  width: min(540px, 94vw);
+}
+
+body:has(.viewer[open]) {
+  overflow: hidden;
+}
+
+/* --- Reveal --------------------------------------------------------------- */
+
+.rise {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.js .rise {
+  transition: opacity var(--t-enter) var(--ease), transform var(--t-enter) var(--ease);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
+}
+
+.rise.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+
+@media (max-width: 1080px) {
+
+  /* Phone, then the picker directly beneath it, then the copy: choosing a
+     state still never pushes the phone off screen. */
+
+  /* Centring the whole block leaves the copy indented against every other
+     paragraph on the page. The text keeps the page's left edge; only the
+     device is centred. */
+
+  .states {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-4);
+    justify-items: stretch;
+    align-content: center;
+  }
+
+  .states-stage {
+    margin-inline: auto;
+  }
+
+  .states-stage {
+    width: min(148px, 21svh);
+  }
+
+  .states-copy h3 {
+    margin: var(--sp-3) 0 var(--sp-2);
+  }
+
+  .states-copy .body {
+    font-size: var(--fs-ui);
+  }
+
+  .state-q {
+    margin-top: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+  }
+
+  .state-q p {
+    font-size: var(--fs-lead);
+  }
+
+  .states-copy .flow-meter {
+    margin-bottom: var(--sp-3);
+  }
+
+  .state-picker button {
+    width: 78px;
+  }
+
+  .states-stage {
+    order: 1;
+  }
+
+  .state-picker {
+    order: 2;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    align-items: flex-start;
+    gap: var(--sp-2);
+    scrollbar-width: none;
+  }
+
+  .state-picker::-webkit-scrollbar {
+    display: none;
+  }
+
+  .state-group {
+    display: none;
+  }
+
+  /* Narrow screens get a filmstrip of chips rather than one very wide row. */
+
+  .state-picker button {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-2);
+    width: 88px;
+    padding: var(--sp-2);
+  }
+
+  .pick-thumb {
+    width: 38px;
+  }
+
+  .pick-name {
+    font-size: var(--fs-label);
+    line-height: 1.3;
+    text-align: center;
+  }
+
+  .states-copy {
+    order: 3;
+    width: 100%;
+    max-width: 62ch;
+  }
+
+  .surface-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tally {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tally > div {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .tally > div:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .tally > div:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  .protos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Two columns give these cards more width than their content needs, and
+     space-between then opens a void above every title. */
+
+  .surface,
+  .proto {
+    justify-content: flex-start;
+    gap: var(--sp-5);
+    min-height: 0;
+  }
+}
+
+/* --- Tablet: where the two-column blocks actually run out of room --------- */
+
+@media (max-width: 760px) {
+  .hero > .wrap {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-7);
+  }
+
+  .hero .h1 {
+    max-width: 20ch;
+  }
+
+  .hero .lead {
+    max-width: 56ch;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-device {
+    max-width: 260px;
+  }
+}
+
+@media (max-width: 900px) {
+  .flow-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-5);
+  }
+
+  .flow-stage {
+    order: -1;
+  }
+
+  .flow-stage .phone {
+    width: min(176px, 25svh);
+  }
+
+  .flow-copy h3 {
+    font-size: var(--fs-heading);
+    margin-top: var(--sp-3);
+  }
+
+  .flow-copy > p {
+    font-size: var(--fs-ui);
+  }
+}
+
+/* --- Phone ---------------------------------------------------------------- */
+
+/* A phone has no hover and no room for a second column, so the components
+   that carry this page change form here rather than shrink: card grids
+   become hairline indexes, plates lose their chrome and let artifacts run
+   to the screen edge, and every stack keeps one left edge. */
+
+@media (max-width: 760px) {
+  :root {
+    --section-y: 64px;
+    --block-gap: 72px;
+    --head-gap: 32px;
+  }
+
+  /* The pill is a header on a phone, not a floating overlay: it scrolls away,
+     the chapter rail takes over as the only sticky chrome, and it spans the
+     gutter instead of hovering as a short centred capsule. */
+
+  .nav {
+    position: absolute;
+    left: var(--gutter);
+    right: var(--gutter);
+    transform: none;
+    max-width: none;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    padding-left: var(--sp-3);
+  }
+
+  .nav-links,
+  .nav-sep {
+    display: none;
+  }
+
+  /* --- Hero --- */
+
+  .hero {
+    padding-top: 104px;
+    padding-bottom: var(--sp-7);
+  }
+
+  .hero > .wrap {
+    gap: var(--sp-7);
+  }
+
+  .hero-chips {
+    margin-bottom: var(--sp-5);
+  }
+
+  .hero .lead {
+    margin-top: var(--sp-4);
+  }
+
+  /* Full width and one ragged edge less: the arrow sits at the far end of
+     each button, so the pair reads as a stacked menu. */
+
+  .hero-actions {
+    display: grid;
+    gap: var(--sp-3);
+    margin-top: var(--sp-6);
+  }
+
+  .hero-actions .btn {
+    justify-content: space-between;
+    height: 46px;
+    padding-inline: var(--sp-5);
+  }
+
+  /* Three screens side by side, swiped, rather than one that changes itself.
+     The strip runs to both screen edges and snaps each screen to centre. */
+
+  .hero-device {
+    /* The auto margins the centred version uses would let this grid item size
+       itself to a strip that is wider than the screen on purpose. */
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin-inline: 0;
+  }
+
+  .deck {
+    --item: min(58vw, 230px);
+    display: flex;
+    gap: var(--sp-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1);
+    /* Viewport based, not percentage based: a percentage here feeds back into
+       the intrinsic width of the column the strip sits in. */
+    padding-inline: calc((100vw - var(--item)) / 2);
+  }
+
+  .deck::-webkit-scrollbar {
+    display: none;
+  }
+
+  .deck-item {
+    grid-area: auto;
+    flex: 0 0 var(--item);
+    opacity: 1;
+    scroll-snap-align: center;
+    transition: none;
+  }
+
+  .segments {
+    justify-content: center;
+    max-width: 200px;
+    margin-inline: auto;
+  }
+
+  .segments button {
+    flex: 0 0 44px;
+    height: 28px;
+  }
+
+  .hero-device figcaption {
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* The dots above already count the screens. */
+
+  .hero-device figcaption .num {
+    display: none;
+  }
+
+  /* --- Chapter heads --- */
+
+  .chead {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-4);
+    margin-bottom: var(--head-gap);
+  }
+
+  .chead h2 {
+    max-width: none;
+  }
+
+  .chead-rule {
+    margin-bottom: var(--sp-4);
+  }
+
+  /* --- Card grids become indexes --- */
+
+  /* Four tiles in a column, each reserving height for a hover thumbnail that
+     can never fire, is filler. The same content reads better as rows. */
+
+  .surface-grid,
+  .protos {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .surface,
+  .proto {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr) 16px;
+    align-items: start;
+    gap: var(--sp-1) var(--sp-3);
+    min-height: 0;
+    padding: var(--sp-4) 2px;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: none;
+  }
+
+  @media (hover: hover) {
+    .surface:hover,
+    .proto:hover {
+      transform: none;
+      background: none;
+      border-color: var(--line);
+    }
+  }
+
+  .surface-top,
+  .proto-top {
+    display: contents;
+  }
+
+  .surface-top > .num,
+  .proto-top > .num {
+    grid-column: 1;
+    grid-row: 1;
+    line-height: 1.45;
+  }
+
+  .surface-top > svg,
+  .proto-top > svg {
+    grid-column: 3;
+    grid-row: 1;
+    margin-top: var(--sp-1);
+  }
+
+  .surface-body {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .surface-body > span {
+    max-width: none;
+  }
+
+  .proto > strong {
+    grid-column: 2;
+    grid-row: 1;
+    max-width: none;
+  }
+
+  .surface-thumb,
+  .proto-thumb {
+    display: none;
+  }
+
+  /* The last prototype is the invitation, so it keeps its tile. */
+
+  .proto--cta {
+    grid-template-columns: minmax(0, 1fr) 16px;
+    margin-top: var(--sp-5);
+    padding: var(--sp-4);
+    border: 1px solid rgb(var(--accent-rgb) / var(--a-5));
+    border-radius: var(--r-5);
+    background: linear-gradient(
+      135deg,
+      rgb(var(--action-a-rgb) / var(--a-3)),
+      rgb(var(--action-b-rgb) / var(--a-1))
+    );
+  }
+
+  .proto--cta .proto-top > .num {
+    display: none;
+  }
+
+  .proto--cta > strong {
+    grid-column: 1;
+  }
+
+  .proto--cta .proto-top > svg {
+    grid-column: 2;
+    color: var(--accent);
+  }
+
+  /* --- The pinned stages --- */
+
+  /* A pinned stage has to fit the screen it is pinned to. The copy takes the
+     height it needs and the device takes whatever is left, so no mockup is
+     ever clipped off the top by a short viewport. */
+
+  .flow-sticky {
+    align-items: stretch;
+  }
+
+  /* Stretch, not the centring the desktop grid uses: once a short screen
+     drops the paragraph and the room diagram, a centred column would shrink
+     to its controls and leave the page's left edge. */
+  .flow-inner,
+  .states {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--sp-3);
+    height: 100%;
+    padding-block: var(--sp-4);
+  }
+
+  .flow-copy,
+  .state-picker,
+  .states-copy {
+    flex: 0 0 auto;
+  }
+
+  .flow-stage,
+  .states-stage {
+    order: -1;
+    flex: 1 1 auto;
+    min-height: 96px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flow-stage .phone,
+  .states-stage .phone {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    /* The frame plus its 2.1% bezel, so height can drive the width. */
+    aspect-ratio: var(--device-ratio);
+  }
+
+  .flow-stage .phone-screen,
+  .states-stage .phone-screen {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  /* --- 03 Between attempts --- */
+
+  /* A filmstrip of thumbnails costs 160px of a pinned screen, which is height
+     the device itself needs. On a phone the picker is a row of pills. */
+
+  .state-picker {
+    gap: 6px;
+    padding-bottom: 2px;
+  }
+
+  .state-picker button {
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    gap: 6px;
+    padding: 7px var(--sp-3);
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+    background: var(--bg-1);
+  }
+
+  .state-picker button[aria-selected="true"] {
+    border-color: var(--accent);
+    background: rgb(var(--accent-rgb) / var(--a-2));
+  }
+
+  .pick-thumb {
+    display: none;
+  }
+
+  .pick-name {
+    font-size: var(--fs-label);
+    line-height: 1.2;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  /* --- Touch --- */
+
+  /* Nothing a thumb has to hit is smaller than 44px, and everything that can
+     be pressed says so, since there is no hover to say it first. */
+
+  .ibtn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .segments button {
+    height: 44px;
+  }
+
+  .state-picker button {
+    min-height: 40px;
+  }
+
+  /* A 16px tick is not a thumb target on its own, so the strip carries a
+     taller hit area behind the same thin mark. */
+
+  .flow-ticks button {
+    height: 32px;
+  }
+
+  .surface:active,
+  .proto:active,
+  .state-picker button:active,
+  .ibtn:active {
+    transform: scale(0.985);
+  }
+
+  .surface,
+  .proto,
+  .state-picker button,
+  .ibtn {
+    transition: transform var(--t-press) var(--ease), border-color var(--quick),
+      background var(--quick), color var(--quick);
+  }
+
+  .foot {
+    flex-direction: column;
+    gap: var(--sp-3);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* The rail, not the desktop pill, is what an anchor has to clear. */
+
+  html {
+    scroll-padding-top: calc(var(--rail-h) + var(--sp-3));
+  }
+}
+
+@media (max-width: 520px) {
+  /* Two by two, rather than four very tall blocks. */
+
+  .tally > div {
+    padding: var(--sp-5) var(--sp-4);
+  }
+
+  .tally > div:nth-child(odd) {
+    padding-left: 0;
+  }
+
+  .tally dt {
+    font-size: var(--fs-title);
+  }
+
+  .hero-chips .chip:nth-child(3) {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) and (max-height: 680px) {
+  .flow-copy > p,
+  .states-copy .body {
+    display: none;
+  }
+}
+
+/* The quote is the payoff of the state, so it stays. Its label is the part a
+   short screen can do without. */
+
+@media (max-width: 760px) and (max-height: 740px) {
+  .state-q {
+    margin-top: var(--sp-4);
+    padding: var(--sp-3) var(--sp-4);
+  }
+
+  .state-q > .num {
+    display: none;
+  }
+
+  .state-q p {
+    margin-top: 0;
+    font-size: var(--fs-lead);
+  }
+}
+
+/* --- The choice control --------------------------------------------------- */
+
+/* A segmented control: compact, and one component wherever a choice appears. */
+
+.choice {
+  display: inline-flex;
+  gap: var(--sp-1);
+  padding: var(--sp-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-5);
+  background: rgb(var(--hi-rgb) / var(--a-0));
+}
+
+.choice button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  height: 36px;
+  padding: 0 14px 0 var(--sp-3);
+  border: 1px solid transparent;
+  border-radius: var(--r-4);
+  color: var(--fg-3);
+  transition: background var(--quick), border-color var(--quick), color var(--quick);
+}
+
+@media (hover: hover) {
+  .choice button:hover {
+    background: rgb(var(--hi-rgb) / var(--a-0));
+    color: var(--fg-2);
+  }
+}
+
+.choice button[aria-pressed="true"] {
+  border-color: var(--line-2);
+  background: var(--bg-3);
+  color: var(--fg);
+  box-shadow: var(--hi-edge), var(--shadow-1);
+}
+
+.choice-mark {
+  display: block;
+  flex-shrink: 0;
+  border: 1.5px solid currentColor;
+  opacity: 0.7;
+  transition: opacity var(--quick), color var(--quick);
+}
+
+.choice-mark--desktop {
+  position: relative;
+  width: 18px;
+  height: 12px;
+  margin-bottom: 3px;
+  border-radius: var(--r-1);
+}
+
+.choice-mark--desktop::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 8px;
+  height: 1.5px;
+  border-radius: var(--r-1);
+  background: currentColor;
+  transform: translateX(-50%);
+}
+
+.choice-mark--mobile {
+  width: 9px;
+  height: 15px;
+  border-radius: var(--r-2);
+}
+
+.choice button[aria-pressed="true"] .choice-mark {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.choice-name {
+  font-size: var(--fs-small);
+  font-weight: 500;
+}
+
+.choice button[aria-pressed="true"] .num {
+  color: var(--accent);
+}
+
+/* A one-time nudge on the idle segment when the lab first comes into view. */
+
+.choice button.is-hint::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border: 1px solid var(--accent);
+  border-radius: var(--r-5);
+  animation: hint 1.5s var(--ease) 3;
+  pointer-events: none;
+}
+
+.viewport-dots {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.viewport-dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--line-2);
+}
+
+/* --- 03 The in-app event: larger screens, centred ------------------------- */
+
+@media (min-width: 1081px) {
+  .states {
+    --states-phone: min(340px, calc((100svh - var(--rail-h) - 112px) * 0.4634));
+    grid-template-columns: minmax(0, 1fr) var(--states-phone) minmax(0, 1fr);
+    grid-template-areas: "picker stage copy";
+    gap: clamp(40px, 4.6vw, 88px);
+  }
+
+  .states-stage {
+    grid-area: stage;
+    position: relative;
+    isolation: isolate;
+  }
+
+  /* The phone sits in the page's own warm light. */
+
+  .states-stage::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -14% -62%;
+    background: radial-gradient(closest-side, rgb(var(--action-a-rgb) / var(--a-4)), rgb(var(--action-b-rgb) / var(--a-1)) 55%, transparent 76%);
+    pointer-events: none;
+  }
+
+  .state-picker {
+    grid-area: picker;
+    justify-self: end;
+    width: min(100%, 250px);
+  }
+
+  .states-copy {
+    grid-area: copy;
+    justify-self: start;
+    max-width: 340px;
+  }
+
+  .state-picker button {
+    grid-template-columns: 32px 20px minmax(0, 1fr);
+    padding: 6px var(--sp-2);
+  }
+
+  .pick-thumb {
+    width: 32px;
+    border-radius: var(--r-3);
+  }
+}
+
+/* --- 04 Outcome: each count drawn as the thing it counts ------------------ */
+
+/* Each count drawn as the thing it counts, lighting up as the number runs. */
+
+.tally dd .tally-viz {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  height: 16px;
+  margin: 0 0 var(--sp-4);
+}
+
+.tally-viz i {
+  display: block;
+  flex-shrink: 0;
+  background: var(--line-2);
+  transition: background var(--t-state) var(--ease), box-shadow var(--t-state) var(--ease);
+  transition-delay: calc(var(--k, 0) * var(--t-press));
+}
+
+.tally-viz--blocks i {
+  width: 11px;
+  height: 11px;
+  border-radius: var(--r-2);
+}
+
+.tally-viz--screens i {
+  width: 7px;
+  height: 13px;
+  border-radius: var(--r-1);
+}
+
+.tally-viz--dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+/* Two engagements, joined by the line between them. */
+
+.tally dd .tally-viz--nodes {
+  gap: 28px;
+  background: linear-gradient(var(--line-2), var(--line-2)) no-repeat 4px 50% / 37px 1px;
+}
+
+.tally-viz--nodes i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.tally.is-counted .tally-viz i {
+  background: var(--accent);
+  box-shadow: 0 0 10px rgb(var(--accent-rgb) / var(--a-6));
+}
+
+/* --- Quote, next ---------------------------------------------------------- */
+
+.quote {
+  margin: 0;
+}
+
+.quote-card {
+  position: relative;
+  max-width: 920px;
+  overflow: hidden;
+  padding: clamp(28px, 4.4vw, 64px);
+  border: 1px solid var(--line);
+  border-radius: var(--r-7);
+  background:
+    radial-gradient(80% 110% at 0% 0%, rgb(var(--action-a-rgb) / var(--a-3)), transparent 60%),
+    linear-gradient(180deg, var(--bg-1), var(--bg));
+}
+
+.quote-glyph {
+  display: block;
+  margin-bottom: var(--sp-5);
+}
+
+.quote blockquote {
+  max-width: 38ch;
+  margin: 0;
+  text-wrap: balance;
+  font-size: var(--fs-title);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.024em;
+}
+
+.quote em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.quote-by {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-6);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--line);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--action);
+  color: var(--white);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 0 0 3px rgb(var(--accent-rgb) / var(--a-3));
+}
+
+.quote-who b {
+  display: block;
+  font-size: var(--fs-ui);
+  font-weight: 600;
+}
+
+.quote-who span {
+  display: block;
+  font-size: var(--fs-small);
+  color: var(--fg-3);
+}
+
+.quote-src {
+  margin-left: auto;
+}
+
+.next {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  min-height: 260px;
+  margin-top: var(--block-gap);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-7);
+  background: linear-gradient(180deg, var(--bg-1), var(--bg));
+  transition: border-color var(--quick), transform var(--quick);
+}
+
+@media (hover: hover) {
+  .next:hover {
+    border-color: var(--line-3);
+    transform: translateY(-2px);
+  }
+}
+
+.next-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  padding: clamp(24px, 3vw, 40px);
+}
+
+.next strong {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--fs-heading);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+}
+
+.next .arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 1px solid var(--line-2);
+  border-radius: 50%;
+  transition: transform var(--quick), background var(--quick), color var(--quick);
+}
+
+@media (hover: hover) {
+  .next:hover .arrow {
+    background: var(--fg);
+    color: var(--bg);
+    transform: translateX(4px);
+  }
+}
+
+.next-media {
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+.next-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+  transition: transform var(--t-enter) var(--ease);
+}
+
+@media (hover: hover) {
+  .next:hover .next-media img {
+    transform: scale(1.045);
+  }
+}
+
+.next-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--bg-1) 0%, rgb(var(--bg-1-rgb) / 0) 40%);
+}
+
+@media (max-width: 760px) {
+
+  .next {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .next-media {
+    order: -1;
+    min-height: 170px;
+  }
+
+  .next-media::after {
+    background: linear-gradient(0deg, var(--bg-1) 0%, rgb(var(--bg-1-rgb) / 0) 55%);
+  }
+
+  .next-copy {
+    padding: var(--sp-5);
+  }
+
+  .choice button:active,
+  .next:active {
+    transform: scale(0.985);
+  }
+
+  .choice button,
+  .next {
+    transition: transform var(--t-press) var(--ease), border-color var(--quick),
+      background var(--quick), color var(--quick);
+  }
+}
+
+@media (max-width: 520px) {
+  .choice button {
+    padding-inline: 10px;
+  }
+
+  .choice .num {
+    display: none;
+  }
+}
+
+/* The priyank.design card light: a soft glow that follows the pointer. */
+[data-spotlight]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgb(var(--hi-rgb) / var(--a-1)), transparent 65%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--t-state) var(--ease);
+}
+
+@media (hover: hover) {
+  [data-spotlight]:hover::after {
+    opacity: 1;
+  }
+}
+
+/* --- Facts: the thirty-second read ---------------------------------------- */
+
+.facts-block {
+  padding-bottom: clamp(64px, 6.6vw, 96px);
+}
+
+.facts-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-7);
+  background: linear-gradient(180deg, var(--bg-1), var(--bg));
+  box-shadow: var(--hi-edge);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.3fr);
+}
+
+.fact {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px var(--sp-5) 26px;
+  border-right: 1px solid var(--line);
+}
+
+.fact:last-child {
+  border-right: 0;
+}
+
+.fact dt {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-label);
+  letter-spacing: 0.02em;
+  color: var(--fg-3);
+}
+
+.fact dt svg {
+  flex-shrink: 0;
+}
+
+.fact dd {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+}
+
+.fact dd b {
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.014em;
+}
+
+.fact dd > span {
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  color: var(--fg-3);
+}
+
+/* The fact the rest are in service of. */
+.fact--outcome {
+  background: radial-gradient(120% 140% at 100% 0%, rgb(var(--positive-rgb) / var(--a-3)), transparent 62%);
+}
+
+.fact--outcome dt,
+.fact--outcome dd b {
+  color: var(--positive);
+}
+
+.fact-proof {
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  color: var(--fg-2);
+  transition: color var(--quick);
+}
+
+/* The arrow trails the last word, however the line wraps. */
+.fact-proof svg {
+  display: inline;
+  margin-left: var(--sp-1);
+  vertical-align: -1px;
+  opacity: 0.6;
+  transition: transform var(--quick), opacity var(--quick);
+}
+
+@media (hover: hover) {
+  .fact-proof:hover {
+    color: var(--fg);
+  }
+}
+
+@media (hover: hover) {
+  .fact-proof:hover svg {
+    opacity: 1;
+    transform: translateY(2px);
+  }
+}
+
+/* What the facts cannot show, said at reading size inside the card, with the
+   way to what stands in for it at the other end of the line. */
+.facts-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px var(--sp-6);
+  padding: 18px var(--sp-5);
+  border-top: 1px solid var(--line);
+  background: rgb(var(--hi-rgb) / var(--a-0));
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--fg-2);
+}
+
+.facts-note-text {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.facts-note-text svg {
+  flex-shrink: 0;
+  color: var(--caution);
+}
+
+.facts-note-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-ui);
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--fg);
+  transition: color var(--quick);
+}
+
+.facts-note-link svg {
+  opacity: 0.6;
+  transition: transform var(--quick), opacity var(--quick);
+}
+
+@media (hover: hover) {
+  .facts-note-link:hover {
+    color: var(--accent);
+  }
+}
+
+@media (hover: hover) {
+  .facts-note-link:hover svg {
+    opacity: 1;
+    transform: translateY(2px);
+  }
+}
+
+@media (max-width: 1080px) {
+  .facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fact {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .fact:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .fact--outcome {
+    grid-column: 1 / -1;
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 760px) {
+
+  .facts-note {
+    align-items: flex-start;
+  }
+
+  .facts-note-text {
+    align-items: flex-start;
+  }
+
+  .facts-note-text svg {
+    margin-top: 3px;
+  }
+
+  .facts-note-link {
+    padding-left: 28px;
+  }
+}
+
+/* A phone reads the facts as a spec sheet: label on the left, answer on the
+   right, one short row each. */
+@media (max-width: 520px) {
+  .facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fact {
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    align-items: start;
+    gap: var(--sp-3);
+    padding: var(--sp-4) 20px;
+    border-right: 0;
+  }
+
+  .fact dt {
+    padding-top: 3px;
+  }
+
+  .fact dd {
+    gap: var(--sp-1);
+  }
+
+  .fact--outcome {
+    border-bottom: 0;
+  }
+
+  .facts-note {
+    padding: var(--sp-4) 20px 18px;
+  }
+}
+
+/* ============================================================================
+   Phone, section by section (2026-09-23, third pass).
+
+   Every section was walked at 390 x 844 next to its desktop layout. The rule
+   the earlier phone passes set still holds: a component changes form rather
+   than shrinks. This pass adds three more. The thing you operate and the
+   thing it operates on are never a scroll apart. Nothing pans sideways that
+   could be seen whole. And the two pinned stages sit inside the same
+   chapter / block / head rhythm as every other section, instead of running
+   straight into whatever follows them.
+   ========================================================================== */
+
+/* The pager a swiped set carries on a phone. Built by the script, and only
+   shown where the set actually scrolls. */
+.segments--pager {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  /* --- Chapter rail --- */
+
+  /* The tabs run to both screen edges and fade out there, the way a native
+     tab strip does, instead of being cut off at the gutter. */
+  .rail .wrap {
+    width: 100%;
+    gap: var(--sp-5);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+  }
+
+  .rail-home {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* --- Hero --- */
+
+  /* Once the screens are swiped nothing advances on its own, so the pager
+     marks where you are, like the one under the constraints, rather than
+     filling like a timer. */
+  .segments button.is-done span::after {
+    transform: scaleX(0);
+  }
+
+  .segments button[aria-current="true"] span::after {
+    animation: none;
+    transform: scaleX(1);
+  }
+
+  .segments--pager {
+    display: flex;
+    justify-content: center;
+    max-width: 240px;
+    margin: var(--sp-3) auto 0;
+  }
+
+  .segments--pager button {
+    flex: 0 0 40px;
+    height: 44px;
+  }
+
+  .segments--pager span::after {
+    transition: transform var(--t-state) var(--ease);
+  }
+
+  .segments--pager button[aria-current="true"] span::after {
+    transform: scaleX(1);
+  }
+
+  /* --- The two pinned stages --- */
+
+  /* A pinned stage fills its screen, so it cannot lend the space a centred
+     desktop stage does. The head sits one head-gap above it, the block after
+     it one block-gap below, and the chapter after it the usual chapter gap:
+     each figure less the stage's own inner padding. A chapter that ends on a
+     pinned stage carries .ends-pinned. */
+  .section-head {
+    padding-bottom: calc(var(--head-gap) - var(--sp-4));
+  }
+
+  .section--follow {
+    padding-top: calc(var(--block-gap) - var(--sp-4));
+  }
+
+  .ends-pinned {
+    padding-bottom: calc(var(--section-y) - var(--sp-4));
+  }
+
+  /* --- 02 Landing: the artifact sits directly under its switch --- */
+
+  /* Both artifacts in this chapter get the same control row on a phone: a
+     segmented control and a square expand button, all 44px tall. */
+  .choice button {
+    height: 34px;
+  }
+
+  /* --- 03 The in-app event --- */
+
+  /* The pills run to both screen edges, like the rail, and the one on show
+     is kept centred. They already number and step through the screens, so
+     the arrows and the counter are not repeated beneath them. */
+  .state-picker {
+    align-self: stretch;
+    width: auto;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+  }
+
+  .states-copy .flow-meter {
+    display: none;
+  }
+
+  /* --- Close --- */
+
+  .quote-card {
+    padding: var(--sp-6) var(--sp-5);
+  }
+
+  /* The source rides the top of the card, level with the mark, so the
+     attribution stays one line: face, name, title. */
+  .quote-src {
+    position: absolute;
+    top: calc(var(--sp-6) + 4px);
+    right: var(--sp-5);
+    margin: 0;
+  }
+
+  .next-copy {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--sp-4);
+  }
+
+  .foot {
+    align-items: flex-start;
+  }
+
+  /* --- Full-size viewer --- */
+
+  /* Full screen, and genuinely larger than the page: a wide design opens at
+     a legible width and pans in both directions, a tall one fills the width
+     and scrolls. */
+  .viewer,
+  .viewer:has(img.is-portrait) {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .viewer-body {
+    height: calc(100% - 46px);
+    max-height: none;
+    padding: 0;
+    overscroll-behavior: contain;
+  }
+
+  .viewer-body img {
+    width: 960px;
+    max-width: none;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .viewer-body img.is-portrait {
+    width: 100%;
+    max-width: 100%;
+    max-height: none;
+  }
+}
+
+/* --- Motion + print ------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+  }
+
+  .rise {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media print {
+  .nav,
+  .rail,
+  .segments,
+  .flow-meter,
+  .viewer {
+    display: none !important;
+  }
+
+  body {
+    background: var(--white);
+    color: #000;
+  }
+
+  .js .flow.is-live {
+    height: auto;
+  }
+
+  .flow-sticky {
+    position: static;
+    height: auto;
+  }
+
+  .js .flow-fallback {
+    display: block;
+  }
+
+  .rise {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+/* ============================================================================
+   Pattern: annotated artifact (promoted from KhiladiPro's registration form,
+   2026-09-24, on its second use in GetMega's sit flow).
+
+   A design shown whole in a plate, with numbered pins, and a list of notes
+   beside or beneath it. Pointing at a note, or tapping it on a phone, dims
+   the design and spotlights the region that note is about. Nothing else to
+   operate. Markup: [data-annot] > [data-annot-screen] holding the image(s),
+   .annot-lit, .annot-spot and .annot-pin[data-pin]; notes are
+   .annot-note[data-note][data-region="top,right,bottom,left"] in percent.
+   ========================================================================== */
+
+/* --- 02 Registration: the form, pointed at -------------------------------- */
+
+.annot-body {
+  display: grid;
+  grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.38fr);
+  gap: clamp(24px, 3.6vw, 64px);
+  align-items: start;
+}
+
+/* Clears the step tabs, so the notes' top rule meets the mockup's top edge. */
+
+.annot-side {
+  padding-top: var(--sp-5);
+}
+
+.annot-notes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.annot-note {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: var(--sp-4);
+  width: 100%;
+  padding: var(--sp-4) var(--sp-3);
+  border-bottom: 1px solid var(--line);
+  border-left: 2px solid transparent;
+  text-align: left;
+  transition: background var(--quick), border-color var(--quick);
+}
+
+.annot-note[aria-pressed="true"] {
+  border-left-color: var(--accent);
+  background: linear-gradient(90deg, rgb(var(--accent-rgb) / var(--a-2)), transparent 85%);
+}
+
+@media (hover: hover) {
+  .annot-note:hover {
+    border-left-color: var(--accent);
+    background: linear-gradient(90deg, rgb(var(--accent-rgb) / var(--a-2)), transparent 85%);
+  }
+}
+
+.annot-note h4 {
+  margin-bottom: var(--sp-1);
+}
+
+.annot-note p {
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--fg-3);
+}
+
+.annot-n {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--line-2);
+  border-radius: 50%;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--fg-3);
+  transition: background var(--quick), color var(--quick), border-color var(--quick);
+}
+
+.annot-note[aria-pressed="true"] .annot-n {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+@media (hover: hover) {
+  .annot-note:hover .annot-n {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+}
+
+.annot-stage {
+  position: relative;
+  margin: 0;
+}
+
+/* The same warm light the hero sits in, behind the mockup. */
+
+.annot-stage::before {
+  content: "";
+  position: absolute;
+  inset: 12% 4% -4%;
+  background: radial-gradient(60% 60% at 50% 50%, rgb(var(--action-a-rgb) / var(--a-4)), transparent 72%);
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+.annot-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
+.annot-steps {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: var(--sp-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-5);
+  background: rgb(var(--hi-rgb) / var(--a-0));
+}
+
+.annot-steps button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  height: 32px;
+  padding: 0 var(--sp-3);
+  border: 1px solid transparent;
+  border-radius: var(--r-4);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--fg-3);
+  transition: background var(--quick), border-color var(--quick), color var(--quick);
+}
+
+@media (hover: hover) {
+  .annot-steps button:hover {
+    background: rgb(var(--hi-rgb) / var(--a-0));
+    color: var(--fg-2);
+  }
+}
+
+.annot-steps button[aria-selected="true"] {
+  border-color: var(--line-2);
+  background: var(--bg-3);
+  color: var(--fg);
+  box-shadow: var(--hi-edge);
+}
+
+.annot-steps button[aria-selected="true"] .num {
+  color: var(--accent);
+}
+
+.annot-steps-total {
+  padding: 0 var(--sp-2) 0 var(--sp-1);
+}
+
+.annot-frame {
+  position: relative;
+}
+
+.annot-screen {
+  position: relative;
+}
+
+.annot-screen img[data-frame] {
+  display: block;
+  width: 100%;
+  transition: opacity var(--t-state) var(--ease), filter var(--t-swap) var(--ease);
+}
+
+.annot-screen img[data-frame]:not(.is-on) {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.annot-screen.is-lit img[data-frame] {
+  filter: brightness(0.32) saturate(0.45);
+}
+
+.annot-lit {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  clip-path: inset(var(--y1, 0%) var(--x2, 100%) var(--y2, 100%) var(--x1, 0%) round 10px);
+  pointer-events: none;
+  transition: clip-path var(--t-move) var(--ease), opacity var(--t-state) var(--ease);
+}
+
+.annot-screen.is-lit .annot-lit {
+  opacity: 1;
+}
+
+.annot-spot {
+  position: absolute;
+  top: var(--y1, 0%);
+  right: var(--x2, 100%);
+  bottom: var(--y2, 100%);
+  left: var(--x1, 0%);
+  border: 1px solid var(--accent);
+  border-radius: var(--r-4);
+  box-shadow: 0 0 0 4px rgb(var(--accent-rgb) / var(--a-2)), 0 0 36px rgb(var(--accent-rgb) / var(--a-4));
+  opacity: 0;
+  pointer-events: none;
+  transition: top var(--t-move) var(--ease), right var(--t-move) var(--ease), bottom var(--t-move) var(--ease),
+    left var(--t-move) var(--ease), opacity var(--t-state) var(--ease);
+}
+
+.annot-screen.is-lit .annot-spot {
+  opacity: 1;
+}
+
+.annot-pin {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgb(var(--hi-rgb) / var(--a-5));
+  border-radius: 50%;
+  background: rgb(var(--bg-rgb) / var(--scrim-3));
+  backdrop-filter: blur(4px);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--fg);
+  transform: translate(-50%, -50%);
+  transition: transform var(--quick), background var(--quick), color var(--quick),
+    border-color var(--quick), box-shadow var(--quick), opacity var(--quick);
+}
+
+.annot-pin.is-on {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 0 0 0 5px rgb(var(--accent-rgb) / var(--a-4));
+  transform: translate(-50%, -50%) scale(1.16);
+}
+
+/* The notes describe step 1, so its pins only show there. */
+
+.annot-screen[data-shown="1"] .annot-pin {
+  opacity: 0;
+}
+
+/* --- Redesigned sections: responsive -------------------------------------- */
+
+@media (max-width: 1080px) {
+  .annot-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-6);
+  }
+
+  /* The mockup first, then the notes that point into it. The landing lab
+     does the same: once it is one column, the page sits directly under the
+     width switch, and the readers that light it come after. */
+
+  .annot-stage {
+    order: -1;
+  }
+
+  .annot-side {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 760px) {
+
+  .annot-head {
+    flex-wrap: wrap;
+  }
+
+  .annot-note:active {
+    transform: scale(0.985);
+  }
+
+  .annot-note {
+    transition: transform var(--t-press) var(--ease), border-color var(--quick),
+      background var(--quick), color var(--quick);
+  }
+}
+
+@media (max-width: 760px) {
+
+  /* --- 02 Landing: the artifact sits directly under its switch --- */
+
+  /* Both artifacts in this chapter get the same control row on a phone: a
+     segmented control and a square expand button, all 44px tall. */
+  .annot-steps button {
+    height: 34px;
+  }
+
+  .annot-head {
+    gap: var(--sp-2);
+  }
+
+  .annot-steps button {
+    padding-inline: 10px;
+  }
+
+  .annot-steps-total {
+    padding: 0 6px 0 2px;
+  }
+
+  /* --- 02 Registration: the whole form, so every pin is on screen --- */
+
+  .annot-pin {
+    width: 22px;
+    height: 22px;
+  }
+}
