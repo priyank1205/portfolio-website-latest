@@ -1,5 +1,5 @@
 /* ============================================================================
-   Homepage, Live: the behaviour
+   Live: the behaviour, shared by the homepage, About and Writing
 
    Everything here is something a visitor can play. A small synthesizer gives
    the page its voice; the name and the email are its instruments; four
@@ -283,158 +283,160 @@
 
   /* Hero: the name is an instrument */
   const hero = $('[data-hero]');
-  const nameEl = $('[data-name]');
-  const pointer = { x: -9999, y: -9999, inside: false };
+  if (hero) {
+    const nameEl = $('[data-name]');
+    const pointer = { x: -9999, y: -9999, inside: false };
 
-  const field = (() => {
-    const canvas = $('[data-field]');
-    const g = canvas.getContext('2d');
-    const GAP = 28;
-    let w = 0, h = 0, dots = [], ripples = [], raf = 0, visible = true;
-    function resize() {
-      const dpr = Math.min(2, window.devicePixelRatio || 1);
-      w = canvas.clientWidth; h = canvas.clientHeight;
-      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
-      g.setTransform(dpr, 0, 0, dpr, 0, 0);
-      dots = [];
-      for (let y = (h % GAP) / 2; y < h; y += GAP) for (let x = (w % GAP) / 2; x < w; x += GAP) dots.push(x, y);
-      draw(performance.now());
-    }
-    function draw(now) {
-      g.clearRect(0, 0, w, h);
-      ripples = ripples.filter(r => now - r.t < 1600);
-      const px = pointer.inside ? pointer.x : -9999;
-      const py = pointer.inside ? pointer.y : -9999;
-      for (let i = 0; i < dots.length; i += 2) {
-        const x = dots[i], y = dots[i + 1];
-        let a = 0.07 * Math.min(1, y / (h * 0.7));
-        let r = 255, gr = 255, b = 255, s = 1;
-        const dp = Math.hypot(x - px, y - py);
-        if (dp < 180) a += 0.24 * (1 - dp / 180) ** 2;
-        for (const rp of ripples) {
-          const age = (now - rp.t) / 1000;
-          const band = Math.exp(-((Math.hypot(x - rp.x, y - rp.y) - age * 640) ** 2) / 968) * (1 - age / 1.6);
-          if (band > 0.02) { a += band * 0.9; s += band * 1.8; [r, gr, b] = rp.rgb; }
+    const field = (() => {
+      const canvas = $('[data-field]');
+      const g = canvas.getContext('2d');
+      const GAP = 28;
+      let w = 0, h = 0, dots = [], ripples = [], raf = 0, visible = true;
+      function resize() {
+        const dpr = Math.min(2, window.devicePixelRatio || 1);
+        w = canvas.clientWidth; h = canvas.clientHeight;
+        canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+        g.setTransform(dpr, 0, 0, dpr, 0, 0);
+        dots = [];
+        for (let y = (h % GAP) / 2; y < h; y += GAP) for (let x = (w % GAP) / 2; x < w; x += GAP) dots.push(x, y);
+        draw(performance.now());
+      }
+      function draw(now) {
+        g.clearRect(0, 0, w, h);
+        ripples = ripples.filter(r => now - r.t < 1600);
+        const px = pointer.inside ? pointer.x : -9999;
+        const py = pointer.inside ? pointer.y : -9999;
+        for (let i = 0; i < dots.length; i += 2) {
+          const x = dots[i], y = dots[i + 1];
+          let a = 0.07 * Math.min(1, y / (h * 0.7));
+          let r = 255, gr = 255, b = 255, s = 1;
+          const dp = Math.hypot(x - px, y - py);
+          if (dp < 180) a += 0.24 * (1 - dp / 180) ** 2;
+          for (const rp of ripples) {
+            const age = (now - rp.t) / 1000;
+            const band = Math.exp(-((Math.hypot(x - rp.x, y - rp.y) - age * 640) ** 2) / 968) * (1 - age / 1.6);
+            if (band > 0.02) { a += band * 0.9; s += band * 1.8; [r, gr, b] = rp.rgb; }
+          }
+          if (a < 0.02) continue;
+          g.fillStyle = `rgba(${r},${gr},${b},${Math.min(1, a).toFixed(3)})`;
+          const size = 1.5 * s;
+          g.fillRect(x - size / 2, y - size / 2, size, size);
         }
-        if (a < 0.02) continue;
-        g.fillStyle = `rgba(${r},${gr},${b},${Math.min(1, a).toFixed(3)})`;
-        const size = 1.5 * s;
-        g.fillRect(x - size / 2, y - size / 2, size, size);
       }
-    }
-    function loop(now) { draw(now); raf = ripples.length && visible ? requestAnimationFrame(loop) : 0; }
-    function poke() { if (!raf && visible) raf = requestAnimationFrame(loop); }
-    new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) poke(); }).observe(canvas);
-    let t = 0;
-    window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(resize, 120); });
-    resize();
-    return { poke, ripple(x, y, color) { if (reduced.matches) return; ripples.push({ x, y, rgb: color, t: performance.now() }); if (ripples.length > 10) ripples.shift(); poke(); } };
-  })();
+      function loop(now) { draw(now); raf = ripples.length && visible ? requestAnimationFrame(loop) : 0; }
+      function poke() { if (!raf && visible) raf = requestAnimationFrame(loop); }
+      new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) poke(); }).observe(canvas);
+      let t = 0;
+      window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(resize, 120); });
+      resize();
+      return { poke, ripple(x, y, color) { if (reduced.matches) return; ripples.push({ x, y, rgb: color, t: performance.now() }); if (ripples.length > 10) ripples.shift(); poke(); } };
+    })();
 
-  const keys = $$('.key', nameEl).map((el, i) => {
-    const accent = CYCLE[i % CYCLE.length];
-    el.style.setProperty('--c', `rgb(${rgb(accent)})`);
-    return { el, i, letter: el.textContent.toLowerCase(), hz: SCALE[i], color: ACCENTS[accent], cx: 0, cy: 0, e: 0, v: 0, heat: 0, lit: 0 };
-  });
-  const keyOf = new Map(keys.map(k => [k.el, k]));
-  function measure() {
-    const box = hero.getBoundingClientRect();
-    keys.forEach(k => { const r = k.el.getBoundingClientRect(); k.cx = r.left - box.left + r.width / 2; k.cy = r.top - box.top + r.height / 2; });
-  }
-  let running = false, last = 0;
-  function wake() { if (running) return; running = true; last = performance.now(); requestAnimationFrame(step); }
-  function step(now) {
-    const dt = Math.min(0.032, (now - last) / 1000);
-    last = now;
-    let busy = false;
-    keys.forEach(k => {
-      let target = 0;
-      if (pointer.inside && !reduced.matches) {
-        const dx = pointer.x - k.cx, dy = (pointer.y - k.cy) * 1.3;
-        target = Math.exp(-(dx * dx + dy * dy) / 30000);
-      }
-      k.heat += (target - k.heat) * Math.min(1, dt * 12);
-      if (Math.abs(target - k.heat) > 0.003) busy = true;
-      const a = -300 * k.e - 10 * k.v;
-      k.v += a * dt; k.e += k.v * dt;
-      if (Math.abs(k.e) < 0.001 && Math.abs(k.v) < 0.01) { k.e = 0; k.v = 0; } else busy = true;
-      k.el.style.setProperty('--wg', (600 + k.heat * 260 + Math.abs(k.e) * 160).toFixed(1));
-      k.el.style.setProperty('--wd', clamp(100 + k.heat * 12 + k.e * 26, 75, 125).toFixed(1));
-      k.el.style.transform = k.e ? `translateY(${(-k.e * 0.05).toFixed(4)}em)` : '';
+    const keys = $$('.key', nameEl).map((el, i) => {
+      const accent = CYCLE[i % CYCLE.length];
+      el.style.setProperty('--c', `rgb(${rgb(accent)})`);
+      return { el, i, letter: el.textContent.toLowerCase(), hz: SCALE[i], color: ACCENTS[accent], cx: 0, cy: 0, e: 0, v: 0, heat: 0, lit: 0 };
     });
-    if (busy) requestAnimationFrame(step); else running = false;
-  }
-  const hintText = $('[data-hint-text]');
-  if (window.matchMedia('(hover: none)').matches) hintText.textContent = 'Play my name: tap it, or slide a finger along it.';
-  const played = new Set();
-  let typed = '', finished = false, lastIndex = -1;
-  function setHint(text) { if (hintText.textContent === text) return; hintText.textContent = text; restart(hintText, 'hint-in'); }
-  function strike(k, vel = 1, silent = false) {
-    if (!reduced.matches) k.v += 7.5 * vel;
-    k.el.classList.add('is-lit');
-    clearTimeout(k.lit);
-    k.lit = setTimeout(() => k.el.classList.remove('is-lit'), 140);
-    field.ripple(k.cx, k.cy, k.color);
-    lastIndex = k.i;
-    wake();
-    if (silent) return;
-    sound.pluck(k.hz, vel);
-    played.add(k.i);
-    if (sound.on && !sound.unlocked) setHint('Tap once to wake the sound, then play.');
-    else if (played.size >= 5 && !finished) setHint('Nice. Now try typing it.');
-    if (played.size === keys.length && !finished) celebrate();
-  }
-  function celebrate() { finished = true; setHint('Perfect pitch. Now play with the work.'); sound.fanfare(); wave(0.7); }
-  function wave(vel = 0.5) { keys.forEach((k, i) => setTimeout(() => strike(k, vel, true), i * 55)); }
-  hero.addEventListener('pointermove', e => {
-    if (e.pointerType !== 'mouse') return;
-    const b = hero.getBoundingClientRect();
-    pointer.x = e.clientX - b.left; pointer.y = e.clientY - b.top; pointer.inside = true;
-    wake(); field.poke();
-  });
-  hero.addEventListener('pointerleave', () => { pointer.inside = false; wake(); field.poke(); });
-  nameEl.addEventListener('pointerover', e => {
-    if (e.pointerType !== 'mouse') return;
-    const el = e.target.closest?.('.key');
-    if (el && !el.contains(e.relatedTarget)) strike(keyOf.get(el), 0.8);
-  });
-  let sliding = null;
-  nameEl.addEventListener('pointerdown', e => {
-    const el = e.target.closest?.('.key');
-    if (!el) return;
-    sliding = e.pointerType === 'mouse' ? null : keyOf.get(el);
-    strike(keyOf.get(el), 1);
-  });
-  nameEl.addEventListener('pointermove', e => {
-    if (!sliding) return;
-    const hit = document.elementFromPoint(e.clientX, e.clientY);
-    const el = hit && hit.closest('.key');
-    if (el && keyOf.get(el) !== sliding) { sliding = keyOf.get(el); strike(sliding, 0.9); }
-  });
-  ['pointerup', 'pointercancel'].forEach(t => nameEl.addEventListener(t, () => { sliding = null; }));
-  let heroInView = true;
-  new IntersectionObserver(([e]) => { heroInView = e.isIntersecting; }, { threshold: 0.35 }).observe(hero);
-  document.addEventListener('keydown', e => {
-    if (!heroInView || e.metaKey || e.ctrlKey || e.altKey || e.repeat) return;
-    if (e.target.closest?.('input, textarea, [contenteditable]')) return;
-    const letter = e.key.toLowerCase();
-    if (letter.length !== 1) return;
-    for (let s = 1; s <= keys.length; s++) {
-      const k = keys[(lastIndex + s + keys.length) % keys.length];
-      if (k.letter !== letter) continue;
-      strike(k, 1);
-      typed = (typed + letter).slice(-7);
-      if ((typed === 'priyank' || typed === 'agarwal') && !finished) celebrate();
-      return;
+    const keyOf = new Map(keys.map(k => [k.el, k]));
+    function measure() {
+      const box = hero.getBoundingClientRect();
+      keys.forEach(k => { const r = k.el.getBoundingClientRect(); k.cx = r.left - box.left + r.width / 2; k.cy = r.top - box.top + r.height / 2; });
     }
-  });
-  function intro() {
-    if (reduced.matches) { measure(); return; }
-    keys.forEach((k, i) => k.el.animate([{ opacity: 0, transform: 'translateY(0.3em)', filter: 'blur(8px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 800, delay: 60 + i * 38, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' }));
-    setTimeout(() => { measure(); wave(0.45); }, 60 + keys.length * 38 + 600);
+    let running = false, last = 0;
+    function wake() { if (running) return; running = true; last = performance.now(); requestAnimationFrame(step); }
+    function step(now) {
+      const dt = Math.min(0.032, (now - last) / 1000);
+      last = now;
+      let busy = false;
+      keys.forEach(k => {
+        let target = 0;
+        if (pointer.inside && !reduced.matches) {
+          const dx = pointer.x - k.cx, dy = (pointer.y - k.cy) * 1.3;
+          target = Math.exp(-(dx * dx + dy * dy) / 30000);
+        }
+        k.heat += (target - k.heat) * Math.min(1, dt * 12);
+        if (Math.abs(target - k.heat) > 0.003) busy = true;
+        const a = -300 * k.e - 10 * k.v;
+        k.v += a * dt; k.e += k.v * dt;
+        if (Math.abs(k.e) < 0.001 && Math.abs(k.v) < 0.01) { k.e = 0; k.v = 0; } else busy = true;
+        k.el.style.setProperty('--wg', (600 + k.heat * 260 + Math.abs(k.e) * 160).toFixed(1));
+        k.el.style.setProperty('--wd', clamp(100 + k.heat * 12 + k.e * 26, 75, 125).toFixed(1));
+        k.el.style.transform = k.e ? `translateY(${(-k.e * 0.05).toFixed(4)}em)` : '';
+      });
+      if (busy) requestAnimationFrame(step); else running = false;
+    }
+    const hintText = $('[data-hint-text]');
+    if (window.matchMedia('(hover: none)').matches) hintText.textContent = 'Play my name: tap it, or slide a finger along it.';
+    const played = new Set();
+    let typed = '', finished = false, lastIndex = -1;
+    function setHint(text) { if (hintText.textContent === text) return; hintText.textContent = text; restart(hintText, 'hint-in'); }
+    function strike(k, vel = 1, silent = false) {
+      if (!reduced.matches) k.v += 7.5 * vel;
+      k.el.classList.add('is-lit');
+      clearTimeout(k.lit);
+      k.lit = setTimeout(() => k.el.classList.remove('is-lit'), 140);
+      field.ripple(k.cx, k.cy, k.color);
+      lastIndex = k.i;
+      wake();
+      if (silent) return;
+      sound.pluck(k.hz, vel);
+      played.add(k.i);
+      if (sound.on && !sound.unlocked) setHint('Tap once to wake the sound, then play.');
+      else if (played.size >= 5 && !finished) setHint('Nice. Now try typing it.');
+      if (played.size === keys.length && !finished) celebrate();
+    }
+    function celebrate() { finished = true; setHint('Perfect pitch. Now play with the work.'); sound.fanfare(); wave(0.7); }
+    function wave(vel = 0.5) { keys.forEach((k, i) => setTimeout(() => strike(k, vel, true), i * 55)); }
+    hero.addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse') return;
+      const b = hero.getBoundingClientRect();
+      pointer.x = e.clientX - b.left; pointer.y = e.clientY - b.top; pointer.inside = true;
+      wake(); field.poke();
+    });
+    hero.addEventListener('pointerleave', () => { pointer.inside = false; wake(); field.poke(); });
+    nameEl.addEventListener('pointerover', e => {
+      if (e.pointerType !== 'mouse') return;
+      const el = e.target.closest?.('.key');
+      if (el && !el.contains(e.relatedTarget)) strike(keyOf.get(el), 0.8);
+    });
+    let sliding = null;
+    nameEl.addEventListener('pointerdown', e => {
+      const el = e.target.closest?.('.key');
+      if (!el) return;
+      sliding = e.pointerType === 'mouse' ? null : keyOf.get(el);
+      strike(keyOf.get(el), 1);
+    });
+    nameEl.addEventListener('pointermove', e => {
+      if (!sliding) return;
+      const hit = document.elementFromPoint(e.clientX, e.clientY);
+      const el = hit && hit.closest('.key');
+      if (el && keyOf.get(el) !== sliding) { sliding = keyOf.get(el); strike(sliding, 0.9); }
+    });
+    ['pointerup', 'pointercancel'].forEach(t => nameEl.addEventListener(t, () => { sliding = null; }));
+    let heroInView = true;
+    new IntersectionObserver(([e]) => { heroInView = e.isIntersecting; }, { threshold: 0.35 }).observe(hero);
+    document.addEventListener('keydown', e => {
+      if (!heroInView || e.metaKey || e.ctrlKey || e.altKey || e.repeat) return;
+      if (e.target.closest?.('input, textarea, [contenteditable]')) return;
+      const letter = e.key.toLowerCase();
+      if (letter.length !== 1) return;
+      for (let s = 1; s <= keys.length; s++) {
+        const k = keys[(lastIndex + s + keys.length) % keys.length];
+        if (k.letter !== letter) continue;
+        strike(k, 1);
+        typed = (typed + letter).slice(-7);
+        if ((typed === 'priyank' || typed === 'agarwal') && !finished) celebrate();
+        return;
+      }
+    });
+    function intro() {
+      if (reduced.matches) { measure(); return; }
+      keys.forEach((k, i) => k.el.animate([{ opacity: 0, transform: 'translateY(0.3em)', filter: 'blur(8px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 800, delay: 60 + i * 38, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' }));
+      setTimeout(() => { measure(); wave(0.45); }, 60 + keys.length * 38 + 600);
+    }
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { measure(); intro(); });
+    window.addEventListener('resize', () => { clearTimeout(measure.t); measure.t = setTimeout(measure, 140); });
   }
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { measure(); intro(); });
-  window.addEventListener('resize', () => { clearTimeout(measure.t); measure.t = setTimeout(measure, 140); });
 
   /* KhiladiPro: the drill that counts */
   const kp = $('[data-kp]');
@@ -852,4 +854,5 @@
     sound.fanfare();
     toast('Excellent taste. My email is on your clipboard: hello@priyank.design', 4200);
   });
+  window.Live = { sound, toast, copyText, SCALE, ACCENTS, CYCLE, rgb, reduced, restart, clamp };
 })();
