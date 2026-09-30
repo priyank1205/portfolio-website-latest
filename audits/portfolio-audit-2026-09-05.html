@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio audit — Priyank Agarwal</title>
+  <meta name="description" content="A product-design portfolio audit covering positioning, narrative, information architecture, visual hierarchy, credibility, and differentiation.">
+  <style>
+    :root {
+      --ink: #16223a;
+      --muted: #65718a;
+      --line: #dbe1ec;
+      --paper: #f5f7fb;
+      --card: #ffffff;
+      --navy: #132747;
+      --blue: #3165d4;
+      --blue-soft: #eaf0ff;
+      --red: #bd3a4a;
+      --red-soft: #fff0f2;
+      --amber: #a45d00;
+      --amber-soft: #fff6e7;
+      --green: #10755d;
+      --green-soft: #e9f8f2;
+      --radius: 18px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-size: 16px; line-height: 1.62; }
+    a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: var(--blue); }
+    .shell { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+    .masthead { background: var(--navy); color: #fff; border-bottom: 1px solid #ffffff24; }
+    .masthead .shell { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 750; text-decoration: none; letter-spacing: -.02em; }
+    .brand-mark { width: 12px; height: 12px; border-radius: 50%; background: #bfe76f; box-shadow: 0 0 0 5px #bfe76f22; }
+    .masthead nav { display: flex; gap: 18px; font-size: 14px; color: #d2ddf0; }
+    .masthead nav a { text-decoration: none; }
+    .masthead nav a:hover { color: #fff; }
+    .hero { padding: 68px 0 46px; color: #fff; background: radial-gradient(circle at 79% 12%, #3462ac 0, #1a3865 26%, var(--navy) 57%); }
+    .eyebrow { color: #bed4ff; font-size: 12px; font-weight: 750; letter-spacing: .11em; text-transform: uppercase; }
+    h1, h2, h3 { line-height: 1.08; letter-spacing: -.045em; }
+    h1 { max-width: 840px; margin: 10px 0 18px; font-size: clamp(42px, 7vw, 76px); }
+    .hero p { max-width: 720px; margin: 0; font-size: clamp(18px, 2.2vw, 23px); line-height: 1.48; color: #d5e0f4; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+    .meta-row span { padding: 7px 11px; border: 1px solid #ffffff2e; border-radius: 100px; color: #dbe7fb; font-size: 13px; }
+    .summary { margin-top: -8px; padding: 0 0 42px; }
+    .summary-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 18px; }
+    .summary-card, .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 10px 28px #15233f0a; }
+    .summary-card { padding: 26px; }
+    .summary-card h2 { margin: 0 0 10px; font-size: 25px; }
+    .summary-card p { margin: 0; color: #34425c; }
+    .signal { background: var(--blue-soft); border-color: #cddafd; }
+    .signal strong { display: block; margin-bottom: 8px; color: #234caa; font-size: 13px; letter-spacing: .09em; text-transform: uppercase; }
+    .section { padding: 34px 0; }
+    .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+    .section-heading h2 { margin: 0; font-size: clamp(30px, 4vw, 44px); }
+    .section-heading p { max-width: 530px; margin: 0; color: var(--muted); }
+    .section-nav { position: sticky; top: 0; z-index: 3; padding: 12px 0; background: #f5f7fbeb; backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+    .section-nav .shell { overflow-x: auto; display: flex; gap: 8px; }
+    .section-nav a { white-space: nowrap; padding: 7px 10px; border-radius: 100px; text-decoration: none; font-size: 13px; color: #40506d; }
+    .section-nav a:hover { background: var(--blue-soft); color: var(--blue); }
+    .finding-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .finding { padding: 20px; }
+    .finding .number { display: grid; place-items: center; width: 28px; height: 28px; margin-bottom: 15px; border-radius: 50%; background: var(--blue-soft); color: var(--blue); font-size: 13px; font-weight: 800; }
+    .finding h3 { margin: 0 0 8px; font-size: 21px; }
+    .finding p { margin: 0; color: #536079; font-size: 15px; }
+    .table-wrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+    table { width: 100%; border-collapse: collapse; min-width: 720px; }
+    th, td { padding: 15px 17px; vertical-align: top; text-align: left; border-bottom: 1px solid var(--line); }
+    tr:last-child td { border-bottom: 0; }
+    th { background: #f9faff; color: #52617a; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    td { font-size: 14px; color: #3d4a63; }
+    td strong { color: var(--ink); }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .card { padding: 26px; }
+    .card h3 { margin: 0 0 12px; font-size: 26px; }
+    .card p { margin: 0 0 14px; color: #4a5870; }
+    .card p:last-child { margin-bottom: 0; }
+    .quote { margin: 18px 0; padding: 16px 18px; border-left: 4px solid var(--blue); background: #f8faff; color: #33445f; }
+    .quote strong { color: var(--ink); }
+    .callout { padding: 20px 22px; border-radius: 14px; }
+    .callout p { margin: 0; }
+    .callout + .callout { margin-top: 12px; }
+    .callout.critical { background: var(--red-soft); border: 1px solid #f1c7ce; color: #732a35; }
+    .callout.caution { background: var(--amber-soft); border: 1px solid #f0d49b; color: #754700; }
+    .callout.positive { background: var(--green-soft); border: 1px solid #bde7d8; color: #075947; }
+    ul, ol { padding-left: 22px; }
+    li + li { margin-top: 8px; }
+    .version { border-left: 4px solid var(--blue); }
+    .version.sedp { border-color: #bd6a8f; }
+    .version h3 { font-size: 28px; }
+    .version .tag { display: inline-block; margin-bottom: 12px; font-size: 12px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--blue); }
+    .version.sedp .tag { color: #9f426c; }
+    .priority-list { counter-reset: priority; display: grid; gap: 12px; }
+    .priority { display: grid; grid-template-columns: 42px 1fr; gap: 13px; padding: 18px; border-radius: 14px; border: 1px solid var(--line); background: var(--card); }
+    .priority::before { counter-increment: priority; content: counter(priority); display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--blue-soft); color: var(--blue); font-size: 13px; font-weight: 800; }
+    .priority h3 { margin: 0 0 4px; font-size: 17px; }
+    .priority p { margin: 0; color: #56647c; font-size: 14px; }
+    .pill { display: inline-block; margin-left: 7px; padding: 2px 7px; border-radius: 20px; font-size: 11px; font-weight: 800; letter-spacing: .05em; vertical-align: 2px; }
+    .p0 { color: #8e2535; background: var(--red-soft); }
+    .p1 { color: #875000; background: var(--amber-soft); }
+    .p2 { color: #176651; background: var(--green-soft); }
+    footer { margin-top: 38px; padding: 34px 0; color: #cbd6e6; background: var(--navy); }
+    footer p { max-width: 770px; margin: 0; }
+    .source-link { display: inline-block; margin-top: 16px; color: #fff; font-weight: 700; }
+    @media (max-width: 820px) {
+      .shell { width: min(100% - 32px, 1180px); }
+      .masthead .shell { min-height: 60px; }
+      .masthead nav { display: none; }
+      .hero { padding: 46px 0 38px; }
+      .summary-grid, .split { grid-template-columns: 1fr; }
+      .finding-grid { grid-template-columns: 1fr; }
+      .section { padding: 26px 0; }
+      .section-heading { display: block; }
+      .section-heading p { margin-top: 9px; }
+      .card, .summary-card { padding: 21px; }
+    }
+    @media print {
+      @page { margin: 14mm; }
+      body { background: #fff; font-size: 10pt; }
+      .masthead, .section-nav { display: none; }
+      .hero { padding: 10mm 0; background: #fff; color: #132747; }
+      .hero p { color: #41516d; }
+      .summary { margin: 0; padding-bottom: 4mm; }
+      .card, .summary-card, .table-wrap { box-shadow: none; break-inside: avoid; }
+      .section { padding: 6mm 0; }
+      a { color: inherit; }
+      footer { margin-top: 8mm; background: #fff; color: #41516d; }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="shell">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>Priyank Agarwal · Portfolio audit</a>
+      <nav aria-label="Report navigation">
+        <a href="#priorities">Priorities</a>
+        <a href="#priorities">Findings</a>
+        <a href="#versions">Case studies</a>
+        <a href="#plan">Plan</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell">
+        <div class="eyebrow">Portfolio strategy · 5 September 2026</div>
+        <h1>Turn strong execution evidence into a senior product-design case.</h1>
+        <p>Your portfolio already demonstrates independent delivery and considered craft. The highest-value work is making senior judgment, collaboration, and trustworthy evidence easier to see.</p>
+        <div class="meta-row" aria-label="Audit scope">
+          <span>4 versions reviewed</span>
+          <span>Khiladipro + SEDP</span>
+          <span>Desktop + mobile checks</span>
+          <span>Recruiter + founder audiences</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="summary">
+      <div class="shell summary-grid">
+        <article class="summary-card">
+          <h2>The central diagnosis</h2>
+          <p>The site currently makes a stronger case for capable freelance execution than for a midweight-to-senior product designer operating inside a product team. The senior material is present, especially in Getmega, but a reader has to assemble that argument themselves.</p>
+        </article>
+        <article class="summary-card signal">
+          <strong>Recommended territory</strong>
+          <p>A hands-on product designer who makes complex workflows easier to understand and carries them through delivery with small teams.</p>
+        </article>
+      </div>
+    </section>
+
+    <nav class="section-nav" aria-label="Section navigation">
+      <div class="shell">
+        <a href="#priorities">What to fix first</a>
+        <a href="#positioning">Positioning</a>
+        <a href="#narrative">Narrative</a>
+        <a href="#credibility">Credibility</a>
+        <a href="#versions">Versions</a>
+        <a href="#plan">Fix plan</a>
+      </div>
+    </nav>
+
+    <section class="section" id="priorities">
+      <div class="shell">
+        <div class="section-heading">
+          <h2>What to fix first</h2>
+          <p>Correct trust-breaking inconsistencies before adding process diagrams, rewriting pages, or polishing visual details.</p>
+        </div>
+        <div class="finding-grid">
+          <article class="finding card"><div class="number">01</div><h3>Correct the evidence</h3><p>Draft copy, inconsistent data, conflicting setup guidance, incorrect client naming, and unsupported claims can make a careful reviewer doubt the rest of the story.</p></article>
+          <article class="finding card"><div class="number">02</div><h3>Show senior judgment</h3><p>Add genuine decision episodes: what you learned, the alternatives considered, the constraint, the collaborator, and the resulting choice.</p></article>
+          <article class="finding card"><div class="number">03</div><h3>Make fit immediate</h3><p>Position around complex workflows and small-team delivery. State full-time and contract availability without creating separate identities.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="positioning">
+      <div class="shell split">
+        <article class="card">
+          <h3>One identity, two ways to work together</h3>
+          <p>“End-to-end,” “0→1 & growth stage,” “mobile, web, and dashboards,” and “AI-native workflows” establish breadth, but they do not tell a recruiter or founder why to choose you.</p>
+          <div class="quote"><strong>Positioning direction:</strong> I make complex products easier to understand and use. I work with small teams on consumer apps and data tools, from shaping the experience to the details that ship.</div>
+          <p>Use “Senior Product Designer” if it aligns with your resume and application materials. Keep “midweight-to-senior” as an internal search range, not public positioning.</p>
+        </article>
+        <article class="card">
+          <h3>What each audience needs</h3>
+          <p><strong>Recruiters and hiring managers:</strong> level, recent work, product ownership, collaboration, location, employment availability, and a readable resume.</p>
+          <p><strong>Founders:</strong> the problems you take on, what you own, how you work with a team, what gets delivered, and how to start.</p>
+          <p>Keep one portfolio. Offer clear routes such as “Discuss a role” and “Discuss a project,” both leading to the same inbox.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="narrative">
+      <div class="shell">
+        <div class="section-heading">
+          <h2>Make the story show how you reached the answer</h2>
+          <p>The redesigned case studies are good at explaining the final decision. They need more evidence of uncertainty, influence, and revision.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Project</th><th>What already works</th><th>What a senior reader still needs</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Khiladipro</strong></td><td>Conversion → activation → participation creates a clear customer journey.</td><td>Show how the audience hierarchy, registration proof, and physical setup guidance were decided or revised.</td></tr>
+              <tr><td><strong>SEDP</strong></td><td>First use → compare → share makes a coherent product story.</td><td>Demonstrate a specific reader task and how the redesign changed their path to interpretation.</td></tr>
+              <tr><td><strong>Getmega</strong></td><td>Shows sustained work through pivots, coordination, and growth.</td><td>Promote one anchor story that proves senior product-team contribution, not only UI breadth.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout positive" style="margin-top:18px"><p><strong>Use two real decision episodes per flagship:</strong> input → alternatives → constraint → choice → collaboration → evidence. A small, honest revision is stronger than a reconstructed process diagram or fabricated research artifact.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="information">
+      <div class="shell split">
+        <article class="card">
+          <h3>Default reading path</h3>
+          <ol>
+            <li>Problem, role, engagement type, duration, team, and strongest defensible result.</li>
+            <li>Three consequential decisions with legible evidence beside each.</li>
+            <li>Observed outcome, stated limits, and one specific reflection.</li>
+          </ol>
+          <p>Keep registration proof, core before/after evidence, physical setup, and published-use examples out of disclosures. Use disclosures for extra screens, process depth, and extended measurement plans.</p>
+        </article>
+        <article class="card">
+          <h3>Portfolio composition</h3>
+          <p><strong>Khiladipro:</strong> complex web-to-app journey, paid entry, physical setup, camera feedback.</p>
+          <p><strong>SEDP:</strong> information architecture, data comprehension, comparison, and distribution.</p>
+          <p><strong>Getmega:</strong> sustained product ownership, iteration through change, engineering partnership, and team contribution.</p>
+          <p>Lead with these three. Use Mega Poker and Ecometer & Agrimarket as targeted supporting evidence.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="hierarchy">
+      <div class="shell">
+        <div class="section-heading"><h2>Rebalance visual attention</h2><p>The redesigns look more coherent than the originals. Preserve that, then move emphasis from presentation framing to evidence inspection.</p></div>
+        <div class="finding-grid">
+          <article class="finding card"><div class="number">A</div><h3>Show work sooner</h3><p>The homepage opening prioritizes introduction, live status, shortcuts, and contact before a strong work example. Shorten this sequence.</p></article>
+          <article class="finding card"><div class="number">B</div><h3>Expose key facts earlier</h3><p>On the tested mobile views, role/team facts began more than 1,000 pixels down the redesigned case studies. Bring a compact summary above or immediately after the hero.</p></article>
+          <article class="finding card"><div class="number">C</div><h3>Use inspectable artifacts</h3><p>Pair one overview image with close, annotated crops. Whole desktop screens compressed into narrow columns do not prove control hierarchy, labels, or data context.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="credibility">
+      <div class="shell">
+        <div class="section-heading"><h2>Credibility corrections</h2><p>These are specific evidence problems. Correct them before refining the writing or visual presentation.</p></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Finding</th><th>Why it matters</th><th>Correction</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Draft Khiladipro artwork</strong><br>“Lorem ipsum” and a stock-image watermark are visible in the landing image.</td><td>It makes a delivered-product story look unfinished.</td><td>Retrieve the final approved asset. If only a draft survives, label it as a design-stage artifact.</td></tr>
+              <tr><td><strong>Conflicting phone-placement instruction</strong><br>The image shows floor placement; its text says elevated surface.</td><td>It contradicts the core claim that setup guidance is clear.</td><td>Verify the actual requirement and align the instruction, illustration, and narrative.</td></tr>
+              <tr><td><strong>Inconsistent SEDP share-map rankings</strong><br>The Top 3 does not match the values printed on the map.</td><td>It directly undermines a case study about making data legible.</td><td>Use a verified export, or make the illustrative dataset internally consistent across map, rankings, units, and legend.</td></tr>
+              <tr><td><strong>Old SEDP already had comparison</strong></td><td>The original story overstates what was newly introduced.</td><td>Describe the contribution as redesigning and improving the comparison workflow, then demonstrate the improvement.</td></tr>
+              <tr><td><strong>Registration is called payment proof</strong><br>The screenshot is basic details, not a payment field.</td><td>The claim is not supported by the adjacent image.</td><td>Show the actual payment step, or frame it as reassurance at registration.</td></tr>
+              <tr><td><strong>Client facts and quotes drift</strong><br>CEDA is misexpanded in Ecometer; testimonial wording differs between pages.</td><td>Small inconsistencies make “verbatim” and attention to detail less credible.</td><td>Verify source materials and use one accurate version.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout caution" style="margin-top:18px"><p><strong>Keep the redesigns’ evidence discipline:</strong> a rehire establishes client confidence; a social post establishes use of a feature; neither alone establishes conversion, usability, or audience growth.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="differentiation">
+      <div class="shell split">
+        <article class="card">
+          <h3>Your real differentiators are specific</h3>
+          <ul>
+            <li>A phone communicating to someone three metres away.</li>
+            <li>Two charts that look comparable but use different years, filters, or units.</li>
+            <li>A financial input whose value can be hidden by a user’s thumb.</li>
+            <li>A product component surviving thirteen different states.</li>
+          </ul>
+          <p>Use these situations to establish your point of view. Generic phrases about empathy, ownership, clarity, or business goals are useful only when attached to evidence.</p>
+        </article>
+        <article class="card">
+          <h3>AI positioning needs an artifact</h3>
+          <p>Khiladipro is an AI-powered product, but that does not itself demonstrate your AI-assisted building workflow. The YouTube extension shows builder curiosity but is currently WIP and mostly links to a repository.</p>
+          <p>If AI-assisted building remains prominent, show a working demo, a real user problem, one iteration, your contribution, and the limits of the implementation. Until then, keep it as supporting evidence rather than a primary hiring claim.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="versions">
+      <div class="shell">
+        <div class="section-heading"><h2>Version-by-version guidance</h2><p>Use the redesigned studies as the public foundation. Mine the originals for specificity and evidence; do not restore their full structures.</p></div>
+        <article class="card version">
+          <span class="tag">Khiladipro · Original</span>
+          <h3>Keep the physical context. Remove the repeated setup.</h3>
+          <p><strong>Keep:</strong> the explicit freelance role, eight-week constraint, audience questions, mobile parent-reassurance tradeoff, detailed onboarding states, and the visible follow-up engagement.</p>
+          <p><strong>Change:</strong> hero, short version, statistics, brief, constraints, and experience map repeat too much context. Transfer the strongest evidence into the redesign. Correct the draft artwork, phone-placement conflict, unsupported traffic/superlative claims, and “07 chapters” mismatch.</p>
+        </article>
+        <article class="card version">
+          <span class="tag">Khiladipro · Redesign</span>
+          <h3>Keep the structure. Put the proof in the default path.</h3>
+          <p><strong>Keep:</strong> conversion → activation → participation, concise ownership, “first scoreable drill” as activation, and bounded rehire language.</p>
+          <p><strong>Change:</strong> lead with sole freelance designer, eight-week first engagement, four-person team, and verified rehire. Elevate the three-metre setup sequence, show registration proof by default, and add a real decision changed by stakeholder or technical feedback.</p>
+        </article>
+        <article class="card version sedp">
+          <span class="tag">SEDP · Original</span>
+          <h3>Keep the concrete evidence. Qualify the claims.</h3>
+          <p><strong>Keep:</strong> old-interface problems, detailed crops, distribution rationale, and a visible social-use example.</p>
+          <p><strong>Change:</strong> remove unsupported claims about audience size and speed; stop presenting no-scroll as universally better; explain the redesign of an existing comparison workflow; correct share-map data and remove browser/Figma chrome.</p>
+        </article>
+        <article class="card version sedp">
+          <span class="tag">SEDP · Redesign</span>
+          <h3>It is the strongest structure. Make interpretation tangible.</h3>
+          <p><strong>Keep:</strong> first use → compare → share, the distinction between published use and growth, and the attention to different years, units, filters, and comprehension.</p>
+          <p><strong>Change:</strong> choose one representative reader task, use matched before/after crops, show a comparison state with relevant context, surface a verified published export, and establish the status of touch, keyboard, small-screen, and missing-data handling.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="supporting">
+      <div class="shell split">
+        <article class="card"><h3>Getmega should be featured</h3><p>It is your strongest proof of sustained product-team experience: two years, pivots, daily leadership reviews, product/engineering coordination, and contribution as the design team grew. Build it around one anchor story, not an inventory of every flow.</p><p>The 15k → 25k DAU figure is appropriately labeled a team outcome, but the attribution needs a time window, source context, and careful causal wording.</p></article>
+        <article class="card"><h3>Supporting work needs a clearer job</h3><p><strong>Mega Poker:</strong> retain transparent money handling and constrained redesign; balance business retention language with user choice, clarity, and recovery.</p><p><strong>Ecometer &amp; Agrimarket:</strong> either add two specific decisions and a shared-system example, or present it as a supporting gallery linked from SEDP.</p><p><strong>About:</strong> replace generic principles with examples of scoping, reviewing, and collaborating.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="plan">
+      <div class="shell">
+        <div class="section-heading"><h2>Prioritized fix plan</h2><p>Estimated effort assumes the necessary source assets and project records are available. It is planning guidance, not a delivery commitment.</p></div>
+        <div class="priority-list">
+          <article class="priority"><div><h3>Correct factual and visual contradictions <span class="pill p0">P0 · trust</span></h3><p>Fix draft imagery, chart values, setup guidance, CEDA naming, quote versions, unsupported novelty claims, and unclear engagement scope.</p></div></article>
+          <article class="priority"><div><h3>Recover two real decision episodes per flagship <span class="pill p1">P1 · seniority</span></h3><p>Bring in actual early/later artifacts, stakeholder feedback, engineering compromises, and any post-launch learning.</p></div></article>
+          <article class="priority"><div><h3>Rewrite the homepage around specific value <span class="pill p1">P1 · fit</span></h3><p>State the product problems you solve and make full-time and contract availability explicit.</p></div></article>
+          <article class="priority"><div><h3>Feature Khiladipro, SEDP, and Getmega <span class="pill p1">P1 · composition</span></h3><p>Give each project a different proof role so the portfolio demonstrates breadth without repeating itself.</p></div></article>
+          <article class="priority"><div><h3>Move essential proof into the skim path <span class="pill p1">P1 · scanability</span></h3><p>Role, duration, result, and key artifacts should be visible before disclosures or external prototype links.</p></div></article>
+          <article class="priority"><div><h3>Standardize visual presentation <span class="pill p2">P2 · presentation</span></h3><p>Use consistent personal navigation, shorter openings, inspectable crops, and a quieter interaction layer.</p></div></article>
+          <article class="priority"><div><h3>Test the revised story with target readers <span class="pill p2">P2 · validation</span></h3><p>Ask recruiters, design managers, and founders what they believe you do, what evidence they trust, and what still blocks a conversation.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="evidence">
+      <div class="shell split">
+        <article class="card"><h3>Evidence to recover before rewriting</h3><ul><li>Exact dates and scope for each engagement, including the Khiladipro follow-up.</li><li>Final design versus shipped-product inventory.</li><li>Early and later artifacts for selected decisions.</li><li>Source of audience assumptions and constraints.</li><li>Engineering or stakeholder compromises and their impact.</li><li>Original testimonial wording and permission status.</li></ul></article>
+        <article class="card"><h3>How to assess the revision</h3><ul><li>Can a recruiter identify the role, level, availability, and strongest work quickly?</li><li>Can a design manager identify one consequential decision and why it was made?</li><li>Can a founder tell what they would hire you to do and how an engagement begins?</li><li>Can a mobile reader inspect the artifacts without opening every disclosure?</li></ul></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <p>This report is a designed HTML companion to the complete audit. It summarizes the recommendations, decision framework, and evidence priorities; the Markdown source retains the full evidence record and local artifact references.</p>
+      <a class="source-link" href="portfolio-audit-2026-09-05.md">Open the full audit source →</a>
+    </div>
+  </footer>
+</body>
+</html>

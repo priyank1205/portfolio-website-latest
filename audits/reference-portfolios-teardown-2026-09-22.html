@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9 Portfolios, 1 Variable — Reference Teardown</title>
+<meta name="description" content="A gripping structural teardown of nine senior product-design portfolios at Anthropic, OpenAI and Figma.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;450;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F4EF; --paper2:#EEEAE2; --paper3:#E4DFD5;
+  --ink:#141312; --ink2:#3A3835; --ink3:#6E6A62; --ink4:#9E9890;
+  --rule:#D6D0C4; --rule2:#E5E0D6;
+  --orange:#C2410C; --orange2:#EA580C; --orangeBg:#FFF4ED;
+  --blue:#1D4ED8; --blueBg:#EFF6FF;
+  --violet:#6D28D9; --violetBg:#F5F3FF;
+  --green:#15803D; --greenBg:#F0FDF4;
+  --rose:#BE123C; --roseBg:#FFF1F2;
+  --amber:#B45309; --amberBg:#FFFBEB;
+  --dark:#0C0B0A; --dark2:#181716; --dark3:#22211F;
+  --dtext:#F0EDE6; --dmuted:#A8A29E; --dline:#2E2C29;
+  --fd:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  --fb:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --fm:'JetBrains Mono','SF Mono',ui-monospace,Menlo,monospace;
+  --r:clamp(18px,3vw,28px);
+  --g:clamp(16px,4vw,40px);
+  --max:1180px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fb);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* progress */
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--orange),#F59E0B,#10B981);z-index:200;transition:width .08s linear}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:100;background:rgba(246,244,239,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+.nav-in{max-width:var(--max);margin:0 auto;padding:10px var(--g);display:flex;align-items:center;gap:14px;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+.nav-logo{font-family:var(--fd);font-size:17px;white-space:nowrap;flex:0 0 auto;letter-spacing:-.01em}
+.nav-logo em{color:var(--orange);font-style:italic}
+.nav-links{display:flex;gap:2px;flex:1;justify-content:flex-end}
+.nav-links a{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--ink3);padding:7px 11px;border-radius:100px;transition:.15s;white-space:nowrap}
+.nav-links a:hover{background:var(--paper3);color:var(--ink)}
+.nav-links a.on{background:var(--ink);color:var(--paper)}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--g)}
+.eyebrow{font-family:var(--fm);font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+
+/* HERO */
+.hero{position:relative;padding:clamp(48px,9vw,100px) 0 clamp(40px,6vw,72px);overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse 70% 50% at 85% -10%,rgba(234,88,12,.14),transparent 60%),
+  radial-gradient(ellipse 60% 45% at 5% 100%,rgba(29,78,216,.1),transparent 60%),
+  radial-gradient(ellipse 40% 30% at 50% 50%,rgba(109,40,217,.05),transparent 70%);
+  pointer-events:none}
+.hero-in{position:relative}
+.hero-kick{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:28px}
+.chip{font-family:var(--fm);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:100px;background:var(--ink);color:var(--paper)}
+.chip.o{background:var(--orange);color:#fff}
+.chip.ghost{background:transparent;color:var(--ink3);border:1px solid var(--rule)}
+h1{font-family:var(--fd);font-size:clamp(40px,7.5vw,76px);font-weight:400;line-height:1.02;letter-spacing:-.03em;margin:0 0 22px;max-width:14ch}
+h1 em{font-style:italic;background:linear-gradient(100deg,var(--orange),#F59E0B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-deck{font-size:clamp(16px,2vw,19px);line-height:1.55;color:var(--ink2);max-width:62ch;margin:0 0 36px;font-weight:450}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:40px}
+.hstat{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:18px 16px;text-align:center;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+.hstat .n{font-family:var(--fd);font-size:clamp(30px,4vw,42px);line-height:1;letter-spacing:-.02em}
+.hstat .n span{color:var(--orange)}
+.hstat .l{font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-top:8px}
+
+/* insight banner */
+.insight{background:var(--dark);color:var(--dtext);border-radius:var(--r);padding:clamp(28px,5vw,48px);position:relative;overflow:hidden;margin-bottom:48px}
+.insight::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--orange),#F59E0B,#10B981,#3B82F6,#8B5CF6)}
+.insight::after{content:'';position:absolute;right:-80px;top:-80px;width:280px;height:280px;background:radial-gradient(circle,rgba(234,88,12,.2),transparent 70%);pointer-events:none}
+.insight .lab{font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#FDBA74;margin-bottom:16px;position:relative}
+.insight h2{font-family:var(--fd);font-size:clamp(26px,4vw,40px);font-weight:400;line-height:1.15;letter-spacing:-.02em;margin:0 0 16px;max-width:22ch;position:relative}
+.insight h2 em{font-style:italic;color:#FDBA74}
+.insight p{color:var(--dmuted);font-size:15px;max-width:60ch;margin:0;position:relative;line-height:1.6}
+.insight p+p{margin-top:10px}
+.insight strong{color:var(--dtext);font-weight:600}
+
+/* SECTION shell */
+section{padding:clamp(48px,8vw,88px) 0;position:relative}
+section+section{border-top:1px solid var(--rule)}
+.sec-head{display:flex;align-items:flex-start;gap:18px;margin-bottom:clamp(24px,4vw,40px)}
+.sec-num{font-family:var(--fm);font-size:11px;font-weight:700;color:var(--orange);letter-spacing:.1em;padding-top:10px;flex:0 0 auto}
+.sec-title{font-family:var(--fd);font-size:clamp(28px,4.5vw,42px);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin:0}
+.sec-sub{font-size:15px;color:var(--ink3);margin:8px 0 0;max-width:60ch}
+h3.big{font-family:var(--fd);font-size:clamp(22px,3vw,30px);font-weight:400;letter-spacing:-.015em;margin:clamp(32px,5vw,48px) 0 12px;line-height:1.2}
+h4.mini{font-size:14px;font-weight:700;margin:24px 0 8px;letter-spacing:-.01em}
+p{margin:0 0 14px;max-width:70ch}
+p.lead{font-size:17px;color:var(--ink2);line-height:1.55}
+p:last-child{margin-bottom:0}
+strong{font-weight:700}
+ul.d,ol.d{margin:0 0 14px;padding-left:1.2em;max-width:70ch}
+ul.d li,ol.d li{margin-bottom:7px}
+ul.d li::marker{color:var(--ink4)}
+ol.d li::marker{font-family:var(--fm);font-size:12px;color:var(--orange);font-weight:600}
+code.i{font-family:var(--fm);font-size:.9em;background:var(--paper3);padding:1.5px 6px;border-radius:5px;color:var(--ink2)}
+
+/* SOURCE GRID / SHOTS */
+.src-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.src-card{background:#fff;border:1px solid var(--rule);border-radius:18px;overflow:hidden;text-decoration:none;color:inherit;transition:.2s;position:relative;display:flex;flex-direction:column}
+.src-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px -16px rgba(0,0,0,.18);border-color:var(--ink4)}
+.src-card .shot{aspect-ratio:16/10;background:var(--paper2);position:relative;overflow:hidden;border-bottom:1px solid var(--rule)}
+.src-card .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s ease}
+.src-card:hover .shot img{transform:scale(1.03)}
+.src-card .shot .fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--paper2),var(--paper3));font-family:var(--fd);font-size:28px;color:var(--ink4)}
+.src-card .shot .stagebadge{position:absolute;top:10px;left:10px;font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:100px;color:#fff;backdrop-filter:blur(6px)}
+.src-card .body{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column}
+.src-card .idx{font-family:var(--fm);font-size:10px;font-weight:700;color:var(--orange);letter-spacing:.1em}
+.src-card .nm{font-family:var(--fd);font-size:22px;line-height:1.15;margin:4px 0 4px;letter-spacing:-.01em}
+.src-card .rl{font-size:12px;color:var(--ink3);line-height:1.45;flex:1}
+.src-card .go{font-family:var(--fm);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);margin-top:12px;display:flex;align-items:center;gap:6px}
+.src-card .go::after{content:'→';transition:.2s}
+.src-card:hover .go::after{transform:translateX(4px)}
+
+/* STAGE COLORS */
+.st1{--sc:var(--orange);--scb:var(--orangeBg)}
+.st2{--sc:var(--blue);--scb:var(--blueBg)}
+.st3{--sc:var(--violet);--scb:var(--violetBg)}
+.st4{--sc:var(--green);--scb:var(--greenBg)}
+.badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:100px;background:var(--sc,var(--ink));color:#fff}
+.badge.soft{background:var(--scb,var(--paper2));color:var(--sc,var(--ink))}
+
+/* GRADIENT TABLE */
+.grad{display:grid;gap:0;border:1px solid var(--rule);border-radius:18px;overflow:hidden;background:#fff;margin:28px 0}
+.grow{display:grid;grid-template-columns:180px 1fr 220px;border-bottom:1px solid var(--rule2);transition:.15s}
+.grow:last-child{border-bottom:0}
+.grow:hover{background:var(--paper)}
+.grow .gs{padding:20px;background:var(--scb);border-right:1px solid var(--rule2);display:flex;flex-direction:column;gap:8px}
+.grow .gs .gn{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--sc);text-transform:uppercase}
+.grow .gs .gl{font-weight:700;font-size:14px;line-height:1.3;color:var(--ink)}
+.grow .gw{padding:20px;font-size:14px;color:var(--ink2);line-height:1.55;border-right:1px solid var(--rule2)}
+.grow .gh{padding:20px;font-family:var(--fm);font-size:11px;color:var(--ink3);line-height:1.7}
+@media(max-width:780px){.grow{grid-template-columns:1fr}.grow .gs{border-right:0;border-bottom:1px solid var(--rule2);flex-direction:row;align-items:center;gap:10px}.grow .gw{border-right:0;border-bottom:1px solid var(--rule2)}}
+
+/* TWO CONSEQUENCE CARDS */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+@media(max-width:720px){.duo{grid-template-columns:1fr}}
+.dcard{border-radius:16px;padding:24px;border:1px solid}
+.dcard.a{background:var(--orangeBg);border-color:#FED7AA}
+.dcard.b{background:var(--blueBg);border-color:#BFDBFE}
+.dcard .dl{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+.dcard.a .dl{color:var(--orange)}
+.dcard.b .dl{color:var(--blue)}
+.dcard h4{font-family:var(--fd);font-size:22px;font-weight:400;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em}
+.dcard h4 em{font-style:italic;color:var(--orange)}
+.dcard.b h4 em{color:var(--blue)}
+.dcard p{font-size:13px;color:var(--ink2);margin:0;line-height:1.55}
+.dcard p+p{margin-top:8px}
+
+/* PROFILE BLOCK */
+.prof{background:#fff;border:1px solid var(--rule);border-radius:22px;overflow:hidden;margin-bottom:28px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+.prof-top{display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:0}
+@media(max-width:800px){.prof-top{grid-template-columns:1fr}}
+.prof-shot{position:relative;background:var(--paper2);aspect-ratio:16/11;overflow:hidden;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.prof-shot img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.prof-shot .ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.45),transparent 50%);pointer-events:none}
+.prof-shot .sb{position:absolute;top:12px;left:12px;z-index:2}
+.prof-shot .visit{position:absolute;bottom:12px;left:12px;right:12px;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;gap:8px}
+.prof-shot .visit a{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.95);color:var(--ink);text-decoration:none;padding:8px 14px;border-radius:100px;backdrop-filter:blur(8px);transition:.15s;flex:1;text-align:center}
+.prof-shot .visit a:hover{background:var(--ink);color:var(--paper)}
+.prof-shot .url{font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.9);text-shadow:0 1px 4px rgba(0,0,0,.5);align-self:flex-end}
+.prof-meta{padding:24px 26px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.prof-meta .row1{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.prof-meta .num{font-family:var(--fm);font-size:11px;font-weight:700;color:var(--orange);letter-spacing:.1em}
+.prof-meta h3{font-family:var(--fd);font-size:clamp(26px,3.5vw,36px);font-weight:400;letter-spacing:-.02em;margin:0;line-height:1.1}
+.prof-meta .role{font-size:13px;color:var(--ink3);line-height:1.5}
+.prof-meta .role a{color:var(--ink2);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--ink4)}
+.prof-meta .role a:hover{color:var(--orange)}
+.hook{background:var(--scb,var(--paper2));border-left:3px solid var(--sc,var(--orange));border-radius:0 12px 12px 0;padding:14px 16px;font-family:var(--fd);font-size:18px;line-height:1.35;letter-spacing:-.01em;color:var(--ink);margin:0}
+.hook em{font-style:italic;color:var(--sc,var(--orange))}
+
+.prof-stats{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper)}
+.pstat{flex:1 1 110px;padding:16px 12px;text-align:center;border-right:1px solid var(--rule)}
+.pstat:last-child{border-right:0}
+.pstat .v{font-family:var(--fd);font-size:clamp(24px,3vw,32px);line-height:1;letter-spacing:-.02em}
+.pstat .v .u{font-size:.5em;color:var(--sc,var(--orange));vertical-align:super}
+.pstat .k{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-top:6px}
+
+.prof-body{padding:clamp(20px,3vw,32px)}
+.prof-body p{font-size:14.5px;color:var(--ink2)}
+
+/* DETAILS progressive disclosure */
+details.dd{border:1px solid var(--rule);border-radius:14px;background:var(--paper);margin:16px 0;overflow:hidden}
+details.dd summary{cursor:pointer;padding:14px 18px;font-family:var(--fm);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);list-style:none;display:flex;align-items:center;gap:10px;user-select:none;transition:.15s}
+details.dd summary::-webkit-details-marker{display:none}
+details.dd summary::before{content:'+';font-size:16px;font-weight:400;color:var(--orange);transition:.2s;width:18px;text-align:center}
+details.dd[open] summary::before{content:'−'}
+details.dd summary:hover{background:var(--paper2)}
+details.dd[open] summary{border-bottom:1px solid var(--rule);background:var(--paper2)}
+details.dd .ddin{padding:18px 20px;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+details.dd .ddin>*:first-child{margin-top:0}
+details.dd .ddin>*:last-child{margin-bottom:0}
+
+/* QUOTE / MOVE */
+.move{background:#fff;border:1px solid var(--rule);border-left:4px solid var(--sc,var(--orange));border-radius:0 14px 14px 0;padding:18px 20px;margin:12px 0}
+.move .mh{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;margin-bottom:8px}
+.move .mn{font-family:var(--fm);font-size:10px;font-weight:700;color:var(--sc,var(--orange));letter-spacing:.1em}
+.move .mt{font-weight:700;font-size:14px;letter-spacing:-.01em}
+.move .mq{font-family:var(--fd);font-size:17px;line-height:1.45;color:var(--ink2);margin:0;padding-left:12px;border-left:2px solid var(--rule);font-style:italic}
+.move .mq b{font-style:normal;font-weight:700;color:var(--ink)}
+.move .mn2{font-family:var(--fm);font-size:10px;font-weight:700;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;margin-top:10px;padding-left:12px}
+.moves{display:grid;gap:10px;margin:16px 0}
+
+/* STAT ROW */
+.srow{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}
+.sq{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:16px 14px;flex:1 1 120px;text-align:center}
+.sq .sv{font-family:var(--fd);font-size:clamp(26px,3.5vw,36px);line-height:1;letter-spacing:-.02em}
+.sq .sv .u{font-size:.5em;color:var(--orange);vertical-align:super}
+.sq .sk{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+/* TABLE */
+.tw{overflow-x:auto;margin:18px 0;border:1px solid var(--rule);border-radius:14px;background:#fff;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:480px}
+th{text-align:left;font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);padding:12px 14px;background:var(--paper2);border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:12px 14px;border-bottom:1px solid var(--rule2);vertical-align:top;line-height:1.5;color:var(--ink2)}
+tr:last-child td{border-bottom:0}
+tr:hover td{background:rgba(246,244,239,.7)}
+td:first-child{color:var(--ink);font-weight:600}
+.mono{font-family:var(--fm);font-size:11px;color:var(--ink3)}
+.hl{color:var(--orange);font-weight:700}
+tr.peak td{background:var(--orangeBg)!important}
+
+/* CODE */
+pre{background:var(--dark);color:#D6D3D1;font-family:var(--fm);font-size:12.5px;line-height:1.7;padding:18px 22px;border-radius:14px;overflow-x:auto;margin:16px 0;-webkit-overflow-scrolling:touch}
+pre .cm{color:#78716C}
+pre .hl{color:#FDBA74}
+pre .ok{color:#86EFAC}
+
+/* TOKENS */
+.toks{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:16px 0}
+.tok{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:12px}
+.tok .sw{width:100%;height:32px;border-radius:6px;border:1px solid rgba(0,0,0,.08);margin-bottom:8px}
+.tok .k{font-family:var(--fm);font-size:9px;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase}
+.tok .v{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--ink);margin-top:2px}
+
+/* LEDGER */
+.ledger{border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin:16px 0;background:#fff}
+.lrow{display:grid;grid-template-columns:42px 1fr;border-bottom:1px solid var(--rule2);transition:.12s}
+.lrow:last-child{border-bottom:0}
+.lrow:hover{background:var(--paper)}
+.lrow .ln{font-family:var(--fm);font-size:10px;font-weight:700;color:var(--ink4);display:flex;justify-content:center;padding-top:13px;background:var(--paper2);border-right:1px solid var(--rule2)}
+.lrow .lb{padding:11px 14px;min-width:0}
+.lrow .lname{font-weight:650;font-size:13px;color:var(--ink);letter-spacing:-.005em}
+.lrow .lwhy{font-size:12px;color:var(--ink3);margin-top:2px;line-height:1.45}
+.lrow.key .ln{color:var(--orange);background:var(--orangeBg)}
+.lrow.key .lname{color:var(--orange)}
+
+/* COMPONENT DEMOS */
+.spec{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:22px;margin:20px 0}
+.spec .sl{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+.loopc{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.lstep{flex:1 1 130px;background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:12px;min-width:0}
+.lstep .n{font-family:var(--fm);font-size:10px;color:var(--orange);font-weight:700;letter-spacing:.08em}
+.lstep .t{font-weight:700;font-size:13px;margin-top:5px}
+.lstep .d{font-size:11px;color:var(--ink3);margin-top:3px;line-height:1.4}
+.larr{display:flex;align-items:center;color:var(--ink4);font-size:16px}
+@media(max-width:640px){.larr{display:none}}
+.bridge{display:grid;grid-template-columns:repeat(3,1fr);margin:14px 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:#fff}
+.bcol{padding:16px;border-right:1px solid var(--rule);min-width:0}
+.bcol:last-child{border-right:0}
+.bcol.mid{background:var(--orangeBg)}
+.bcol .bl{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;line-height:1.5}
+.bcol.mid .bl{color:var(--orange);font-weight:700}
+.bcol ul{list-style:none;padding:0;margin:0}
+.bcol li{font-size:12.5px;padding:6px 0;border-bottom:1px solid var(--rule2);color:var(--ink2);line-height:1.4}
+.bcol li:last-child{border-bottom:0}
+@media(max-width:640px){.bridge{grid-template-columns:1fr}.bcol{border-right:0;border-bottom:1px solid var(--rule)}.bcol:last-child{border-bottom:0}}
+
+/* DEMO CARD (Tammy) */
+.dcard-demo{background:var(--paper2);border-radius:14px;overflow:hidden;max-width:320px;transition:.4s}
+.dcard-demo:hover{transform:scale(1.03)}
+.dcard-demo .th{aspect-ratio:65%;background:linear-gradient(135deg,#C7D2FE,#818CF8);display:flex;align-items:center;justify-content:center}
+.dcard-demo .th::after{content:'▶';width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:15px;padding-left:2px}
+.dcard-demo .cb{padding:14px}
+.dcard-demo .tr{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.dcard-demo .ct{font-weight:700;font-size:17px}
+.pill{display:inline-flex;height:24px;padding:0 9px;border:1.5px solid var(--ink);border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;align-items:center;gap:3px;background:rgba(255,255,255,.6)}
+.pill .a{opacity:.3}
+.dcard-demo .cd{font-size:12.5px;color:var(--ink3);line-height:1.5;margin-bottom:10px}
+.dcard-demo .cm{font-size:12.5px;font-weight:600;color:var(--ink3)}
+
+/* MANIFESTO SLIDE */
+.slide{background:#000;border-radius:16px;padding:clamp(28px,5vw,48px);margin:20px 0;text-align:center;border:1px solid #222}
+.slide .cap{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#666;margin-bottom:24px}
+.slide .lines{font-weight:700;font-size:clamp(16px,2.5vw,22px);line-height:1.9;letter-spacing:-.01em}
+.slide .lines .on{color:#fff}
+.slide .lines .off{color:rgba(255,255,255,.35)}
+.slide .note{font-size:12px;color:#777;margin-top:24px;max-width:50ch;margin-left:auto;margin-right:auto;line-height:1.55}
+
+/* JOEL MINI SITE */
+.mini{background:var(--dark);color:var(--dtext);border-radius:14px;padding:26px 30px;font-family:var(--fm);font-size:13px;line-height:1.9;margin:16px 0;overflow-x:auto}
+.mini .n{color:#fff;font-weight:700}
+.mini .r{color:var(--dmuted);margin-bottom:12px}
+.mini .g{color:#FDBA74;font-weight:700;margin-top:14px;letter-spacing:.1em;text-transform:uppercase;font-size:10px}
+.mini .l{color:var(--dmuted)}
+
+/* DO/DON'T */
+.dd2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+@media(max-width:700px){.dd2{grid-template-columns:1fr}}
+.ddbox{background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.ddbox header{padding:11px 16px;font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--rule)}
+.ddbox.yes header{background:var(--greenBg);color:var(--green);border-bottom-color:#BBF7D0}
+.ddbox.no header{background:var(--roseBg);color:var(--rose);border-bottom-color:#FECDD3}
+.ddbox ul{list-style:none;padding:12px 16px;margin:0}
+.ddbox li{font-size:13px;padding:6px 0;line-height:1.5;color:var(--ink2);border-bottom:1px solid var(--rule2);padding-left:18px;position:relative}
+.ddbox li:last-child{border-bottom:0}
+.ddbox.yes li::before{content:'✓';position:absolute;left:0;color:var(--green);font-weight:800;font-size:11px}
+.ddbox.no li::before{content:'✕';position:absolute;left:0;color:var(--rose);font-weight:800;font-size:10px}
+
+/* ENGINE */
+.engine{background:linear-gradient(135deg,#141312,#242220);color:var(--dtext);border-radius:18px;padding:clamp(28px,5vw,44px);margin:28px 0;position:relative;overflow:hidden}
+.engine::after{content:'';position:absolute;right:-60px;top:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(234,88,12,.22),transparent 70%);pointer-events:none}
+.engine .el{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#FDBA74;margin-bottom:14px;position:relative}
+.engine h3{font-family:var(--fd);font-size:clamp(24px,3.5vw,34px);font-weight:400;line-height:1.2;margin:0 0 14px;letter-spacing:-.015em;max-width:24ch;position:relative}
+.engine p{color:var(--dmuted);font-size:14.5px;max-width:62ch;margin:0;position:relative;line-height:1.6}
+.engine p+p{margin-top:10px}
+.engine strong{color:var(--dtext);font-weight:600}
+
+/* RECS */
+.tier{margin:32px 0}
+.tier-h{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.tier-b{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border-radius:100px;color:#fff;background:var(--orange)}
+.tier-b.t2{background:var(--blue)}
+.tier-b.t3{background:var(--violet)}
+.tier-h .tt{font-weight:700;font-size:14px;letter-spacing:-.01em}
+.tier-h .line{flex:1;height:1px;background:var(--rule)}
+.rec{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--rule2);align-items:start}
+.rec:last-child{border-bottom:0}
+.rec .rn{font-family:var(--fm);font-size:12px;font-weight:700;color:var(--orange);width:30px;height:30px;border:1.5px solid var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.rec.star{background:linear-gradient(90deg,var(--orangeBg),transparent 70%);margin-left:-10px;padding-left:10px;border-radius:10px 0 0 10px}
+.rec.star .rn{background:var(--orange);color:#fff}
+.rec .rb h5{font-size:14.5px;font-weight:700;margin:3px 0 5px;letter-spacing:-.01em;line-height:1.35}
+.rec .rb p{font-size:13px;color:var(--ink2);margin:0;line-height:1.55}
+.rec .rb p+p{margin-top:6px}
+.star-tag{display:inline-block;font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--orange);color:#fff;padding:2px 7px;border-radius:100px;margin-left:6px;vertical-align:middle}
+
+/* AVOID */
+.avoid{background:var(--roseBg);border:1px solid #FECDD3;border-radius:14px;padding:20px 22px;margin:20px 0}
+.avoid .al{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);margin-bottom:10px}
+.avoid ul{list-style:none;padding:0;margin:0}
+.avoid li{font-size:13px;padding:6px 0;color:var(--ink2);line-height:1.55;border-bottom:1px solid rgba(0,0,0,.05);padding-left:16px;position:relative}
+.avoid li:last-child{border-bottom:0}
+.avoid li::before{content:'→';position:absolute;left:0;color:var(--rose)}
+
+/* PATTERN ROW */
+.pat{display:grid;grid-template-columns:190px 1fr;gap:18px;padding:20px 0;border-bottom:1px solid var(--rule2);align-items:start}
+.pat:last-child{border-bottom:0}
+.pat .pk{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);padding-top:3px}
+.pat .pv{min-width:0}
+.pat .pv p{margin-bottom:8px}
+@media(max-width:700px){.pat{grid-template-columns:1fr;gap:6px}}
+
+/* PULL */
+.pull{font-family:var(--fd);font-size:clamp(22px,3.2vw,30px);line-height:1.3;letter-spacing:-.015em;color:var(--ink);border-left:4px solid var(--orange);padding:4px 0 4px 20px;margin:28px 0;max-width:28ch}
+.pull em{font-style:italic;color:var(--orange)}
+
+/* CHECKLIST visual */
+.ck{display:grid;gap:8px;margin:16px 0}
+.cki{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:14px 16px}
+.cki .box{width:20px;height:20px;border:2px solid var(--orange);border-radius:6px;flex:0 0 auto;margin-top:1px;position:relative}
+.cki .box::after{content:'';position:absolute;left:5px;top:1px;width:5px;height:10px;border:solid var(--orange);border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.cki .tx{font-size:13.5px;color:var(--ink2);line-height:1.5}
+.cki .tx strong{color:var(--ink)}
+
+/* FOOTER */
+footer{background:var(--dark);color:var(--dmuted);padding:clamp(40px,6vw,64px) 0}
+footer .fin{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-start}
+footer .ft{font-family:var(--fd);font-size:24px;color:var(--dtext);margin:0 0 8px}
+footer p{font-size:13px;line-height:1.6;max-width:48ch;margin:0}
+footer .fm2{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;text-align:right}
+footer a{color:#FDBA74;text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* deck mock screenshot */
+.deckmock{width:100%;height:100%;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;position:relative}
+.deckmock .icons{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.deckmock .ic{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#333,#555)}
+.deckmock .ic:nth-child(1){background:linear-gradient(135deg,#D97757,#EA580C)}
+.deckmock .ic:nth-child(2){background:linear-gradient(135deg,#1877F2,#0866FF)}
+.deckmock .ic:nth-child(3){background:linear-gradient(135deg,#2563EB,#1D4ED8)}
+.deckmock .ic:nth-child(4){background:linear-gradient(135deg,#0F766E,#14B8A6)}
+.deckmock .ic:nth-child(5){background:linear-gradient(135deg,#16A34A,#22C55E)}
+.deckmock .ic:nth-child(6){background:linear-gradient(135deg,#7C3AED,#A78BFA)}
+.deckmock .ic:nth-child(7){background:linear-gradient(135deg,#DB2777,#F472B6)}
+.deckmock .ic:nth-child(8){background:linear-gradient(135deg,#334155,#64748B)}
+.deckmock .nm{color:#fff;font-weight:800;font-size:18px;letter-spacing:-.02em}
+.deckmock .sub{color:#888;font-size:12px}
+
+@media print{#prog,.nav{display:none}body{background:#fff}.rv{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<nav class="nav">
+  <div class="nav-in">
+    <div class="nav-logo">9 portfolios, <em>1 variable</em></div>
+    <div class="nav-links">
+      <a href="#grid">The 9</a>
+      <a href="#gradient">Gradient</a>
+      <a href="#carl">01</a><a href="#tammy">02</a><a href="#leo">03</a>
+      <a href="#jakub">04</a><a href="#daniel">05</a><a href="#jenny">06</a>
+      <a href="#joel">07</a><a href="#ian">08</a><a href="#vince">09</a>
+      <a href="#patterns">Patterns</a>
+      <a href="#apply">Steal this</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-in">
+    <div class="hero-kick">
+      <span class="chip">Portfolio audit</span>
+      <span class="chip o">22 Sep 2026</span>
+      <span class="chip ghost">Anthropic · OpenAI · Figma</span>
+      <span class="chip ghost">Every number measured</span>
+    </div>
+
+    <h1>Nine senior portfolios. <em>One variable</em> explains everything.</h1>
+
+    <p class="hero-deck">Light vs dark. Essay vs showreel. 6 case studies vs 73 slides. Surface-level, these nine disagree about everything — until you find the single axis that separates them. Then the whole map snaps into place.</p>
+
+    <div class="hero-stats">
+      <div class="hstat"><div class="n"><span>9</span></div><div class="l">Portfolios torn down</div></div>
+      <div class="hstat"><div class="n"><span>8</span></div><div class="l">Live sites, DOM-read</div></div>
+      <div class="hstat"><div class="n"><span>73</span></div><div class="l">Slides stepped through</div></div>
+      <div class="hstat"><div class="n"><span>4</span></div><div class="l">Things they all do</div></div>
+      <div class="hstat"><div class="n"><span>15</span></div><div class="l">Moves to steal</div></div>
+    </div>
+
+    <div class="insight">
+      <div class="lab">The headline finding · 0.2</div>
+      <h2>The more externally verifiable a person's work is, <em>the less they write.</em></h2>
+      <p>Carl writes 4,000 words because his work sits behind an enterprise login. Daniel writes twelve because you can download his app. Joel writes thirteen lines because you can watch him give the Config talk.</p>
+      <p><strong>Everything else in this document falls out of that one sentence.</strong></p>
+    </div>
+  </div>
+</header>
+
+<!-- THE 9 GRID -->
+<section id="grid">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">00</span>
+      <div>
+        <h2 class="sec-title">The nine, at a glance</h2>
+        <p class="sec-sub">Ordered by how much they explain themselves. Click any card to open the live site, or jump to its teardown below. Colour = career stage on the verifiability gradient.</p>
+      </div>
+    </div>
+
+    <div class="src-grid">
+      <a class="src-card st1" href="https://carlthomasiv.com" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge" style="background:var(--orange)">Stage 1 · Narrative</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fcarlthomasiv.com?w=900&h=560" alt="Screenshot of carlthomasiv.com" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">carlthomasiv.com</div>
+        </div>
+        <div class="body">
+          <span class="idx">01 · §1</span>
+          <div class="nm">Carl Thomas IV</div>
+          <div class="rl">Principal Product Designer, Ona → <strong>OpenAI</strong>. The credibility engine: named risk, reversed decision, footnoted metrics, open question.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card st2" href="https://taamannae.dev" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge" style="background:var(--blue)">Stage 2 · Proof links</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ftaamannae.dev?w=900&h=560" alt="Screenshot of taamannae.dev" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">taamannae.dev</div>
+        </div>
+        <div class="body">
+          <span class="idx">02 · §2</span>
+          <div class="nm">Tammy Taabassum</div>
+          <div class="rl">Staff Product Designer, Gen AI, <strong>Figma</strong>. Recent senior work doesn't get a case study — it gets an outbound link to proof.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card st3" href="#leo">
+        <div class="shot">
+          <span class="stagebadge" style="background:var(--violet)">Stage 3 · Showreel</span>
+          <div class="deckmock">
+            <div class="icons"><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div></div>
+            <div class="nm">Leo Mancini</div>
+            <div class="sub">Selected work · 73-slide deck</div>
+          </div>
+        </div>
+        <div class="body">
+          <span class="idx">03 · §3</span>
+          <div class="nm">Leo Mancini</div>
+          <div class="rl">ex-<strong>Anthropic</strong>, Square, Cash App. 73 slides, ~48 characters each. One screenshot + one user-capability sentence. No process, ever.</div>
+          <div class="go">Read teardown (deck, no site)</div>
+        </div>
+      </a>
+
+      <a class="src-card st2" href="https://zegzulka.com" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge" style="background:var(--blue)">Stage 2 · Proof links</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fzegzulka.com?w=900&h=560" alt="Screenshot of zegzulka.com" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">zegzulka.com</div>
+        </div>
+        <div class="body">
+          <span class="idx">04 · §4</span>
+          <div class="nm">Jakub Zegzulka</div>
+          <div class="rl">Design, <strong>OpenAI</strong> · ex-Apple Special Projects, Meta Reality Labs. Zero-word homepage + five named senior testimonials.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card st3" href="https://danield.design" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge" style="background:var(--violet)">Stage 3 · Showreel</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdanield.design?w=900&h=560" alt="Screenshot of danield.design" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">danield.design</div>
+        </div>
+        <div class="body">
+          <span class="idx">05 · §5</span>
+          <div class="nm">Daniel Destefanis</div>
+          <div class="rl">Product Designer, Consumer, <strong>Anthropic</strong>. Case study copy: twelve words. Four font sizes. Names every ugly interaction state.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card st4" href="https://jennywen.ca" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge" style="background:var(--green)">Stage 4 · Preceding fame</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fjennywen.ca?w=900&h=560" alt="Screenshot of jennywen.ca" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">jennywen.ca</div>
+        </div>
+        <div class="body">
+          <span class="idx">06 · §6</span>
+          <div class="nm">Jenny Wen</div>
+          <div class="rl">Design lead, Claude &amp; Cowork, <strong>Anthropic</strong> · ex-Director, Figma. A dated changelog. Two font sizes. Credits 11 collaborators by name.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card st4" href="https://joellewenstein.com" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge" style="background:var(--green)">Stage 4 · Preceding fame</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fjoellewenstein.com?w=900&h=560" alt="Screenshot of joellewenstein.com" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">joellewenstein.com</div>
+        </div>
+        <div class="body">
+          <span class="idx">07 · §7</span>
+          <div class="nm">Joel Lewenstein</div>
+          <div class="rl">Head of Product Design, <strong>Anthropic</strong>. The whole site: 13 lines, 9 outbound links, 5,887 bytes of HTML, 0 images.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card st4" href="https://iansilber.com" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge" style="background:var(--green)">Stage 4 · Preceding fame</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fiansilber.com?w=900&h=560" alt="Screenshot of iansilber.com" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">iansilber.com</div>
+        </div>
+        <div class="body">
+          <span class="idx">08 · §8</span>
+          <div class="nm">Ian Silber</div>
+          <div class="rl">Head of Product Design, <strong>OpenAI</strong>. The site <em>is</em> the work: a reactive shader, a hidden air-hockey game, a live leaderboard.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card st1" href="https://vincelin.co" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge" style="background:var(--ink)">Caveat · Student</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fvincelin.co?w=900&h=560" alt="Screenshot of vincelin.co" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">vincelin.co</div>
+        </div>
+        <div class="body">
+          <span class="idx">09 · §9</span>
+          <div class="nm">Vince Lin</div>
+          <div class="rl">Claude Builder (student programme) — <strong>not</strong> a product designer at Anthropic. Included for one idea: the Minecraft hero + booking link.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOUR THINGS + GRADIENT -->
+<section id="gradient">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <div>
+        <h2 class="sec-title">What all nine agree on</h2>
+        <p class="sec-sub">Before the differences — the four non-negotiables. Break any one of these and you're not in the set.</p>
+      </div>
+    </div>
+
+    <div class="src-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+      <div class="spec" style="margin:0"><div class="sl">Agreement 01</div><div style="font-family:var(--fd);font-size:22px;line-height:1.2;margin-bottom:8px">The artifact is the argument</div><p style="font-size:13px;color:var(--ink2);margin:0">Every one leads with real, full-fidelity, real-data product UI. Not one leads with a process diagram, persona, or double diamond.</p></div>
+      <div class="spec" style="margin:0"><div class="sl">Agreement 02</div><div style="font-family:var(--fd);font-size:22px;line-height:1.2;margin-bottom:8px">Words are rationed</div><p style="font-size:13px;color:var(--ink2);margin:0">Short, declarative, written in the voice of a decision-maker — not a student documenting an assignment.</p></div>
+      <div class="spec" style="margin:0"><div class="sl">Agreement 03</div><div style="font-family:var(--fd);font-size:22px;line-height:1.2;margin-bottom:8px">Claims are verifiable</div><p style="font-size:13px;color:var(--ink2);margin:0">All route to third-party proof: release notes, App Store, company blog, acquisition coverage, a colleague's tweet, the live product.</p></div>
+      <div class="spec" style="margin:0"><div class="sl">Agreement 04</div><div style="font-family:var(--fd);font-size:22px;line-height:1.2;margin-bottom:8px">The type system is tiny</div><p style="font-size:13px;color:var(--ink2);margin:0">1–3 fonts, 2–8 sizes, site-wide. Hierarchy comes from weight, colour, rules and space — almost never from size.</p></div>
+    </div>
+
+    <h3 class="big">The gradient: how reputation changes the site</h3>
+    <p class="lead">The nine disagree about everything surface-level. What separates them is one variable — and it maps cleanly onto four career stages.</p>
+
+    <div class="grad">
+      <div class="grow st1">
+        <div class="gs"><span class="gn">Stage 1</span><span class="gl">Building a reputation</span></div>
+        <div class="gw">Narrative case studies with outcomes, methodology, tradeoffs. <strong>Every paragraph is a debt</strong> paid because the reader doesn't know you yet.</div>
+        <div class="gh">Carl Thomas<br><span style="color:var(--orange)">+ Vince (caveat)</span></div>
+      </div>
+      <div class="grow st2">
+        <div class="gs"><span class="gn">Stage 2</span><span class="gl">Partly verifiable</span></div>
+        <div class="gw">Narrative for old work, proof links for new. The site starts deleting paragraphs as the outside world vouches for it.</div>
+        <div class="gh">Tammy Taabassum<br>Jakub Zegzulka</div>
+      </div>
+      <div class="grow st3">
+        <div class="gs"><span class="gn">Stage 3</span><span class="gl">Reputation in public</span></div>
+        <div class="gw">Showreels and proof links, minimal text. The work is already famous; the site just needs to not get in the way.</div>
+        <div class="gh">Leo Mancini<br>Daniel Destefanis</div>
+      </div>
+      <div class="grow st4">
+        <div class="gs"><span class="gn">Stage 4</span><span class="gl">Reputation precedes you</span></div>
+        <div class="gw">A dated changelog, a business card, or a toy. Zero persuasion required. The name does the work before the page loads.</div>
+        <div class="gh">Jenny Wen · Joel Lewenstein · Ian Silber</div>
+      </div>
+    </div>
+
+    <div class="duo">
+      <div class="dcard a">
+        <div class="dl">Consequence 1 · your strategy</div>
+        <h4>The question is not "how do I write better case studies." It's <em>"how do I move work into the column that verifies itself?"</em></h4>
+        <p>Every live URL, Wayback capture, named quote and press mention lets you <strong>delete a paragraph</strong>. Deleting paragraphs is how the site gets better.</p>
+      </div>
+      <div class="dcard b">
+        <div class="dl">Consequence 2 · do not skip ahead</div>
+        <h4>A stage-four site made by a stage-one designer reads as <em>empty, not confident.</em></h4>
+        <p>You're at stage one. Carl is your model. Stages 3 and 4 show the destination — and remind you every paragraph is debt you're paying because the reader doesn't know who you are yet.</p>
+      </div>
+    </div>
+
+    <div class="engine">
+      <div class="el">0.3 · The striking one</div>
+      <h3>The three most senior design people across both companies have no portfolio at all.</h3>
+      <p>Not a short one. <strong>None.</strong></p>
+      <p>Joel Lewenstein (Anthropic) → 5,887 bytes of HTML, 9 outbound links. Ian Silber (OpenAI) → an air hockey game. Jenny Wen → a list of dates.</p>
+      <p>Details in §6, §7, §8.</p>
+    </div>
+
+    <details class="dd">
+      <summary>Method — how this was measured</summary>
+      <div class="ddin">
+        <p>Read the live DOM, computed styles, CSS rules, scripts and media manifests for the eight sites; exported and stepped through all 73 slides of the deck. <strong>Every number in this document is measured, not estimated.</strong></p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- 01 CARL -->
+<section id="carl">
+  <div class="wrap">
+    <div class="prof st1">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Stage 1 · Narrative</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fcarlthomasiv.com?w=1000&h=680" alt="carlthomasiv.com screenshot" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://carlthomasiv.com" target="_blank" rel="noopener">↗ Open carlthomasiv.com</a>
+            <span class="url">§1 · Narrative architecture</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">01</span><span class="badge soft">Closest model for you</span></div>
+          <h3>Carl Thomas IV</h3>
+          <div class="role">Principal Product Designer, Ona (acquired by <strong>OpenAI</strong>) · <a href="https://carlthomasiv.com" target="_blank" rel="noopener">carlthomasiv.com</a></div>
+          <p class="hook">The most directly applicable of the nine — <em>because his work requires explanation the way yours does.</em></p>
+        </div>
+      </div>
+
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">4,000</div><div class="k">Words (est.)</div></div>
+        <div class="pstat"><div class="v">8</div><div class="k">Font sizes</div></div>
+        <div class="pstat"><div class="v">5</div><div class="k">Home case studies</div></div>
+        <div class="pstat"><div class="v">18</div><div class="k">CS sections</div></div>
+        <div class="pstat"><div class="v">5</div><div class="k">Credibility moves</div></div>
+      </div>
+
+      <div class="prof-body">
+        <div class="avoid" style="margin-top:0">
+          <div class="al">⚠ Caveat up front — skin vs substance</div>
+          <p style="font-size:13px;margin:0 0 8px;color:var(--ink2)">Dark warm-black + DM Serif + DM Mono eyebrows + numbered rails + footer reading "Built with Claude Code &amp; Next.js." That is the AI-generated look you already flagged.</p>
+          <p style="font-size:14px;font-weight:700;color:var(--rose);margin:0"><strong>Take the writing and information architecture. Do not take the skin.</strong></p>
+        </div>
+
+        <h4 class="mini">The case study template <code class="i">/work/ona-conversations</code></h4>
+        <p style="font-size:13px;color:var(--ink3);margin-bottom:10px">18 sections, each doing a distinct job. Highlighted rows are the ones to steal first.</p>
+
+        <div class="ledger">
+          <div class="lrow"><div class="ln">01</div><div class="lb"><div class="lname">Eyebrow: ONA · AI &amp; AGENTS · PRODUCT DESIGN · PRODUCT STRATEGY</div><div class="lwhy">Instant taxonomy</div></div></div>
+          <div class="lrow"><div class="ln">02</div><div class="lb"><div class="lname">Title with a colon: "Ona Sessions: Moving Work From Chat to PRs"</div><div class="lwhy">Name and thesis in one line</div></div></div>
+          <div class="lrow"><div class="ln">03</div><div class="lb"><div class="lname">One-sentence deck</div><div class="lwhy">"…around the loop developers actually cared about: ask, review, edit, ship."</div></div></div>
+          <div class="lrow"><div class="ln">04</div><div class="lb"><div class="lname">Principal Product Designer · Shipped May 2026</div><div class="lwhy">Role + proof-of-ship, one line, no table</div></div></div>
+          <div class="lrow"><div class="ln">05</div><div class="lb"><div class="lname">Full-fidelity hero screenshot</div><div class="lwhy">The artifact</div></div></div>
+          <div class="lrow key"><div class="ln">06</div><div class="lb"><div class="lname">Outcomes at the top: +69%, +39%, +38%</div><div class="lwhy">Payoff before the story</div></div></div>
+          <div class="lrow"><div class="ln">07</div><div class="lb"><div class="lname">OVERVIEW</div><div class="lwhy">Market context and the stakes</div></div></div>
+          <div class="lrow"><div class="ln">08</div><div class="lb"><div class="lname">THE MISMATCH</div><div class="lwhy">Customer quotes, usage data, competitive scan</div></div></div>
+          <div class="lrow"><div class="ln">09</div><div class="lb"><div class="lname">THE PRINCIPLES BEHIND THE SHIFT</div><div class="lwhy">4 named principles</div></div></div>
+          <div class="lrow"><div class="ln">10</div><div class="lb"><div class="lname">CREATING CONVICTION</div><div class="lwhy">Mapping, Figma, working prototype</div></div></div>
+          <div class="lrow"><div class="ln">11</div><div class="lb"><div class="lname">DESIGNING THE BRIDGE</div><div class="lwhy">3-column before / bridge / after</div></div></div>
+          <div class="lrow"><div class="ln">12</div><div class="lb"><div class="lname">WHAT SHIPPED</div><div class="lwhy">Sub-sections headed by full sentences</div></div></div>
+          <div class="lrow key"><div class="ln">13</div><div class="lb"><div class="lname">WHAT WE CUT, AND WHAT WE KEPT</div><div class="lwhy">Scope tradeoffs with reasoning — strongest credibility move in the report</div></div></div>
+          <div class="lrow"><div class="ln">14</div><div class="lb"><div class="lname">SHIPPING UNDER REAL CONSTRAINTS</div><div class="lwhy">Team shrank; he adjusted and wrote frontend</div></div></div>
+          <div class="lrow"><div class="ln">15</div><div class="lb"><div class="lname">ROLLOUT AND STABILIZATION</div><div class="lwhy">4-stage release + course correction</div></div></div>
+          <div class="lrow key"><div class="ln">16</div><div class="lb"><div class="lname">OUTCOMES + methodology footnote</div><div class="lwhy">Same metrics, absolute numbers, footnote converting marketing → evidence</div></div></div>
+          <div class="lrow"><div class="ln">17</div><div class="lb"><div class="lname">REFLECTION</div><div class="lwhy">4 lessons, one unresolved</div></div></div>
+          <div class="lrow"><div class="ln">18</div><div class="lb"><div class="lname">Link to Ona engineering blog</div><div class="lwhy">External proof</div></div></div>
+        </div>
+
+        <h4 class="mini">The five sentences that make it credible</h4>
+        <p style="font-size:13px;color:var(--ink3);margin-bottom:8px">Structure above. These are the moves — <strong>the single thing most worth stealing from all nine.</strong></p>
+
+        <div class="moves st1">
+          <div class="move">
+            <div class="mh"><span class="mn">MOVE 01</span><span class="mt">Names the internal opposition — and says he overruled it.</span></div>
+            <p class="mq">"…carried real risk, <b>and not everyone was sure we should. I made the argument anyway.</b>"</p>
+          </div>
+          <div class="move">
+            <div class="mh"><span class="mn">MOVE 02</span><span class="mt">Lets data contradict internal opinion — including possibly his own.</span></div>
+            <p class="mq">"When I looked at real Core and Enterprise data, it did not show the editor mapping to real-world usage the way internal sentiment assumed."</p>
+          </div>
+          <div class="move">
+            <div class="mh"><span class="mn">MOVE 03</span><span class="mt">Documents a course correction he later reversed.</span></div>
+            <p class="mq">"We later removed the auto-open behavior… <b>Early discomfort can look like failure if you react too quickly.</b>"</p>
+          </div>
+          <div class="move">
+            <div class="mh"><span class="mn">MOVE 04</span><span class="mt">Footnotes his own metrics like a researcher.</span></div>
+            <p class="mq">"Anchored to full enterprise rollout 2026-04-06, measured over the 30 days following, against a 30-day pre-launch baseline. External cohort (all non-internal accounts)."</p>
+            <p style="font-size:12.5px;color:var(--ink3);margin:8px 0 0;padding-left:12px">And on the chart: <em>"Growth later in the period is shared with Automations, which grew from 20.2% to 40.5% of executions."</em> He attributes part of his own result to someone else's feature.</p>
+          </div>
+          <div class="move">
+            <div class="mh"><span class="mn">MOVE 05</span><span class="mt">Ends with a question he could not answer.</span></div>
+            <p class="mq">"Top of funnel softened later in ways I could not explain from the data I had, and that is the thread I would pull next… we designed mostly for the tenth session, not the first."</p>
+          </div>
+        </div>
+
+        <div class="engine" style="margin-top:20px">
+          <div class="el">The credibility engine</div>
+          <h3>A portfolio of only wins reads as marketing. A portfolio with a named risk, a reversed decision, a shared credit, a methodology and an open question reads as a practitioner's account.</h3>
+          <p><strong>This is the single thing most worth stealing from all nine sites.</strong></p>
+        </div>
+
+        <details class="dd">
+          <summary>Two reusable visual components + type system</summary>
+          <div class="ddin">
+            <div class="spec">
+              <div class="sl">The loop chain</div>
+              <div class="loopc">
+                <div class="lstep"><div class="n">01</div><div class="t">Conversation</div><div class="d">Ask for work</div></div>
+                <div class="larr">→</div>
+                <div class="lstep"><div class="n">02</div><div class="t">Execution</div><div class="d">Agent makes changes</div></div>
+                <div class="larr">→</div>
+                <div class="lstep"><div class="n">03</div><div class="t">Review</div><div class="d">Inspect the diff</div></div>
+                <div class="larr">→</div>
+                <div class="lstep"><div class="n">04</div><div class="t">Delivery</div><div class="d">Ship the PR</div></div>
+              </div>
+            </div>
+            <div class="spec">
+              <div class="sl">The three-column bridge</div>
+              <div class="bridge">
+                <div class="bcol"><div class="bl">Where customers were</div><ul><li>Environment-first</li><li>Code-first</li><li>Manual review</li><li>Runtime visible</li></ul></div>
+                <div class="bcol mid"><div class="bl">Bridge release ›</div><ul><li>Conversation-first</li><li>Code still inspectable</li><li>Review close to dialogue</li><li>Environment when needed</li></ul></div>
+                <div class="bcol"><div class="bl">Where Ona needed to go</div><ul><li>Session-first</li><li>Agent-led execution</li><li>Human review and judgment</li><li>Infrastructure in background</li></ul></div>
+              </div>
+              <p style="font-size:12.5px;color:var(--ink3);margin:0">Four lines per column, no verbs. Communicates an entire product strategy in one glance.</p>
+            </div>
+
+            <div class="tw">
+              <table>
+                <thead><tr><th>Element</th><th>Treatment</th></tr></thead>
+                <tbody>
+                  <tr><td>Section labels</td><td class="mono">DM Mono · ~11px · uppercase · wide tracking · hairline rule beneath</td></tr>
+                  <tr><td>Sub-headings</td><td class="mono">DM Serif Display · sentence case · ~22px</td></tr>
+                  <tr><td>Body</td><td class="mono">DM Sans · 16px</td></tr>
+                  <tr><td>Metrics</td><td class="mono">DM Serif numerals ~48px · small % · small arrow</td></tr>
+                  <tr><td>Captions</td><td class="mono">DM Sans · 14px · muted</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="srow">
+              <div class="sq"><div class="sv">8</div><div class="sk">Sizes site-wide</div></div>
+              <div class="sq"><div class="sv">41<span class="u">px</span></div><div class="sk">Biggest size</div></div>
+              <div class="sq"><div class="sv">3</div><div class="sk">Fonts (one family)</div></div>
+              <div class="sq"><div class="sv">5</div><div class="sk">Case studies on home</div></div>
+            </div>
+
+            <div class="spec">
+              <div class="sl">Card one-liners — the Carl test</div>
+              <ul class="d" style="margin:0">
+                <li>"Restructuring the mental model for a multi-tenant cloud console."</li>
+                <li>"Reducing friction in the path from free to paid without the hard sell."</li>
+                <li>"Zero-config database environments that spin up in milliseconds. No signup required."</li>
+                <li>"Making team boundaries legible inside invite flows to reduce workspace confusion."</li>
+                <li>"Giving Android developers a live, hierarchical view of their UI at runtime."</li>
+              </ul>
+              <p style="font-size:12.5px;color:var(--ink3);margin:10px 0 0">None say what he built. All say what changed.</p>
+            </div>
+
+            <ul class="d">
+              <li><strong>Filter chips by theme, not company:</strong> <code class="i">ALL / INFRASTRUCTURE / DX / GROWTH / AI &amp; AGENTS</code></li>
+              <li><strong>A <code class="i">NOW</code> section:</strong> "Right now I'm thinking about trust: how much of it AI tools have actually earned versus assumed."</li>
+              <li><strong><code class="i">/thinking</code></strong> split into NOTES vs PUBLISHED ELSEWHERE, with honest Author / Co-Author credits.</li>
+              <li><strong><code class="i">CONVICTIONS</code></strong>: three named beliefs, each argued — "Systems over Simplicity", "Design is a leadership problem", "Ship fast, learn fast".</li>
+              <li>Home shows <strong>5</strong> case studies (<code class="i">01</code>–<code class="i">05</code>), VIEW ALL → full 14.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 TAMMY -->
+<section id="tammy">
+  <div class="wrap">
+    <div class="prof st2">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Stage 2 · Proof links</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ftaamannae.dev?w=1000&h=680" alt="taamannae.dev screenshot" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://taamannae.dev" target="_blank" rel="noopener">↗ Open taamannae.dev</a>
+            <span class="url">§2 · Link-out strategy</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">02</span><span class="badge soft">Structural inversion</span></div>
+          <h3>Tammy Taabassum</h3>
+          <div class="role">Staff Product Designer, Gen AI, <strong>Figma</strong> · ex-Meta, Xbox, Instok · <a href="https://taamannae.dev" target="_blank" rel="noopener">taamannae.dev</a></div>
+          <p class="hook">Recent, senior work does not get a case study. <em>It gets an outbound link to proof.</em></p>
+        </div>
+      </div>
+
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">14</div><div class="k">Work cards</div></div>
+        <div class="pstat"><div class="v">6</div><div class="k">Font sizes</div></div>
+        <div class="pstat"><div class="v">1</div><div class="k">Hover effect</div></div>
+        <div class="pstat"><div class="v">8</div><div class="k">External mentions</div></div>
+      </div>
+
+      <div class="prof-body">
+        <p>The 14 cards split cleanly: recent senior work → outbound proof (release notes, blog, colleague's tweet, <code class="i">facebook.com/settings</code>); older/side/student work → internal narrative case studies where she owns the whole story.</p>
+
+        <div class="tw">
+          <table>
+            <thead><tr><th>Work</th><th>Links to</th></tr></thead>
+            <tbody>
+              <tr><td>Figma prompt to edit (2025)</td><td class="mono">Figma release notes</td></tr>
+              <tr><td>Figma Make × Supabase (2025)</td><td class="mono">YouTube demo</td></tr>
+              <tr><td>Figma Make edit tool (2025)</td><td class="mono">Figma help centre</td></tr>
+              <tr><td>First Draft relaunch (2024)</td><td class="mono">The Figma blog</td></tr>
+              <tr class="peak"><td>Notifications (2024)</td><td><strong>A tweet from a colleague announcing it</strong></td></tr>
+              <tr><td>ChromeOS PWA (2024)</td><td class="mono">chromeos.dev · Google I/O keynote</td></tr>
+              <tr><td>Octoshop (2022)</td><td class="mono">theygotacquired.com</td></tr>
+              <tr><td>Account settings, Meta (2022)</td><td class="mono">facebook.com/settings — the live product</td></tr>
+              <tr><td>Museum AR/VR, NFT, Menti, BSc… (2020–22)</td><td class="mono">Internal case study pages</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="pull" style="border-color:var(--blue)"><em>For anything recent, the world already vouches for me — here is the receipt.</em></p>
+
+        <details class="dd">
+          <summary>Card anatomy + visual system (measured)</summary>
+          <div class="ddin">
+            <div class="spec">
+              <div class="sl">Component spec — work card</div>
+              <div class="dcard-demo">
+                <div class="th"></div>
+                <div class="cb">
+                  <div class="tr"><span class="ct">Prompt to edit</span><span class="pill">Shipped <span class="a">↗</span></span></div>
+                  <div class="cd">Partnering with UX writing for technical copy and engineers to sort out edge cases, error states and bugs.</div>
+                  <div class="cm">Figma · 2025</div>
+                </div>
+              </div>
+              <div class="tw" style="margin-top:16px;margin-bottom:0">
+                <table>
+                  <thead><tr><th>Element</th><th>Spec</th></tr></thead>
+                  <tbody>
+                    <tr><td>Thumbnail</td><td>Animated GIF of actual product · 12px radius · 65% aspect · on <code class="i">#E2E2DE</code></td></tr>
+                    <tr><td>Title</td><td class="mono">24px / 700</td></tr>
+                    <tr><td>Status pill</td><td class="mono">28px · radius 100 · 1.5px border · 13px/700 uppercase · blur(10px)</td></tr>
+                    <tr><td>Description</td><td class="mono">16px/500 muted — what, what I did, who with</td></tr>
+                    <tr><td>Meta</td><td class="mono">16px/600 — "Figma · 2025"</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <h4 class="mini">Three details worth stealing</h4>
+            <ul class="d">
+              <li><strong>The status pill carries the credibility, not the copy.</strong> <code class="i">SHIPPED</code> / <code class="i">ACQUIRED</code> as a typed enum, tiny arrow at 30% opacity = "this goes somewhere real."</li>
+              <li><strong>Thumbnails are GIFs of the actual product</strong> — not screenshots, not abstract art.</li>
+              <li><strong>The description names the collaboration.</strong> One clause proving real teamwork beats a paragraph claiming it.</li>
+            </ul>
+
+            <div class="toks">
+              <div class="tok"><div class="sw" style="background:#F1F1EE"></div><div class="k">Background</div><div class="v">#F1F1EE</div></div>
+              <div class="tok"><div class="sw" style="background:#212529"></div><div class="k">Text</div><div class="v">#212529</div></div>
+              <div class="tok"><div class="sw" style="background:#898989"></div><div class="k">Muted</div><div class="v">#898989</div></div>
+              <div class="tok"><div class="sw" style="background:#E2E2DE"></div><div class="k">Card</div><div class="v">#E2E2DE</div></div>
+              <div class="tok"><div class="sw" style="background:#252525"></div><div class="k">Dark band</div><div class="v">#252525</div></div>
+              <div class="tok"><div class="sw" style="background:linear-gradient(90deg,#F1F1EE 0%,#F1F1EE 16%,#E2E2DE 16%)"></div><div class="k">Sizes</div><div class="v">6: 64/24/20/18/16/13</div></div>
+            </div>
+            <pre>Manrope + neulis-cursive (H1 only)
+grid  repeat(3,1fr) gap 32 · 2col @1048 · 1col @730
+hover scale(1.05) .4s  <span class="cm">← the entire interaction vocabulary</span>
+pill  28px · radius 100 · 1.5px border · 13px/700 uppercase · blur(10px)</pre>
+
+            <h4 class="mini">Hero + case study template</h4>
+            <p>Fixed "Hello, I'm Tammy" at 64px + a <strong>rotating second line</strong> ("I could eat my weight in Korean short ribs") with blur-to-sharp. Three seconds to know she's a person, not a deck.</p>
+            <p><code class="i">/projects/rom</code> order: hero → title → context (+ honest disclaimer) → metadata → <strong>"Final designs and solutions" BEFORE any process</strong> → research stats → sketches → three Before/After pairs → brand → VR.</p>
+            <div class="moves st2">
+              <div class="move"><div class="mh"><span class="mn">TAKE 01</span></div><p class="mq"><b>Solutions before process.</b> A hiring manager who bounces after 40% has still seen the work.</p></div>
+              <div class="move"><div class="mh"><span class="mn">TAKE 02</span></div><p class="mq"><b>The Before/After pairs are microscopic — therefore believable.</b> "The 'view' button was unclear → changed to 'View Collection.'" Nobody fabricates a detail that small.</p></div>
+            </div>
+            <p>Feature sections flip to a near-black band (<code class="i">#252525</code>) inside the warm-light page. Reading stays light, demos go dark so screens pop.</p>
+
+            <h4 class="mini">About page inventions</h4>
+            <ul class="d">
+              <li><strong>"My super powers":</strong> four <em>named</em> capabilities with an argument each — can't be faked into a bar chart; gives an interviewer a phrase to quote.</li>
+              <li><strong>"Featured in":</strong> 8 dated external mentions. Pure third-party credibility, zero self-assertion.</li>
+              <li>Name pronunciation <code class="i">/tah · maan · nuh/</code> · "Day job" vs "Out of office" · <code class="i">/fun</code> page with 23 flag emoji · rotating footer joke.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 LEO -->
+<section id="leo">
+  <div class="wrap">
+    <div class="prof st3">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Stage 3 · Showreel</span>
+          <div class="deckmock" style="aspect-ratio:auto;height:100%">
+            <div class="icons"><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div></div>
+            <div class="nm">Leo Mancini</div>
+            <div class="sub">Selected work</div>
+          </div>
+          <div class="ov"></div>
+          <div class="visit">
+            <span style="font-family:var(--fm);font-size:10px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6)">Public Google Slides · no URL screenshot</span>
+            <span class="url">§3 · Compression</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">03</span><span class="badge soft">73 slides · ~48 chars each</span></div>
+          <h3>Leo Mancini</h3>
+          <div class="role">73-slide public Google Slides deck · ex-<strong>Anthropic</strong>, Facebook, Square, Cash App, Indeed, Code for America</div>
+          <p class="hook">One product screenshot at full fidelity, with <em>one sentence above it</em> describing what a person can now do. Seventy times over.</p>
+        </div>
+      </div>
+
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">73</div><div class="k">Slides</div></div>
+        <div class="pstat"><div class="v">~3,500</div><div class="k">Chars total</div></div>
+        <div class="pstat"><div class="v">~48</div><div class="k">Chars / slide</div></div>
+        <div class="pstat"><div class="v">0</div><div class="k">Process diagrams</div></div>
+      </div>
+
+      <div class="prof-body">
+        <p>No "problem." No "process." No "role." No metrics. No team. No timeline. Captions, verbatim:</p>
+        <pre>Check your balance and review recent transactions.
+Understand your recent spending trends by filtering and sorting.
+Transfer money and set up direct deposit.
+Save for a goal and track your progress.
+Get reimbursed for expenses as a working caregiver.
+Find and compare training programs eligible for tuition assistance.
+Answer questions about your business so that Square can process payments for you.
+<span class="hl">When selling CBD on Square, we need to verify some information.</span></pre>
+        <p>Every caption is <strong>from the user's side, in the user's language, as a capability</strong> — never "I designed the transactions list." Over 70 slides: a designer who thinks exclusively in jobs-to-be-done. He never says it. He doesn't have to.</p>
+        <p>He kept the weird regulatory edge case in. Real product work is full of those; including one proves you did the real work.</p>
+
+        <div class="slide">
+          <div class="cap">Slide 2 · recurs 4× · one line lit each pass</div>
+          <div class="lines">
+            <div class="on">I love making art with AI</div>
+            <div class="off">I love building products with AI</div>
+            <div class="off">I love designing user interfaces</div>
+            <div class="off">I love shipping software (professionally for 13 years)</div>
+          </div>
+          <div class="note">The active line is white; the other three dimmed to ~40%. One asset, four jobs: thesis, TOC, progress indicator, section break. Zero chrome. The only credential in the whole manifesto is "(professionally for 13 years)" — in parentheses, on the last line.</div>
+        </div>
+
+        <details class="dd">
+          <summary>Title slide, slide craft, and why Slides at all</summary>
+          <div class="ddin">
+            <ul class="d">
+              <li><strong>Title slide:</strong> black. Eight product app icons (not wordmarks) — Anthropic, Facebook, Code for America, Indeed, Square, Cash App, Peach. Name + "Selected work". Nothing else.</li>
+              <li><strong>Black throughout</strong> so every screenshot reads as a lit window.</li>
+              <li>Caption: small, centred, top, sentence case, ends with a period.</li>
+              <li><strong>Screenshots bleed off the bottom edge</strong> — cropped by the frame, not floating. That's what makes them feel like real windows.</li>
+              <li>Three layouts only: 1-up centred, 3-up phones, 1-up browser chrome.</li>
+              <li><strong>Real data everywhere:</strong> <code class="i">$256.12</code>, <code class="i">SPDR S&P 500 · Jan 28 2024 3:30 PM · $1.16</code>. Nothing is Lorem.</li>
+              <li>Older work on <strong>period-correct devices</strong> — 2019 Indeed in an iPhone SE with a home button.</li>
+              <li><strong>Why Slides:</strong> loads instantly, works everywhere, no maintenance — and <em>the medium sets expectations correctly</em>. Nobody opens a deck expecting a 3,000-word essay. Choosing Slides is itself a decision to be concise.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 JAKUB -->
+<section id="jakub">
+  <div class="wrap">
+    <div class="prof st2">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Stage 2 · Proof links</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fzegzulka.com?w=1000&h=680" alt="zegzulka.com screenshot" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://zegzulka.com" target="_blank" rel="noopener">↗ Open zegzulka.com</a>
+            <span class="url">§4 · Testimonial wall</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">04</span><span class="badge soft">Most immediately usable device</span></div>
+          <h3>Jakub Zegzulka</h3>
+          <div class="role">Design, <strong>OpenAI</strong> · ex-Apple Special Projects, Meta Reality Labs (Orion, Ray-Ban Meta) · <a href="https://zegzulka.com" target="_blank" rel="noopener">zegzulka.com</a></div>
+          <p class="hook">No other portfolio in this set uses testimonials. This one leans on them entirely — <em>and it works because the titles are senior and the names are checkable.</em></p>
+        </div>
+      </div>
+
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">2</div><div class="k">Font sizes total</div></div>
+        <div class="pstat"><div class="v">12<span class="u">px</span></div><div class="k">Body size</div></div>
+        <div class="pstat"><div class="v">5</div><div class="k">Named testimonials</div></div>
+        <div class="pstat"><div class="v">0</div><div class="k">Words on homepage</div></div>
+      </div>
+
+      <div class="prof-body">
+        <h4 class="mini" style="margin-top:0">The homepage has no words</h4>
+        <p>Nav at 12px. Below: a vertical stack of full-viewport panels — client logo on near-white, or full-bleed product photo. No titles. No descriptions. No years. Six link to project pages. <strong>You are meant to recognise the logos and click.</strong> It's Leo's icon row expanded into a whole homepage.</p>
+
+        <h4 class="mini">Four-corner metadata + organisational outcomes</h4>
+        <pre>Meta, Orion                                              Internship
+Art Direction, UX, Prototyping                                 2023</pre>
+        <p>Then the thesis, set larger: <strong>"Designing OS for Orion, the first AR Glasses by Meta."</strong></p>
+        <p>Two things stand out. First, <code class="i">Internship</code> is stated plainly, not buried. Second, the role paragraphs describe <strong>organisational</strong> outcomes, not visual ones:</p>
+
+        <div class="moves st2" style="grid-template-columns:1fr">
+          <div class="move" style="border-left-color:var(--blue)">
+            <div class="mh"><span class="mn" style="color:var(--blue)">THE ORG-OUTCOME MOVE</span></div>
+            <p class="mq">"My project captured the attention of the design director, <b>resulting in addition of more ICs</b> (content, sound, 3D, prototyping) to support the design while I maintained focus on art direction, process, UI and UX."</p>
+            <p style="font-size:12.5px;color:var(--ink3);margin:8px 0 0;padding-left:12px">"I secured leadership approval and received positive feedback up to the VP level." For an intern with no metrics and an NDA: <strong>"my work caused the company to staff up around it" is the strongest available proof of impact.</strong></p>
+          </div>
+        </div>
+
+        <p class="pull" style="border-color:var(--blue)"><em>Transferable to any project where you cannot show numbers: describe what the organisation did in response to the work.</em></p>
+
+        <h4 class="mini">The testimonial wall — the device to steal first</h4>
+        <div class="spec">
+          <div class="sl">Two of the five · full names + real titles</div>
+          <div class="moves st2" style="margin:0">
+            <div class="move" style="border-left-color:var(--blue)">
+              <p class="mq">"It is amazing that, in addition to your great work, you managed to get the PMs onboard with your work, ramp up additional ICs. Seriously, this is a big time stuff that is well beyond what most interns can do."</p>
+              <div class="mn2">Michael Ishigaki · Director of Product Design</div>
+            </div>
+            <div class="move" style="border-left-color:var(--blue)">
+              <p class="mq">"Excellent work, Jakub!"</p>
+              <div class="mn2">Joshua To · VP of Product Design</div>
+            </div>
+          </div>
+          <p style="font-size:12.5px;color:var(--ink3);margin:12px 0 0">Plus a 3D designer, his intern manager, and a staff product designer. Note he kept Joshua To's <strong>three-word quote</strong>. A slightly perfunctory line from a VP reads as more real than a polished paragraph — a fabricated testimonial would never be that brief.</p>
+        </div>
+
+        <div class="engine">
+          <div class="el">Why this is the most immediately usable device in the document</div>
+          <h3>A four-word quote from a CEO beats a polished paragraph from nobody in particular.</h3>
+          <p>Collect two or three with full names and real job titles. Put them at the bottom of the relevant case study, not the homepage. Keep them short. Do not edit them into marketing copy.</p>
+        </div>
+
+        <details class="dd">
+          <summary>Measured tokens</summary>
+          <div class="ddin">
+            <div class="toks">
+              <div class="tok"><div class="sw" style="background:#fff"></div><div class="k">Background</div><div class="v">#fff</div></div>
+              <div class="tok"><div class="sw" style="background:#000"></div><div class="k">Text</div><div class="v">#000</div></div>
+              <div class="tok"><div class="sw" style="background:linear-gradient(90deg,#000 0%,#000 50%,#eee 50%)"></div><div class="k">Sizes</div><div class="v">2: 16 / 12</div></div>
+              <div class="tok"><div class="sw" style="background:repeating-linear-gradient(45deg,#f5f5f5,#f5f5f5 4px,#fff 4px,#fff 8px)"></div><div class="k">Media</div><div class="v">11v + 11i</div></div>
+            </div>
+            <pre>system sans, no webfont
+<span class="hl">2 font sizes: 16px thesis, 12px everything else</span>
+11 videos, 11 images on homepage · 6 project pages under /p/
+four-corner metadata · 5 named testimonials · footer reads <span class="ok">2077</span></pre>
+            <p style="font-size:13px">A 12px body size would be a mistake on most sites. It works here because there's almost no text to read; <strong>the type is chrome around imagery, not content.</strong></p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 DANIEL -->
+<section id="daniel">
+  <div class="wrap">
+    <div class="prof st3">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Stage 3 · Showreel</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdanield.design?w=1000&h=680" alt="danield.design screenshot" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://danield.design" target="_blank" rel="noopener">↗ Open danield.design</a>
+            <span class="url">§5 · Radical restraint</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">05</span><span class="badge soft">Most instructive on craft signal</span></div>
+          <h3>Daniel Destefanis</h3>
+          <div class="role">Product Designer, Consumer, <strong>Anthropic</strong> · ex-Figma, Discord · <a href="https://danield.design" target="_blank" rel="noopener">danield.design</a></div>
+          <p class="hook">Full text of the Figma Make case study: <em>"Helping people to turn their ideas into software."</em> That's it. Then nine looping videos.</p>
+        </div>
+      </div>
+
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">4</div><div class="k">Font sizes</div></div>
+        <div class="pstat"><div class="v">24<span class="u">px</span></div><div class="k">Largest size</div></div>
+        <div class="pstat"><div class="v">7</div><div class="k">Home case studies</div></div>
+        <div class="pstat"><div class="v">22</div><div class="k">Archive rows</div></div>
+        <div class="pstat"><div class="v">2</div><div class="k">Font files (62KB ea)</div></div>
+      </div>
+
+      <div class="prof-body">
+        <p>The filenames are the actual outline:</p>
+        <pre><span class="cm">/* nine looping videos + two stills */</span>
+question-cards.mp4        loading-idea.mp4        updated-multi-upload.mp4
+version-history.mp4       <span class="hl">empty-state.mp4</span>         <span class="hl">prompt-enhance.mp4</span>
+html-to-design-clip.mp4   make-video.mp4          standalone.webp / design.webp</pre>
+
+        <p>Read that again. <strong><code class="i">empty-state</code>.</strong> <strong><code class="i">version-history</code>.</strong> <strong><code class="i">multi-upload</code>.</strong> These are the <strong>unglamorous surfaces</strong> — states that only ship if a designer fought for them. Not a hero screen: the seven places the product could have felt cheap and doesn't. To another designer, that's a far stronger claim than any paragraph.</p>
+
+        <div class="moves st3">
+          <div class="move"><div class="mh"><span class="mn">ASPIRATION, NOT TEMPLATE</span></div><p class="mq">This only works if you have this much shipped, watchable evidence. <b>The principle — name the interaction, show the interaction — is copyable at any scale.</b></p></div>
+        </div>
+
+        <div class="srow">
+          <div class="sq"><div class="sv">4</div><div class="sk">Font sizes</div></div>
+          <div class="sq"><div class="sv">24<span class="u">px</span></div><div class="sk">Largest (no display type)</div></div>
+          <div class="sq"><div class="sv">1</div><div class="sk">Font family</div></div>
+          <div class="sq"><div class="sv">2</div><div class="sk">Weights</div></div>
+        </div>
+
+        <p class="pull" style="border-color:var(--violet)"><em>He is signalling "I build software interfaces" rather than "I make posters" — and the type scale is the signal.</em></p>
+
+        <details class="dd">
+          <summary>Media engineering, hero shader, curation, About voice</summary>
+          <div class="ddin">
+            <h4 class="mini">Media engineering (directly actionable)</h4>
+            <ul class="d">
+              <li>Looping <strong>MP4, not GIF</strong>: <code class="i">muted</code>, <code class="i">loop</code>, <code class="i">autoplay=false</code>, played/paused by IntersectionObserver. Only the visible one runs.</li>
+              <li>Filenames encode export width: <code class="i">potrait-list-500w.mp4</code> → rendered at 500×1088. <strong>Exported at display size.</strong> No 1080p in a 500px slot.</li>
+              <li>Two font files, 62KB each (GT Standard Regular + Medium). <strong>Two weights for the entire site.</strong></li>
+            </ul>
+
+            <div class="toks">
+              <div class="tok"><div class="sw" style="background:#fff"></div><div class="k">Background</div><div class="v">#FFF</div></div>
+              <div class="tok"><div class="sw" style="background:#171717"></div><div class="k">Foreground</div><div class="v">#171717</div></div>
+              <div class="tok"><div class="sw" style="background:linear-gradient(90deg,#171717 0%,#171717 25%,#f5f5f5 25%)"></div><div class="k">Sizes</div><div class="v">24/20/17/16</div></div>
+              <div class="tok"><div class="sw" style="background:repeating-linear-gradient(45deg,#ECECEC,#ECECEC 4px,#fff 4px,#fff 8px)"></div><div class="k">Radii</div><div class="v">48/24/15/12/pill</div></div>
+              <div class="tok"><div class="sw" style="background:linear-gradient(90deg,#F97316,#FBBF24,#86EFAC)"></div><div class="k">Transitions</div><div class="v">0.1–0.25s</div></div>
+              <div class="tok"><div class="sw" style="background:#fff;font-family:var(--fm);font-size:11px;display:flex;align-items:center;justify-content:center;color:#666">GT Standard</div><div class="k">Font</div><div class="v">Grilli Type · credited</div></div>
+            </div>
+
+            <h4 class="mini">The hero is itself a portfolio piece</h4>
+            <p>Live animated shader (ocean + caustics) with a <strong>sun button that opens two range sliders</strong>. Frosted-glass card holds the bio, "Currently at Anthropic", and a <strong>live local clock</strong>. The pulsing dots quote the chat typing indicator — a private joke for AI builders.</p>
+            <p style="color:var(--ink3);font-size:13px"><strong style="color:var(--ink2)">Honest criticism:</strong> pink-on-teal body text over the animation is hard to read. Beautiful, slightly at the expense of legible.</p>
+
+            <div class="dd2">
+              <div class="ddbox yes">
+                <header>Homepage · curated</header>
+                <ul><li><strong>7 case studies.</strong> That's it.</li><li>No weak thumbnails.</li><li>Dropdown nav — one click from anywhere.</li></ul>
+              </div>
+              <div class="ddbox">
+                <header style="background:var(--blueBg);color:var(--blue)">About · archive of work</header>
+                <ul><li><strong>22 rows</strong>: <code class="i">Project · Company · Month Year</code></li><li>June 2026 → April 2014</li><li>~40 lines proving twelve years</li><li>Side projects live here without diluting the curated set</li></ul>
+              </div>
+            </div>
+
+            <div class="slide" style="background:var(--paper2);border-color:var(--rule);text-align:left;padding:24px">
+              <div style="font-family:var(--fd);font-size:22px;line-height:1.5;color:var(--ink)">
+                I love building things for others.<br>
+                Design is a team sport.<br>
+                Keep learning.
+              </div>
+              <div style="font-size:12.5px;color:var(--ink3);margin-top:14px;line-height:1.55">Under "Design is a team sport": <em>"At Discord, I led a team of 10… Since then, the pendulum has swung back and I've enjoyed having my hands in the clay again."</em> Handles "why is a former manager an IC?" before anyone asks. Signed off <code class="i">&lt;3</code>.</div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 JENNY -->
+<section id="jenny">
+  <div class="wrap">
+    <div class="prof st4">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Stage 4 · Preceding fame</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fjennywen.ca?w=1000&h=680" alt="jennywen.ca screenshot" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://jennywen.ca" target="_blank" rel="noopener">↗ Open jennywen.ca</a>
+            <span class="url">§6 · The changelog</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">06</span><span class="badge soft">Two font sizes · extreme discipline</span></div>
+          <h3>Jenny Wen</h3>
+          <div class="role">Design lead for Claude and Cowork, <strong>Anthropic</strong> · ex-Director of Design, Figma · <a href="https://jennywen.ca" target="_blank" rel="noopener">jennywen.ca</a></div>
+          <p class="hook">No case studies. No project pages. <em>One reverse-chronological list of 27 dated entries</em> on a single scrolling page.</p>
+        </div>
+      </div>
+
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">27</div><div class="k">Dated entries</div></div>
+        <div class="pstat"><div class="v">11</div><div class="k">Name collaborators</div></div>
+        <div class="pstat"><div class="v">2</div><div class="k">Font sizes</div></div>
+        <div class="pstat"><div class="v">0</div><div class="k">Videos</div></div>
+        <div class="pstat"><div class="v">96<span class="u">px</span></div><div class="k">Logotype (used once)</div></div>
+      </div>
+
+      <div class="prof-body">
+        <div class="spec" style="margin-top:0">
+          <div class="sl">The template · repeated 27× without variation</div>
+<pre style="margin:0">March 2026
+Dispatch  [sep]  We also shipped Dispatch for Cowork and Claude Code.
+                 A new way to get Claude to do stuff when you're AFK.
+[ one image, 547px wide ]</pre>
+          <p style="font-size:12.5px;color:var(--ink3);margin:12px 0 0">A date, a linked title, a separator, one or two sentences, one image.</p>
+        </div>
+
+        <p>What makes it interesting is <strong>what she lets into the list.</strong> Shipped product sits at the same weight as:</p>
+
+        <div class="dd2">
+          <div class="ddbox yes">
+            <header>Shipped product</header>
+            <ul><li>Dispatch for Cowork and Claude Code</li><li>Claude.ai redesign ("unshipping stuff")</li><li>FigJam's core experience at launch</li></ul>
+          </div>
+          <div class="ddbox">
+            <header style="background:var(--blueBg);color:var(--blue)">At the same weight</header>
+            <ul>
+              <li>Podcasts (Lenny's, Dive Club)</li>
+              <li>Config 2021, 2023, 2024 · CanUX</li>
+              <li>A university club talk in Waterloo</li>
+              <li>Figma Early Career Week hiring panel</li>
+              <li>A 2019 plugin ("proud of myself for remembering recursion")</li>
+              <li>"Word magnets" joke widget</li>
+              <li>Joining First Round's angel investing cohort</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="pull" style="border-color:var(--green)"><em>A career rendered as a continuous stream of output rather than a set of trophies — harder to fake than three polished case studies.</em></p>
+
+        <h4 class="mini">The leadership signal: credits people by name, constantly</h4>
+        <div class="moves st4">
+          <div class="move"><div class="mh"><span class="mn">CREDIT 01</span></div><p class="mq">"I had the honor of supporting <b>Keeyen Yeo, Khalil Cader, and Jakub Swiadek</b> through the year in which they launched Figma's third product."</p></div>
+          <div class="move"><div class="mh"><span class="mn">CREDIT 02</span></div><p class="mq">"I'm very proud to have supported the team: <b>Natasha Tenggoro, Rocky Chen, Aosheng Ran, Matt Chan</b>, and many other cross-functional folks."</p></div>
+          <div class="move"><div class="mh"><span class="mn">CREDIT 03</span></div><p class="mq">"I worked closely with <b>Rasmus Andersson</b> on the first version of our Community"</p></div>
+        </div>
+        <p>At director level this <em>is</em> the work. <strong>She cannot claim the pixels, so she claims the enablement</strong> — and naming real people makes it verifiable. Anyone can check whether Keeyen Yeo exists.</p>
+
+        <div class="moves st4">
+          <div class="move"><div class="mh"><span class="mn">SCOPE</span></div><p class="mq">"I designed the core experience for FigJam's launch: its shapes, sticky notes, text, and all of their core interactions."</p><p style="font-size:12.5px;color:var(--ink3);margin:8px 0 0;padding-left:12px">Specific nouns. Not "led design for FigJam."</p></div>
+          <div class="move"><div class="mh"><span class="mn">UNSHIPPING</span></div><p class="mq">"…refreshing the look and feel, <b>unshipping stuff</b>, tightening a lot of small details, and making the product feel more coherent as it kept growing."</p><p style="font-size:12.5px;color:var(--ink3);margin:8px 0 0;padding-left:12px">"Unshipping stuff" is the whole job in two words. Nobody writes it unless they've done it.</p></div>
+        </div>
+
+        <div class="moves st4" style="grid-template-columns:1fr">
+          <div class="move" style="border-left-color:var(--green)">
+            <div class="mh"><span class="mn">CONNECTION</span></div>
+            <p class="mq">This connects to Carl attributing part of his metric to the Automations team. <b>Generous credit is a seniority signal, not a dilution of your claim.</b></p>
+          </div>
+        </div>
+
+        <details class="dd">
+          <summary>Measured visual system</summary>
+          <div class="ddin">
+            <div class="toks">
+              <div class="tok"><div class="sw" style="background:#000"></div><div class="k">Background</div><div class="v">#000000</div></div>
+              <div class="tok"><div class="sw" style="background:#fff"></div><div class="k">Text</div><div class="v">#FFFFFF</div></div>
+              <div class="tok"><div class="sw" style="background:#6B7280"></div><div class="k">Dates</div><div class="v">#6B7280</div></div>
+              <div class="tok"><div class="sw" style="background:linear-gradient(90deg,#000 0%,#000 8%,#fff 8%)"></div><div class="k">Sizes</div><div class="v">2: 96 / 18</div></div>
+            </div>
+            <pre>Neue Haas Grotesk Text + Swear Text Cilati (bold italic, used ONCE for the name)
+<span class="hl">2 font sizes total: 96px name, 18px everything else</span>
+text measure ~467px · images 547px · 35 images, 0 video
+nav right-aligned sticky: Work, Notes, five social links</pre>
+            <p style="font-size:13px">Images are <strong>small</strong> — ~⅓ viewport, left-aligned with a large empty black field. She's not selling screenshots. The layout assumes you already know what FigJam and Cowork are; if not, the link will tell you.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 JOEL -->
+<section id="joel">
+  <div class="wrap">
+    <div class="prof st4">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Stage 4 · Preceding fame</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fjoellewenstein.com?w=1000&h=680" alt="joellewenstein.com screenshot" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://joellewenstein.com" target="_blank" rel="noopener">↗ Open joellewenstein.com</a>
+            <span class="url">§7 · Thirteen lines</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">07</span><span class="badge soft">Most radical deletion</span></div>
+          <h3>Joel Lewenstein</h3>
+          <div class="role">Leads design team, <strong>Anthropic</strong> · <a href="https://joellewenstein.com" target="_blank" rel="noopener">joellewenstein.com</a></div>
+          <p class="hook">The entire site, verbatim: <em>thirteen lines, nine outbound links, zero images.</em> Every link goes somewhere else. The grouping is the positioning statement.</p>
+        </div>
+      </div>
+
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">5,887</div><div class="k">Bytes of HTML</div></div>
+        <div class="pstat"><div class="v">13</div><div class="k">Lines of content</div></div>
+        <div class="pstat"><div class="v">9</div><div class="k">Outbound links</div></div>
+        <div class="pstat"><div class="v">0</div><div class="k">Images · video · SVG</div></div>
+        <div class="pstat"><div class="v">3</div><div class="k">Font sizes</div></div>
+      </div>
+
+      <div class="prof-body">
+        <h4 class="mini" style="margin-top:0">The whole site, complete</h4>
+        <div class="mini">
+          <div class="n">Joel Lewenstein</div>
+          <div class="r">I lead the design team at Anthropic</div>
+          <div class="g">AI</div>
+          <div class="l">What's worth making? (2026)<br>
+          Fast company podcast (2026)<br>
+          Canva podcast (2026)<br>
+          Config talk (2025)<br>
+          Dive Club podcast (2024)<br>
+          Academy UX podcast (2024)</div>
+          <div class="g">Older</div>
+          <div class="l">Software as LEGO (2021)<br>
+          Political Tech (2018)</div>
+          <div class="g">Personal</div>
+          <div class="l">I wrote a kids book</div>
+        </div>
+        <p>Nine outbound links: LinkedIn, YouTube, dive.club, Medium, Gumroad. <strong>Not one word about process, tools, or “passionate about.”</strong></p>
+
+        <div class="moves st4" style="grid-template-columns:1fr">
+          <div class="move" style="border-left-color:var(--green)">
+            <div class="mh"><span class="mn" style="color:var(--green)">THE MOVE: GROUPING + DATING</span></div>
+            <p class="mq">Three headers do all the information architecture: <b>AI</b> (what I am about now), <b>Older</b> (what I used to be about), <b>Personal</b> (that I am a person). Every item carries a year.</p>
+            <p style="font-size:12.5px;color:var(--ink3);margin:8px 0 0;padding-left:12px">In four seconds a reader sees he has thought publicly about AI for two years straight, came from political tech and software tooling before that, and writes children's books. <strong>No adjectives. The grouping is the argument.</strong></p>
+          </div>
+        </div>
+
+        <p class="pull" style="border-color:var(--green)"><em>Not the format — the grouping and the dating. What are your three group headers, and can a stranger tell what you're about from them alone?</em></p>
+
+        <div class="engine">
+          <div class="el">Why a thirteen-line site works at his stage</div>
+          <h3>You don't need to persuade anyone who already knows what Config is.</h3>
+          <p>Stage four. The name does the work before the page loads. The site is a business card with a taxonomy — and the taxonomy alone is a positioning statement you could steal today.</p>
+        </div>
+
+        <details class="dd">
+          <summary>Measured tokens · the text-file exercise</summary>
+          <div class="ddin">
+            <div class="toks">
+              <div class="tok"><div class="sw" style="background:#081014"></div><div class="k">Background</div><div class="v">#081014</div></div>
+              <div class="tok"><div class="sw" style="background:#fff"></div><div class="k">Text</div><div class="v">#FFFFFF</div></div>
+              <div class="tok"><div class="sw" style="background:linear-gradient(90deg,#081014 0%,#081014 30%,#eee 30%)"></div><div class="k">Sizes</div><div class="v">3: 18 / 16 / 13</div></div>
+              <div class="tok"><div class="sw" style="background:repeating-linear-gradient(45deg,#f5f5f5,#f5f5f5 4px,#fff 4px,#fff 8px)"></div><div class="k">Media</div><div class="v">0 assets</div></div>
+            </div>
+            <pre>IBM Plex Mono 13px for all content · Inter for the wrapper
+weights: 400 and 600 · <span class="hl">5,887 bytes total · 0 images</span>
+built with Webflow · 9 outbound links · 3 group headers</pre>
+            <p style="font-size:13px"><strong>Useful exercise even if you never ship the text file:</strong> strip your own site to a plain text file. If the three group headers don't tell a stranger what you're about, the full site won't either.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 IAN -->
+<section id="ian">
+  <div class="wrap">
+    <div class="prof st4">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Stage 4 · Preceding fame</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fiansilber.com?w=1000&h=680" alt="iansilber.com screenshot" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://iansilber.com" target="_blank" rel="noopener">↗ Open iansilber.com</a>
+            <span class="url">§8 · The whole site is a toy</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">08</span><span class="badge soft">Site IS the work</span></div>
+          <h3>Ian Silber</h3>
+          <div class="role">Leads design, <strong>OpenAI</strong> · ex-Global Illumination, Artifact, Instagram · <a href="https://iansilber.com" target="_blank" rel="noopener">iansilber.com</a></div>
+          <p class="hook">Black page. One sentence on a rotating circle. <em>No nav, no work, no case studies, no résumé.</em> Behind it: a reactive shader and a hidden 15-second air hockey game with a live leaderboard.</p>
+        </div>
+      </div>
+
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">179<span class="u">KB</span></div><div class="k">Total document</div></div>
+        <div class="pstat"><div class="v">174<span class="u">K</span></div><div class="k">Chars in one script</div></div>
+        <div class="pstat"><div class="v">0</div><div class="k">Dependencies</div></div>
+        <div class="pstat"><div class="v">2048<span class="u">px</span></div><div class="k">Shader canvas width</div></div>
+        <div class="pstat"><div class="v">15<span class="u">s</span></div><div class="k">Hidden game length</div></div>
+      </div>
+
+      <div class="prof-body">
+        <h4 class="mini" style="margin-top:0">The only text on the site</h4>
+        <div class="slide" style="text-align:left">
+          <div class="cap">Circular text · the full copy</div>
+          <div class="lines" style="text-align:left;font-weight:400;font-size:clamp(15px,2vw,18px);line-height:1.6">
+            “Ian Silber currently leads design at OpenAI. Previously, he was at Global Illumination, Artifact, Instagram, and more.”
+          </div>
+          <div class="note" style="margin:18px 0 0;text-align:left">That is all. No résumé link. Set on a circle, rotating slowly, over a full-viewport reactive shader.</div>
+        </div>
+
+        <div class="moves st4">
+          <div class="move">
+            <div class="mh"><span class="mn">WHAT IT COMMUNICATES</span></div>
+            <p class="mq">1. He writes shaders.<br>2. He ships game physics, an end-card flow, a form, and a persistence layer.<br>3. One hand-written file — no three libraries.<br>4. He is confident enough to put <b>zero work</b> on the site of the person who leads ChatGPT design.</p>
+          </div>
+          <div class="move" style="border-left-color:var(--violet)">
+            <div class="mh"><span class="mn" style="color:var(--violet)">THE ENDPOINT</span></div>
+            <p class="mq">Daniel's shader hero taken to its endpoint: the site is not <em>about</em> the work — <b>the site <em>is</em> the work.</b></p>
+          </div>
+        </div>
+
+        <h4 class="mini">Hidden under the toy</h4>
+        <div class="spec">
+          <div class="sl">What ships in one inline &lt;script&gt;</div>
+          <ul class="d">
+            <li><strong>Full-viewport reactive shader</strong> at 2048×1536 — drag and the background snaps black → electric blue; the text circle tracks the pointer.</li>
+            <li><strong>Hidden 15-second air hockey game</strong> — timer, live score, <code class="i">+1</code> burst, end card <code class="i">N goals / in 15 seconds</code>, three-initial signature, <code class="i">play again</code>.</li>
+            <li><strong>Live server-backed leaderboard</strong> at <code class="i">/api/leaderboard</code> — real initials, scores, timestamps.</li>
+          </ul>
+          <p style="font-size:13px;color:var(--ink3);margin:12px 0 0"><strong style="color:var(--ink2)">Honest detail:</strong> top entries read <code class="i">9,996,016,153</code> goals. Client-submitted, unvalidated. Any value a browser hands your server is a suggestion — and this is clearly a weekend project he hasn't revisited, which is fine and slightly reassuring.</p>
+        </div>
+
+        <div class="engine">
+          <div class="el">The ARIA row that matters</div>
+          <h3>A throwaway toy — and the accessibility is done properly.</h3>
+          <p><code class="i">aria-hidden</code> on the canvas · <code class="i">aria-live="polite"</code> on the HUD · <code class="i">role="dialog"</code> + <code class="i">aria-modal</code> on the end card · <code class="i">aria-label</code> on every initial input. The circular text, unreadable as DOM order, carries a correct reading-order label.</p>
+          <p><strong>Craft shows up in the parts nobody looks at.</strong></p>
+        </div>
+
+        <details class="dd">
+          <summary>Measured tokens · build notes</summary>
+          <div class="ddin">
+            <div class="toks">
+              <div class="tok"><div class="sw" style="background:#000"></div><div class="k">Background</div><div class="v">#000 → blue on drag</div></div>
+              <div class="tok"><div class="sw" style="background:#fff"></div><div class="k">Text</div><div class="v">#FFFFFF</div></div>
+              <div class="tok"><div class="sw" style="background:linear-gradient(90deg,#1D4ED8 0%,#1D4ED8 40%,#eee 40%)"></div><div class="k">Interaction</div><div class="v">Shader snaps to blue</div></div>
+              <div class="tok"><div class="sw" style="background:repeating-linear-gradient(45deg,#f5f5f5,#f5f5f5 4px,#fff 4px,#fff 8px)"></div><div class="k">Deps</div><div class="v">None</div></div>
+            </div>
+            <pre>Helvetica Neue, system stack, no webfont
+<span class="hl">one inline script: 173,956 chars · document 179,393 bytes</span>
+reactive shader 2048×1536 · hidden game · live /api/leaderboard
+ARIA correct throughout, including circular-text aria-label</pre>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 VINCE -->
+<section id="vince">
+  <div class="wrap">
+    <div class="prof st1">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Stage 1 · Narrative · caveat</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fvincelin.co?w=1000&h=680" alt="vincelin.co screenshot" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://vincelin.co" target="_blank" rel="noopener">↗ Open vincelin.co</a>
+            <span class="url">§9 · One idea worth having</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">09</span><span class="badge soft">The Minecraft hero</span></div>
+          <h3>Vince Lin</h3>
+          <div class="role"><strong>Claude Builder</strong> (student/campus programme) · Figma Campus Leader · CS + Art, Vanderbilt · <a href="https://vincelin.co" target="_blank" rel="noopener">vincelin.co</a></div>
+          <p class="hook">Included for one idea: a full-viewport hero captioned <em>“yes, this is 100% built in Minecraft”</em> — no canvas, no three.js. He built the world, captured it, shipped the capture.</p>
+        </div>
+      </div>
+
+      <div class="avoid" style="background:var(--amberBg);border-color:#FDE68A;margin-top:0">
+        <div class="al" style="color:var(--amber)">Caveat first — read this before anything else</div>
+        <p style="font-size:13px;color:var(--ink2);margin:0;line-height:1.55">Aggregators list him under Anthropic. His actual title is <strong>Claude Builder</strong>, a student and campus programme — alongside Figma Campus Leader while studying CS and Art at Vanderbilt. <strong>He is not a product designer at Anthropic,</strong> and this document does not imply he is. Other roles: internships at Capital One, Cambridge Associates, Cambiar Education; founding designer at Pointer.</p>
+      </div>
+
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">234<span class="u">px</span></div><div class="k">Stacked hero word</div></div>
+        <div class="pstat"><div class="v">5</div><div class="k">Font sizes</div></div>
+        <div class="pstat"><div class="v">5</div><div class="k">Project pages</div></div>
+        <div class="pstat"><div class="v">0</div><div class="k">Canvas · three.js</div></div>
+        <div class="pstat"><div class="v">1</div><div class="k">cal.com booking link</div></div>
+      </div>
+
+      <div class="prof-body">
+        <h4 class="mini" style="margin-top:0">The hero is a thing he actually built</h4>
+        <div class="slide" style="background:linear-gradient(180deg,#4A90D9 0%,#7EB6E8 55%,#8FBC7A 55%,#5D9B4A 100%);border-color:#3B82F6;text-align:center">
+          <div class="lines" style="color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.35);font-size:clamp(14px,2vw,20px)">yes, this is 100% built in Minecraft</div>
+          <div class="note" style="color:rgba(255,255,255,.9);margin-top:16px">Full-viewport 3D scene of floating blocks under a flat blue sky. No <code class="i">&lt;canvas&gt;</code>. No three.js. A Minecraft build, captured and shipped.</div>
+        </div>
+
+        <div class="moves st1">
+          <div class="move">
+            <div class="mh"><span class="mn">WHY BEAT HARDER</span></div>
+            <p class="mq">A shader says “I can code.” <b>A Minecraft build says “I make things for the pleasure of making them, and I will show you the weird one.”</b> Memorable in a way a technically harder but more generic hero would not be.</p>
+          </div>
+          <div class="move" style="border-left-color:var(--orange)">
+            <div class="mh"><span class="mn">THE STACKED SELF-DESCRIPTION</span></div>
+            <p class="mq" style="font-family:var(--fd);font-size:20px;line-height:1.35">A designer with an engineering background who loves to prototype, worldbuild, and play.</p>
+            <p style="font-size:12.5px;color:var(--ink3);margin:8px 0 0;padding-left:12px">One word-column, stacked. <strong>“Worldbuild” is doing real work</strong> — it retroactively explains the hero.</p>
+          </div>
+        </div>
+
+        <div class="engine">
+          <div class="el">The booking link · one-click, trivial to add</div>
+          <h3>Every other portfolio here ends at mailto:. He put cal.com next to it.</h3>
+          <p>A one-click “book 30 minutes” removes a step. Footer: email address <em>and</em> a cal.com 30-minute link. Costs nothing, converts better than a contact form.</p>
+        </div>
+
+        <details class="dd">
+          <summary>Measured tokens</summary>
+          <div class="ddin">
+            <div class="toks">
+              <div class="tok"><div class="sw" style="background:#111"></div><div class="k">Background</div><div class="v">#111111</div></div>
+              <div class="tok"><div class="sw" style="background:#4A90D9"></div><div class="k">Hero sky</div><div class="v">Flat blue (Minecraft)</div></div>
+              <div class="tok"><div class="sw" style="background:linear-gradient(90deg,#111 0%,#111 15%,#eee 15%)"></div><div class="k">Sizes</div><div class="v">5: 234/25/16/12/10</div></div>
+              <div class="tok"><div class="sw" style="background:repeating-linear-gradient(45deg,#f5f5f5,#f5f5f5 4px,#fff 4px,#fff 8px)"></div><div class="k">Media</div><div class="v">Minecraft capture</div></div>
+            </div>
+            <pre>system sans · <span class="hl">no canvas, no three.js</span>
+5 project pages · footer: mailto + <span class="ok">cal.com 30-min booking</span></pre>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 PATTERNS -->
+<section id="patterns">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">10</span>
+      <div>
+        <h2 class="sec-title">Cross-cutting patterns</h2>
+        <p class="sec-sub">Six patterns that hold across all nine — type, motion, personality, proof, curation, and sentence headings.</p>
+      </div>
+    </div>
+
+    <div class="spec" style="margin-top:0">
+      <div class="sl">10.1 · Type scale discipline</div>
+      <div class="pat"><div class="pk">Nobody exceeds 8 sizes</div><div class="pv"><p style="margin:0;font-size:13.5px;color:var(--ink2)">Median is <strong>four</strong>. Three sites cap at 24px or below. If your pages have more sizes than this, cutting them is the cheapest available upgrade.</p></div></div>
+      <div class="pat"><div class="pk">jennywen.ca</div><div class="pv"><p style="margin:0;font-size:13.5px"><strong>2 sizes total</strong> · 96px name, 18px everything else · 2 fonts (one used once)</p></div></div>
+      <div class="pat"><div class="pk">zegzulka.com</div><div class="pv"><p style="margin:0;font-size:13.5px"><strong>2 sizes</strong> · 16px thesis, 12px everything else · system sans only</p></div></div>
+      <div class="pat"><div class="pk">danield.design</div><div class="pv"><p style="margin:0;font-size:13.5px"><strong>4 sizes</strong> · largest only 24px · 1 font, 2 weights</p></div></div>
+      <div class="pat"><div class="pk">The rest</div><div class="pv"><p style="margin:0;font-size:13.5px;color:var(--ink3)">Leo ~3 · Joel 3 · Vince 5 · Tammy 6 · Carl 8 (one superfamily: DM Serif / Sans / Mono)</p></div></div>
+    </div>
+
+    <div class="spec">
+      <div class="sl">10.2 · Motion budget — the striking absence</div>
+      <div class="pat"><div class="pk">Nobody has…</div><div class="pv"><p style="margin:0;font-size:13.5px"><strong>Scroll-jacking · parallax · cursor follower · page-transition curtain · magnetic button.</strong> Not one of the nine.</p></div></div>
+      <div class="pat"><div class="pk">Where motion appears</div><div class="pv"><p style="margin:0;font-size:13.5px">It is either <strong>functional</strong> (video starts on screen, modal opens) or a <strong>demonstration of craft that <em>is</em> the content</strong> (Daniel's shader, Ian's game). Tammy: one <code class="i">scale(1.05)</code>, site-wide. Carl: fade + translate on scroll. Jenny, Joel, Leo, Jakub: essentially none.</p></div></div>
+      <p class="pull" style="border-color:var(--orange);margin-bottom:0"><em>The correlation between seniority and restraint is not subtle.</em></p>
+    </div>
+
+    <div class="dd2">
+      <div class="ddbox yes">
+        <header>10.3 · Contained whimsy</header>
+        <ul>
+          <li><strong>Never distributed</strong> — always in a named container</li>
+          <li>Tammy: rotating line, <code class="i">/fun</code>, footer joke</li>
+          <li>Daniel: shader hero, “Made in Chicago”, <code class="i">&lt;3</code></li>
+          <li>Joel: “I wrote a kids book” as its own header</li>
+          <li>Jakub: footer copyright <code class="i">2077</code></li>
+          <li>Ian: the entire site · Vince: Minecraft</li>
+          <li>Carl: <code class="i">NOW</code> + wife &amp; two dogs</li>
+          <li>Jenny: one 96px bold-italic logotype</li>
+          <li>Leo: “I love…” four times</li>
+        </ul>
+      </div>
+      <div class="ddbox">
+        <header style="background:var(--blueBg);color:var(--blue)">10.5 · Curated vs archive</header>
+        <ul>
+          <li><strong>Daniel:</strong> 7 curated, then 22-row archive</li>
+          <li><strong>Carl:</strong> 5 home, 14 on <code class="i">/work</code></li>
+          <li><strong>Tammy:</strong> 14 cards, newest first</li>
+          <li><strong>Jenny:</strong> no curation — 27 one-sentence entries</li>
+          <li><strong>Jakub:</strong> 6 project pages, no hierarchy</li>
+          <li>None show everything at equal weight except Jenny — hers works because each entry is one sentence</li>
+          <li>All of them show <em>that</em> they have more</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="sl">10.4 · Proof architecture — who uses what</div>
+      <div class="pat"><div class="pk">Outbound proof links</div><div class="pv"><p style="margin:0;font-size:13.5px">Release notes, changelog or blog → <strong>Tammy, Carl, Jenny, Joel</strong></p></div></div>
+      <div class="pat"><div class="pk">Live product / App Store</div><div class="pv"><p style="margin:0;font-size:13.5px"><code class="i">facebook.com/settings</code> (Tammy) · App Store (Daniel)</p></div></div>
+      <div class="pat"><div class="pk">Third-party coverage</div><div class="pv"><p style="margin:0;font-size:13.5px">Press, acquisition, colleague's public post → <strong>Tammy</strong></p></div></div>
+      <div class="pat"><div class="pk">Status pills</div><div class="pv"><p style="margin:0;font-size:13.5px"><code class="i">SHIPPED</code> · <code class="i">ACQUIRED</code> → Tammy · “Shipped May 2026” byline → Carl</p></div></div>
+      <div class="pat"><div class="pk">Credits lists</div><div class="pv"><p style="margin:0;font-size:13.5px">Speaking/writing → Tammy, Carl, Joel (whole site), Jenny (interleaved)</p></div></div>
+      <div class="pat"><div class="pk">Methodology footnotes</div><div class="pv"><p style="margin:0;font-size:13.5px">Under every metric → <strong>Carl</strong> alone</p></div></div>
+      <div class="pat"><div class="pk">Named testimonials</div><div class="pv"><p style="margin:0;font-size:13.5px">With job titles → <strong>Jakub</strong> alone</p></div></div>
+      <div class="pat"><div class="pk">Named collaborators</div><div class="pv"><p style="margin:0;font-size:13.5px">Inside the copy → Jenny (11 of 27), Tammy, Carl</p></div></div>
+      <div class="pat"><div class="pk">Org response as outcome</div><div class="pv"><p style="margin:0;font-size:13.5px">“resulting in addition of more ICs” → <strong>Jakub</strong></p></div></div>
+      <div class="pat"><div class="pk">Real data in screenshots</div><div class="pv"><p style="margin:0;font-size:13.5px"><strong>All nine</strong></p></div></div>
+    </div>
+
+    <div class="engine">
+      <div class="el">10.6 · Sentence-as-heading</div>
+      <h3>A noun heading tells the bucket. A sentence heading tells the conclusion.</h3>
+      <p>Daniel, Carl and Tammy all use complete sentences where a portfolio would normally use a noun:</p>
+      <p>“I love building things for others.” / “Design is a team sport.” / “Keep learning.” (Daniel) · “Sessions became the product model” / “Code stayed visible because trust takes time” (Carl) · “Final designs and solutions” (Tammy)</p>
+      <p><strong>A sentence is always more useful and is never harder to write.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- 11 NONE -->
+<section id="none">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">11</span>
+      <div>
+        <h2 class="sec-title">What none of them do</h2>
+        <p class="sec-sub">Worth listing — these are the defaults a portfolio drifts into when nobody is paying attention.</p>
+      </div>
+    </div>
+
+    <div class="avoid">
+      <div class="al">None of the nine ship any of these</div>
+      <ul>
+        <li>No double diamond, no “my process” diagram, no generic empathy-map, persona or journey-map filler</li>
+        <li>No skills bars, tool logos, or “Figma ██████░ 95%”</li>
+        <li>No stock photography, no abstract 3D blobs, no gradient mesh backgrounds</li>
+        <li>No testimonial carousel (Jakub has testimonials — as a static list, not a slider)</li>
+        <li>No “Let's work together!” with an animated arrow</li>
+        <li>No metric without a source (Carl footnotes; the rest largely omit metrics rather than invent them)</li>
+        <li>No password-protected case studies as the <em>only</em> proof of recent work — they route around NDA by linking to what is already public</li>
+        <li>No scroll-jacking, parallax, or cursor effects</li>
+        <li>No case study longer than its evidence justifies</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 12 APPLY -->
+<section id="apply">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">12</span>
+      <div>
+        <h2 class="sec-title">Steal this: apply it to your site</h2>
+        <p class="sec-sub">You are at stage one of the gradient. Carl is your closest model. Fifteen moves, tiered by leverage vs effort — plus what not to copy.</p>
+      </div>
+    </div>
+
+    <div class="engine" style="margin-top:0">
+      <div class="el">Where you are</div>
+      <h3>Work mostly is not publicly verifiable yet — so narrative has to carry it.</h3>
+      <p>Your existing strategy work already picked stakes-based positioning and a Khiladipro / Getmega / SEDP flagship ranking. Most of this slots into that rather than replacing it.</p>
+    </div>
+
+    <div class="tier">
+      <div class="tier-h"><span class="tier-b">Tier 1</span><span class="tt">Highest leverage · lowest effort</span><span class="line"></span></div>
+
+      <div class="rec star">
+        <div class="rn">1</div>
+        <div class="rb">
+          <h5>Outcomes at the top, with a methodology footnote.<span class="star-tag">Star</span></h5>
+          <p>Where you have a real number, put it above the fold <em>and</em> footnote the window and cohort. Where you do not: “Shipped to production, September 2024” beats a vague improvement claim. <strong>The footnote converts a number from marketing into evidence.</strong></p>
+        </div>
+      </div>
+
+      <div class="rec star">
+        <div class="rn">2</div>
+        <div class="rb">
+          <h5>A proof link on every card.<span class="star-tag">Star</span></h5>
+          <p>kpro.fit's registration page is live and matches the design — that's a <code class="i">LIVE ↗</code> pill on the Khiladipro card, doing the job Tammy's <code class="i">facebook.com/settings</code> does. Audit each of the five projects for one publicly verifiable artifact: live URL, app store listing, press mention, Wayback capture. <strong>You already have Wayback evidence for SEDP.</strong></p>
+        </div>
+      </div>
+
+      <div class="rec star">
+        <div class="rn">3</div>
+        <div class="rb">
+          <h5>Collect named testimonials — the single highest-value item on this list.<span class="star-tag">Star</span></h5>
+          <p>Two or three quotes with full names and real job titles from people who saw you work on Khiladipro, GetMega or SEDP — a founder, a PM, an engineering lead. Bottom of the relevant case study, not the homepage. Keep them short; do not edit them into marketing copy. <strong>A four-word quote from a CEO beats a polished paragraph from nobody in particular.</strong></p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">4</div>
+        <div class="rb">
+          <h5>Credit your collaborators by name.</h5>
+          <p>Jenny Wen does it eleven times in 27 entries. Your Khiladipro case study has no collaboration story — naming the engineers, the PM and the founder, and saying what each did, <em>is</em> the collaboration story, and costs nothing you were otherwise claiming.</p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">5</div>
+        <div class="rb">
+          <h5>Every card one-liner as a reframe, not a description.</h5>
+          <p>Pass each of the five through the Carl test: does the sentence say what <em>changed for a user</em>, not what you made?</p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">6</div>
+        <div class="rb">
+          <h5>Add a booking link.</h5>
+          <p>One line, next to your email — Vince's cal.com move. Trivial to add, removes a step.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-h"><span class="tier-b t2">Tier 2</span><span class="tt">Medium effort</span><span class="line"></span></div>
+
+      <div class="rec">
+        <div class="rn">7</div>
+        <div class="rb">
+          <h5>A “what I cut and why” section on the flagship.</h5>
+          <p>Strongest credibility move available; costs nothing but honesty. Same for one reversed decision and one open question. Your notes say Khiladipro has no iteration story — <em>what we cut</em> may be the honest version of that section.</p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">8</div>
+        <div class="rb">
+          <h5>Organisational outcomes where you have no metric.</h5>
+          <p>Zegzulka's “resulting in addition of more ICs to support the design” is the model. Did a design get staffed up, copied into another surface, change how the team worked, survive a leadership review, or become the default pattern? <strong>That is an outcome and needs no dashboard.</strong></p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">9</div>
+        <div class="rb">
+          <h5>Caption every image the Leo way.</h5>
+          <p>One sentence, user's side, sentence case, ends with a period. “Check your balance and review recent transactions.” not “Dashboard screen.” Your kp filmstrip and shot figures are the place to start — doing this will reveal which shots have nothing to say and should go.</p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">10</div>
+        <div class="rb">
+          <h5>Name your sections after interactions.</h5>
+          <p>If a case study section cannot be named after the interaction problem it solves (<code class="i">empty-state</code>, <code class="i">version-history</code>, <code class="i">prompt-enhance</code>) then ask whether it earns its place. A good editing filter for the kp chapters.</p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">11</div>
+        <div class="rb">
+          <h5>A dated changelog instead of a bare archive.</h5>
+          <p>Jenny Wen's format beats Daniel's table for you: reverse-chronological spine, <strong>one sentence per entry</strong>, wider definition of what counts — shipped features, talks, writing, small tools, experiments. Notion notes, Wayback research, redesign experiments, AI-native workflow all belong. <strong>Ecometer and Mega Poker don't deserve flagship treatment but deserve to exist</strong> — in a dated stream they're two lines that help.</p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">12</div>
+        <div class="rb">
+          <h5>Cut your type scale to six sizes and audit against it.</h5>
+          <p>Your notes already endorse the CH 06 ladder for kp; extend that discipline site-wide. <strong>The median across these nine is four.</strong></p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">13</div>
+        <div class="rb">
+          <h5>Named convictions.</h5>
+          <p>Three or four beliefs with an argument each, in the manner of Carl's <code class="i">CONVICTIONS</code> or Tammy's “My super powers.” Gives an interviewer a phrase to repeat about you in a debrief — and generalises across every role you apply to.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-h"><span class="tier-b t3">Tier 3</span><span class="tt">Worth considering</span><span class="line"></span></div>
+
+      <div class="rec">
+        <div class="rn">14</div>
+        <div class="rb">
+          <h5>The deck as a second artifact.</h5>
+          <p>A 40–70 slide black deck of your shipped screens, one user-capability caption each — sendable as a link, presentable in an interview. Different medium, different expectations; fast from assets you already have. <strong>Highest ratio of impression to effort on the whole list</strong> given how much shipped UI you have across Khiladipro, Getmega, Mega Poker and SEDP.</p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">15</div>
+        <div class="rb">
+          <h5>One demonstration, not decoration.</h5>
+          <p>Daniel's shader hero and Ian's air hockey game work because they <em>are</em> the argument. Your note already says build operable demos rather than reaching for cream-and-serif — <strong>one real, operable thing beats any amount of scroll animation.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="avoid">
+      <div class="al">Explicitly do not copy</div>
+      <ul>
+        <li><strong>Carl's visual skin</strong> — dark, DM Serif, mono eyebrows, numbered rails. It's the look you already flagged, and his footer advertises the tool.</li>
+        <li><strong>Daniel's near-zero-text case studies.</strong> Requires a body of public, watchable, shipped work. Take the naming discipline, not the word count.</li>
+        <li><strong>Tammy's outbound-only strategy for recent work.</strong> Only works when the world has already written about it. You need narrative to do that job for now.</li>
+        <li><strong>Joel's or Ian's no-portfolio sites.</strong> Stage-four moves. Made at stage one they read as empty.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- APPENDIX -->
+<section id="appendix">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">A</span>
+      <div>
+        <h2 class="sec-title">Appendix: measured values</h2>
+        <p class="sec-sub">Every number read from the live DOM, computed styles, CSS, scripts and media manifests — not estimated.</p>
+      </div>
+    </div>
+
+    <div class="src-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+      <div class="spec" style="margin:0">
+        <div class="sl">carlthomasiv.com</div>
+        <pre>dark #111110 / text #F0EDE8
+light --bg #fafafa / --text #111318
+DM Serif Display (h1 41px/400) + DM Sans (16) + DM Mono (11)
+8 sizes: 41/22/16/15/14/12/11/10</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">taamannae.dev</div>
+        <pre>bg #F1F1EE · text #212529 · muted #898989
+card #E2E2DE · dark band #252525
+Manrope + neulis-cursive · 64/24/20/18/16/13
+grid 3col → 2col@1048 → 1col@730 · radius 12
+hover scale(1.05) .4s · pill 28px, radius 100px</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">Leo Mancini deck</div>
+        <pre>73 slides · ~3,548 chars · ~48 chars/slide
+black ground · 3 layouts (1-up, 3-up, chrome)
+captions top-centred, sentence case
+manifesto divider ×4, one line lit each time</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">zegzulka.com</div>
+        <pre>bg #fff · text #000 · system sans
+2 sizes: 16px thesis, 12px rest
+11 videos, 11 images · 6 pages under /p/
+four-corner metadata · 5 named testimonials
+footer reads 2077</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">danield.design</div>
+        <pre>--background #fff · --foreground #171717
+GT Standard · sizes 24/20/17/16
+radii 48/40/34/24/15/12/9999
+cubic-bezier(.4,0,.2,1) @ 0.1–0.25s
+2 font files, 62KB each</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">jennywen.ca</div>
+        <pre>bg #000 · text #fff · dates #6B7280
+Neue Haas Grotesk + Swear Text Cilati
+2 sizes: 96px name, 18px rest
+measure ~467px · images 547px
+35 images · 27 entries · 11 collaborator credits</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">joellewenstein.com</div>
+        <pre>bg #081014 · text #fff
+IBM Plex Mono 13 + Inter wrapper
+3 sizes (18/16/13), 2 weights (400/600)
+5,887 bytes HTML · 0 images
+9 outbound links · 3 headers · Webflow</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">iansilber.com</div>
+        <pre>bg #000 → blue on pointer · text #fff
+Helvetica Neue, no webfont
+inline script 173,956 chars · doc 179,393
+shader 2048×1536 · hidden game · live leaderboard
+ARIA correct throughout</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">vincelin.co</div>
+        <pre>bg #111 · system sans
+sizes 234/25/16/12/10
+Minecraft capture, no canvas, no three.js
+5 project pages
+footer: mailto + cal.com booking</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-in">
+      <div class="fl">
+        <div class="ft">9 portfolios, <em>1 variable</em></div>
+        <p>Structural teardown of nine senior product-design portfolios. Every number measured from the live DOM on 22 Sep 2026. Click any site link to verify the claim yourself.</p>
+      </div>
+      <div class="fr">
+        <div class="fk">Jump</div>
+        <a href="#grid">The 9</a>
+        <a href="#gradient">Gradient</a>
+        <a href="#patterns">Patterns</a>
+        <a href="#apply">Steal this</a>
+        <a href="#appendix">Appendix</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var prog=document.getElementById('prog');
+  var links=[].slice.call(document.querySelectorAll('.nav-links a'));
+  var map={};
+  links.forEach(function(a){
+    var id=a.getAttribute('href').slice(1);
+    if(id) map[id]=a;
+  });
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    var pct=max>0?(h.scrollTop||document.body.scrollTop)/max:0;
+    if(prog) prog.style.width=(pct*100)+'%';
+    var y=(window.scrollY||window.pageYOffset)+120;
+    var cur=null;
+    Object.keys(map).forEach(function(id){
+      var el=document.getElementById(id);
+      if(el&&el.offsetTop<=y) cur=id;
+    });
+    links.forEach(function(a){a.classList.remove('on')});
+    if(cur&&map[cur]) map[cur].classList.add('on');
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  onScroll();
+})();
+</script>
+</body>
+</html>

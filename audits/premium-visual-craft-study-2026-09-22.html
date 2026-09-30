@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Makes a Portfolio Feel Premium — Visual Craft Study</title>
+<meta name="description" content="Measured visual-craft teardown of nine senior portfolios: type scales, shadow recipes, alpha ramps, and 15 changes for your site.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FDFCF9; --bg2:#F4F1EA; --bg3:#EBE7DE;
+  --ink:#141312; --ink2:#3C3936; --ink3:#6E6A62; --ink4:#9B958C;
+  --line:rgba(20,19,18,.10); --line2:rgba(20,19,18,.06);
+  --lineS:rgba(20,19,18,.16);
+  --gold:#A65C00; --gold2:#C2410C; --goldBg:#FFF8ED;
+  --teal:#0F766E; --tealBg:#F0FDFA;
+  --rose:#BE123C; --roseBg:#FFF1F2;
+  --violet:#5B21B6; --violetBg:#F5F3FF;
+  --dark:#0F0F0E; --dark2:#1A1918; --dark3:#242320;
+  --dtext:#F5F2EB; --dmuted:#A39E94; --dline:rgba(255,255,255,.10);
+  --fd:'Instrument Serif',Georgia,serif;
+  --fb:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --fm:'JetBrains Mono','SF Mono',ui-monospace,monospace;
+  --r:14px; --r2:10px; --rp:999px;
+  --g:clamp(16px,4vw,40px);
+  --max:1120px;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --dur:.15s;
+  --shadow-border:0 0 0 1px var(--line);
+  --shadow-sm:0 0 0 1px var(--line),0 1px 2px rgba(20,19,18,.04);
+  --shadow-md:0 0 0 1px var(--line),0 2px 4px rgba(20,19,18,.04),0 8px 16px -6px rgba(20,19,18,.06);
+  --shadow-lg:0 0 0 1px var(--line),0 2px 4px rgba(20,19,18,.05),0 12px 24px -8px rgba(20,19,18,.08),0 24px 48px -16px rgba(20,19,18,.06);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--fb);font-size:15px;line-height:1.65;letter-spacing:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
+::selection{background:var(--gold);color:#fff}
+img{max-width:100%;display:block}
+a{color:inherit}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:none;box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--gold)}
+
+#prog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--gold2),#D97706);z-index:200;transition:width .1s linear}
+
+.nav{position:sticky;top:0;z-index:100;background:rgba(253,252,249,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:var(--max);margin:0 auto;padding:10px var(--g);display:flex;align-items:center;gap:12px;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+.nav-logo{font-family:var(--fd);font-size:16px;white-space:nowrap;flex:0 0 auto;letter-spacing:-.01em}
+.nav-logo em{color:var(--gold);font-style:italic}
+.nav-links{display:flex;gap:2px;flex:1;justify-content:flex-end}
+.nav-links a{font-family:var(--fm);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--ink3);padding:7px 11px;border-radius:var(--rp);transition:background var(--dur) var(--ease),color var(--dur) var(--ease);white-space:nowrap}
+.nav-links a:hover{background:var(--bg3);color:var(--ink)}
+.nav-links a.on{background:var(--ink);color:var(--bg)}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--g)}
+.eyebrow{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+
+/* HERO */
+.hero{position:relative;padding:clamp(48px,9vw,96px) 0 clamp(40px,6vw,72px);overflow:hidden;border-bottom:1px solid var(--line2)}
+.hero::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse 60% 50% at 88% -10%,rgba(194,65,12,.10),transparent 55%),
+  radial-gradient(ellipse 50% 40% at 8% 100%,rgba(15,118,110,.07),transparent 55%);
+  pointer-events:none}
+.hero-in{position:relative}
+.hero-kick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:26px}
+.chip{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:var(--rp);background:var(--ink);color:var(--bg)}
+.chip.o{background:var(--gold2);color:#fff}
+.chip.ghost{background:transparent;color:var(--ink3);border:1px solid var(--lineS)}
+h1{font-family:var(--fd);font-size:clamp(40px,7.2vw,74px);font-weight:400;line-height:1.05;letter-spacing:-.025em;margin:0 0 20px;max-width:16ch}
+h1 em{font-style:italic;background:linear-gradient(100deg,var(--gold2),#D97706);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-deck{font-size:clamp(16px,2vw,18px);line-height:1.6;color:var(--ink2);max-width:64ch;margin:0 0 32px;font-weight:450}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:36px}
+.hstat{background:#fff;border:1px solid var(--line);border-radius:var(--r2);padding:16px 14px;text-align:center}
+.hstat .n{font-family:var(--fd);font-size:clamp(28px,4vw,40px);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.hstat .n span{color:var(--gold2)}
+.hstat .l{font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-top:8px}
+
+.insight{background:var(--dark);color:var(--dtext);border-radius:var(--r);padding:clamp(28px,5vw,48px);position:relative;overflow:hidden;margin-bottom:8px}
+.insight::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold2),#D97706,#0F766E)}
+.insight::after{content:'';position:absolute;right:-80px;top:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(194,65,12,.22),transparent 70%);pointer-events:none}
+.insight .lab{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#FDBA74;margin-bottom:14px;position:relative}
+.insight h2{font-family:var(--fd);font-size:clamp(26px,4vw,40px);font-weight:400;line-height:1.2;letter-spacing:-.015em;margin:0 0 14px;max-width:22ch;position:relative}
+.insight h2 em{font-style:italic;color:#FDBA74}
+.insight p{color:var(--dmuted);font-size:14.5px;max-width:64ch;margin:0 0 8px;position:relative;line-height:1.6}
+.insight p strong{color:var(--dtext);font-weight:600}
+.insight p:last-child{margin-bottom:0}
+
+/* SECTIONS */
+section{padding:clamp(48px,7vw,88px) 0}
+section+section{border-top:1px solid var(--line2)}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:clamp(24px,4vw,40px)}
+.sec-num{font-family:var(--fm);font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--gold);background:var(--goldBg);border:1px solid rgba(166,92,0,.25);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.sec-title{font-family:var(--fd);font-size:clamp(28px,4vw,42px);font-weight:400;line-height:1.15;letter-spacing:-.02em;margin:0 0 8px}
+.sec-sub{font-size:15px;color:var(--ink2);margin:0;max-width:62ch;line-height:1.55}
+h3.big{font-family:var(--fd);font-size:clamp(24px,3.2vw,34px);font-weight:400;letter-spacing:-.015em;margin:40px 0 10px}
+.lead{font-size:16px;color:var(--ink2);max-width:62ch;margin:0 0 24px}
+.mini-h{font-family:var(--fm);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:28px 0 10px}
+
+/* GRID CARDS */
+.src-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.src-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;text-decoration:none;color:inherit;transition:box-shadow .2s var(--ease),transform .2s var(--ease)}
+.src-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.src-card .shot{position:relative;aspect-ratio:16/10;background:var(--bg2);overflow:hidden;border-bottom:1px solid var(--line2)}
+.src-card .shot img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.src-card .fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:12px;color:var(--ink3);background:var(--bg2)}
+.stagebadge{position:absolute;top:10px;left:10px;z-index:2;font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:var(--rp);background:rgba(15,15,14,.85);color:#fff;backdrop-filter:blur(6px)}
+.src-card .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.src-card .idx{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--gold)}
+.src-card .nm{font-family:var(--fd);font-size:22px;line-height:1.15;letter-spacing:-.015em}
+.src-card .rl{font-size:13px;color:var(--ink2);line-height:1.5;flex:1}
+.src-card .go{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-top:8px}
+.src-card:hover .go{color:var(--gold)}
+
+/* YOUR FOUR vs FOUND */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+@media(max-width:700px){.duo{grid-template-columns:1fr}}
+.dcard{border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;background:#fff}
+.dcard.a{background:linear-gradient(160deg,var(--goldBg),#fff 60%);border-color:rgba(166,92,0,.22)}
+.dcard.b{background:linear-gradient(160deg,var(--tealBg),#fff 60%);border-color:rgba(15,118,110,.20)}
+.dcard .dl{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.dcard.b .dl{color:var(--teal)}
+.dcard h4{font-family:var(--fd);font-size:clamp(20px,2.5vw,26px);font-weight:400;line-height:1.3;margin:0 0 10px;letter-spacing:-.01em}
+.dcard h4 em{font-style:italic;color:var(--gold2)}
+.dcard.b h4 em{color:var(--teal)}
+.dcard p{font-size:13.5px;color:var(--ink2);margin:0;line-height:1.55}
+.dcard p strong{color:var(--ink);font-weight:600}
+
+/* PROFILE */
+.prof{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm)}
+.prof-top{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:0}
+@media(max-width:800px){.prof-top{grid-template-columns:1fr}}
+.prof-shot{position:relative;min-height:240px;background:var(--bg2);border-right:1px solid var(--line2);overflow:hidden}
+@media(max-width:800px){.prof-shot{border-right:0;border-bottom:1px solid var(--line2)}}
+.prof-shot img{width:100%;height:100%;object-fit:cover;object-position:top center;position:absolute;inset:0}
+.prof-shot .ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(15,15,14,.45));pointer-events:none}
+.prof-shot .visit{position:absolute;left:14px;right:14px;bottom:14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;z-index:2}
+.prof-shot .visit a{font-family:var(--fm);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;background:rgba(253,252,249,.94);color:var(--ink);padding:8px 12px;border-radius:var(--rp);border:1px solid rgba(255,255,255,.4);transition:background var(--dur) var(--ease)}
+.prof-shot .visit a:hover{background:#fff}
+.prof-shot .visit .url{font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.9);text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.prof-shot .badge.sb{position:absolute;top:12px;left:12px;z-index:2;background:rgba(15,15,14,.88);backdrop-filter:blur(6px)}
+.prof-meta{padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;justify-content:center;gap:8px}
+.row1{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.num{font-family:var(--fm);font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.06em}
+.badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:var(--rp);background:var(--ink);color:#fff}
+.badge.soft{background:var(--goldBg);color:var(--gold);border:1px solid rgba(166,92,0,.2)}
+.prof-meta h3{font-family:var(--fd);font-size:clamp(28px,3.5vw,36px);font-weight:400;line-height:1.1;letter-spacing:-.02em;margin:4px 0 0}
+.role{font-size:13px;color:var(--ink2);line-height:1.5}
+.role a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(166,92,0,.35)}
+.role a:hover{border-bottom-color:var(--gold)}
+.hook{font-size:14.5px;color:var(--ink2);margin:6px 0 0;line-height:1.55}
+.hook em{font-style:italic;color:var(--ink)}
+
+.prof-stats{display:flex;flex-wrap:wrap;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);background:var(--bg)}
+.pstat{flex:1 1 110px;padding:14px 12px;text-align:center;border-right:1px solid var(--line2);min-width:0}
+.pstat:last-child{border-right:0}
+.pstat .v{font-family:var(--fd);font-size:26px;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.pstat .v .u{font-family:var(--fm);font-size:11px;font-weight:600;color:var(--ink3);margin-left:2px}
+.pstat .k{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-top:6px}
+
+.prof-body{padding:clamp(20px,3vw,28px)}
+.prof-body>p{margin:0 0 14px;color:var(--ink2);max-width:70ch}
+.prof-body>p:last-child{margin-bottom:0}
+.prof-body strong{color:var(--ink);font-weight:650}
+
+h4.mini{font-family:var(--fd);font-size:clamp(20px,2.4vw,26px);font-weight:400;letter-spacing:-.015em;margin:28px 0 10px;line-height:1.25}
+h4.mini:first-child{margin-top:0}
+
+/* MOVES */
+.moves{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:16px 0}
+.move{background:var(--bg);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:var(--r2);padding:16px 18px}
+.move.teal{border-left-color:var(--teal)}
+.move.violet{border-left-color:var(--violet)}
+.move .mh{margin-bottom:8px}
+.mn{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.move.teal .mn{color:var(--teal)}
+.move.violet .mn{color:var(--violet)}
+.mq{font-size:13.5px;color:var(--ink2);margin:0;line-height:1.55}
+.mq b,.mq strong{color:var(--ink);font-weight:650}
+.mq em{font-style:italic}
+.mn2{font-family:var(--fm);font-size:11px;color:var(--ink3);margin-top:8px}
+
+.pull{font-family:var(--fd);font-size:clamp(22px,3vw,30px);line-height:1.3;letter-spacing:-.015em;color:var(--ink);border-left:3px solid var(--gold);padding:4px 0 4px 18px;margin:28px 0;max-width:30ch}
+.pull em{font-style:italic;color:var(--gold)}
+
+/* ENGINE */
+.engine{background:linear-gradient(145deg,#141312,#22201D);color:var(--dtext);border-radius:var(--r);padding:clamp(28px,5vw,44px);margin:28px 0;position:relative;overflow:hidden}
+.engine::after{content:'';position:absolute;right:-50px;top:-50px;width:220px;height:220px;background:radial-gradient(circle,rgba(194,65,12,.25),transparent 70%);pointer-events:none}
+.engine .el{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#FDBA74;margin-bottom:14px;position:relative}
+.engine h3{font-family:var(--fd);font-size:clamp(24px,3.5vw,34px);font-weight:400;line-height:1.2;margin:0 0 14px;letter-spacing:-.015em;max-width:24ch;position:relative}
+.engine p{color:var(--dmuted);font-size:14.5px;max-width:62ch;margin:0 0 8px;position:relative;line-height:1.6}
+.engine p:last-child{margin-bottom:0}
+.engine strong{color:var(--dtext);font-weight:600}
+.engine code{font-family:var(--fm);font-size:12px;background:rgba(255,255,255,.08);padding:1px 6px;border-radius:4px;color:#FDBA74}
+
+/* DETAILS */
+details.dd{border:1px solid var(--line);border-radius:var(--r2);margin:16px 0;background:#fff;overflow:hidden}
+details.dd summary{cursor:pointer;padding:14px 18px;font-family:var(--fm);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);list-style:none;display:flex;align-items:center;gap:10px;user-select:none;transition:background var(--dur) var(--ease)}
+details.dd summary::-webkit-details-marker{display:none}
+details.dd summary::before{content:'+';font-size:16px;font-weight:400;color:var(--gold);transition:transform .2s var(--ease);width:18px;text-align:center}
+details.dd[open] summary::before{content:'−'}
+details.dd summary:hover{background:var(--bg2)}
+details.dd .ddin{padding:4px 18px 18px;animation:fade .25s var(--ease)}
+details.dd .ddin>*:first-child{margin-top:12px}
+details.dd .ddin>*:last-child{margin-bottom:0}
+@keyframes fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+/* TOKENS / PRE / SPEC */
+.toks{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin:14px 0}
+.tok{background:var(--bg);border:1px solid var(--line);border-radius:var(--r2);padding:12px}
+.tok .sw{width:100%;height:32px;border-radius:6px;border:1px solid rgba(0,0,0,.06);margin-bottom:8px}
+.tok .k{font-family:var(--fm);font-size:9px;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase}
+.tok .v{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--ink);margin-top:2px}
+pre{font-family:var(--fm);font-size:12px;line-height:1.65;background:var(--dark);color:var(--dmuted);padding:16px 18px;border-radius:var(--r2);overflow-x:auto;margin:14px 0;tab-size:2}
+pre .hl{color:#FDBA74}
+pre .ok{color:#6EE7B7}
+pre .cm{color:#6B7280}
+pre .ink{color:var(--dtext)}
+code.i{font-family:var(--fm);font-size:.92em;background:var(--bg2);padding:1px 6px;border-radius:4px;border:1px solid var(--line2)}
+.spec{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;margin:20px 0}
+.spec .sl{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+
+/* RULES */
+.rules{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.rule{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px 22px 20px;position:relative;transition:box-shadow .2s var(--ease)}
+.rule:hover{box-shadow:var(--shadow-md)}
+.rule .rn{font-family:var(--fd);font-size:42px;line-height:1;color:var(--gold2);opacity:.25;position:absolute;top:14px;right:18px;font-style:italic}
+.rule h4{font-family:var(--fd);font-size:22px;font-weight:400;line-height:1.25;margin:0 0 10px;letter-spacing:-.01em;max-width:18ch;position:relative}
+.rule p{font-size:13.5px;color:var(--ink2);margin:0 0 8px;line-height:1.55}
+.rule p:last-child{margin-bottom:0}
+.rule .tag{display:inline-block;font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--bg2);color:var(--ink3);padding:3px 8px;border-radius:var(--rp);border:1px solid var(--line);margin-bottom:10px}
+.rule.demo{grid-column:span 1}
+
+/* COMPARE TABLE */
+.ctable{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:16px 0}
+.ctable th,.ctable td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line2)}
+.ctable th{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);background:var(--bg2)}
+.ctable tr:last-child td{border-bottom:0}
+.ctable td:first-child{font-weight:600;color:var(--ink);width:28%}
+.ctable .hi{font-weight:700;color:var(--gold2);font-variant-numeric:tabular-nums}
+.ctable .bad{color:var(--rose);font-weight:700;font-variant-numeric:tabular-nums}
+.ctable .ok{color:var(--teal);font-weight:650}
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* GAP / AUDIT */
+.gap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:20px 0}
+.gap{background:#fff;border:1px solid var(--line);border-radius:var(--r2);padding:16px;text-align:center;position:relative;overflow:hidden}
+.gap.bad{border-color:rgba(190,18,60,.25);background:linear-gradient(180deg,var(--roseBg),#fff)}
+.gap .gv{font-family:var(--fd);font-size:36px;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.gap.bad .gv{color:var(--rose)}
+.gap .gl{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-top:8px}
+.gap .gm{font-family:var(--fm);font-size:11px;color:var(--ink4);margin-top:4px}
+.gap .xr{position:absolute;top:10px;right:12px;font-family:var(--fm);font-size:10px;font-weight:700;color:var(--rose)}
+
+/* TIERS */
+.tier{margin:32px 0}
+.tier-h{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.tier-b{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border-radius:var(--rp);color:#fff;background:var(--gold2)}
+.tier-b.t2{background:var(--teal)}
+.tier-b.t3{background:var(--violet)}
+.tier-h .tt{font-weight:700;font-size:14px;letter-spacing:-.01em}
+.tier-h .line{flex:1;height:1px;background:var(--line)}
+.rec{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--line2);align-items:start}
+.rec:last-child{border-bottom:0}
+.rec .rn{font-family:var(--fm);font-size:12px;font-weight:700;color:var(--gold2);width:30px;height:30px;border:1.5px solid var(--gold2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto;font-variant-numeric:tabular-nums}
+.rec.star{background:linear-gradient(90deg,var(--goldBg),transparent 70%);margin-left:-10px;padding-left:10px;border-radius:10px 0 0 10px}
+.rec.star .rn{background:var(--gold2);color:#fff}
+.rec .rb h5{font-size:14.5px;font-weight:700;margin:3px 0 5px;letter-spacing:-.01em;line-height:1.35}
+.rec .rb p{font-size:13px;color:var(--ink2);margin:0;line-height:1.55}
+.rec .rb p+p{margin-top:6px}
+.star-tag{display:inline-block;font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--gold2);color:#fff;padding:2px 7px;border-radius:var(--rp);margin-left:6px;vertical-align:middle}
+.codeblock{background:var(--dark);color:var(--dmuted);font-family:var(--fm);font-size:12px;line-height:1.7;padding:14px 16px;border-radius:var(--r2);margin:10px 0 4px;overflow-x:auto}
+.codeblock .c{color:#6B7280}
+.codeblock .k{color:#FDBA74}
+.codeblock .v{color:#6EE7B7}
+
+/* AVOID */
+.avoid{background:var(--roseBg);border:1px solid #FECDD3;border-radius:var(--r);padding:20px 22px;margin:20px 0}
+.avoid .al{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);margin-bottom:10px}
+.avoid ul{list-style:none;padding:0;margin:0}
+.avoid li{font-size:13px;padding:6px 0;color:var(--ink2);line-height:1.55;border-bottom:1px solid rgba(0,0,0,.05);padding-left:16px;position:relative}
+.avoid li:last-child{border-bottom:0}
+.avoid li::before{content:'→';position:absolute;left:0;color:var(--rose)}
+
+/* DEMOS */
+.demo-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+@media(max-width:700px){.demo-row{grid-template-columns:1fr}}
+.demo-box{border:1px solid var(--line);border-radius:var(--r2);padding:24px;background:#fff;position:relative}
+.demo-box .dlab{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.demo-box.amateur .dlab{color:var(--rose)}
+.demo-box.pro .dlab{color:var(--teal)}
+.ph{width:120px;height:72px;border-radius:8px;background:linear-gradient(135deg,var(--bg3),#fff);margin:0 auto 8px;position:relative}
+.demo-box.amateur .ph{box-shadow:0 14px 34px rgba(0,0,0,.38)}
+.demo-box.pro .ph{box-shadow:0 0 0 1px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.04),0 8px 8px -8px rgba(0,0,0,.04),inset 0 1px 0 rgba(255,255,255,.5)}
+.demo-box .note{font-size:12px;color:var(--ink3);text-align:center;margin-top:12px;line-height:1.45}
+.demo-box.amateur .note strong{color:var(--rose)}
+.demo-box.pro .note strong{color:var(--teal)}
+
+.alpha-ramp{display:flex;flex-direction:column;gap:6px;margin:14px 0}
+.arow{display:flex;gap:4px;align-items:center}
+.arow .alab{font-family:var(--fm);font-size:9px;color:var(--ink3);width:52px;flex:0 0 auto;text-transform:uppercase;letter-spacing:.06em}
+.achip{flex:1;height:28px;border-radius:4px;border:1px solid var(--line2);background:
+  linear-gradient(90deg,rgba(255,255,255,1),rgba(255,255,255,0)),
+  #3B3A36;
+}
+.arow.solid .achip{background:#3B3A36}
+.arow.solid .achip:nth-child(2){background:#4A4843}
+.arow.alpha .achip{background:rgba(255,255,255,.08)}
+.arow.alpha .achip:nth-child(2){background:rgba(255,255,255,.16)}
+.arow.alpha .achip:nth-child(3){background:rgba(255,255,255,.32)}
+.arow.alpha .achip:nth-child(4){background:rgba(255,255,255,.55)}
+.arow.alpha .achip:nth-child(5){background:rgba(255,255,255,.8)}
+
+.type-demo{background:var(--dark);border-radius:var(--r2);padding:28px 24px;margin:16px 0;color:var(--dtext)}
+.type-demo .tlabel{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#FDBA74;margin-bottom:18px}
+.type-demo .row{display:flex;align-items:baseline;gap:16px;padding:8px 0;border-bottom:1px solid var(--dline)}
+.type-demo .row:last-child{border-bottom:0}
+.type-demo .sz{font-family:var(--fm);font-size:11px;color:var(--dmuted);width:64px;flex:0 0 auto}
+.type-demo .sm{color:var(--dmuted)}
+.type-demo .lg{color:var(--dtext)}
+
+/* PAT ROW */
+.pat{display:grid;grid-template-columns:180px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line2);align-items:start}
+.pat:last-child{border-bottom:0}
+@media(max-width:640px){.pat{grid-template-columns:1fr;gap:6px}}
+.pat .pk{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding-top:2px}
+.pat .pv{min-width:0}
+.pat .pv p{margin:0;font-size:13.5px;color:var(--ink2);line-height:1.55}
+.pat .pv strong{color:var(--ink)}
+
+/* GAvin template visual */
+.tmpl{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+@media(max-width:700px){.tmpl{grid-template-columns:1fr 1fr}}
+.tmpl .tstep{background:var(--bg);border:1px solid var(--line);border-radius:var(--r2);padding:14px;min-width:0}
+.tmpl .tstep .tn{font-family:var(--fm);font-size:9px;color:var(--gold);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.tmpl .tstep .tt{font-weight:700;font-size:13px;margin-top:6px}
+.tmpl .tstep .td{font-size:11px;color:var(--ink3);margin-top:4px;line-height:1.4}
+
+/* CURSOR DEMO */
+.cursor-demo{background:var(--dark);border-radius:var(--r2);padding:20px;margin:14px 0;display:flex;flex-wrap:wrap;gap:10px}
+.cbtn{font-family:var(--fm);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--dtext);background:rgba(255,255,255,.06);border:1px solid var(--dline);padding:10px 14px;border-radius:8px;transition:background var(--dur) var(--ease)}
+.cbtn:hover{background:rgba(255,255,255,.12)}
+.cbtn[data-c="ew-resize"]{cursor:ew-resize}
+.cbtn[data-c="move"]{cursor:move}
+.cbtn[data-c="grabbing"]{cursor:grabbing}
+.cbtn[data-c="copy"]{cursor:copy}
+.cbtn[data-c="none"]{cursor:none}
+
+/* FOOTER */
+.foot{background:var(--dark);color:var(--dmuted);padding:48px 0 40px;border-top:1px solid var(--dline)}
+.foot-in{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between}
+.foot .ft{font-family:var(--fd);font-size:22px;color:var(--dtext);margin-bottom:10px}
+.foot .ft em{font-style:italic;color:#FDBA74}
+.foot p{font-size:13px;max-width:52ch;margin:0;line-height:1.55}
+.foot .fk{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#FDBA74;margin-bottom:12px}
+.foot .fr{display:flex;flex-direction:column;gap:8px}
+.foot .fr a{font-family:var(--fm);font-size:11px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--dmuted);transition:color var(--dur) var(--ease)}
+.foot .fr a:hover{color:var(--dtext)}
+
+@media print{#prog,.nav{display:none}body{background:#fff}.prof,.rule,.src-card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<nav class="nav">
+  <div class="nav-in">
+    <div class="nav-logo">Premium <em>craft</em> study</div>
+    <div class="nav-links">
+      <a href="#grid">The 9</a>
+      <a href="#why">Why 4</a>
+      <a href="#craft">Craft</a>
+      <a href="#rules">11 Rules</a>
+      <a href="#gap">Your gap</a>
+      <a href="#change">Change</a>
+      <a href="#appendix">Numbers</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <div class="hero-kick">
+      <span class="chip">Visual craft study</span>
+      <span class="chip o">22 Sep 2026</span>
+      <span class="chip ghost">9 sites · live DOM</span>
+      <span class="chip ghost">Measured, not estimated</span>
+    </div>
+
+    <h1>What makes a portfolio <em>feel premium</em></h1>
+
+    <p class="hero-deck">Four portfolios you already like, plus five more in the Vercel / Linear / OpenAI / Anthropic orbit — read off the live DOM and computed styles. Type scales, shadow recipes, alpha ramps, easing curves. Then the gap against your site, and fifteen changes ordered by ratio of perceived quality to work.</p>
+
+    <div class="hero-stats">
+      <div class="hstat"><div class="n"><span>9</span></div><div class="l">Portfolios measured</div></div>
+      <div class="hstat"><div class="n"><span>11</span></div><div class="l">Premium rules</div></div>
+      <div class="hstat"><div class="n"><span>4</span></div><div class="l">Median font sizes</div></div>
+      <div class="hstat"><div class="n"><span>43</span></div><div class="l">On your site today</div></div>
+      <div class="hstat"><div class="n"><span>15</span></div><div class="l">Changes, tiered</div></div>
+    </div>
+
+    <div class="insight">
+      <div class="lab">The thesis · §1</div>
+      <h2>Premium is not something you add. It is what is <em>left when you take enough away.</em></h2>
+      <p>Two light grounds, one white, one black — and the four you like still feel like siblings. The shared DNA is not a palette. It is <strong>subtraction</strong>: almost no type sizes, almost no shadows, almost no motion, and one contained moment of personality each.</p>
+      <p><strong>Then spend all the remaining attention on four or five details.</strong></p>
+    </div>
+  </div>
+</header>
+
+<!-- GRID -->
+<section id="grid">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">00</span>
+      <div>
+        <h2 class="sec-title">The nine, on visual craft</h2>
+        <p class="sec-sub">1–4 are yours. 5–9 are the five found in the same orbit — all senior, all with sites beautiful for reasons you can measure. Click any card for the live site, or jump to its teardown below.</p>
+      </div>
+    </div>
+
+    <div class="src-grid">
+      <a class="src-card" href="https://taamannae.dev" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge">Yours · 01</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ftaamannae.dev?w=900&h=560" alt="taamannae.dev screenshot" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">taamannae.dev</div>
+        </div>
+        <div class="body">
+          <span class="idx">01 · §2.1</span>
+          <div class="nm">Tammy Taabassum</div>
+          <div class="rl">Staff PD, Gen AI, Figma · recessed cards, 1.5px hairline, zero shadows, one hover gesture.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card" href="https://danield.design" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge">Yours · 02</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdanield.design?w=900&h=560" alt="danield.design screenshot" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">danield.design</div>
+        </div>
+        <div class="body">
+          <span class="idx">02 · §2.2</span>
+          <div class="nm">Daniel Destefanis</div>
+          <div class="rl">PD Consumer, Anthropic · the materials study — three shadow recipes, 4 type sizes, GT Standard.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card" href="https://zegzulka.com" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge">Yours · 03</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fzegzulka.com?w=900&h=560" alt="zegzulka.com screenshot" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">zegzulka.com</div>
+        </div>
+        <div class="body">
+          <span class="idx">03 · §2.3</span>
+          <div class="nm">Jakub Zegzulka</div>
+          <div class="rl">Design, OpenAI · emptiness specialist — optical tracking, 2 sizes, flat paper, radius 2px.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card" href="https://jennywen.ca" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge">Yours · 04</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fjennywen.ca?w=900&h=560" alt="jennywen.ca screenshot" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">jennywen.ca</div>
+        </div>
+        <div class="body">
+          <span class="idx">04 · §2.4</span>
+          <div class="nm">Jenny Wen</div>
+          <div class="rl">Design lead, Claude &amp; Cowork · pure black, 2 sizes, one 72px logotype used once.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card" href="https://nelson.co" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge">Found · 05</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fnelson.co?w=900&h=560" alt="nelson.co screenshot" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">nelson.co</div>
+        </div>
+        <div class="body">
+          <span class="idx">05 · §2.5</span>
+          <div class="nm">Gavin Nelson</div>
+          <div class="rl">PD, OpenAI · most useful single model — one font size on case studies, section-named assets.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card" href="https://rauno.me" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge">Found · 06</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Frauno.me?w=900&h=560" alt="rauno.me screenshot" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">rauno.me</div>
+        </div>
+        <div class="body">
+          <span class="idx">06 · §2.6</span>
+          <div class="nm">Rauno Freiberg</div>
+          <div class="rl">Interaction, Vercel · the ceiling — horizontal scroll, minimap nav, contextual cursors, ~80 dated experiments.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card" href="https://emilkowal.ski" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge">Found · 07</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Femilkowal.ski?w=900&h=560" alt="emilkowal.ski screenshot" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">emilkowal.ski</div>
+        </div>
+        <div class="body">
+          <span class="idx">07 · §2.7</span>
+          <div class="nm">Emil Kowalski</div>
+          <div class="rl">Design Engineer, Linear · the token system — Geist 12-step grey + alpha ramp, colour-only transitions.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card" href="https://paco.me" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge">Found · 08</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fpaco.me?w=900&h=560" alt="paco.me screenshot" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">paco.me</div>
+        </div>
+        <div class="body">
+          <span class="idx">08 · §2.8</span>
+          <div class="nm">Paco Coursey</div>
+          <div class="rl">Webmaster, Linear · dark counterpart — one transition site-wide: text-decoration-color 0.24s.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+
+      <a class="src-card" href="https://brianlovin.com" target="_blank" rel="noopener">
+        <div class="shot">
+          <span class="stagebadge">Found · 09</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fbrianlovin.com?w=900&h=560" alt="brianlovin.com screenshot" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="fallback" style="display:none">brianlovin.com</div>
+        </div>
+        <div class="body">
+          <span class="idx">09 · §2.9</span>
+          <div class="nm">Brian Lovin</div>
+          <div class="rl">AI products, Notion · alpha-white text ramp only — 1.0 / 0.9 / 0.7 / 0.5 / 0.32, no shadows.</div>
+          <div class="go">Visit site · Read teardown</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY THOSE FOUR -->
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <div>
+        <h2 class="sec-title">Why you like those four</h2>
+        <p class="sec-sub">Before adding anyone — what Tammy, Daniel, Jakub and Jenny have in common is remarkably specific.</p>
+      </div>
+    </div>
+
+    <div class="scrollx">
+      <table class="ctable">
+        <thead>
+          <tr><th></th><th>Tammy</th><th>Daniel</th><th>Jakub</th><th>Jenny</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Font sizes, whole site</td><td>6</td><td class="hi">4</td><td class="hi">2</td><td class="hi">2</td></tr>
+          <tr><td>Largest type</td><td>64px</td><td class="hi">24px</td><td>16px</td><td>72px</td></tr>
+          <tr><td>Box shadows</td><td class="ok">none</td><td>layered</td><td class="ok">none</td><td class="ok">none</td></tr>
+          <tr><td>Border radius on media</td><td>12px</td><td>48px</td><td>2px</td><td class="hi">0px</td></tr>
+          <tr><td>Hover vocabulary</td><td>one</td><td>two</td><td class="ok">none</td><td class="ok">none</td></tr>
+          <tr><td>Ground</td><td><code class="i">#F1F1EE</code></td><td><code class="i">#FFF</code></td><td><code class="i">#FFF</code></td><td><code class="i">#000</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="engine">
+      <div class="el">The shared DNA</div>
+      <h3>Not a palette. Subtraction — then all remaining attention on four or five details.</h3>
+      <p>Two light, one white, one black, and they still feel like siblings. Almost no type sizes. Almost no shadows. Almost no motion. <strong>One contained moment of personality each.</strong></p>
+      <p>Premium is what is left when you take enough away.</p>
+    </div>
+
+    <div class="duo">
+      <div class="dcard a">
+        <div class="dl">Your four</div>
+        <h4>The ones you already liked — <em>and you were right for a measurable reason.</em></h4>
+        <p>Tammy · Daniel · Jakub · Jenny. Subtraction as a system. Personality in a named container. You don't need new taste; you need to finish the job on your own site.</p>
+      </div>
+      <div class="dcard b">
+        <div class="dl">The found five</div>
+        <h4>Same orbit, different crafts — <em>materials, mechanics, tokens.</em></h4>
+        <p>Gavin (template writing) · Rauno (interaction ceiling) · Emil (colour architecture) · Paco (restraint) · Brian (alpha-only dark). Each is the best single model for one skill.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRAFT PROFILES -->
+<section id="craft">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <div>
+        <h2 class="sec-title">The nine, in detail</h2>
+        <p class="sec-sub">Ground, type, shadows, geometry, motion — and the one premium move each site makes. Every value from computed styles.</p>
+      </div>
+    </div>
+
+    <!-- 2.1 TAMMY -->
+    <div class="prof" id="tammy" style="margin-bottom:28px">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Yours · 01</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ftaamannae.dev?w=1000&h=680" alt="taamannae.dev" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://taamannae.dev" target="_blank" rel="noopener">↗ Open taamannae.dev</a>
+            <span class="url">§2.1 · Recessed surfaces</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">01</span><span class="badge soft">Zero shadows</span></div>
+          <h3>Tammy Taabassum</h3>
+          <div class="role">Staff Product Designer, Gen AI, <strong>Figma</strong> · <a href="https://taamannae.dev" target="_blank" rel="noopener">taamannae.dev</a></div>
+          <p class="hook">The card is a <em>darker</em> value than the page — not lighter with a shadow. On a light ground, recessing a surface reads calmer than floating it.</p>
+        </div>
+      </div>
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">6</div><div class="k">Font sizes</div></div>
+        <div class="pstat"><div class="v">64<span class="u">px</span></div><div class="k">Largest (H1)</div></div>
+        <div class="pstat"><div class="v">0</div><div class="k">Box shadows</div></div>
+        <div class="pstat"><div class="v">1.5<span class="u">px</span></div><div class="k">Hairline</div></div>
+        <div class="pstat"><div class="v">1</div><div class="k">Hover gesture</div></div>
+      </div>
+      <div class="prof-body">
+        <div class="toks">
+          <div class="tok"><div class="sw" style="background:#F1F1EE"></div><div class="k">Ground</div><div class="v">#F1F1EE</div></div>
+          <div class="tok"><div class="sw" style="background:#E2E2DE"></div><div class="k">Card (darker)</div><div class="v">#E2E2DE</div></div>
+          <div class="tok"><div class="sw" style="background:#212529"></div><div class="k">Ink</div><div class="v">#212529</div></div>
+          <div class="tok"><div class="sw" style="background:#898989"></div><div class="k">Muted</div><div class="v">#898989</div></div>
+        </div>
+
+        <div class="moves">
+          <div class="move">
+            <div class="mh"><span class="mn">THE HAIRLINE</span></div>
+            <p class="mq">Separation is a <b>1.5px solid rgba(0,0,0,0.12)</b> line. Unusual and deliberate: 1px disappears on retina, 2px reads as a border. <b>1.5px reads as a drawn line.</b></p>
+          </div>
+          <div class="move teal">
+            <div class="mh"><span class="mn">THE BLUR LADDER</span></div>
+            <p class="mq">backdrop-filter values of <b>1, 2, 4, 8px</b>. She has a <em>scale</em> for blur the way most people have a scale for spacing. Status pill uses blur(10px) behind a translucent fill.</p>
+          </div>
+          <div class="move">
+            <div class="mh"><span class="mn">CLEAN DOUBLING</span></div>
+            <p class="mq">Gaps 4 / 8 / 16 / 32. Radii 12 / 32 / 64 / 100. <b>Both are clean doubling scales.</b> Hover: <code class="i">scale(1.05)</code> over 0.4s — that is the whole vocabulary.</p>
+          </div>
+        </div>
+
+        <div class="engine">
+          <div class="el">The premium move</div>
+          <h3>Thumbnails are animated GIFs of the real product. Chrome is deliberately inert.</h3>
+          <p>All the visual energy sits in the content. Type: Manrope everywhere, neulis-cursive for the H1 only. H1 64/1.2. Body 16/1.7 on a 325px measure. Six sizes: 64, 24, 20, 18, 16, 13.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.2 DANIEL -->
+    <div class="prof" id="daniel" style="margin-bottom:28px">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Yours · 02</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fdanield.design?w=1000&h=680" alt="danield.design" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://danield.design" target="_blank" rel="noopener">↗ Open danield.design</a>
+            <span class="url">§2.2 · Materials</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">02</span><span class="badge soft">Study materials here</span></div>
+          <h3>Daniel Destefanis</h3>
+          <div class="role">Product Designer, Consumer, <strong>Anthropic</strong> · <a href="https://danield.design" target="_blank" rel="noopener">danield.design</a></div>
+          <p class="hook">The most sophisticated surface work of the nine. Three shadow recipes, each doing a different physical job — <em>recipe 3 is the one to internalise.</em></p>
+        </div>
+      </div>
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">4</div><div class="k">Font sizes</div></div>
+        <div class="pstat"><div class="v">24<span class="u">px</span></div><div class="k">Largest — no display</div></div>
+        <div class="pstat"><div class="v">3</div><div class="k">Shadow recipes</div></div>
+        <div class="pstat"><div class="v">2</div><div class="k">Font files (62KB)</div></div>
+        <div class="pstat"><div class="v">7</div><div class="k">Border radii</div></div>
+      </div>
+      <div class="prof-body">
+        <h4 class="mini">The five-layer physical ramp — recipe 3</h4>
+        <pre><span class="cm">/* A real object: dark + tight where it meets the surface,
+   pale + diffuse further out. Opacity rises as distance falls. */</span>
+box-shadow:
+  0 21px 6px  rgba(0,0,0,0.00),   <span class="cm">/* top layer literally zero */</span>
+  0 14px 5px  rgba(0,0,0,0.01),
+  0  8px 5px  rgba(0,0,0,0.05),
+  0  3px 3px  rgba(0,0,0,0.09),
+  0  1px 2px  rgba(0,0,0,0.10);   <span class="cm">/* tightest, darkest */</span></pre>
+
+        <div class="demo-row">
+          <div class="demo-box amateur">
+            <div class="dlab">What most sites ship</div>
+            <div class="ph"></div>
+            <div class="note"><strong>Single layer</strong><br>0 14px 34px rgba(0,0,0,0.38)<br>Reads as a sticker with a grey smudge.</div>
+          </div>
+          <div class="demo-box pro">
+            <div class="dlab">Daniel's recipe 3</div>
+            <div class="ph"></div>
+            <div class="note"><strong>Five layers, max 10%</strong><br>Dark &amp; tight at contact, pale &amp; diffuse out.<br>Also: inset white top edge on glass/raised.</div>
+          </div>
+        </div>
+
+        <div class="moves">
+          <div class="move">
+            <div class="mh"><span class="mn">INSET TOP EDGE</span></div>
+            <p class="mq">Glass and raised surfaces both carry an <b>inset white top highlight</b>. That one line is most of what separates “card” from “object.”</p>
+          </div>
+          <div class="move violet">
+            <div class="mh"><span class="mn">GEOMETRY</span></div>
+            <p class="mq">Radii 48/32/24/18/15/8/9999 · gaps 4/8/12/16/24/64 · maxw 1554/1496/724 · tracking +0.13 to +0.16px on small text · GT Standard, 2 weights.</p>
+          </div>
+          <div class="move teal">
+            <div class="mh"><span class="mn">MOTION</span></div>
+            <p class="mq"><b>0.1s–0.25s</b> on <code class="i">cubic-bezier(0.4,0,0.2,1)</code>, plus 0.5s opacity only. Short, one curve, <b>no bounce</b>.</p>
+          </div>
+        </div>
+
+        <p class="pull"><em>Honest flaw: pink-on-teal body over the shader is hard to read. Even here, legibility lost to beauty once.</em></p>
+
+        <div class="engine">
+          <div class="el">The premium move</div>
+          <h3>Hero is a live shader with a sun button that opens two sliders — the argument, not decoration.</h3>
+          <p>Three pulsing dots in the card corner quote a chat typing indicator. Media exported at display width: <code class="i">potrait-list-500w.mp4</code> is 500px wide, displays at 500px. IntersectionObserver play/pause. Never GIF.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.3 JAKUB -->
+    <div class="prof" id="jakub" style="margin-bottom:28px">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Yours · 03</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fzegzulka.com?w=1000&h=680" alt="zegzulka.com" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://zegzulka.com" target="_blank" rel="noopener">↗ Open zegzulka.com</a>
+            <span class="url">§2.3 · Emptiness</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">03</span><span class="badge soft">Optical tracking</span></div>
+          <h3>Jakub Zegzulka</h3>
+          <div class="role">Design, <strong>OpenAI</strong> · ex-Apple SPG, Meta Reality Labs · <a href="https://zegzulka.com" target="_blank" rel="noopener">zegzulka.com</a></div>
+          <p class="hook">The emptiness specialist. Zero shadows, radius 2px — flat paper. <em>The craft detail worth stealing: optical tracking on 12px vs 32px.</em></p>
+        </div>
+      </div>
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">2</div><div class="k">Font sizes</div></div>
+        <div class="pstat"><div class="v">0</div><div class="k">Box shadows</div></div>
+        <div class="pstat"><div class="v">2<span class="u">px</span></div><div class="k">Radius</div></div>
+        <div class="pstat"><div class="v">y=288</div><div class="k">2nd element (of 818)</div></div>
+        <div class="pstat"><div class="v">3.4</div><div class="k">Screens per study</div></div>
+      </div>
+      <div class="prof-body">
+        <div class="moves">
+          <div class="move">
+            <div class="mh"><span class="mn">OPTICAL TRACKING — STEAL THIS</span></div>
+            <p class="mq">Letter-spacing is <b>+0.7px and +0.4px on 12px text</b>, and <b>−0.4px on the 32px thesis</b>. Small type opens up; large type tightens. Almost nobody does this — it is the difference between type that is <em>set</em> and type that is merely placed.</p>
+          </div>
+          <div class="move teal">
+            <div class="mh"><span class="mn">MEASURED EMPTINESS</span></div>
+            <p class="mq">Nav at y=12, 12px. Next element at <b>y=288</b> — top 35% of screen one empty. Metadata pinned at x=12 and x=718 (12px from viewport edge). Thesis line only at y=778.</p>
+          </div>
+        </div>
+
+        <div class="type-demo">
+          <div class="tlabel">The tracking swing across one page</div>
+          <div class="row"><span class="sz">12px</span><span class="lg" style="font-size:14px;letter-spacing:.7px">META · OPENED UP +0.7PX</span></div>
+          <div class="row"><span class="sz">16px</span><span class="sm" style="font-size:16px">Body sits at normal tracking, system sans</span></div>
+          <div class="row"><span class="sz">32px</span><span class="lg" style="font-size:28px;letter-spacing:-.4px">Thesis tightened −0.4px</span></div>
+        </div>
+
+        <div class="engine">
+          <div class="el">The premium move</div>
+          <h3>Confidence through restraint. A homepage of wordless full-viewport panels.</h3>
+          <p>Assumes you recognise the Apple and Meta logos. Two font sizes, 16 and 12. System sans, no webfont at all. Zero shadows. Nothing elevated, nothing rounded.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.4 JENNY -->
+    <div class="prof" id="jenny" style="margin-bottom:28px">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Yours · 04</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fjennywen.ca?w=1000&h=680" alt="jennywen.ca" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://jennywen.ca" target="_blank" rel="noopener">↗ Open jennywen.ca</a>
+            <span class="url">§2.4 · Inverse rhythm</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">04</span><span class="badge soft">One flourish, once</span></div>
+          <h3>Jenny Wen</h3>
+          <div class="role">Design lead, Claude and Cowork, <strong>Anthropic</strong> · <a href="https://jennywen.ca" target="_blank" rel="noopener">jennywen.ca</a></div>
+          <p class="hook">Line height and tracking move <em>inversely</em> to size. That single relationship is most of what makes typography look professional.</p>
+        </div>
+      </div>
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">2</div><div class="k">Font sizes total</div></div>
+        <div class="pstat"><div class="v">72<span class="u">px</span></div><div class="k">Display · lh 1.0</div></div>
+        <div class="pstat"><div class="v">−2.5<span class="u">%</span></div><div class="k">Display tracking</div></div>
+        <div class="pstat"><div class="v">0</div><div class="k">Shadows · radius</div></div>
+        <div class="pstat"><div class="v">~770<span class="u">px</span></div><div class="k">Air between entries</div></div>
+      </div>
+      <div class="prof-body">
+        <div class="scrollx">
+          <table class="ctable">
+            <thead><tr><th></th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>Display (the name)</td><td class="hi">72px · weight 800 · lh 1.0 · tracking −1.8px (−2.5%)</td></tr>
+              <tr><td>Body</td><td class="hi">18px · lh 1.625 · tracking −1%</td></tr>
+              <tr><td>Total sizes</td><td class="hi">2</td></tr>
+              <tr><td>Link underlines</td><td>text-underline-offset 4px · thickness 2px</td></tr>
+              <tr><td>Measure / images</td><td>467px text · 547px images · radius 0</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="type-demo">
+          <div class="tlabel">Inverse relationship — large tight, small open</div>
+          <div class="row"><span class="sz">72px</span><span class="lg" style="font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.025em;line-height:1">JENNY WEN</span></div>
+          <div class="row"><span class="sz">18px</span><span class="sm" style="font-size:15px;line-height:1.625">Body opens to 1.625 with generous leading and a thick underline held clear of the descenders.</span></div>
+        </div>
+
+        <div class="moves">
+          <div class="move">
+            <div class="mh"><span class="mn">VERTICAL RHYTHM</span></div>
+            <p class="mq">Entries land at y = 519, 1260, 2029, 2799, 4110 — roughly <b>770px between entries, about one viewport of air each.</b></p>
+          </div>
+          <div class="move teal">
+            <div class="mh"><span class="mn">IMAGES ARE SMALL</span></div>
+            <p class="mq">547px wide next to a 467px text measure, left-aligned in a wide black field. <b>She is not selling the screenshots.</b> Square corners, flat on pure black.</p>
+          </div>
+        </div>
+
+        <div class="engine">
+          <div class="el">The premium move</div>
+          <h3>One 72px bold-italic logotype in a paid display serif — used exactly once.</h3>
+          <p>Swear Text Cilati on a site that otherwise has a single type size. Because it is the only flourish, <strong>it carries the entire brand.</strong> Pure black is earned: no surfaces for black to sit behind.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.5 GAVIN -->
+    <div class="prof" id="gavin" style="margin-bottom:28px">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Found · 05 · Best model</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fnelson.co?w=1000&h=680" alt="nelson.co" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://nelson.co" target="_blank" rel="noopener">↗ Open nelson.co</a>
+            <span class="url">§2.5 · Template writing</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">05</span><span class="badge soft">Most useful single model</span></div>
+          <h3>Gavin Nelson</h3>
+          <div class="role">Product Designer, <strong>OpenAI</strong> · ex-Linear, ex-GitHub · <a href="https://nelson.co" target="_blank" rel="noopener">nelson.co</a></div>
+          <p class="hook">Senior IC shipping consumer AI, writing about mobile interaction craft. <em>One heading, one or two paragraphs, one asset — repeated six times.</em></p>
+        </div>
+      </div>
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">1</div><div class="k">Font size on case study</div></div>
+        <div class="pstat"><div class="v">15<span class="u">px</span></div><div class="k">H1, H2, body, captions</div></div>
+        <div class="pstat"><div class="v">6</div><div class="k">Sections, fixed template</div></div>
+        <div class="pstat"><div class="v">3</div><div class="k">Colours on page</div></div>
+        <div class="pstat"><div class="v">608<span class="u">px</span></div><div class="k">Media width</div></div>
+      </div>
+      <div class="prof-body">
+        <h4 class="mini">The case study template — /work/linear-search</h4>
+        <div class="tmpl">
+          <div class="tstep"><div class="tn">01</div><div class="tt">Context</div><div class="td">heading + 1–2 paras + one video</div></div>
+          <div class="tstep"><div class="tn">02</div><div class="tt">Problem</div><div class="td">heading + 1–2 paras + one video</div></div>
+          <div class="tstep"><div class="tn">03</div><div class="tt">Scope</div><div class="td">heading + 1–2 paras + one image</div></div>
+          <div class="tstep"><div class="tn">04</div><div class="tt">Exploration</div><div class="td">heading + 1–2 paras + one image</div></div>
+          <div class="tstep"><div class="tn">05</div><div class="tt">Solution</div><div class="td">heading + 1–2 paras + one video</div></div>
+          <div class="tstep"><div class="tn">06</div><div class="tt">Display options</div><div class="td">heading + 1–2 paras + one video</div></div>
+        </div>
+        <pre>context.mp4 · problem.mp4 · scope.png · exploration.png
+searchsolution.mp4 · displayoptions.mp4 · searchdetails.mp4
+<span class="hl">Assets named after the sections. One font size: 15px. Weights 400/500.</span>
+video: autoplay loop muted playsinline · no poster</pre>
+
+        <h4 class="mini">The writing is half the craft</h4>
+        <div class="moves">
+          <div class="move">
+            <div class="mh"><span class="mn">SENTENCE 01 · MECHANISM + REASON</span></div>
+            <p class="mq">“A drag handle morphs into a chevron and triggers haptic feedback when you cross the close threshold, <b>helping introduce the interaction.</b>”</p>
+          </div>
+          <div class="move teal">
+            <div class="mh"><span class="mn">SENTENCE 02</span></div>
+            <p class="mq">“The exit transition also scales with the distance of your drag. Longer pulls produce a more pronounced motion, so the animation more closely mirrors the physical gesture.”</p>
+          </div>
+          <div class="move violet">
+            <div class="mh"><span class="mn">SENTENCE 03</span></div>
+            <p class="mq">“I built high-fidelity prototypes in Origami Studio and SwiftUI to tune arc-based enter and exit transitions so the overlay feels ephemeral and responsive.”</p>
+          </div>
+        </div>
+        <p>Every sentence names a mechanism and gives a reason. <strong>No adjectives doing work that a specification should do.</strong> Scope states the constraint first: “wanted to avoid completely redesigning the bottom toolbar… so I focused on reducing the worst navigation pain within the existing architecture.”</p>
+
+        <div class="engine">
+          <div class="el">Also: proof links</div>
+          <h3>Three ChatGPT items link out to x.com and openai.com. Only older Linear/GitHub work gets internal pages.</h3>
+          <p>The same proof-link instinct Tammy has, arrived at independently. Hero: phone screenshot in a soft panel, <strong>bleeding off the right edge</strong> — cropping is what makes it read as product shot, not mockup.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.6 RAUNO -->
+    <div class="prof" id="rauno" style="margin-bottom:28px">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Found · 06 · Interaction ceiling</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Frauno.me?w=1000&h=680" alt="rauno.me" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://rauno.me" target="_blank" rel="noopener">↗ Open rauno.me</a>
+            <span class="url">§2.6 · Mechanics</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">06</span><span class="badge soft">Contextual cursors</span></div>
+          <h3>Rauno Freiberg</h3>
+          <div class="role">Interaction Designer, <strong>Vercel</strong> and Devouring Details · <a href="https://rauno.me" target="_blank" rel="noopener">rauno.me</a></div>
+          <p class="hook">If Daniel is materials, Rauno is mechanics. Horizontal homepage, minimap nav, blend-mode crosshair, <em>~80 dated experiments on /craft.</em></p>
+        </div>
+      </div>
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">5834<span class="u">px</span></div><div class="k">Document width</div></div>
+        <div class="pstat"><div class="v">7.5</div><div class="k">Screens wide</div></div>
+        <div class="pstat"><div class="v">~80</div><div class="k">Dated experiments</div></div>
+        <div class="pstat"><div class="v">6</div><div class="k">Font sizes</div></div>
+        <div class="pstat"><div class="v">0.2<span class="u">s</span></div><div class="k">ease-in-out</div></div>
+      </div>
+      <div class="prof-body">
+        <div class="moves">
+          <div class="move">
+            <div class="mh"><span class="mn">MINIMAP, NOT NAV</span></div>
+            <p class="mq">Tick marks at top with a bordered tracker that slides as you move; current section filled yellow. Persists across pages. <b>Same family as your kp filmstrip, executed as global navigation.</b></p>
+          </div>
+          <div class="move teal">
+            <div class="mh"><span class="mn">CONTEXTUAL CURSORS — NOT A BLOB</span></div>
+            <p class="mq">Swaps the <b>system</b> cursor to match the affordance: ew-resize, move, grabbing, copy, none. Communicates instead of decorating. Costs one CSS class. Never fights the OS.</p>
+          </div>
+          <div class="move violet">
+            <div class="mh"><span class="mn">ONE PROPERTY</span></div>
+            <p class="mq"><code class="i">mix-blend-mode: difference</code> on the centre crosshair so it inverts against whatever card is under it. <b>Always legible on any background.</b></p>
+          </div>
+        </div>
+
+        <div class="cursor-demo" title="Hover each — the cursor changes with the affordance">
+          <span class="cbtn" data-c="ew-resize">ew-resize</span>
+          <span class="cbtn" data-c="move">move</span>
+          <span class="cbtn" data-c="grabbing">grabbing</span>
+          <span class="cbtn" data-c="copy">copy</span>
+          <span class="cbtn" data-c="none">cursor: none</span>
+        </div>
+        <p style="font-size:12.5px;color:var(--ink3);margin-top:-6px">Live demo — hover the buttons. This is the sophisticated version of the custom-cursor trend.</p>
+
+        <div class="engine">
+          <div class="el">Also: the version archive</div>
+          <h3>2022.rauno.me and 2023.rauno.me still resolve. He keeps every previous portfolio at a year subdomain.</h3>
+          <p>Your own site has redesign branches sitting in the repo — khiladipro-original, redesign-claude, sedp-dashboard-original, compare.html. <strong>This is what to do with them.</strong> Ground: hsl(0 0% 93%), soft grey, never white. Custom face “X” + JetBrains Mono for numerics.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.7 EMIL -->
+    <div class="prof" id="emil" style="margin-bottom:28px">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Found · 07 · Token system</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Femilkowal.ski?w=1000&h=680" alt="emilkowal.ski" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://emilkowal.ski" target="_blank" rel="noopener">↗ Open emilkowal.ski</a>
+            <span class="url">§2.7 · Colour architecture</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">07</span><span class="badge soft">Get colour architecture here</span></div>
+          <h3>Emil Kowalski</h3>
+          <div class="role">Design Engineer, Web, <strong>Linear</strong> · ex-Vercel design · <a href="https://emilkowal.ski" target="_blank" rel="noopener">emilkowal.ski</a></div>
+          <p class="hook">Plainest site in the set, most rigorous tokens. <em>Warm near-white and warm near-black — never #FFF or #000.</em></p>
+        </div>
+      </div>
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">2</div><div class="k">Font sizes (16, 14)</div></div>
+        <div class="pstat"><div class="v">4</div><div class="k">Colours total</div></div>
+        <div class="pstat"><div class="v">12+12</div><div class="k">Grey + alpha ramps</div></div>
+        <div class="pstat"><div class="v">8<span class="u">%</span></div><div class="k">Max shadow (the hairline)</div></div>
+        <div class="pstat"><div class="v">344<span class="u">px</span></div><div class="k">Text measure</div></div>
+      </div>
+      <div class="prof-body">
+        <div class="toks">
+          <div class="tok"><div class="sw" style="background:#FDFDFC"></div><div class="k">Ground</div><div class="v">#FDFDFC warm</div></div>
+          <div class="tok"><div class="sw" style="background:#21201C"></div><div class="k">Ink</div><div class="v">#21201C warm</div></div>
+          <div class="tok"><div class="sw" style="background:#63635E"></div><div class="k">Muted</div><div class="v">#63635E</div></div>
+          <div class="tok"><div class="sw" style="background:repeating-linear-gradient(90deg,#fdfdfc 0 10%,#e2e1de 10% 20%)"></div><div class="k">Ramp</div><div class="v">12-step grey</div></div>
+        </div>
+
+        <h4 class="mini">Why the alpha ramp is the part people miss</h4>
+        <div class="demo-row">
+          <div class="demo-box amateur">
+            <div class="dlab">Solid greys — break over images</div>
+            <div class="alpha-ramp">
+              <div class="arow solid"><span class="alab">solid</span><span class="achip"></span><span class="achip"></span><span class="achip"></span><span class="achip"></span><span class="achip"></span></div>
+            </div>
+            <div class="note"><strong>Hand-picked hex list</strong><br>Hue drifts. Fails over photos and coloured panels.</div>
+          </div>
+          <div class="demo-box pro">
+            <div class="dlab">Alpha ramp — composites everywhere</div>
+            <div class="alpha-ramp">
+              <div class="arow alpha"><span class="alab">alpha</span><span class="achip"></span><span class="achip"></span><span class="achip"></span><span class="achip"></span><span class="achip"></span></div>
+            </div>
+            <div class="note"><strong>rgba(255,255,255, x)</strong><br>Borders, dividers, hovers, overlays all come from here — never the solid ramp.</div>
+          </div>
+        </div>
+
+        <pre><span class="cm">/* Shadow ladder — every step built on a 1px border-shadow */</span>
+--shadow-border : 0 0 0 1px rgba(0,0,0,.08);
+--shadow-small  : border, 0 2px 2px rgba(0,0,0,.04);
+--shadow-medium : …, 0 8px 8px -8px rgba(0,0,0,.04);
+--shadow-large  : …, 0 8px 16px -4px rgba(0,0,0,.04);
+--shadow-menu   : …, 0 16px 24px -8px rgba(0,0,0,.06);
+--shadow-modal  : …, 0 24px 32px -8px rgba(0,0,0,.06);
+
+<span class="hl">Max blur opacity 6–8%, and that 8% is the hairline, not the blur.
+Elevation = spread of the blur, not darkness.</span></pre>
+
+        <div class="engine">
+          <div class="el">Transitions — why it feels alive without moving</div>
+          <h3>0.15s cubic-bezier(0.4,0,0.2,1) on colour properties only. No transforms, no scale, no translate.</h3>
+          <p>Applied to <code class="i">color, background-color, border-color, text-decoration-color, fill, stroke</code>. Everything that can change colour does so smoothly; nothing moves. <strong>That is why a site with no animation still feels responsive rather than dead.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.8 PACO -->
+    <div class="prof" id="paco" style="margin-bottom:28px">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Found · 08 · Restraint</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fpaco.me?w=1000&h=680" alt="paco.me" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://paco.me" target="_blank" rel="noopener">↗ Open paco.me</a>
+            <span class="url">§2.8 · Dark counterpart</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">08</span><span class="badge soft">One transition site-wide</span></div>
+          <h3>Paco Coursey</h3>
+          <div class="role">Webmaster, <strong>Linear</strong> · built the Vercel design system · <a href="https://paco.me" target="_blank" rel="noopener">paco.me</a></div>
+          <p class="hook">Dark counterpart to Emil. Confirms the token architecture is a genre convention, not one person's habit. <em>One transition: text-decoration-color 0.24s.</em></p>
+        </div>
+      </div>
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">3</div><div class="k">Font sizes (17/16/14)</div></div>
+        <div class="pstat"><div class="v">1</div><div class="k">Transition site-wide</div></div>
+        <div class="pstat"><div class="v">0.24<span class="u">s</span></div><div class="k">text-decoration-color</div></div>
+        <div class="pstat"><div class="v">640<span class="u">px</span></div><div class="k">--content-width</div></div>
+        <div class="pstat"><div class="v">12+12</div><div class="k">Grey + alpha (+ black-α)</div></div>
+      </div>
+      <div class="prof-body">
+        <pre>ground #1A1A1A · ink #F2F2F2 · Söhne (Klim) + Inter fallback
+
+--page-width     1072px
+--content-width   640px
+--page-top        128px
+--header-height    48px
+--footer-height    48px
+--body-margin-left max(24px, env(safe-area-inset-left))
+
+<span class="hl">One transition on the whole site:
+  text-decoration-color 0.24s</span>
+Hovering a link fades the underline colour in.
+Nothing else on the page moves, <span class="ok">ever</span>.</pre>
+
+        <div class="engine">
+          <div class="el">Why it feels expensive</div>
+          <h3>The most restrained interaction in the study.</h3>
+          <p>Same Radix 12-step grey + 12-step alpha + a separate 12-step pure-black alpha ramp. Explicit layout tokens, few of them. <strong>When nothing moves but colour changes are smooth, the interface reads calm — not dead.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2.9 BRIAN -->
+    <div class="prof" id="brian">
+      <div class="prof-top">
+        <div class="prof-shot">
+          <span class="badge sb">Found · 09 · Alpha-only dark</span>
+          <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fbrianlovin.com?w=1000&h=680" alt="brianlovin.com" loading="lazy" onerror="this.style.display='none'">
+          <div class="ov"></div>
+          <div class="visit">
+            <a href="https://brianlovin.com" target="_blank" rel="noopener">↗ Open brianlovin.com</a>
+            <span class="url">§2.9 · Five opacities</span>
+          </div>
+        </div>
+        <div class="prof-meta">
+          <div class="row1"><span class="num">09</span><span class="badge soft">No grey values at all</span></div>
+          <h3>Brian Lovin</h3>
+          <div class="role">AI products, <strong>Notion</strong> · ex-Staff Designer GitHub, founded Campsite · <a href="https://brianlovin.com" target="_blank" rel="noopener">brianlovin.com</a></div>
+          <p class="hook">On dark, he does not use grey values at all. <em>One colour at five opacities: white at 1.0, 0.9, 0.7, 0.5, 0.32.</em></p>
+        </div>
+      </div>
+      <div class="prof-stats">
+        <div class="pstat"><div class="v">4</div><div class="k">Font sizes (24/20/18/16)</div></div>
+        <div class="pstat"><div class="v">3</div><div class="k">Weights · Inter</div></div>
+        <div class="pstat"><div class="v">0</div><div class="k">Shadows anywhere</div></div>
+        <div class="pstat"><div class="v">5</div><div class="k">Alpha steps (text ramp)</div></div>
+        <div class="pstat"><div class="v">749<span class="u">px</span></div><div class="k">Measure</div></div>
+      </div>
+      <div class="prof-body">
+        <div class="type-demo">
+          <div class="tlabel">The text ramp — white at five opacities, no greys</div>
+          <div class="row"><span class="sz">1.0</span><span style="color:#fff;font-size:16px">Primary heading text</span></div>
+          <div class="row"><span class="sz">0.9</span><span style="color:rgba(255,255,255,.9);font-size:16px">Secondary emphasis</span></div>
+          <div class="row"><span class="sz">0.7</span><span style="color:rgba(255,255,255,.7);font-size:15px">Body / links</span></div>
+          <div class="row"><span class="sz">0.5</span><span style="color:rgba(255,255,255,.5);font-size:14px">Muted metadata</span></div>
+          <div class="row"><span class="sz">0.32</span><span style="color:rgba(255,255,255,.32);font-size:13px">Footer, timestamps</span></div>
+        </div>
+
+        <div class="moves">
+          <div class="move teal">
+            <div class="mh"><span class="mn">WHY ALPHA ON DARK</span></div>
+            <p class="mq">Guarantees the text ramp stays harmonious <b>no matter what the background does</b>. Impossible to get the hue drift you get from hand-picked greys.</p>
+          </div>
+          <div class="move">
+            <div class="mh"><span class="mn">SAME EASING AS EMIL</span></div>
+            <p class="mq"><b>0.15s cubic-bezier(0.4,0,0.2,1)</b> on colour properties only. No shadows anywhere. Four sizes, three weights, Inter.</p>
+          </div>
+        </div>
+
+        <div class="engine">
+          <div class="el">Takeaway for your dark site</div>
+          <h3>Your ground is already dark. Adopt the alpha-white ramp before you invent grey hex values.</h3>
+          <p>White at 1.0 / 0.9 / 0.7 / 0.5 / 0.32 covers headings, body, links, muted, footer. Borders and hover fills come from a matching low-alpha band — never solid greys over images.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 RULES -->
+<section id="rules">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <div>
+        <h2 class="sec-title">The premium grammar</h2>
+        <p class="sec-sub">Eleven rules, each backed by the measurements above. These are the portable principles — independent of any one site's palette.</p>
+      </div>
+    </div>
+
+    <div class="rules">
+      <div class="rule">
+        <span class="rn">1</span>
+        <span class="tag">Type</span>
+        <h4>Four font sizes</h4>
+        <p>Median across the nine is <strong>four</strong>. Gavin's case studies run on <strong>one</strong>. Jenny and Jakub run whole sites on <strong>two</strong>.</p>
+        <p>Hierarchy from <strong>weight, colour and vertical space</strong>. Size is the blunt instrument you reach for when you haven't built the other three.</p>
+      </div>
+
+      <div class="rule">
+        <span class="rn">2</span>
+        <span class="tag">Surfaces</span>
+        <h4>Hairlines, not shadows</h4>
+        <p><strong>Five of nine have zero box-shadows.</strong> Separation: 1–1.5px hairline at 8–12% opacity, or step the background value.</p>
+        <p>When shadows appear: multiple layers, low opacity — and always paired with a hairline as layer one.</p>
+      </div>
+
+      <div class="rule">
+        <span class="rn">3</span>
+        <span class="tag">Colour</span>
+        <h4>An alpha ramp, not a grey list</h4>
+        <p>Twelve solid greys for backgrounds/text; twelve matching <code class="i">rgba(…,x)</code> steps for borders, dividers, hover fills, overlays.</p>
+        <p><strong>Solid greys break over images. Alpha greys never do.</strong></p>
+      </div>
+
+      <div class="rule">
+        <span class="rn">4</span>
+        <span class="tag">Colour</span>
+        <h4>Never pure</h4>
+        <p><code class="i">#FDFDFC</code> · <code class="i">#F1F1EE</code> · <code class="i">#21201C</code> · <code class="i">#1A1A1A</code> — seven of nine avoid pure white and black. Greys are <strong>warm</strong>, a point or two toward yellow.</p>
+        <p>Jenny's pure black is the exception she earns: no surfaces for black to sit behind.</p>
+      </div>
+
+      <div class="rule">
+        <span class="rn">5</span>
+        <span class="tag">Type</span>
+        <h4>Line height &amp; tracking move inversely to size</h4>
+        <p>72px display → lh <strong>1.0</strong>, tracking <strong>−2.5%</strong>. 12px meta → lh 1.5, tracking <strong>+0.7px</strong>.</p>
+        <p>Large: tight leading, negative tracking. Small: open leading, positive tracking. <strong>This single relationship is most of professional typography.</strong></p>
+      </div>
+
+      <div class="rule">
+        <span class="rn">6</span>
+        <span class="tag">Motion</span>
+        <h4>One easing, one duration, colour only</h4>
+        <p><code class="i">cubic-bezier(0.4,0,0.2,1)</code> on Emil, Brian, Jenny, Daniel. Durations cluster <strong>0.15–0.25s</strong>. Nothing bounces. Nothing overshoots.</p>
+        <p>Transition colour properties and nothing else — or, like Paco, one property on the entire site.</p>
+      </div>
+
+      <div class="rule">
+        <span class="rn">7</span>
+        <span class="tag">Motion</span>
+        <h4>One hover gesture, used everywhere</h4>
+        <p>Tammy: <code class="i">scale(1.05)</code>. Paco: underline colour. Emil: text colour. Jakub &amp; Jenny: nothing.</p>
+        <p><strong>Pick one and do not invent a second.</strong></p>
+      </div>
+
+      <div class="rule">
+        <span class="rn">8</span>
+        <span class="tag">Interaction</span>
+        <h4>Contextual cursors beat custom cursors</h4>
+        <p>Rauno swaps <code class="i">cursor</code> to match what the element does — ew-resize, move, grabbing, copy, none.</p>
+        <p>Communicates rather than decorates, costs one CSS class, <strong>never fights the OS.</strong></p>
+      </div>
+
+      <div class="rule">
+        <span class="rn">9</span>
+        <span class="tag">Media</span>
+        <h4>Media is a system, not a collection</h4>
+        <p>One asset per section, <strong>named after the section</strong> (Gavin, Daniel). Exported at display width. MP4 + <code class="i">autoplay loop muted playsinline</code> + IntersectionObserver. Never GIF.</p>
+        <p><strong>Compose, do not float</strong> — crop, bleed off an edge, sit in a soft panel.</p>
+      </div>
+
+      <div class="rule">
+        <span class="rn">10</span>
+        <span class="tag">Type</span>
+        <h4>One typeface or the system stack — nothing in between</h4>
+        <p>Paid face: Daniel (GT Standard), Paco (Söhne), Jenny (Neue Haas + Swear), Rauno (custom X). System: Jakub, Gavin. Inter: Brian.</p>
+        <p><strong>Nobody reaches for a free display serif.</strong> One paid grotesk at two weights, or <code class="i">ui-sans-serif</code> — both read as considered.</p>
+      </div>
+
+      <div class="rule">
+        <span class="rn">11</span>
+        <span class="tag">Personality</span>
+        <h4>One contained moment of personality</h4>
+        <p>Daniel's shader · Jenny's 72px logotype · Rauno's crosshair · Tammy's rotating line · Jakub's 2077 · Gavin's avatar.</p>
+        <p>Exactly one per site, in a named container, on a page otherwise completely sober. <strong>Distributed whimsy reads as noise; concentrated whimsy reads as confidence.</strong></p>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="sl">Rule 1 · the size table</div>
+      <div class="scrollx">
+        <table class="ctable">
+          <thead><tr><th>Site</th><th>Sizes</th><th>Largest</th></tr></thead>
+          <tbody>
+            <tr><td>Gavin Nelson (case study)</td><td class="hi">1</td><td>15px</td></tr>
+            <tr><td>Jenny Wen</td><td class="hi">2</td><td>72px</td></tr>
+            <tr><td>Jakub Zegzulka</td><td class="hi">2</td><td>16px</td></tr>
+            <tr><td>Emil Kowalski</td><td class="hi">2</td><td>16px</td></tr>
+            <tr><td>Paco Coursey</td><td>3</td><td>17px</td></tr>
+            <tr><td>Daniel Destefanis</td><td>4</td><td>24px</td></tr>
+            <tr><td>Brian Lovin</td><td>4</td><td>24px</td></tr>
+            <tr><td>Tammy Taabassum</td><td>6</td><td>64px</td></tr>
+            <tr><td>Rauno Freiberg</td><td>6</td><td>85px</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="sl">Rule 5 · optical settings measured</div>
+      <div class="pat"><div class="pk">72px display</div><div class="pv"><p>Jenny · lh <strong>1.0</strong> · tracking <strong>−2.5%</strong></p></div></div>
+      <div class="pat"><div class="pk">64px display</div><div class="pv"><p>Tammy · lh 1.2 · tracking 0</p></div></div>
+      <div class="pat"><div class="pk">32px thesis</div><div class="pv"><p>Jakub · lh 1.07 · tracking <strong>−0.4px</strong></p></div></div>
+      <div class="pat"><div class="pk">18px body</div><div class="pv"><p>Jenny · lh <strong>1.625</strong> · tracking −1%</p></div></div>
+      <div class="pat"><div class="pk">16px body</div><div class="pv"><p>Tammy · lh <strong>1.7</strong> · tracking 0</p></div></div>
+      <div class="pat"><div class="pk">12px meta</div><div class="pv"><p>Jakub · lh 1.5 · tracking <strong>+0.7px</strong></p></div></div>
+    </div>
+
+    <div class="spec">
+      <div class="sl">Rule 9 · media checklist</div>
+      <div class="pat"><div class="pk">Named after section</div><div class="pv"><p><code class="i">context.mp4</code> · <code class="i">problem.mp4</code> · <code class="i">empty-state.mp4</code> · <code class="i">version-history.mp4</code></p></div></div>
+      <div class="pat"><div class="pk">Exported at display width</div><div class="pv"><p>Daniel's <code class="i">-500w.mp4</code> is 500×1088 and displays at 500px. No 1080p in a 500px slot.</p></div></div>
+      <div class="pat"><div class="pk">Config</div><div class="pv"><p><code class="i">autoplay loop muted playsinline</code> · no poster · play/pause via IntersectionObserver · <strong>never GIF</strong></p></div></div>
+      <div class="pat"><div class="pk">Compose</div><div class="pv"><p>Gavin crops phone against soft panel, bleeds off edge. Jakub screenshots run off the bottom. <strong>Stop centring full device mockups in empty space.</strong></p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- YOUR GAP -->
+<section id="gap">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <div>
+        <h2 class="sec-title">Your site, measured against this</h2>
+        <p class="sec-sub">Read from <code class="i">assets/css/style.css</code>. Foundation is good — dark, Inter + JetBrains Mono, hairlines at 8%/16%. The gaps are all quantity, not direction.</p>
+      </div>
+    </div>
+
+    <div class="gap-grid">
+      <div class="gap bad"><span class="xr">10×</span><div class="gv">43</div><div class="gl">Font sizes</div><div class="gm">ref median: 4</div></div>
+      <div class="gap bad"><span class="xr">2×</span><div class="gv">11</div><div class="gl">Border radii</div><div class="gm">ref: 4–6</div></div>
+      <div class="gap bad"><span class="xr">5×</span><div class="gv">9</div><div class="gl">Transition durations</div><div class="gm">ref: 1–2</div></div>
+      <div class="gap bad"><span class="xr">7×</span><div class="gv">7</div><div class="gl">Easing curves</div><div class="gm">incl. 2 overshoots · ref: 1</div></div>
+      <div class="gap bad"><span class="xr">5×</span><div class="gv">50%</div><div class="gl">Max shadow opacity</div><div class="gm">also 38% · ref: 6–12%</div></div>
+      <div class="gap bad"><span class="xr">8×</span><div class="gv">3</div><div class="gl">Neutral ramp steps</div><div class="gm">ref: 12 + 12 alpha</div></div>
+    </div>
+
+    <div class="scrollx">
+      <table class="ctable">
+        <thead><tr><th></th><th>Your site</th><th>Reference median</th><th>Gap</th></tr></thead>
+        <tbody>
+          <tr><td>Distinct font sizes</td><td class="bad">43</td><td>4</td><td class="bad">10×</td></tr>
+          <tr><td>Distinct border radii</td><td class="bad">11</td><td>4 to 6</td><td class="bad">2×</td></tr>
+          <tr><td>Transition durations</td><td class="bad">9 (0.15–0.9s)</td><td>1 to 2</td><td class="bad">5×</td></tr>
+          <tr><td>Easing curves</td><td class="bad">7 incl. bounce + overshoot</td><td>1</td><td class="bad">7×</td></tr>
+          <tr><td>Max shadow opacity</td><td class="bad">38% and 50%</td><td>6 to 12%</td><td class="bad">5×</td></tr>
+          <tr><td>Shadow layers</td><td class="bad">1</td><td>3 to 5</td><td>—</td></tr>
+          <tr><td>Neutral ramp</td><td class="bad">3 steps</td><td>12 + 12 alpha</td><td class="bad">8×</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="big">The three worst offenders</h3>
+
+    <div class="moves" style="grid-template-columns:1fr">
+      <div class="move" style="border-left-color:var(--rose)">
+        <div class="mh"><span class="mn" style="color:var(--rose)">OFFENDER 01 · 43 FONT SIZES</span></div>
+        <p class="mq">Forty-three. Almost certainly the single largest reason the site does not feel as tight as the four you like. Values like <code class="i">0.97rem</code>, <code class="i">0.94rem</code>, <code class="i">0.92rem</code>, <code class="i">0.9rem</code>, <code class="i">0.86rem</code> are all present — <b>no reader can perceive the difference; they just register as inconsistency.</b></p>
+      </div>
+      <div class="move" style="border-left-color:var(--rose)">
+        <div class="mh"><span class="mn" style="color:var(--rose)">OFFENDER 02 · SHADOWS AT 38% AND 50%</span></div>
+        <p class="mq"><code class="i">0 14px 34px rgba(0,0,0,0.38)</code> and <code class="i">0 24px 80px rgba(0,0,0,0.5)</code>. Nothing in the reference class goes above 12%. On a dark ground these read as <b>grey haze rather than elevation.</b></p>
+      </div>
+      <div class="move" style="border-left-color:var(--rose)">
+        <div class="mh"><span class="mn" style="color:var(--rose)">OFFENDER 03 · SEVEN EASINGS INCLUDING OVERSHOOT</span></div>
+        <p class="mq"><code class="i">cubic-bezier(0.34, 1.56, 0.64, 1)</code> overshoots past 1 and bounces back. So does <code class="i">cubic-bezier(0.3, 0.5, 0.2, 1.1)</code>. Bounce is the most reliable way to feel consumer rather than professional. <b>Not one of the nine uses an overshoot curve anywhere.</b></p>
+      </div>
+    </div>
+
+    <details class="dd">
+      <summary>Your current foundation (what's already right)</summary>
+      <div class="ddin">
+        <div class="toks">
+          <div class="tok"><div class="sw" style="background:#0f0f0e"></div><div class="k">Background</div><div class="v">#0f0f0e</div></div>
+          <div class="tok"><div class="sw" style="background:#ebeae6"></div><div class="k">Ink</div><div class="v">#ebeae6</div></div>
+          <div class="tok"><div class="sw" style="background:#82806f"></div><div class="k">Muted</div><div class="v">#82806f</div></div>
+          <div class="tok"><div class="sw" style="background:#f0a344"></div><div class="k">Accent</div><div class="v">#f0a344</div></div>
+          <div class="tok"><div class="sw" style="background:rgba(255,255,255,.08)"></div><div class="k">Hairline</div><div class="v">white 8%</div></div>
+          <div class="tok"><div class="sw" style="background:rgba(255,255,255,.16)"></div><div class="k">Strong line</div><div class="v">white 16%</div></div>
+        </div>
+        <pre>Inter + JetBrains Mono · maxw 760/1120 · dark ground
+<span class="ok">Already in the right neighbourhood.</span>
+Gaps are quantity: sizes, durations, easings, shadow opacity, ramp depth.</pre>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- WHAT TO CHANGE -->
+<section id="change">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <div>
+        <h2 class="sec-title">What to change</h2>
+        <p class="sec-sub">Fifteen moves ordered by ratio of perceived quality gained to work required — plus what not to do.</p>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-h"><span class="tier-b">Tier 1</span><span class="tt">Half a day · biggest visible jump</span><span class="line"></span></div>
+
+      <div class="rec star">
+        <div class="rn">1</div>
+        <div class="rb">
+          <h5>Collapse to a six-step type scale.<span class="star-tag">Star</span></h5>
+          <p>Compresses cleanly from 43 while keeping the dark, mono-inflected character:</p>
+          <div class="codeblock"><span class="c">/* page title, once per page */</span>
+<span class="k">--text-display</span>: <span class="v">clamp(2rem, 4vw, 2.75rem)</span>;
+<span class="k">--text-title</span>:   <span class="v">1.375rem</span>;   <span class="c">/* 22px section & card titles */</span>
+<span class="k">--text-lead</span>:    <span class="v">1.0625rem</span>;  <span class="c">/* 17px intro paragraphs     */</span>
+<span class="k">--text-body</span>:    <span class="v">0.9375rem</span>;  <span class="c">/* 15px everything readable  */</span>
+<span class="k">--text-small</span>:   <span class="v">0.8125rem</span>;  <span class="c">/* 13px captions, meta       */</span>
+<span class="k">--text-micro</span>:   <span class="v">0.6875rem</span>;  <span class="c">/* 11px mono labels, eyebrows*/</span></div>
+          <p>Then <code class="i">grep -oE 'font-size: *[^;]+' assets/css/*.css</code> and rewrite every hit to one of the six. <strong>Nothing else on this list will move the needle as much.</strong></p>
+        </div>
+      </div>
+
+      <div class="rec star">
+        <div class="rn">2</div>
+        <div class="rb">
+          <h5>Replace both shadows with a layered ladder.<span class="star-tag">Star</span></h5>
+          <p>On dark, near-black + hairline does the work:</p>
+          <div class="codeblock"><span class="k">--shadow-border</span>: <span class="v">0 0 0 1px rgba(255,255,255,0.08)</span>;
+<span class="k">--shadow-sm</span>: <span class="v">var(--shadow-border), 0 1px 2px rgba(0,0,0,0.24)</span>;
+<span class="k">--shadow-md</span>: <span class="v">var(--shadow-border), 0 2px 4px rgba(0,0,0,0.20),
+                              0 8px 16px -6px rgba(0,0,0,0.24)</span>;
+<span class="k">--shadow-lg</span>: <span class="v">var(--shadow-border), 0 2px 4px rgba(0,0,0,0.16),
+                              0 12px 24px -8px rgba(0,0,0,0.28),
+                              0 24px 48px -16px rgba(0,0,0,0.24)</span>;</div>
+          <p>Then <strong>delete</strong> <code class="i">0 14px 34px rgba(0,0,0,0.38)</code> and <code class="i">0 24px 80px rgba(0,0,0,0.5)</code>.</p>
+        </div>
+      </div>
+
+      <div class="rec star">
+        <div class="rn">3</div>
+        <div class="rb">
+          <h5>One easing, two durations.<span class="star-tag">Star</span></h5>
+          <div class="codeblock"><span class="k">--ease</span>: <span class="v">cubic-bezier(0.4, 0, 0.2, 1)</span>;
+<span class="k">--dur-fast</span>: <span class="v">0.15s</span>;   <span class="c">/* colour, opacity, borders */</span>
+<span class="k">--dur-slow</span>: <span class="v">0.3s</span>;    <span class="c">/* layout, reveals          */</span></div>
+          <p>Delete both overshoot curves outright. Your existing <code class="i">cubic-bezier(0.2, 0.6, 0.2, 1)</code> is a fine house curve if you prefer it — but keep only one.</p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">4</div>
+        <div class="rb">
+          <h5>Prefer colour transitions to transform transitions.</h5>
+          <p>Audit every <code class="i">transition</code> animating <code class="i">transform</code>, <code class="i">scale</code> or <code class="i">translate</code> on hover. Would <code class="i">background-color</code> or <code class="i">border-color</code> do the job? <strong>Keep one transform hover in the whole site, at most.</strong></p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">5</div>
+        <div class="rb">
+          <h5>Collapse radii to four.</h5>
+          <p>Keep <code class="i">2px</code> (inline chips) · <code class="i">10px</code> (small surfaces) · <code class="i">14px</code> (cards, existing <code class="i">--radius</code>) · <code class="i">999px</code> (pills). Delete 1, 6, 8, 9, 12, 16.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-h"><span class="tier-b t2">Tier 2</span><span class="tt">A day · fixes the “almost right” feeling</span><span class="line"></span></div>
+
+      <div class="rec">
+        <div class="rn">6</div>
+        <div class="rb">
+          <h5>Build a proper alpha ramp.</h5>
+          <p>Twelve white-alpha steps for borders, dividers, hover fills, overlays on dark. Existing <code class="i">--line</code> / <code class="i">--line-strong</code> become <code class="i">--a3</code> / <code class="i">--a5</code>. Text ramp: <code class="i">--a12</code>, <code class="i">--a11</code>, <code class="i">--a9</code>. Hover fills: <code class="i">--a2</code> / <code class="i">--a3</code>.</p>
+          <div class="codeblock"><span class="k">--a1</span>:  <span class="v">rgba(255,255,255,0.03)</span>;   <span class="k">--a7</span>:  <span class="v">rgba(255,255,255,0.24)</span>;
+<span class="k">--a2</span>:  <span class="v">rgba(255,255,255,0.05)</span>;   <span class="k">--a8</span>:  <span class="v">rgba(255,255,255,0.32)</span>;
+<span class="k">--a3</span>:  <span class="v">rgba(255,255,255,0.08)</span>;   <span class="k">--a9</span>:  <span class="v">rgba(255,255,255,0.45)</span>;
+<span class="k">--a4</span>:  <span class="v">rgba(255,255,255,0.11)</span>;   <span class="k">--a10</span>: <span class="v">rgba(255,255,255,0.56)</span>;
+<span class="k">--a5</span>:  <span class="v">rgba(255,255,255,0.15)</span>;   <span class="k">--a11</span>: <span class="v">rgba(255,255,255,0.72)</span>;
+<span class="k">--a6</span>:  <span class="v">rgba(255,255,255,0.19)</span>;   <span class="k">--a12</span>: <span class="v">rgba(255,255,255,0.93)</span>;</div>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">7</div>
+        <div class="rb">
+          <h5>Set your type optically.</h5>
+          <div class="codeblock"><span class="c">/* display */</span>  line-height: <span class="v">1.05</span>; letter-spacing: <span class="v">-0.025em</span>;
+<span class="c">/* title   */</span>  line-height: <span class="v">1.2</span>;  letter-spacing: <span class="v">-0.015em</span>;
+<span class="c">/* body    */</span>  line-height: <span class="v">1.65</span>; letter-spacing: <span class="v">0</span>;
+<span class="c">/* small   */</span>  line-height: <span class="v">1.5</span>;  letter-spacing: <span class="v">0.005em</span>;
+<span class="c">/* micro   */</span>  line-height: <span class="v">1.4</span>;  letter-spacing: <span class="v">0.06em</span>;  <span class="c">/* mono upper */</span></div>
+          <p>Inter in particular needs the negative tracking at display sizes; it is drawn loose by default.</p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">8</div>
+        <div class="rb">
+          <h5>Fix link underlines.</h5>
+          <p><code class="i">text-underline-offset: 4px; text-decoration-thickness: 1.5px;</code> — colour transitions on hover rather than the underline appearing/disappearing. Jenny uses 4px and 2px; on dark, 1.5px is enough.</p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">9</div>
+        <div class="rb">
+          <h5>Rebuild the case-study section template as Gavin's.</h5>
+          <p>One heading, one or two short paragraphs, one asset, named after the section. Apply to the kp chapters. <strong>It will immediately show which sections have no asset worth showing and should be cut.</strong></p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">10</div>
+        <div class="rb">
+          <h5>Convert every animated GIF and heavy image to MP4.</h5>
+          <p><code class="i">autoplay loop muted playsinline</code> + IntersectionObserver, exported at display width. <strong>Name the file after the interaction it shows.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="tier-h"><span class="tier-b t3">Tier 3</span><span class="tt">Things that will actually make it feel like theirs</span><span class="line"></span></div>
+
+      <div class="rec">
+        <div class="rn">11</div>
+        <div class="rb">
+          <h5>One-line optical polish pass.</h5>
+          <p><code class="i">-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;</code> on body for dark grounds · <code class="i">font-variant-numeric: tabular-nums</code> on every metric, year, date · inset top highlight <code class="i">inset 0 1px 0 rgba(255,255,255,0.06)</code> on raised surfaces · <code class="i">::selection { background: var(--accent-dim); }</code> · real focus ring <code class="i">box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent)</code>.</p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">12</div>
+        <div class="rb">
+          <h5>Compose product shots — do not float them.</h5>
+          <p>Soft panel a step off the page background, crop, bleed off one edge. <strong>Stop centring full device mockups in empty space.</strong></p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">13</div>
+        <div class="rb">
+          <h5>Pick one contained moment.</h5>
+          <p>You get exactly one. Strongest candidate given your positioning: <strong>an operable demo of a real interaction you shipped</strong>, in the hero or top of the flagship — Daniel's shader, Ian's game. Not a scroll animation. Something the reader can grab.</p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">14</div>
+        <div class="rb">
+          <h5>Adopt Rauno's version archive.</h5>
+          <p>You have <code class="i">khiladipro-original.html</code>, <code class="i">khiladipro-redesign-claude.html</code>, <code class="i">sedp-dashboard-original.html</code> and <code class="i">compare.html</code> sitting in the repo. He publishes at <code class="i">2022.rauno.me</code> / <code class="i">2023.rauno.me</code>. <strong>Publishing iterations at a subdomain or /archive route turns dead files into evidence that you iterate.</strong></p>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="rn">15</div>
+        <div class="rb">
+          <h5>Consider buying one typeface.</h5>
+          <p>Inter is genuinely fine — Brian Lovin ships it. But GT Standard, Söhne and Neue Haas Grotesk do real work on three of the sites you liked. <strong>A single licensed grotesk at two weights is probably the cheapest step-change in perceived quality.</strong> Or go the other way to <code class="i">ui-sans-serif, system-ui</code> like Gavin and Jakub. The one thing not to do is stack multiple free display faces.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="avoid">
+      <div class="al">Do not do</div>
+      <ul>
+        <li>Do not add a custom cursor blob. Use contextual <code class="i">cursor</code> values.</li>
+        <li>Do not add scroll-jacking, parallax or reveal-on-scroll curtains. None of the nine has any.</li>
+        <li>Do not add a second hover gesture.</li>
+        <li>Do not add gradients, glows or mesh backgrounds.</li>
+        <li>Do not use any easing curve that overshoots.</li>
+        <li>Do not raise a shadow above about 12% on any single layer.</li>
+      </ul>
+    </div>
+
+    <div class="engine">
+      <div class="el">Start here if you only do three things</div>
+      <h3>Six type sizes. Layered shadows under 12%. One easing with zero overshoot.</h3>
+      <p>Tier 1 items 1–3 are half a day and account for most of the gap. Everything else is refinement once those land.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APPENDIX -->
+<section id="appendix">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">A</span>
+      <div>
+        <h2 class="sec-title">Appendix: measured values</h2>
+        <p class="sec-sub">All nine, plus your stylesheet — every number from live DOM and computed styles.</p>
+      </div>
+    </div>
+
+    <div class="src-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));">
+      <div class="spec" style="margin:0">
+        <div class="sl">taamannae.dev</div>
+        <pre>#F1F1EE / card #E2E2DE
+ink #212529 · muted #898989
+Manrope + neulis-cursive
+6 sizes: 64/24/20/18/16/13
+h1 64/1.2 · body 16/1.7 · 325px
+<span class="hl">no shadows · 1.5px hairline 12%</span>
+radii 12/32/64/100 · gaps 4/8/16/32
+blur ladder 1/2/4/8 · hover scale(1.05) .4s</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">danield.design</div>
+        <pre>#FFF / #171717 · GT Standard 2w
+<span class="hl">4 sizes: 24/20/17/16</span>
+radii 48/32/24/18/15/8/9999
+gaps 4/8/12/16/24/64
+maxw 1554/1496/724 · +0.13–0.16px
+0.1–0.25s cubic-bezier(.4,0,.2,1)
+3 shadow recipes · 5-layer physical
+video -500w.mp4 + IntersectionObserver</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">zegzulka.com</div>
+        <pre>#FFF / #000 · system sans
+<span class="hl">2 sizes: 16/12</span>
+<span class="hl">no shadows · radius 2px</span>
+metadata y=288 on 818 viewport
+x=12 and x=718 · thesis at y=778
+case study 3.4 screens
+tracking +0.7px @12 · −0.4px @32</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">jennywen.ca</div>
+        <pre>#000 / #FFF · dates #6B7280
+Neue Haas + Swear Text Cilati (once)
+<span class="hl">2 sizes</span>
+display 72/1.0/−1.8px/w800
+body 18/1.625/−1%
+measure 467 · images 547 · radius 0
+<span class="hl">no shadows</span>
+underline-offset 4px · thickness 2px
+~770px between entries · 35 images</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">nelson.co</div>
+        <pre>#FFF / #000 · muted #A1A1AA
+ui-sans-serif, system-ui
+<span class="hl">2 sizes site-wide (16/15)
+1 size on case studies (15px)</span>
+2 weights · measure 745 · media 608
+5 videos + 4 images per study
+autoplay loop muted playsinline
+assets named per section</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">rauno.me</div>
+        <pre>hsl(0 0% 93%) ground
+custom "X" + JetBrains Mono
+6 sizes: 85/75/32/16/14/13
+document 5834px vs 760 viewport
+minimap tracker nav
+contextual cursors (5 values)
+mix-blend-mode: difference crosshair
+0.2s ease-in-out · radii 12/9999
+/craft ~80 dated experiments
+2022.rauno.me · 2023.rauno.me live</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">emilkowal.ski</div>
+        <pre>#FDFDFC / #21201C · muted #63635E
+<span class="hl">2 sizes (16/14) · 2 weights
+4 colours · 1 image</span>
+measure 344px
+Geist 12-step grey + 12-step alpha
+shadow ladder max 8% (the hairline)
+0.15s cubic-bezier(.4,0,.2,1)
+colour properties only</pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">paco.me</div>
+        <pre>#1A1A1A / #F2F2F2
+Söhne (Klim) + Inter fallback
+<span class="hl">3 sizes: 17/16/14</span>
+--content-width 640
+--page-width 1072 · --page-top 128
+header/footer 48
+Radix 12 grey + alpha + black-alpha
+<span class="hl">one transition site-wide:
+text-decoration-color 0.24s</span></pre>
+      </div>
+      <div class="spec" style="margin:0">
+        <div class="sl">brianlovin.com</div>
+        <pre>black ground · Inter
+4 sizes: 24/20/18/16 · 3 weights
+<span class="hl">text ramp alpha-white only:
+1.0 / 0.9 / 0.7 / 0.5 / 0.32</span>
+<span class="hl">no shadows</span>
+measure 749px
+0.15s cubic-bezier(.4,0,.2,1)
+colour properties only</pre>
+      </div>
+      <div class="spec" style="margin:0;border-color:rgba(190,18,60,.3)">
+        <div class="sl" style="color:var(--rose)">Your assets/css/style.css</div>
+        <pre>#0f0f0e / #ebeae6 · muted #82806f
+accent #f0a344 · Inter + JetBrains
+<span class="cm">43 font sizes</span>
+<span class="cm">11 radii · 9 durations · 7 easings
+incl. 2 overshoots</span>
+<span class="cm">shadows at 38% and 50%, single layer
+3-step ramp, no alpha</span>
+maxw 760/1120
+foundation good · gaps are quantity</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-in">
+      <div class="fl">
+        <div class="ft">Premium <em>craft</em> study</div>
+        <p>Nine senior portfolios measured off the live DOM and computed styles. Eleven portable rules, fifteen changes for your site, ordered by leverage. Click any site link to verify the claim yourself.</p>
+      </div>
+      <div class="fr">
+        <div class="fk">Jump</div>
+        <a href="#grid">The 9</a>
+        <a href="#why">Why those 4</a>
+        <a href="#craft">Craft detail</a>
+        <a href="#rules">11 Rules</a>
+        <a href="#gap">Your gap</a>
+        <a href="#change">What to change</a>
+        <a href="#appendix">Numbers</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var prog=document.getElementById('prog');
+  var links=[].slice.call(document.querySelectorAll('.nav-links a'));
+  var map={};
+  links.forEach(function(a){
+    var id=a.getAttribute('href').slice(1);
+    if(id) map[id]=a;
+  });
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    var pct=max>0?(h.scrollTop||document.body.scrollTop)/max:0;
+    if(prog) prog.style.width=(pct*100)+'%';
+    var y=(window.scrollY||window.pageYOffset)+120;
+    var cur=null;
+    Object.keys(map).forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){
+        var top=el.getBoundingClientRect().top+(window.scrollY||window.pageYOffset);
+        if(top<=y) cur=id;
+      }
+    });
+    links.forEach(function(a){a.classList.remove('on')});
+    if(cur&&map[cur]) map[cur].classList.add('on');
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  onScroll();
+})();
+</script>
+</body>
+</html>
