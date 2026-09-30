@@ -1,4 +1,5 @@
 {
+  "outputStyle": "Concise",
   "permissions": {
     "allow": [
       "mcp__27dd73dd-a805-4cf1-8715-3d893857dd48__notion-fetch",
