@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="assets/css/index-thesis.css?v=1">
+<link rel="stylesheet" href="assets/css/thesis.css?v=2">
 </head>
 <body>
 <a class="skip" href="#work">Skip to the work</a>
@@ -30,8 +30,8 @@
       </a>
       <nav class="site" aria-label="Site">
         <a href="#work">Work</a>
-        <a href="#writing">Writing</a>
-        <a href="about-redesign-claude.html">About</a>
+        <a href="writing-thesis.html">Writing</a>
+        <a href="about-thesis.html">About</a>
       </nav>
     </header>
 
@@ -40,15 +40,27 @@
       <h1 class="thesis">I design the screens people trust with their <span class="nw"><a class="w" href="#getmega" data-word="money" style="--c:var(--gm)">money<span class="chipimg" aria-hidden="true"><img src="assets/images/home/shots/gm-find.webp" alt=""></span></a>,</span> their <span class="nw"><a class="w" href="#khiladipro" data-word="scores" style="--c:var(--kp)">scores<span class="chipimg" aria-hidden="true"><img src="assets/images/home/shots/kp-jacks.webp" alt=""></span></a></span> and their <span class="nw"><a class="w" href="#sedp" data-word="data" style="--c:var(--sedp)">data<span class="chipimg" aria-hidden="true"><img src="assets/images/home/shots/sedp-export.webp" alt=""></span></a><span class="rest">,</span></span><span class="rest"> and every state around them.</span></h1>
 
       <nav class="toc" aria-label="On this page" data-toc>
-        <p class="toc-group">Work</p>
-        <a href="#khiladipro" data-for="khiladipro" style="--c:var(--kp)"><i aria-hidden="true"></i><b>KhiladiPro</b><span>2024 to 2025</span></a>
-        <a href="#getmega" data-for="getmega" style="--c:var(--gm)"><i aria-hidden="true"></i><b>Getmega</b><span>2019 to 2021</span></a>
-        <a href="#sedp" data-for="sedp" style="--c:var(--sedp)"><i aria-hidden="true"></i><b>SEDP</b><span>2023 to 2024</span></a>
-        <a href="#mega-poker" data-for="mega-poker" style="--c:var(--mp)"><i aria-hidden="true"></i><b>Mega Poker</b><span>2024</span></a>
-        <p class="toc-group">Playground</p>
-        <a href="#timestamped-summary" data-for="timestamped-summary" style="--c:var(--ts)"><i aria-hidden="true"></i><b>Timestamped Summary</b><span>Extension</span></a>
-        <p class="toc-group">Writing</p>
-        <a href="#writing" data-for="writing" style="--c:var(--neutral)"><i aria-hidden="true"></i><b>First essays</b><span>Soon</span></a>
+        <div class="toc-group">
+          <p class="toc-label">Work</p>
+          <div class="toc-list">
+            <a href="#khiladipro" data-for="khiladipro" style="--c:var(--kp)"><b>KhiladiPro</b><span>2024 to 2025</span></a>
+            <a href="#getmega" data-for="getmega" style="--c:var(--gm)"><b>Getmega</b><span>2019 to 2021</span></a>
+            <a href="#sedp" data-for="sedp" style="--c:var(--sedp)"><b>SEDP</b><span>2023 to 2024</span></a>
+            <a href="#mega-poker" data-for="mega-poker" style="--c:var(--mp)"><b>Mega Poker</b><span>2024</span></a>
+          </div>
+        </div>
+        <div class="toc-group">
+          <p class="toc-label">Playground</p>
+          <div class="toc-list">
+            <a href="#timestamped-summary" data-for="timestamped-summary" style="--c:var(--ts)"><b>Timestamped Summary</b><span>Extension</span></a>
+          </div>
+        </div>
+        <div class="toc-group">
+          <p class="toc-label">Writing</p>
+          <div class="toc-list">
+            <a href="#writing" data-for="writing" style="--c:var(--neutral)"><b>First essays</b><span>Soon</span></a>
+          </div>
+        </div>
       </nav>
     </div>
 
@@ -67,8 +79,9 @@
   <!-- ═══ The feed: work, then the playground, then writing ═══ -->
   <main class="feed" id="work">
 
-    <article class="proj" id="khiladipro" data-word="scores" data-chip="kp-jacks" style="--c:var(--kp)" aria-labelledby="kp-t">
-      <div class="plate" data-plate tabindex="0" role="group" aria-label="KhiladiPro screens. Move across the picture, or use the arrow keys, to step through them.">
+    <article class="proj" id="khiladipro" data-word="scores" data-spy data-chip="assets/images/home/shots/kp-jacks.webp" style="--c:var(--kp)" aria-labelledby="kp-t">
+      <a class="card-link" href="projects/khiladipro-redesign-claude.html">
+      <div class="plate" data-plate>
         <div class="slides" data-slides>
           <div class="slide" data-cap="Landing page: the dates come first"><img class="ph" src="assets/images/home/shots/kp-landing-m.webp" alt="KhiladiPro landing page on a phone, with the olympiad dates at the top." width="567" height="1227"></div>
           <div class="slide" data-cap="Onboarding: where the phone goes"><img class="ph" src="assets/images/home/shots/kp-placement.webp" alt="Onboarding screen asking the player to place the phone on a raised surface." width="570" height="1230" loading="lazy"></div>
@@ -82,7 +95,8 @@
       <div class="proj-head"><h2 id="kp-t">KhiladiPro</h2><span>Sports olympiad</span><span class="yr">2024 to 2025</span></div>
       <p class="lede">A paid sports olympiad for 12 to 18 year olds, played at home and scored by a phone camera. I designed every surface, from the landing page to the live event.</p>
       <ul class="meta"><li>Sole product designer</li><li>Team of four</li><li>Every screen shipped</li><li>Rehired</li></ul>
-      <a class="read" href="projects/khiladipro-redesign-claude.html">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <span class="read">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
     </article>
 
     <figure class="voice" style="--c:var(--kp)">
@@ -90,8 +104,9 @@
       <figcaption><b>Aakash Verma</b>, Product Head, KhiladiPro. They brought me back for an IPL campaign page.</figcaption>
     </figure>
 
-    <article class="proj" id="getmega" data-word="money" data-chip="gm-find" style="--c:var(--gm)" aria-labelledby="gm-t">
-      <div class="plate" data-plate tabindex="0" role="group" aria-label="Getmega screens. Move across the picture, or use the arrow keys, to step through them.">
+    <article class="proj" id="getmega" data-word="money" data-spy data-chip="assets/images/home/shots/gm-find.webp" style="--c:var(--gm)" aria-labelledby="gm-t">
+      <a class="card-link" href="projects/getmega-redesign-claude.html">
+      <div class="plate" data-plate>
         <div class="slides" data-slides>
           <div class="slide" data-cap="Finding opponents: the pool grows as players lock in"><img class="ph" src="assets/images/home/shots/gm-find.webp" alt="Matchmaking screen searching for opponents, with the prize pool." width="540" height="960" loading="lazy"></div>
           <div class="slide" data-cap="Starting: one attempt each, and a countdown"><img class="ph" src="assets/images/home/shots/gm-start.webp" alt="Contest start screen with a five second countdown." width="540" height="960" loading="lazy"></div>
@@ -105,11 +120,13 @@
       <div class="proj-head"><h2 id="gm-t">Getmega</h2><span>Real-money gaming</span><span class="yr">2019 to 2021</span></div>
       <p class="lede">Two years in-house through two business-model pivots. Each one changed how a game began, and each time I was given the core flow.</p>
       <ul class="meta"><li>Product designer, in-house</li><li>Two pivots</li><li>Design team grew to ten</li></ul>
-      <a class="read" href="projects/getmega-redesign-claude.html">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <span class="read">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
     </article>
 
-    <article class="proj" id="sedp" data-word="data" data-chip="sedp-export" style="--c:var(--sedp)" aria-labelledby="sedp-t">
-      <div class="plate" data-plate tabindex="0" role="group" aria-label="SEDP screens. Move across the picture, or use the arrow keys, to step through them.">
+    <article class="proj" id="sedp" data-word="data" data-spy data-chip="assets/images/home/shots/sedp-export.webp" style="--c:var(--sedp)" aria-labelledby="sedp-t">
+      <a class="card-link" href="projects/sedp-redesign-claude.html">
+      <div class="plate" data-plate>
         <div class="slides" data-slides>
           <div class="slide" data-cap="The portal, organised by what readers look for"><img class="dk" src="assets/images/home/shots/sedp-landing.webp" alt="The Socio-Economic Data Portal landing page." width="1600" height="1158" loading="lazy"></div>
           <div class="slide" data-cap="The chart comes first; every control redraws it"><img class="dk" src="assets/images/home/shots/sedp-bars.webp" alt="The chart workspace showing a bar chart of states." width="1600" height="915" loading="lazy"></div>
@@ -123,7 +140,8 @@
       <div class="proj-head"><h2 id="sedp-t">SEDP</h2><span>CEDA, Ashoka University</span><span class="yr">2023 to 2024</span></div>
       <p class="lede">CEDA’s Socio-Economic Data Portal, rebuilt around three jobs: find a chart, compare indicators, and share an insight that makes sense on its own.</p>
       <ul class="meta"><li>Sole product designer</li><li>Two developers, one department head</li><li>Everything shipped</li><li>Rehired</li></ul>
-      <a class="read" href="projects/sedp-redesign-claude.html">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <span class="read">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
     </article>
 
     <figure class="voice" style="--c:var(--sedp)">
@@ -131,8 +149,9 @@
       <figcaption><b>Akshi Chawla</b>, Ex-Director, CEDA, Ashoka University. They came back after Ecometer and Agrimarket.</figcaption>
     </figure>
 
-    <article class="proj" id="mega-poker" data-word="money" data-chip="mp-transfer" style="--c:var(--mp)" aria-labelledby="mp-t">
-      <div class="plate" data-plate tabindex="0" role="group" aria-label="Mega Poker screens. Move across the picture, or use the arrow keys, to step through them.">
+    <article class="proj" id="mega-poker" data-word="money" data-spy data-chip="assets/images/home/shots/mp-transfer.webp" style="--c:var(--mp)" aria-labelledby="mp-t">
+      <a class="card-link" href="projects/mega-poker-redesign-claude.html">
+      <div class="plate" data-plate>
         <div class="slides" data-slides>
           <div class="slide" data-cap="Wallet: different money, different rules"><img class="ph" src="assets/images/home/shots/mp-wallet.webp" alt="The wallet with deposit, winnings and bonus balances." width="570" height="1230" loading="lazy"></div>
           <div class="slide" data-cap="Withdrawal: the deduction beside the decision"><img class="ph" src="assets/images/home/shots/mp-withdraw.webp" alt="Withdrawal amount with the deduction and the net amount." width="570" height="1230" loading="lazy"></div>
@@ -145,7 +164,8 @@
       <div class="proj-head"><h2 id="mp-t">Mega Poker</h2><span>Transaction design</span><span class="yr">2024</span></div>
       <p class="lede">The decisions around adding, moving and withdrawing money inside an existing poker product, on a monthly retainer with one PM and weekly CEO updates.</p>
       <ul class="meta"><li>Sole product designer</li><li>Withdrawal, transfer, deposits, tournaments</li></ul>
-      <a class="read" href="projects/mega-poker-redesign-claude.html">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <span class="read">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
     </article>
 
     <!-- The playground grows one card at a time: a single card spans the
@@ -156,8 +176,9 @@
         <p>Things I design and build for myself, end to end.</p>
       </header>
       <div class="play">
-        <article class="play-card" id="timestamped-summary" style="--c:var(--ts)" aria-labelledby="ts-t">
-          <div class="plate plate--play" data-plate tabindex="0" role="group" aria-label="Timestamped Summary screens. Move across the picture, or use the arrow keys, to step through them.">
+        <article class="play-card" id="timestamped-summary" data-spy style="--c:var(--ts)" aria-labelledby="ts-t">
+          <a class="card-link" href="projects/timestamped-summary.html">
+          <div class="plate plate--play" data-plate>
             <div class="slides" data-slides>
               <div class="slide" data-cap="The outline, sectioned and timestamped"><img class="sq" src="assets/images/timestamped-summary/summary-generated.webp" alt="The extension's sidebar with a sectioned, timestamped outline." width="860" height="1152" loading="lazy"></div>
               <div class="slide" data-cap="Choose how deep it goes"><img class="md" src="assets/images/timestamped-summary/detail-selector.webp" alt="The detail selector with levels of depth." width="860" height="580" loading="lazy"></div>
@@ -169,7 +190,8 @@
           <div class="proj-head"><img class="app-icon" src="assets/images/timestamped-summary/icon.webp" alt="" width="28" height="28"><h3 id="ts-t">Timestamped Summary</h3><span class="yr">Now</span></div>
           <p class="lede">Read the video before you watch it. A sectioned outline of any YouTube video in the sidebar, where every line is a timestamp. Free with Gemini, no account, no server.</p>
           <ul class="meta"><li>Chrome extension</li><li>v1.9</li><li>Open source</li></ul>
-          <a class="read" href="projects/timestamped-summary.html">See the extension <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <span class="read">See the extension <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </a>
         </article>
       </div>
     </section>
@@ -177,7 +199,7 @@
     <!-- Writing: one row per piece, newest first. When the writing page
          exists, point the nav link and each row at it. A row looks like:
          <li><a class="note" href="writing/slug.html"><span class="note-date">Oct 2026</span><span class="note-title">Title</span><span class="note-meta">6 min read</span></a></li> -->
-    <section class="group" id="writing" aria-labelledby="writing-t">
+    <section class="group" id="writing" data-spy aria-labelledby="writing-t">
       <header class="group-head">
         <h2 id="writing-t">Writing</h2>
         <p>Essays and notes. The first ones are being written.</p>
@@ -200,7 +222,7 @@
         <li><span class="y">2018 to 2019</span><p><b>Medlife</b> <span>UX designer, in-house.</span></p></li>
         <li><span class="y">2014 to 2018</span><p><b>IIT Guwahati</b> <span>B.Des, Bachelor of Design.</span></p></li>
       </ol>
-      <p class="creed">Design with empathy. Think like a product owner. Build with curiosity. <a class="lnk" href="about-redesign-claude.html">More about me</a></p>
+      <p class="creed">Design with empathy. Think like a product owner. Build with curiosity. <a class="lnk" href="about-thesis.html">More about me</a></p>
     </section>
 
     <footer class="foot">
@@ -211,6 +233,6 @@
 </div>
 
 <div class="toast" role="status" aria-live="polite" data-toast></div>
-<script src="assets/js/index-thesis.js?v=1" defer></script>
+<script src="assets/js/thesis.js?v=2" defer></script>
 </body>
 </html>

@@ -1,12 +1,21 @@
 /* ============================================================================
-   Homepage, Thesis (dark): the behaviour
+   Thesis: the behaviour, shared by the homepage, About and Writing
 
-   The sentence follows the page: whichever piece of work is in view lights
-   its word in the thesis, with a small picture, and the map beside it tracks
-   progress. Each word takes you to its work. Plates step through their
-   screens under the pointer, or with a swipe on touch. A quiet kalimba in D
-   major pentatonic answers a few gestures; nothing sounds before one, and the
-   switch turns it off.
+   The sentence follows the page: whichever section is in view lights its
+   word in the pinned sentence, with a small picture, and the map beside it
+   tracks progress through that section. Each word takes you to its section.
+   Plates cross-fade through their screens, slowly, and a pointer can step
+   through them by moving across. A quiet kalimba in D major pentatonic
+   answers a few gestures; nothing sounds before one, and the switch turns it
+   off. Pages opt in with data attributes:
+
+     [data-spy]            a section the map and the sentence follow
+     [data-word]           on a section: the word of the sentence it lights
+     [data-chip]           on a section: the picture that word shows
+     .w[data-word]         a word of the sentence
+     [data-for]            a map link, naming the section id it follows
+     [data-plate]          a plate of screens to step through
+     [data-mail]           an address whose letters play
    ========================================================================== */
 
 (() => {
@@ -129,21 +138,25 @@
   const toggle = $('[data-sound-toggle]');
   const toggleLabel = $('[data-sound-label]');
   function paintToggle() {
+    if (!toggle) return;
     toggle.setAttribute('aria-pressed', String(sound.on));
     toggleLabel.textContent = sound.on ? 'Sound on' : 'Sound off';
   }
-  toggle.addEventListener('click', () => {
-    sound.set(!sound.on);
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      sound.set(!sound.on);
+      paintToggle();
+      if (sound.on) setTimeout(() => sound.chime(), 60);
+    });
     paintToggle();
-    if (sound.on) setTimeout(() => sound.chime(), 60);
-  });
-  paintToggle();
+  }
 
   /* --- Toast, copy, clock ------------------------------------------------------- */
 
   const toastEl = $('[data-toast]');
   let toastTimer = 0;
   function toast(message, ms = 2600) {
+    if (!toastEl) return;
     toastEl.textContent = message;
     toastEl.classList.add('is-on');
     clearTimeout(toastTimer);
@@ -167,19 +180,29 @@
 
   $$('[data-copy]').forEach(button => {
     let reset = 0;
-    button.addEventListener('click', async () => {
+    button.addEventListener('click', async event => {
+      event.preventDefault();
       await copyText(button.dataset.copy);
       button.classList.add('is-copied');
       sound.chime();
-      toast(`Copied ${button.dataset.copy}`);
+      toast(button.dataset.copyToast || `Copied ${button.dataset.copy}`);
       clearTimeout(reset);
       reset = setTimeout(() => button.classList.remove('is-copied'), 2000);
     });
   });
 
-  const clock = $('[data-clock]');
+  // A link to this page, for essays.
+  $$('[data-copy-link]').forEach(button => button.addEventListener('click', async () => {
+    await copyText(location.href.split('#')[0]);
+    sound.chime();
+    toast('Link copied.');
+  }));
+
+  const clocks = $$('[data-clock]');
   const format = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' });
-  const tickClock = () => { clock.textContent = `Bengaluru ${format.format(new Date())} IST`; };
+  const tickClock = () => clocks.forEach(clock => {
+    clock.textContent = clock.dataset.clock === 'short' ? `${format.format(new Date())} IST` : `Bengaluru ${format.format(new Date())} IST`;
+  });
   tickClock();
   setInterval(tickClock, 30000);
 
@@ -196,90 +219,84 @@
     toast(`Good call. ${EMAIL} is on your clipboard.`, 4000);
   });
 
-  /* --- Plates: step through the screens ---------------------------------------- */
+  /* --- Plates: cross-fade through the screens ---------------------------------- */
 
+  const PACE = 5600;
   const plates = $$('[data-plate]').map(plate => {
-    const slides = $('[data-slides]', plate);
-    const items = $$('.slide', slides);
+    const items = $$('.slide', plate);
     const capOut = $('[data-cap-out]', plate);
     const segs = $('.segs', plate);
-    segs.replaceChildren(...items.map(() => document.createElement('i')));
-    return { plate, slides, items, capOut, ticks: [...segs.children], index: -1, visible: false, touched: false };
+    if (segs) segs.replaceChildren(...items.map(() => document.createElement('i')));
+    return { plate, items, capOut, ticks: segs ? [...segs.children] : [], index: -1, visible: false, hovered: false, last: 0 };
   });
 
   function show(p, i, withSound) {
     i = clamp(i, 0, p.items.length - 1);
     if (i === p.index) return;
     p.index = i;
-    if (fine.matches) p.slides.style.transform = `translateX(${-i * 100}%)`;
-    p.capOut.textContent = p.items[i].dataset.cap;
+    p.last = performance.now();
+    p.items.forEach((item, j) => item.classList.toggle('is-on', j === i));
+    if (p.capOut) p.capOut.textContent = p.items[i].dataset.cap || '';
     p.ticks.forEach((t, j) => t.classList.toggle('is-on', j === i));
     if (withSound) sound.tick(i + 3);
   }
 
   plates.forEach(p => {
     show(p, 0, false);
+    if (p.items.length < 2) return;
+    // Moving across the plate steps through it; the zones are wide, so a
+    // quick pass does not flicker.
     p.plate.addEventListener('pointermove', event => {
       if (event.pointerType !== 'mouse') return;
+      p.hovered = true;
       const box = p.plate.getBoundingClientRect();
-      p.touched = true;
       show(p, Math.floor(((event.clientX - box.left) / box.width) * p.items.length), true);
     });
-    p.plate.addEventListener('pointerleave', () => { p.touched = false; });
-    p.plate.addEventListener('keydown', event => {
-      if (event.key === 'ArrowRight') {
-        event.preventDefault();
-        show(p, p.index + 1, true);
-      }
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault();
-        show(p, p.index - 1, true);
-      }
-    });
-    // On touch the plate is a swipe; the caption follows the scroll.
-    p.slides.addEventListener('scroll', () => {
-      if (fine.matches) return;
-      show(p, Math.round(p.slides.scrollLeft / p.slides.clientWidth), false);
-    }, { passive: true });
+    p.plate.addEventListener('pointerleave', () => { p.hovered = false; });
   });
 
-  // Plates in view walk themselves, slowly, until a pointer takes over.
   const seen = new IntersectionObserver(entries => entries.forEach(entry => {
     const p = plates.find(q => q.plate === entry.target);
     if (p) p.visible = entry.isIntersecting;
   }), { threshold: 0.4 });
   plates.forEach(p => seen.observe(p.plate));
+
+  // Plates in view walk themselves, slowly, and wait while a pointer is on them.
   setInterval(() => {
-    if (reduced.matches || document.hidden || !fine.matches) return;
+    if (reduced.matches || document.hidden) return;
+    const now = performance.now();
     plates.forEach(p => {
-      if (p.visible && !p.touched) show(p, (p.index + 1) % p.items.length, false);
+      if (p.items.length < 2 || !p.visible || p.hovered || now - p.last < PACE) return;
+      show(p, (p.index + 1) % p.items.length, false);
     });
-  }, 2800);
+  }, 400);
 
   /* --- The sentence follows the page -------------------------------------------- */
 
-  const sections = $$('.proj, .play-card, #writing');
-  const tocLinks = new Map($$('[data-for]').map(a => [a.dataset.for, a]));
-  const words = $$('[data-word]').filter(w => w.classList.contains('w'));
-  const NOTES = { money: 5, scores: 7, data: 9 };
+  const sections = $$('[data-spy]');
+  const mapLinks = new Map($$('[data-for]').map(a => [a.dataset.for, a]));
+  const words = $$('.w[data-word]');
   let current = null;
 
   function setCurrent(section) {
     if (section === current) return;
     current = section;
-    tocLinks.forEach((a, id) => a.classList.toggle('is-on', !!section && id === section.id));
+    mapLinks.forEach((a, id) => a.classList.toggle('is-on', !!section && id === section.id));
     const word = section ? section.dataset.word : null;
-    words.forEach(w => w.classList.toggle('is-on', w.dataset.word === word));
+    words.forEach(w => w.classList.toggle('is-on', !!word && w.dataset.word === word));
     if (!section) return;
-    document.documentElement.style.setProperty('--c', getComputedStyle(section).getPropertyValue('--c').trim() || 'var(--kp)');
-    if (word) {
-      const w = words.find(x => x.dataset.word === word);
-      w.style.setProperty('--c', section.style.getPropertyValue('--c'));
-      $('img', w).src = `assets/images/home/shots/${section.dataset.chip}.webp`;
+    const colour = getComputedStyle(section).getPropertyValue('--c').trim();
+    if (colour) document.documentElement.style.setProperty('--c', colour);
+    const w = word && words.find(x => x.dataset.word === word);
+    if (w) {
+      if (colour) w.style.setProperty('--c', colour);
+      const img = $('img', w);
+      if (img && section.dataset.chip) img.src = section.dataset.chip;
     }
   }
 
   function onScroll() {
+    if (!sections.length) return;
     const mid = window.innerHeight * 0.45;
     let best = null;
     let bestDistance = Infinity;
@@ -290,7 +307,7 @@
         bestDistance = distance;
         best = section;
       }
-      const link = tocLinks.get(section.id);
+      const link = mapLinks.get(section.id);
       if (link) link.style.setProperty('--p', clamp((mid - box.top) / box.height, 0, 1).toFixed(3));
     });
     setCurrent(bestDistance < window.innerHeight * 0.6 ? best : null);
@@ -310,43 +327,59 @@
 
   const go = target => target.scrollIntoView({ behavior: reduced.matches ? 'auto' : 'smooth', block: 'start' });
 
-  // Each word takes you to its work; money has two, so it takes turns.
-  words.forEach(w => {
+  // Each word takes you to its section; a word with several takes turns.
+  words.forEach((w, i) => {
+    const note = Number(w.dataset.note) || 5 + i * 2;
     w.addEventListener('click', event => {
-      event.preventDefault();
       const matches = sections.filter(s => s.dataset.word === w.dataset.word);
+      if (!matches.length) return;
+      event.preventDefault();
       const next = matches[(matches.indexOf(current) + 1) % matches.length] || matches[0];
       go(next);
-      sound.pluck(NOTES[w.dataset.word], 0.6);
+      sound.pluck(note, 0.6);
     });
     w.addEventListener('pointerenter', event => {
-      if (event.pointerType === 'mouse') sound.pluck(NOTES[w.dataset.word], 0.4);
+      if (event.pointerType === 'mouse') sound.pluck(note, 0.4);
     });
   });
 
-  tocLinks.forEach(a => a.addEventListener('click', event => {
+  mapLinks.forEach(a => a.addEventListener('click', event => {
     const target = document.getElementById(a.dataset.for);
     if (!target) return;
     event.preventDefault();
     go(target);
   }));
 
-  /* --- The address plays, in the colour of whatever is in view ----------------- */
+  /* --- Anything that plays: an address, a row of chips ---------------------------- */
 
-  const mail = $('[data-mail]');
-  const letters = [...mail.textContent].map(ch => {
-    const span = document.createElement('span');
-    span.className = 'mk';
-    span.textContent = ch;
-    return span;
+  $$('[data-mail]').forEach(mail => {
+    const letters = [...mail.textContent].map(ch => {
+      const span = document.createElement('span');
+      span.className = 'mk';
+      span.textContent = ch;
+      return span;
+    });
+    mail.replaceChildren(...letters);
+    mail.addEventListener('pointerover', event => {
+      if (event.pointerType !== 'mouse') return;
+      const letter = event.target.closest?.('.mk');
+      if (!letter || letter.contains(event.relatedTarget)) return;
+      sound.pluck((letters.indexOf(letter) % 10) + 3, 0.35);
+      letter.classList.add('is-lit');
+      setTimeout(() => letter.classList.remove('is-lit'), 220);
+    });
   });
-  mail.replaceChildren(...letters);
-  mail.addEventListener('pointerover', event => {
-    if (event.pointerType !== 'mouse') return;
-    const letter = event.target.closest?.('.mk');
-    if (!letter || letter.contains(event.relatedTarget)) return;
-    sound.pluck((letters.indexOf(letter) % 10) + 3, 0.35);
-    letter.classList.add('is-lit');
-    setTimeout(() => letter.classList.remove('is-lit'), 220);
+
+  $$('[data-notes] > *').forEach((chip, i) => {
+    const play = vel => {
+      sound.pluck(i + 3, vel);
+      chip.classList.add('is-lit');
+      clearTimeout(chip.lit);
+      chip.lit = setTimeout(() => chip.classList.remove('is-lit'), 260);
+    };
+    chip.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') play(0.5); });
+    chip.addEventListener('click', () => play(0.8));
   });
+
+  window.Thesis = { sound, toast, copyText, SCALE, reduced, go };
 })();
