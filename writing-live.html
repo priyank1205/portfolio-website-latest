@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The far side of the room · Writing · Priyank Agarwal</title>
+<meta name="description" content="A placeholder essay on designing for a phone camera that referees a paid sports olympiad, drawn from the KhiladiPro case study.">
+<meta property="og:title" content="The far side of the room">
+<meta property="og:description" content="A phone camera refereed a paid sports olympiad. Designing it meant designing for someone who could not reach the screen.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#08080a">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,200..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="assets/css/live.css?v=2">
+<link rel="stylesheet" href="assets/css/writing-live.css?v=1">
+</head>
+<body>
+<a class="skip" href="#essay">Skip to the essay</a>
+
+<header class="top" data-top>
+  <a class="brand" href="index-live.html" aria-label="Priyank Agarwal, home">
+    <span class="brand-mark" aria-hidden="true">pa</span>
+    <span class="brand-name">Priyank Agarwal</span>
+  </a>
+  <nav class="top-links" aria-label="Site">
+    <a href="index-live.html#work">Work</a>
+    <a href="index-live.html#playground">Playground</a>
+    <a href="writing-live.html" aria-current="page">Writing</a>
+    <a href="about-live.html">About</a>
+  </nav>
+  <div class="top-tools">
+    <button class="sound" type="button" aria-pressed="true" data-sound-toggle>
+      <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span class="sound-label" data-sound-label>Sound on</span>
+    </button>
+    <button class="pill pill--light" type="button" data-copy="hello@priyank.design"><span class="copy-idle">Say hi</span><span class="copy-done" aria-hidden="true">Copied</span></button>
+  </div>
+  <span class="read-progress" aria-hidden="true" data-progress></span>
+</header>
+
+<main id="top">
+<article class="essay" id="essay" aria-labelledby="essay-t">
+
+  <header class="essay-head">
+    <p class="essay-kicker">
+      <a href="writing-live.html">Writing</a>
+      <span class="chip chip--draft">Placeholder essay</span>
+      <span class="mono">3 min read</span>
+    </p>
+    <h1 id="essay-t">The far side of the room</h1>
+    <p class="essay-dek">A phone camera refereed a paid sports olympiad. Designing it meant designing for someone who could not reach the screen.</p>
+    <div class="byline">
+      <img src="assets/images/home/shots/me.webp" alt="" width="40" height="40">
+      <span><b>Priyank Agarwal</b><span>Draft, not yet published</span></span>
+      <button class="pill byline-copy" type="button" data-copy-link>Copy link</button>
+    </div>
+  </header>
+
+  <figure class="essay-hero tile" style="--a:var(--kp-rgb)">
+    <div class="hero-phones" aria-hidden="true">
+      <img src="assets/images/home/shots/kp-placement.webp" alt="" width="570" height="1230">
+      <img src="assets/images/home/shots/kp-body.webp" alt="" width="570" height="1230">
+      <img src="assets/images/home/shots/kp-jacks.webp" alt="" width="570" height="1230">
+    </div>
+    <figcaption>Where the phone goes, the player inside the guidelines, then the drill. KhiladiPro, first run.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <p class="drop">Most screens are designed for the length of an arm. You hold the phone, you read it, you tap it. KhiladiPro’s were not. It ran a paid sports olympiad for 12 to 18 year olds, played at home and scored by a phone camera. A player propped the phone up, stepped back, and did the drill while the camera counted.<sup><a class="ref" href="#note-1" id="ref-1" data-note="1">1</a></sup></p>
+    <p>That one physical fact changed almost every decision I made on the product.</p>
+
+    <h2>The referee is a phone</h2>
+    <p>When a camera decides the score, trust has a physical shape. The count has to be readable from where the player stands, not from where the designer sits. So the count on the scored drill is set large, and each screen says one thing at a time.</p>
+
+    <figure class="live-fig tile" style="--a:var(--kp-rgb)">
+      <div class="live-fig-stage">
+        <div class="kp" data-kp>
+          <button class="kp-screen" type="button" data-kp-screen aria-label="Do a squat">
+            <span class="kp-meta">Drill 1 of 3 · 20x Squats</span>
+            <span class="kp-title">Great! Now let’s do 20 squats</span>
+            <svg class="kp-body" viewBox="0 0 200 250" aria-hidden="true" data-kp-body></svg>
+            <span class="kp-count"><span data-kp-count>13</span><span class="kp-of">/20</span></span>
+            <span class="kp-cta">Tap to squat</span>
+          </button>
+          <div class="kp-done" data-kp-done hidden>
+            <span class="kp-burst" aria-hidden="true" data-kp-burst></span>
+            <span class="kp-done-small">That was</span>
+            <span class="kp-done-big">amazing!</span>
+            <span class="kp-points">You earned <b>10 points</b></span>
+            <button class="kp-again" type="button" data-kp-again>Do it again</button>
+          </div>
+        </div>
+      </div>
+      <figcaption><span class="fig-tag">Try it</span>Tap the phone to count a rep. The count is the loudest thing on the screen, because it is read from across the room.</figcaption>
+    </figure>
+
+    <h2>A rehearsal before the drill that counts</h2>
+    <p>If onboarding failed, the drill could not be scored, and in a paid event that becomes a refund request.<sup><a class="ref" href="#note-2" id="ref-2" data-note="2">2</a></sup> So I designed onboarding as a rehearsal on the exact screen the scored test uses. The first time it counts is the second time they have seen it.</p>
+
+    <figure class="pair" data-pair>
+      <div class="pair-stage">
+        <img src="assets/images/home/shots/kp-jacks.webp" alt="The rehearsal: six jumping jacks, counted three of six." width="570" height="1230" loading="lazy">
+        <img src="assets/images/home/shots/kp-scored.webp" alt="The scored drill: twenty squats, counted thirteen of twenty, on the same frame." width="570" height="1230" loading="lazy">
+      </div>
+      <figcaption><span class="fig-tag">Same frame</span>The rehearsal on the left, the scored drill on the right. Only the stakes change.</figcaption>
+    </figure>
+
+    <h2>Where the phone goes</h2>
+    <p>Before any of that, the phone has to find its place. It goes on a raised surface, facing the player, so its front camera sees the whole body. Then the player stands inside the guidelines until the camera has them, and the drill begins.</p>
+
+    <blockquote class="pull">Design for the distance the screen will actually be read from.</blockquote>
+
+    <h2>What I took from it</h2>
+    <p>Three things have stayed with me. Design for the distance the screen will actually be read from. Rehearse the moment that counts, on the screen that will count it. And when someone cannot reach the screen to ask, say one thing at a time.</p>
+    <p>KhiladiPro shipped every screen, and brought me back for an IPL campaign page.<sup><a class="ref" href="#note-3" id="ref-3" data-note="3">3</a></sup> The full story, with all nine onboarding screens, is in <a class="inline" href="projects/khiladipro-redesign-claude.html">the case study</a>.</p>
+
+    <aside class="draft-note" aria-label="About this essay">
+      <b>A placeholder.</b> This essay is drawn from the KhiladiPro case study to show how writing will read on this site. The first real essays are in progress.
+    </aside>
+
+    <ol class="notes-list" aria-label="Notes">
+      <li id="note-1" data-note-for="1">The olympiad ran from 25 May to 15 June, a fixed holiday window. <a href="#ref-1" aria-label="Back to the text">↩</a></li>
+      <li id="note-2" data-note-for="2">The same reasoning opens the onboarding chapter of the case study. <a href="#ref-2" aria-label="Back to the text">↩</a></li>
+      <li id="note-3" data-note-for="3">A team of four: a PM, an engineer, the CEO and me. <a href="#ref-3" aria-label="Back to the text">↩</a></li>
+    </ol>
+  </div>
+</article>
+
+<section class="more" aria-labelledby="more-t">
+  <div class="wrap">
+    <header class="sec-head">
+      <h2 id="more-t">Writing. <span class="dim">Newest first.</span></h2>
+      <p>Essays and notes. This page shows how one will read.</p>
+    </header>
+    <ol class="notes">
+      <li><a class="note" href="#top" aria-current="page"><span class="note-date">Placeholder</span><span class="note-title">The far side of the room</span><span class="note-meta">You are here</span></a></li>
+      <li><span class="note note--soon"><span class="note-date">Soon</span><span class="note-title">The next essays are in progress.</span><span class="note-meta"><i aria-hidden="true"></i>Writing</span></span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="contact-t">
+  <div class="wrap">
+    <h2 id="contact-t">Want to talk about it? <span class="dim">Write back.</span></h2>
+    <button class="mail" type="button" data-copy="hello@priyank.design" aria-label="Copy hello@priyank.design">
+      <span class="mail-text" aria-hidden="true" data-mail-text>hello@priyank.design</span>
+      <span class="mail-state" aria-hidden="true"><span class="copy-idle">Copy</span><span class="copy-done">Copied</span></span>
+    </button>
+    <div class="links">
+      <a class="pill" href="index-live.html#work">See the work</a>
+      <a class="pill" href="about-live.html">About me</a>
+      <a class="pill" href="https://www.linkedin.com/in/priyank1205/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <span>© 2026 Priyank Agarwal</span>
+  <span>Every sound on this page is in D major pentatonic.</span>
+  <span>Bengaluru · <span class="mono" data-clock>IST</span></span>
+</footer>
+
+<div class="toast" role="status" aria-live="polite" data-toast></div>
+<canvas class="confetti" aria-hidden="true" data-confetti></canvas>
+
+<script src="assets/js/live.js?v=2" defer></script>
+<script src="assets/js/writing-live.js?v=1" defer></script>
+</body>
+</html>
