@@ -1,0 +1,267 @@
+/* ============================================================================
+   About, Thesis (dark)
+
+   The creed is the pinned sentence: each value lights up while the moment
+   that proves it is on screen, and takes you there. The feed opens with who
+   I am and where to start, then three moments, then the record, off hours
+   and a way to say hello. Built on thesis.css; only this page's parts here.
+   ========================================================================== */
+
+/* --- Who I am ------------------------------------------------------------- */
+
+.intro {
+  display: grid;
+  gap: 24px;
+  scroll-margin-top: 30px;
+}
+
+.plate--portrait {
+  display: grid;
+  place-items: center;
+  cursor: auto;
+}
+
+.portrait {
+  width: 44%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 40px 70px -28px rgba(0, 0, 0, 0.9);
+  transform: rotate(-2deg);
+  transition: transform 0.6s var(--spring);
+}
+
+@media (hover: hover) {
+  .plate--portrait:hover .portrait {
+    transform: rotate(0) scale(1.02);
+  }
+}
+
+.plate--portrait .plate-cap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot-live {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgb(var(--live));
+}
+
+.intro-t {
+  margin-top: 4px;
+  font-size: var(--fs-1);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+}
+
+.bio {
+  display: grid;
+  gap: 14px;
+  max-width: 60ch;
+  color: var(--ink-2);
+}
+
+.bio p:first-child {
+  color: var(--ink);
+  font-size: 18px;
+}
+
+.glance {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 8px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.glance div {
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.glance dt {
+  color: var(--ink-3);
+  font-size: 12.5px;
+}
+
+.glance dd {
+  margin: 3px 0 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* Three ways in, one per reader. */
+.readers {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.readers-t {
+  margin-bottom: 4px;
+  color: var(--ink-3);
+  font-size: 12.5px;
+}
+
+.reader {
+  --c: var(--neutral);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr) auto;
+  align-items: baseline;
+  gap: 6px 20px;
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: var(--plate);
+  box-shadow: inset 0 0 0 1px var(--line);
+  text-align: left;
+  transition: box-shadow 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+
+.reader b {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.reader span {
+  color: var(--ink-2);
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+
+.reader em {
+  color: rgb(var(--c));
+  font-size: var(--fs-4);
+  font-style: normal;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.reader em::after {
+  content: " \2192";
+}
+
+@media (hover: hover) {
+  .reader:hover {
+    background: rgb(var(--c) / 0.07);
+    box-shadow: inset 0 0 0 1px rgb(var(--c) / 0.45);
+  }
+}
+
+.reader.is-copied em {
+  color: rgb(var(--live));
+}
+
+/* --- The three moments --------------------------------------------------------- */
+
+.value-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgb(var(--c));
+  font-size: var(--fs-4);
+  font-weight: 600;
+}
+
+.value-tag::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.episode-t {
+  margin-top: -8px;
+  font-size: clamp(26px, 2.4vw, 32px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+}
+
+/* --- Background ------------------------------------------------------------------ */
+
+.rec--long li {
+  grid-template-columns: 120px minmax(0, 1fr);
+}
+
+.rec--long p {
+  line-height: 1.55;
+}
+
+.notes-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.notes-chips li {
+  --c: var(--neutral);
+  padding: 8px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  color: var(--ink-2);
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.42s var(--spring), border-color 0.6s var(--ease), color 0.6s var(--ease), background-color 0.6s var(--ease);
+}
+
+.notes-chips li.is-lit {
+  border-color: rgb(var(--c));
+  background: rgb(var(--c) / 0.14);
+  color: var(--ink);
+  transform: translateY(-3px);
+  transition-duration: 0.06s;
+}
+
+.hello {
+  font-size: var(--fs-2);
+  font-weight: 450;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  text-wrap: pretty;
+}
+
+.hello-mail {
+  font-weight: 500;
+  cursor: copy;
+}
+
+/* --- Smaller screens -------------------------------------------------------------- */
+
+@media (max-width: 960px) {
+  .glance {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .portrait {
+    width: 62%;
+  }
+
+  .glance {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .reader {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rec--long li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait,
+  .notes-chips li {
+    transition: none;
+  }
+}
