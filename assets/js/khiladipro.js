@@ -100,7 +100,9 @@
   updatePosition();
 
   // Preserve the previous case study's shared deep links.
-  const legacy = { brief: 'overview', map: 'overview', believe: 'decision-1', commit: 'decision-1', setup: 'decision-2', return: 'decision-3', rehire: 'outcome', scorecard: 'outcome', closing: 'outcome' };
+  const legacy = document.body.classList.contains('sedp-case')
+    ? { old: 'decision-1', brief: 'overview', screen: 'decision-1', compare: 'decision-2', reach: 'decision-3', scorecard: 'outcome' }
+    : { brief: 'overview', map: 'overview', believe: 'decision-1', commit: 'decision-1', setup: 'decision-2', return: 'decision-3', rehire: 'outcome', scorecard: 'outcome', closing: 'outcome' };
   const target = legacy[window.location.hash.slice(1)];
   if (target) document.getElementById(target)?.scrollIntoView();
 })();

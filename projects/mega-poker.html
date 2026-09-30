@@ -1,348 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redesigning How Money Moves Through a Poker App: Mega Poker | Priyank Agarwal</title>
-  <meta name="description" content="A two-month solo freelance engagement: add cash, tournaments, wallet self-transfer, and a 50-plus-screen withdrawal flow for Mega Poker's real-money poker app.">
-  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <meta name="theme-color" content="#0f0f0e">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css?v=26">
-  <!-- Microsoft clarity for tracking -->
-  <script type="text/javascript">    (function(c,l,a,r,i,t,y){
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mega Poker — Money moves. Clarity matters. | Priyank Agarwal</title>
+<meta name="description" content="Designing withdrawal, self-transfer, deposits and tournament discovery for Mega Poker. A focused product-design engagement within existing rules and visual languages.">
+<meta name="theme-color" content="#f6f5f0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<script src="../assets/js/khiladipro-theme.js?v=1"></script>
+<link rel="stylesheet" href="../assets/css/mega-poker.css?v=4">
+<link rel="stylesheet" href="../assets/css/case-comparison.css?v=1">
+<script type="text/javascript">    (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
       t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   })(window, document, "clarity", "script", "xypmua4aww");
 </script>
 </head>
-<body>
-
-  <header class="site-header">
-    <div class="wrap">
-      <a class="brand" href="../index.html"><span class="dot"></span>Priyank Agarwal</a>
-      <nav class="site-nav">
-        <a href="../about.html">/About</a>
-        <a href="../index.html#work">/Work</a>
-        <a href="../index.html#contact">/Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <!-- ============ Hero ============ -->
-    <div class="fm-hero">
-      <img src="../assets/images/megapoker/13b76faf_ChatGPT_Image_Apr_22_2026_05_03_37_PM.jpg" alt="Add cash, withdrawal, and tournament screens from the Mega Poker redesign">
-      <div class="fm-hero-inner">
-        <div class="wrap">
-          <a class="back-link" href="../index.html#work">← All projects</a>
-          <p class="fm-kicker">Case study · Real-money gaming · 2024</p>
-          <h1>Redesigning how money moves through a poker app</h1>
-        </div>
-      </div>
-    </div>
-
-    <section class="fm-head">
-      <div class="wrap">
-        <p class="fm-sub">Mega Poker brought me in to rework the flows where money enters, plays, and leaves their real-money poker app: add cash, the tournament tab, wallet self-transfer, and a withdrawal flow of more than 50 screens, in about two months, solo.</p>
-
-        <div class="case-meta">
-          <div><h4>Client</h4><p>Mega Poker</p></div>
-          <div><h4>Role</h4><p>Sole Product Designer (freelance)</p></div>
-          <div><h4>Timeline</h4><p>~2 months · 2024</p></div>
-          <div><h4>Platform</h4><p>Android</p></div>
-        </div>
-
-        <p class="fm-note"><strong>Outcome data</strong>: Mega Poker owned its analytics, and the company later shut its operations after India banned real-money online poker, so there is no live product to point at. I won&rsquo;t publish numbers I can&rsquo;t verify; Chapter 06 covers what I would have measured.</p>
-
-        <ul class="fm-contents">
-          <li><a href="#brief"><b>01</b>The brief</a></li>
-          <li><a href="#addcash"><b>02</b>Money in</a></li>
-          <li><a href="#tournaments"><b>03</b>The tournament tab</a></li>
-          <li><a href="#transfer"><b>04</b>The winnings moment</a></li>
-          <li><a href="#withdrawal"><b>05</b>Money out</a></li>
-          <li><a href="#scorecard"><b>06</b>Scorecard</a></li>
-        </ul>
-      </div>
-    </section>
-
-    <div class="case-body">
-
-      <!-- ============ Context ============ -->
-      <section class="case-section">
-        <div class="wrap">
-          <p>Mega Poker was a real-money gaming startup: players buy in with rupees, play poker on the mobile app, and withdraw what they win. Money on the platform lives in a three-part wallet, a <strong>deposit balance, a winnings balance, and a bonus balance</strong>, and the business depends on that money circulating rather than leaving.</p>
-          <p>The CEO came to me with a leak. Players were withdrawing a large share of the money in their wallets, and the business wanted more of it to stay in play. Around that core problem sat a set of surfaces that needed redesigning anyway: an add-cash flow gaining a complex bonus system, an outdated tournament tab, and a primitive withdrawal flow. I owned the end-to-end designs, working with one product manager and weekly reviews with the CEO.</p>
-        </div>
-      </section>
-
-      <!-- ============ CH 01 ============ -->
-      <section class="case-section">
-        <div class="wrap">
-          <div class="fm-ch" id="brief">
-            <span class="idx">CH 01 / 06</span>
-            <h2>The brief &amp; the constraints</h2>
-          </div>
-          <p>&ldquo;Keep money in play&rdquo; can be read two ways. The dark-pattern reading is friction: bury the withdraw button, add steps, hope players give up. The brief I took was the other reading: <strong>make staying genuinely worth more than leaving, and show the math whole.</strong> Every nudge in this case study is a real offer with its arithmetic on screen, and every exit stays one tap away. That principle, plus four harder constraints, shaped the work:</p>
-          <ul class="fm-checklist">
-            <li class="reveal"><span class="n">C-01</span><span><strong>A behaviour brief, not a beauty brief.</strong> The measure of success was where the money went: winnings transferred back into play instead of straight out of the app.</span></li>
-            <li class="reveal"><span class="n">C-02</span><span><strong>Two visual languages, on purpose.</strong> The app was mid-migration from an old style to a new, locked one. Some flows were briefed in the new language and some had to stay in the old, so the system had to hold across both.</span></li>
-            <li class="reveal"><span class="n">C-03</span><span><strong>Government math inside the UI.</strong> GST is deducted on every deposit and TDS on withdrawals. The flows had to explain deductions and the bonuses that compensate for them without reading like fine print.</span></li>
-            <li class="reveal"><span class="n">C-04</span><span><strong>Untouchable neighbours.</strong> The tournament tab had to be rebuilt completely without touching the other elements on the page, including the header with the add-cash chip.</span></li>
-            <li class="reveal"><span class="n">C-05</span><span><strong>A team of three.</strong> Me, one product manager, and the CEO reviewing weekly. No other designers.</span></li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- ============ CH 02 ============ -->
-      <section class="case-section">
-        <div class="wrap">
-          <div class="fm-ch" id="addcash">
-            <span class="idx">CH 02 / 06</span>
-            <h2>Money in: add cash without the fine print</h2>
-          </div>
-          <p>Every deposit loses a chunk to GST before a single hand is dealt, and Mega Poker compensated with cashback plus a locked-bonus system tied to offers. That is three kinds of money moving in one transaction. The redesign treats the flow as a ledger: at every step, what you pay and what you receive are stated as arithmetic, never as an asterisk.</p>
-
-          <p class="fm-pull reveal">When the government takes a cut of every deposit, the interface either shows the math or loses the trust.</p>
-
-          <div class="fm-step">
-            <div class="reveal">
-              <p class="fm-step-num">Step 01</p>
-              <h3>Anchor on the deal, not the amount</h3>
-              <p>The preset chips lead with the payoff: pay 500, get 750. The GST cashback is confirmed in plain words right under the selection, and the pay button repeats the exact charge, so the number on the card and the number on the button never disagree.</p>
-            </div>
-            <div class="fm-step-media">
-              <figure class="shot reveal">
-                <img src="../assets/images/megapoker/b0ce1de6_500_selected.png" alt="Add cash screen with a 500 rupee deposit selected and the bonus payoff shown" loading="lazy">
-                <figcaption><span class="fig-n">Fig. 01</span>Amount selection with the payoff up front</figcaption>
-              </figure>
-            </div>
-          </div>
-
-          <div class="fm-step flip">
-            <div class="reveal">
-              <p class="fm-step-num">Step 02</p>
-              <h3>Locked offers say how to unlock them</h3>
-              <p>The same offer card carries an active and an inactive state. Instead of greying out and going silent, the locked state names its condition: deposit a minimum of 500 to activate. An offer you can&rsquo;t use yet is still information.</p>
-            </div>
-            <div class="fm-step-media">
-              <figure class="shot reveal">
-                <img src="../assets/images/megapoker/3eeb2c0a_Payment_Offers.png" alt="Payment offers screen showing an active offer and a locked offer with its unlock condition" loading="lazy">
-                <figcaption><span class="fig-n">Fig. 02</span>Active and locked offer states</figcaption>
-              </figure>
-            </div>
-          </div>
-
-          <div class="fm-step">
-            <div class="reveal">
-              <p class="fm-step-num">Step 03</p>
-              <h3>A signed ledger before payment</h3>
-              <p>The deposit summary itemises every line with its sign: GST out, cashback in, bonus into the locked-bonus wallet, and a single bold answer to the only question that matters: you receive this much. Nothing lands in the wallet that wasn&rsquo;t announced here.</p>
-            </div>
-            <div class="fm-step-media">
-              <figure class="shot reveal">
-                <img src="../assets/images/megapoker/d99a89c2_500_Deposit_Summary.png" alt="Deposit summary bottom sheet itemising GST, cashback, and bonus lines" loading="lazy">
-                <figcaption><span class="fig-n">Fig. 03</span>The deposit summary as a ledger</figcaption>
-              </figure>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ CH 03 ============ -->
-      <section class="case-section">
-        <div class="wrap">
-          <div class="fm-ch" id="tournaments">
-            <span class="idx">CH 03 / 06</span>
-            <h2>The tournament tab, rebuilt in place</h2>
-          </div>
-          <p>Tournaments are where deposited money goes to play, and this was the one flow with a true before. The old tab was visibly dated, and it withheld the details a player needs to decide. The constraint made it harder: redesign the list completely, but leave the rest of the page, including the header with the add-cash chip, exactly as it was.</p>
-
-          <figure class="shot reveal" style="max-width:320px;">
-            <img src="../assets/images/megapoker/71340e2f_PHOTO-2024-07-05-16-48-50.jpg" alt="The old tournament tab before the redesign" loading="lazy">
-            <figcaption><span class="fig-n">Fig. 04</span>The old tournament tab. The existing visual style was all over the place.</figcaption>
-          </figure>
-
-          <ul class="fm-checklist">
-            <li class="reveal"><span class="n">F-01</span><span><strong>Every card looked identical.</strong> Same name, same trophy art, row after row. Nothing helped a player tell one tournament from the next.</span></li>
-            <li class="reveal"><span class="n">F-02</span><span><strong>The price was hidden.</strong> The button just said Register. You learned what it cost after committing to the tap.</span></li>
-            <li class="reveal"><span class="n">F-03</span><span><strong>No sense of state.</strong> Nothing signalled live, late registration, or how close a table was to filling up.</span></li>
-            <li class="reveal"><span class="n">F-04</span><span><strong>One lonely filter.</strong> A single MTT chip stood in for filtering and sorting an entire lobby.</span></li>
-          </ul>
-
-          <p class="fm-pull reveal">A tournament card is a purchase decision, so the redesign treats it like one: prize, format, odds, and price, all before the tap.</p>
-        </div>
-      </section>
-
-      <div class="fm-showcase">
-        <figure class="shot reveal" style="max-width:380px;">
-          <img src="../assets/images/megapoker/157dd30a_Tournament_Tab_45.png" alt="The redesigned tournament tab with rich cards, filters, and entry fees on the buttons" loading="lazy">
-          <figcaption><span class="fig-n">Fig. 05</span>The redesigned tab. Each card now carries the whole decision: guaranteed prize pool, first prize, game type, payout wallet, a live badge, a fill meter, and the entry fee on the button itself. The header above it, untouched.</figcaption>
-        </figure>
-      </div>
-
-      <section class="case-section">
-        <div class="wrap">
-          <p>Two sheets carry the rest of the lobby&rsquo;s workload: one for narrowing the list, one for everything a player wants to know about a tournament after it ends.</p>
-
-          <div class="shot-row cols-2">
-            <div class="reveal">
-              <figure class="shot">
-                <img src="../assets/images/megapoker/0ace83e5_Tournament_Tab_44.png" alt="Tournament filters bottom sheet with entry fee and wallet type facets" loading="lazy">
-              </figure>
-              <p class="fm-anno"><span class="fig-n">Fig. 06</span><span class="lead"></span><span class="txt"><strong>Filters as a two-axis sheet.</strong> Entry fee on one side, wallet type on the other, so &ldquo;cheap tournaments I can pay for with winnings&rdquo; is two taps.</span></p>
-            </div>
-            <div class="reveal">
-              <figure class="shot">
-                <img src="../assets/images/megapoker/81036f81_Completed_Tournament_Details.png" alt="Completed tournament details sheet with times, entries, and structure" loading="lazy">
-              </figure>
-              <p class="fm-anno"><span class="fig-n">Fig. 07</span><span class="lead"></span><span class="txt"><strong>The post-game record.</strong> Start and end times, total entries, blinds, and re-entry rules in one sheet, with prizes and rankings a tab away.</span></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ CH 04 ============ -->
-      <section class="case-section">
-        <div class="wrap">
-          <div class="fm-ch" id="transfer">
-            <span class="idx">CH 04 / 06</span>
-            <h2>The winnings moment</h2>
-          </div>
-          <p>This chapter is the heart of the brief. The winnings balance is the leak: it is the one pot of money a player can withdraw, and most of it was leaving. The counter-move was a self-transfer offer: move winnings back to the deposit wallet and earn a bonus on top. The design question was not the offer itself but the moment. When is a player actually receptive to it?</p>
-          <p>The answer: the moment they stand up from a table in profit.</p>
-        </div>
-      </section>
-
-      <div class="fm-showcase">
-        <figure class="shot reveal" style="max-width:380px;">
-          <img src="../assets/images/megapoker/de8e9607_Leave_Table_Popup.png" alt="Leave-table bottom sheet celebrating a profit and offering a transfer bonus" loading="lazy">
-          <figcaption><span class="fig-n">Fig. 08</span>The leave-table sheet, the signature screen of the engagement. Celebration first: the profit, stated big. Then the offer: transfer these winnings to the deposit wallet for 20% extra, with the arithmetic itemised line by line before the ask. The close button sits right where you expect it.</figcaption>
-        </figure>
-      </div>
-
-      <section class="case-section">
-        <div class="wrap">
-          <p class="fm-pull reveal">The right moment to ask a player to keep money in play is the moment they have just won some.</p>
-
-          <p>The same offer then lives on in two quieter places, so a player who dismissed the sheet can still find it when they are ready.</p>
-
-          <div class="shot-row cols-2">
-            <div class="reveal">
-              <figure class="shot">
-                <img src="../assets/images/megapoker/4780d26a_Wallet_dark_theme.png" alt="Wallet page with the three balances and a transfer bonus banner" loading="lazy">
-              </figure>
-              <p class="fm-anno"><span class="fig-n">Fig. 09</span><span class="lead"></span><span class="txt"><strong>The wallet keeps the offer warm.</strong> A banner sits directly beneath the winnings balance with transfer as a quiet secondary action.</span></p>
-            </div>
-            <div class="reveal">
-              <figure class="shot">
-                <img src="../assets/images/megapoker/71d5db41_Wallet_dark_theme-1.png" alt="Transfer bottom sheet with a slider and tiered bonus levels" loading="lazy">
-              </figure>
-              <p class="fm-anno"><span class="fig-n">Fig. 10</span><span class="lead"></span><span class="txt"><strong>A slider with tiered stakes.</strong> 5, 10, or 20% bonus depending on how much you move, with the payoff recalculated live below the handle.</span></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ CH 05 ============ -->
-      <section class="case-section">
-        <div class="wrap">
-          <div class="fm-ch" id="withdrawal">
-            <span class="idx">CH 05 / 06</span>
-            <h2>Money out: the honest exit</h2>
-          </div>
-          <p>Withdrawal is the flow a real-money app is judged by, and Mega Poker&rsquo;s was primitive. The old withdrawal screen was also the only white screen in the whole app, sticking out like a sore thumb. I redesigned the flow end to end, more than 50 screens in all, covering amounts, limits, payout options, and the states between a request and a bank account.</p>
-
-          <div class="callout plain reveal">
-            <p><strong>A note on the two visual styles:</strong> Mega Poker was migrating from an old visual language to a new, locked one, flow by flow. Some flows were briefed in the new style and some in the old, which is why this chapter&rsquo;s teal accents differ from the copper elsewhere. The discrepancy is the migration, not drift. All of it was intentional.</p>
-          </div>
-
-          <p class="fm-pull reveal">If a player decides to leave with their money, the flow&rsquo;s job is to state the fee honestly and make the exit fast.</p>
-
-          <div class="shot-row cols-3">
-            <figure class="shot reveal">
-              <img src="../assets/images/megapoker/16250962_TDS_free_withdrawal.png" alt="Withdraw winnings screen showing the TDS-free allowance and daily limits" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 11</span>Enter amount leads with what you keep: the TDS-free allowance up front, daily limits and the maximum visible before you type.</figcaption>
-            </figure>
-            <figure class="shot reveal">
-              <img src="../assets/images/megapoker/ef645c15_3._Payout_Options-1.png" alt="Withdrawal amount screen with a transfer counter-offer and a plain decline option" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 12</span>The last counter-offer. Transferring to deposit instead saves the government fee and adds a bonus, math shown. The decline is one tap, in plain words: no, I will withdraw.</figcaption>
-            </figure>
-            <figure class="shot reveal">
-              <img src="../assets/images/megapoker/4b31c272_3._Payout_Options.png" alt="Withdrawal request submitted screen with a three-stage progress tracker" loading="lazy">
-              <figcaption><span class="fig-n">Fig. 13</span>Submitted is not done. A three-stage tracker with the order ID and an honest processing estimate, with cancel and instant withdrawal still available.</figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ CH 06 ============ -->
-      <section class="case-section">
-        <div class="wrap">
-          <div class="fm-ch" id="scorecard">
-            <span class="idx">CH 06 / 06</span>
-            <h2>An honest scorecard</h2>
-          </div>
-          <p>This was an execution engagement: the client owned the analytics, and the product itself is gone now, so no after-the-fact numbers are ever coming. Rather than decorate the ending, here is what shipped, what I would have measured, and what I&rsquo;d do differently.</p>
-
-          <div class="fm-cols">
-            <div class="fm-col reveal">
-              <h3>Shipped</h3>
-              <ul>
-                <li>4 flows redesigned: add cash, tournaments, self-transfer, withdrawal</li>
-                <li>50+ screens for the withdrawal flow alone</li>
-                <li>Offer, locked-bonus, and GST-cashback math made legible across the deposit surfaces</li>
-                <li>Tournament tab rebuilt without touching its neighbours</li>
-                <li>~2 months, sole designer, across two visual languages</li>
-              </ul>
-            </div>
-            <div class="fm-col reveal">
-              <h3>What I&rsquo;d measure</h3>
-              <ul>
-                <li>Share of winnings transferred to deposit vs. withdrawn, before and after</li>
-                <li>Acceptance rate of the leave-table offer, and of the withdrawal counter-offer</li>
-                <li>Add-cash completion, and drop-off at the deposit summary</li>
-                <li>Tournament registrations per session from the new cards</li>
-                <li>Repeat deposits within 30 days of a self-transfer</li>
-              </ul>
-            </div>
-            <div class="fm-col reveal">
-              <h3>What I&rsquo;d do differently</h3>
-              <ul>
-                <li>A/B test the leave-table intercept before full rollout, not after</li>
-                <li>Copy-test the bonus math with real players: the arithmetic only works if it is trusted</li>
-                <li>Design the failed and pending payment states as thoroughly as the happy path</li>
-                <li>Push harder on responsible-play guardrails to sit alongside the retention nudges</li>
-              </ul>
-            </div>
-          </div>
-
-          <p>A postscript: Mega Poker shut its operations after India banned real-money online poker. The flows in this study outlived their product only as design work, which is one more reason this scorecard sticks to what I can count.</p>
-
-          <p class="fin">Fin.</p>
-        </div>
-      </section>
-    </div>
-
-    <nav class="case-nav">
-      <div class="wrap">
-        <a class="prev" href="sedp-dashboard.html" data-peek="../assets/images/home/414e7003_ceda.jpg" data-peek-title="Economic Dashboard Redesign"><span>← Previous project</span><strong>Economic Dashboard Redesign: SEDP</strong></a>
-        <a class="next" href="getmega.html" data-peek="../assets/images/home/2afef239_Getmega.jpg" data-peek-title="Getmega Mobile App"><span>Next project →</span><strong>Getmega Mobile App</strong></a>
-      </div>
-    </nav>
-  </main>
-
-  <footer class="site-footer">
-    <div class="wrap">
-      <span>Copyright © 2026 Priyank Agarwal | All rights reserved</span>
-      <span><a href="mailto:hello@priyank.design">hello@priyank.design</a> · <a href="https://www.linkedin.com/in/priyank1205/" target="_blank" rel="noopener">LinkedIn</a></span>
-    </div>
-  </footer>
-
-  <script src="../assets/js/main.js?v=26"></script>
-  <script src="../assets/js/analytics.js?v=1" defer></script>
+<body class="mega-case">
+<a class="skip-link" href="#overview">Skip to case study</a>
+<header class="masthead shell"><a class="wordmark" href="../index.html">Priyank Agarwal<span aria-hidden="true">.</span></a><nav aria-label="Portfolio"><a href="../index.html#work">Work</a><a href="../about.html">About</a><button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" hidden><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 4a8 8 0 0 1 0 16Z" fill="currentColor"/></svg></button></nav></header>
+<main id="top">
+<section class="hero shell" id="overview" aria-labelledby="page-title">
+  <div class="project-label"><span class="project-identity"><span class="project-symbol" aria-hidden="true">♠</span><span>Mega Poker<span class="project-client">Android · 2024</span></span></span><span class="project-type">Product design · Transaction UX</span></div>
+  <div class="hero-top"><h1 id="page-title">Money moves.<br><span>Clarity matters.</span></h1><div class="hero-aside"><p>I designed the decisions around adding, moving and withdrawing money inside an existing poker product.</p><p>From a balance in the wallet to a request in progress, the interface had to explain what the money meant.</p><a class="hero-jump" href="#withdrawal">Inside the work <span aria-hidden="true">↙</span></a></div></div>
+  <dl class="project-facts"><div><dt>My role</dt><dd>Sole product designer</dd></div><div><dt>Engagement</dt><dd>A few months · Monthly retainer</dd></div><div><dt>Collaboration</dt><dd>One PM · Weekly CEO updates</dd></div></dl>
+  <div class="hero-stage"><div class="hero-stage-copy"><p class="section-label">The meaning behind the amount</p><p class="stage-title">One product.<br> Different kinds<br> of money.</p><p>Winnings, deposit and bonus carry different possibilities. The screens make those distinctions visible.</p><div class="balance-key" aria-label="Balance types"><span>Winnings</span><span>Deposit</span><span>Bonus</span></div></div><div class="hero-gallery">
+  <figure class="hero-phone"><a aria-label="Enlarge: Withdrawal amount, deduction and transfer alternative" class="screen" data-zoom="" href="../assets/images/megapoker/ef645c15_3._Payout_Options-1.png"><img alt="Withdrawal amount, deduction and transfer alternative" decoding="async" height="1230" loading="eager" src="../assets/images/megapoker/ef645c15_3._Payout_Options-1.png" width="570"/></a><figcaption><span>Withdraw</span><small>Design export · separate example.</small></figcaption></figure><figure class="hero-phone"><a aria-label="Enlarge: Transfer selection with separate principal and bonus amounts" class="screen" data-zoom="" href="../assets/images/megapoker/71d5db41_Wallet_dark_theme-1.png"><img alt="Transfer selection with separate principal and bonus amounts" decoding="async" height="1230" loading="eager" src="../assets/images/megapoker/71d5db41_Wallet_dark_theme-1.png" width="570"/></a><figcaption><span>Transfer</span><small>Design export · separate example.</small></figcaption></figure><figure class="hero-phone"><a aria-label="Enlarge: Add cash with 500 rupees selected and GETM500 applied" class="screen" data-zoom="" href="../assets/images/megapoker/b0ce1de6_500_selected.png"><img alt="Add cash with 500 rupees selected and GETM500 applied" decoding="async" height="1230" loading="eager" src="../assets/images/megapoker/b0ce1de6_500_selected.png" width="570"/></a><figcaption><span>Add cash</span><small>Design export · separate example.</small></figcaption></figure>
+  </div><p class="hero-stage-note">Selected design exports. Historical interface labels and separate sample states.</p></div>
+  <div class="brief-strip"><div><span class="section-label">The commercial brief</span><p>The business wanted more money to remain on-platform. My scope covered withdrawal, self-transfer, deposits and tournament discovery.</p></div><div><span class="section-label">The design constraint</span><p>The new visual language was already locked. I designed within both the old and new styles, and the product’s existing rules. KYC was outside the withdrawal brief.</p></div></div>
+</section>
+<nav class="chapter-nav" aria-label="Case study sections"><div class="shell chapter-nav-inner"><a class="nav-project" href="#overview">Mega Poker</a><div class="chapter-links"><a href="#withdrawal">Withdrawal</a><a href="#processing">Status</a><a href="#addcash">Deposits</a><a href="#tournaments">Tournaments</a><a href="#delivery">Reflection</a></div><a class="nav-top" href="#top" aria-label="Back to top">↑</a></div></nav>
+<section class="chapter shell withdrawal" id="withdrawal" aria-labelledby="withdrawal-title">
+  <header class="chapter-heading"><div class="chapter-title"><p class="section-label">Withdrawal &amp; self-transfer</p><h2 id="withdrawal-title">The amount is only<br>half the decision.</h2></div><div class="chapter-copy"><p>A player choosing to withdraw needs to understand the limits, the net amount and the alternative being offered. I brought those choices into the flow, before the request is submitted.</p><p>The transfer offer encourages keeping winnings in the product. It is a different destination for the money, not the same outcome as cashing out.</p></div></header>
+  <div class="media-label"><span>Two withdrawal design states</span><span>Separate examples · Select a screen to inspect</span></div>
+  <div class="withdrawal-study"><div class="screen-pair"><figure class="artifact phone-artifact" data-artifact="W1" id="artifact-W1">
+<div class="figure-heading"><h3>Limits before input</h3></div>
+<a aria-label="Enlarge: Withdrawal amount and limits" class="screen" data-zoom="" href="../assets/images/megapoker/16250962_TDS_free_withdrawal.png"><img alt="Withdrawal amount and limits" decoding="async" fetchpriority="high" height="1230" src="../assets/images/megapoker/16250962_TDS_free_withdrawal.png" width="570"/><span aria-hidden="true" class="inspect">Enlarge ↗</span></a>
+<figcaption><span class="provenance">Design export</span><p>Available winnings, minimum, allowance and daily limits sit above a disabled Continue button. The constraint is visible before an amount is entered.</p></figcaption>
+</figure><figure class="artifact phone-artifact" data-artifact="W2" id="artifact-W2">
+<div class="figure-heading"><h3>The amount and the alternative</h3></div>
+<a aria-label="Enlarge: Withdrawal amount, deduction and transfer alternative" class="screen" data-zoom="" href="../assets/images/megapoker/ef645c15_3._Payout_Options-1.png"><img alt="Withdrawal amount, deduction and transfer alternative" decoding="async" height="1230" loading="lazy" src="../assets/images/megapoker/ef645c15_3._Payout_Options-1.png" width="570"/><span aria-hidden="true" class="inspect">Enlarge ↗</span></a>
+<figcaption><span class="provenance">Design export</span><p>The calculation groups ₹900 requested, a ₹100 deduction and ₹800 net. Below it, the transfer offer has the larger action; “No. I will withdraw ₹800” remains visible.</p></figcaption>
+</figure></div><aside class="amount-reading"><span class="section-label">Reading the second screen</span><h3>Requested.<br> Deducted.<br> Payable.</h3><dl class="amount-ledger"><div><dt>Requested</dt><dd>₹900</dd></div><div><dt>Deduction shown</dt><dd>− ₹100</dd></div><div><dt>Net withdrawal</dt><dd>₹800</dd></div></dl><p>Grouping the amounts keeps the result close to the decision.</p><p class="source-note">Values reproduced from this historical design. The deduction is not a verified tax calculation.</p></aside></div>
+  <div class="decision-note"><p class="section-label">The hierarchy has a bias</p><div><p>The transfer action is more prominent than “No. I will withdraw ₹800.” A visible decline does not establish equal choice.</p><p class="source-note">Transfer is selected in this example; an initial default is not established. The separate ₹45 offer is not included in the ₹900 total. Bonus restrictions, reversibility and the complete route after declining remain unverified.</p></div></div>
+</section>
+<section class="status-section" id="processing" aria-labelledby="processing-title"><div class="shell status-layout" data-status-study>
+  <div class="status-copy"><p class="section-label">After submission</p><h2 id="processing-title">Received is<br>not processed.</h2><p class="status-intro">A checkmark acknowledges the request. The tracker still needs to say what is happening to the payment.</p><div class="status-controls" hidden><p class="inspection-label">Inspect the three status labels</p><div class="status-tabs" role="tablist" aria-label="Inspect the status design"><button type="button" role="tab" id="status-tab-receipt" aria-controls="status-receipt" aria-selected="false" tabindex="-1" data-status-tab="receipt">Receipt</button><button type="button" role="tab" id="status-tab-review" aria-controls="status-review" aria-selected="true" data-status-tab="review">Review</button><button type="button" role="tab" id="status-tab-pending" aria-controls="status-pending" aria-selected="false" tabindex="-1" data-status-tab="pending">Pending step</button></div></div>
+  <div class="status-notes"><div id="status-receipt" data-status-panel><h3>Acknowledge the request.</h3><p>The order ID and timestamp identify what was received. The amount and destination stay above the tracker.</p></div><div id="status-review" data-status-panel><h3>Explain the work in progress.</h3><p>The active review stage carries a description and a 4–6-hour estimate. That is copy in the design, not a measured processing time.</p></div><div id="status-pending" data-status-panel><h3>Keep completion distinct.</h3><p>“Withdrawal Processed” remains muted while it is still ahead. Submission and completion are separate states.</p></div></div>
+  <p class="inspection-note">Annotations of one design export. Selecting a label highlights its position; it does not simulate a payment.</p></div>
+  <div class="status-media"><figure class="artifact phone-artifact status-artifact" data-artifact="W3" id="artifact-W3">
+<div class="figure-heading"><h3>After the request is submitted</h3></div>
+<a aria-label="Enlarge: Withdrawal request received, under review and awaiting processing" class="screen" data-zoom="" href="../assets/images/megapoker/4b31c272_3._Payout_Options.png"><img alt="Withdrawal request received, under review and awaiting processing" decoding="async" height="1230" loading="lazy" src="../assets/images/megapoker/4b31c272_3._Payout_Options.png" width="570"/><span aria-hidden="true" class="inspect">Enlarge ↗</span><span aria-hidden="true" class="status-spotlight" hidden=""></span></a>
+<figcaption><span class="provenance">Design export</span><p>The order, destination, estimate and help route remain alongside the request status. The 4–6-hour estimate is UI content, not a measured processing time.</p></figcaption>
+</figure></div>
+</div></section>
+<section class="transfer-section shell" id="transfer" aria-labelledby="transfer-title"><div class="transfer-heading"><p class="section-label">The offer across contexts</p><h2 id="transfer-title">Same incentive.<br>Different money decisions.</h2><p>The bonus offer appears at table exit, beside winnings in the wallet, and within withdrawal. I designed its presentation across those contexts, keeping principal and bonus as separate balances.</p></div><div class="evidence-details transfer-details"><header class="section-heading"><div><h3>The transfer contexts</h3><p>Table exit · Wallet · Amount selection</p></div></header><div class="evidence-body"><div class="screen-trio"><figure class="artifact phone-artifact" data-artifact="T1" id="artifact-T1">
+<div class="figure-heading"><h3>At table exit</h3></div>
+<a aria-label="Enlarge: Leave-table offer with an inconsistent example total" class="screen" data-zoom="" href="../assets/images/megapoker/de8e9607_Leave_Table_Popup.png"><img alt="Leave-table offer with an inconsistent example total" decoding="async" height="1230" loading="lazy" src="../assets/images/megapoker/de8e9607_Leave_Table_Popup.png" width="570"/><span aria-hidden="true" class="inspect">Enlarge ↗</span></a>
+<figcaption><span class="provenance">Historical design sample</span><p>Profit leads the sheet, followed by the incentive, destination breakdown and transfer action. The illustration and spacing separate celebration from the financial choice.</p><div class="sample-note"><h4 class="section-heading">Sample mismatch: the displayed total</h4><p class="source-note" id="note-T1"><strong>About this sample</strong> Original export inconsistency: ₹1,248.50 + ₹250 totals ₹1,498.50, not the displayed ₹1,508.50. Exactly 20% is ₹249.70; the rounding rule is unverified. Shown unchanged for composition and hierarchy.</p></div></figcaption>
+</figure><figure class="artifact phone-artifact" data-artifact="T2" id="artifact-T2">
+<div class="figure-heading"><h3>Beside the winnings balance</h3></div>
+<a aria-label="Enlarge: Wallet balances, transfer offer and menu instruction for withdrawals" class="screen" data-zoom="" href="../assets/images/megapoker/4780d26a_Wallet_dark_theme.png"><img alt="Wallet balances, transfer offer and menu instruction for withdrawals" decoding="async" height="1230" loading="lazy" src="../assets/images/megapoker/4780d26a_Wallet_dark_theme.png" width="570"/><span aria-hidden="true" class="inspect">Enlarge ↗</span></a>
+<figcaption><span class="provenance">Design export</span><p>Deposit and winnings are grouped under playable balance; bonus sits separately. The transfer offer is placed beneath winnings. Withdrawal is signposted through the menu.</p></figcaption>
+</figure><figure class="artifact phone-artifact" data-artifact="T3" id="artifact-T3">
+<div class="figure-heading"><h3>Principal and bonus, separately</h3></div>
+<a aria-label="Enlarge: Transfer selection with separate principal and bonus amounts" class="screen" data-zoom="" href="../assets/images/megapoker/71d5db41_Wallet_dark_theme-1.png"><img alt="Transfer selection with separate principal and bonus amounts" decoding="async" height="1230" loading="lazy" src="../assets/images/megapoker/71d5db41_Wallet_dark_theme-1.png" width="570"/><span aria-hidden="true" class="inspect">Enlarge ↗</span></a>
+<figcaption><span class="provenance">Design export · separate example</span><p>The selected 10% tier sits over the slider. ₹8,100 principal and ₹810 bonus occupy separate rows before the ₹8,910 total. This is a static amount-selection example.</p></figcaption>
+</figure></div><p class="source-note">Separate examples with different balances, not one continuous transaction. These screens establish placement and hierarchy; they do not establish who proposed the offer moments or their effect on behaviour.</p></div></div></section>
+<section class="deposit-section" id="addcash" aria-labelledby="deposit-title"><div class="shell">
+  <header class="chapter-heading"><div class="chapter-title"><p class="section-label">Deposits</p><h2 id="deposit-title">A total is not<br>a single balance.</h2></div><div class="chapter-copy"><p>“Pay ₹500, get ₹750” combines deposit money and locked bonus. I designed the amount selection and breakdown to separate the charge, the adjustments and each destination.</p><p>The distinction is visible in the summary. The exports do not establish whether every player opened or understood it before paying.</p></div></header>
+  <div class="deposit-composition"><div class="deposit-principle"><span class="section-label">Follow the destination</span><p class="deposit-statement">What you pay.<br>What is added.<br><span>Where it goes.</span></p><div class="destination-labels"><span>Deposit</span><span>Locked bonus</span></div><p>Signed rows, indented labels and dividing rules give the calculation a reading order.</p></div><div class="screen-pair deposit-pair"><figure class="artifact phone-artifact" data-artifact="D1" id="artifact-D1">
+<div class="figure-heading"><h3>Choose an amount</h3></div>
+<a aria-label="Enlarge: Add cash with 500 rupees selected and GETM500 applied" class="screen" data-zoom="" href="../assets/images/megapoker/b0ce1de6_500_selected.png"><img alt="Add cash with 500 rupees selected and GETM500 applied" decoding="async" height="1230" loading="lazy" src="../assets/images/megapoker/b0ce1de6_500_selected.png" width="570"/><span aria-hidden="true" class="inspect">Enlarge ↗</span></a>
+<figcaption><span class="provenance">Design export</span><p>Presets and custom input share the screen with the applied offer and payment method. The selected border and checkmark anchor ₹500; the payment action repeats that charge.</p></figcaption>
+</figure><figure class="artifact phone-artifact" data-artifact="D2" id="artifact-D2">
+<div class="figure-heading"><h3>Inspect the breakdown</h3></div>
+<a aria-label="Enlarge: Deposit breakdown with conflicting amount and offer-code examples" class="screen" data-zoom="" href="../assets/images/megapoker/d99a89c2_500_Deposit_Summary.png"><img alt="Deposit breakdown with conflicting amount and offer-code examples" decoding="async" height="1230" loading="lazy" src="../assets/images/megapoker/d99a89c2_500_Deposit_Summary.png" width="570"/><span aria-hidden="true" class="inspect">Enlarge ↗</span></a>
+<figcaption><span class="provenance">Historical design sample</span><p>Signed adjustments, indented destinations and dividing rules separate the amounts. The example allocates ₹500 to deposit and ₹250 to locked bonus under a ₹750 headline total.</p><div class="sample-note"><h4 class="section-heading">Sample mismatch: ₹500 breakdown / ₹200 payment</h4><p class="source-note" id="note-D2"><strong>About this sample</strong> Original export inconsistency: the breakdown uses ₹500 and ₹750, but the button says Pay ₹200 and the background selects ₹200. GETM200 also differs from GETM500 in the adjacent selection. Shown unchanged for its information structure.</p></div></figcaption>
+</figure></div></div>
+  <p class="source-note tax-note">GST and TDS are historical interface labels. The artifacts show presentation, not verified tax treatment or savings. The inconsistent summary is retained as a historical design sample.</p>
+  <div class="evidence-details offer-details"><header class="section-heading"><div><h3>Offer eligibility is a separate question.</h3><p>Available and unavailable treatments</p></div></header><div class="evidence-body offer-layout"><figure class="artifact phone-artifact" data-artifact="D3" id="artifact-D3">
+<div class="figure-heading"><h3>Available and unavailable offers</h3></div>
+<a aria-label="Enlarge: Available and unavailable payment offers with conflicting eligibility copy" class="screen" data-zoom="" href="../assets/images/megapoker/3eeb2c0a_Payment_Offers.png"><img alt="Available and unavailable payment offers with conflicting eligibility copy" decoding="async" height="1230" loading="lazy" src="../assets/images/megapoker/3eeb2c0a_Payment_Offers.png" width="570"/><span aria-hidden="true" class="inspect">Enlarge ↗</span></a>
+<figcaption><span class="provenance">Historical design sample</span><p>The two cards share a structure. The unavailable treatment reduces emphasis but keeps an activation condition inside the card, rather than leaving the disabled state unexplained.</p><div class="sample-note"><h4 class="section-heading">Sample mismatch: ₹500 / ₹200 minimum</h4><p class="source-note" id="note-D3"><strong>About this sample</strong> Original export inconsistency: the unavailable offer requires a ₹500 minimum in its activation message, but ₹200 in its description. Shown unchanged for its available/unavailable treatment.</p></div></figcaption>
+</figure><div><h3>Explain the condition<br>inside the offer.</h3><p>The available card carries an Apply action. The unavailable example retains an activation message close to the benefit it qualifies.</p><p>This is eligibility to apply an offer. It is separate from the rules for releasing money already held in locked bonus; those rules are not shown here.</p></div></div></div>
+</div></section>
+<section class="chapter shell tournament-section" id="tournaments" aria-labelledby="tournament-title">
+  <header class="chapter-heading"><div class="chapter-title"><p class="section-label">Tournament discovery</p><h2 id="tournament-title">More to decide with.<br>Fewer entries in view.</h2></div><div class="chapter-copy"><p>I brought event state, entry price, capacity and prize information into richer tournament cards. The redesign gives the decision more space.</p><p>The visible cost is density: roughly five compact rows in the old reference, compared with one full card and part of the next in the design.</p></div></header>
+  <div class="comparison-spread comparison-spread--phones" id="tournament-before-after"><div class="comparison-panel comparison-panel--before"><header class="comparison-heading"><p class="comparison-eyebrow">Original interface</p><h3>Before</h3><p class="comparison-takeaway">Compact list · ≈ 5 rows in view</p></header><figure class="artifact phone-artifact" data-artifact="G1" id="artifact-G1">
+<div class="figure-heading"><h3>Before: the compact list</h3></div>
+<a aria-label="Enlarge: Old tournament screen with roughly five compact Freeroll rows" class="screen comparison-image" data-zoom="" href="../assets/images/megapoker/71340e2f_PHOTO-2024-07-05-16-48-50.jpg"><span class="comparison-media"><img alt="Old tournament screen with roughly five compact Freeroll rows" decoding="async" height="1280" loading="lazy" src="../assets/images/megapoker/71340e2f_PHOTO-2024-07-05-16-48-50.jpg" width="576"/></span><span aria-hidden="true" class="inspect">Enlarge ↗</span></a>
+<figcaption><span class="provenance">Historical product reference</span><p>The Freeroll reference already shows times, prizes and participant counts. Roughly five tournament rows fit in this screen. Its Register buttons are not evidence of hidden paid-entry prices.</p></figcaption>
+</figure></div><div class="comparison-panel comparison-panel--after"><header class="comparison-heading"><p class="comparison-eyebrow">My redesign</p><h3>After</h3><p class="comparison-takeaway">Richer cards · 1 full card + the next</p></header><figure class="artifact phone-artifact" data-artifact="G2" id="artifact-G2">
+<div class="figure-heading"><h3>Redesign: the richer card</h3></div>
+<a aria-label="Enlarge: Redesigned tournament screen with one full card and part of the next" class="screen comparison-image" data-zoom="" href="../assets/images/megapoker/157dd30a_Tournament_Tab_45.png"><span class="comparison-media"><img alt="Redesigned tournament screen with one full card and part of the next" decoding="async" height="1230" loading="lazy" src="../assets/images/megapoker/157dd30a_Tournament_Tab_45.png" width="570"/></span><span aria-hidden="true" class="inspect">Enlarge ↗</span></a>
+<figcaption><span class="provenance">Design export</span><p>The design groups late registration, Live status, capacity, prize information and a ₹30 action. One full card and part of the next fit beneath the banner and controls.</p></figcaption>
+</figure></div></div>
+  <div class="decision-note"><p class="section-label">The visible tradeoff</p><div><p>Information per entry increased; the number of entries visible together decreased. This is a layout comparison, not a tested preference for the redesign.</p><p class="source-note">The old reference is Freeroll and already shows time and participant counts. The surrounding headers also differ. The redesign’s “40%” and “Winnings” labels remain uninterpreted because their meaning is unconfirmed.</p></div></div>
+  <div class="evidence-details tournament-details"><header class="section-heading"><div><h3>From scanning to closer inspection.</h3><p>Filter categories and completed-event details</p></div></header><div class="evidence-body"><div class="screen-pair"><figure class="artifact phone-artifact" data-artifact="G3" id="artifact-G3">
+<div class="figure-heading"><h3>Narrow the list</h3></div>
+<a aria-label="Enlarge: Tournament filter sheet with categories on the left and wallet options on the right" class="screen" data-zoom="" href="../assets/images/megapoker/0ace83e5_Tournament_Tab_44.png"><img alt="Tournament filter sheet with categories on the left and wallet options on the right" decoding="async" height="1230" loading="lazy" src="../assets/images/megapoker/0ace83e5_Tournament_Tab_44.png" width="570"/><span aria-hidden="true" class="inspect">Enlarge ↗</span></a>
+<figcaption><span class="provenance">Design export · separate variant</span><p>Entry Fee and Wallet are categories on the left; wallet values sit on the right. This is a separate design variant, not a verified next state of the list above.</p></figcaption>
+</figure><figure class="artifact phone-artifact" data-artifact="G4" id="artifact-G4">
+<div class="figure-heading"><h3>Read the completed event</h3></div>
+<a aria-label="Enlarge: Completed tournament details with times, entries and playing structure" class="screen" data-zoom="" href="../assets/images/megapoker/81036f81_Completed_Tournament_Details.png"><img alt="Completed tournament details with times, entries and playing structure" decoding="async" height="1230" loading="lazy" src="../assets/images/megapoker/81036f81_Completed_Tournament_Details.png" width="570"/><span aria-hidden="true" class="inspect">Enlarge ↗</span></a>
+<figcaption><span class="provenance">Design export</span><p>Start and end times lead, then entries and playing structure. Spacing and separators group re-entry, breaks, stack and blinds. Prizes and ranking are visible tabs; their contents are not shown.</p></figcaption>
+</figure></div></div></div>
+</section>
+<section class="delivery-section" id="delivery" aria-labelledby="delivery-title"><div class="shell"><div class="delivery-heading"><p class="section-label">Reflection</p><h2 id="delivery-title">The craft is in<br>the distinctions.</h2></div><div class="delivery-copy"><p class="delivery-lead">Winnings and bonus. A charge and a headline total. A request received and a payment completed.</p><p>These were the distinctions I worked on across Mega Poker’s money flows and tournament interfaces. The selected exports establish design scope; they do not establish full production coverage or measured impact.</p><div class="scope-details"><h3 class="section-heading">Scope and evidence notes </h3><p>The brief also requested UPI, penny-check verification, fee and speed variants, and a TDS explanation sheet. The selected exports do not establish delivery of every branch. Historical samples with inconsistent figures remain labelled and unchanged.</p></div></div></div></section>
+<section class="relationship shell"><p class="section-label">A later invitation</p><div><h3>Someone familiar with the work,<br>and a new brief.</h3><p>Mega Poker’s CEO, formerly Getmega’s Growth Head, contacted me directly in 2024. Mega Poker was a different, restructured company with a different CEO. This was a new engagement with someone who already knew my work.</p><a class="text-link" href="getmega.html">Earlier work at Getmega ↗</a></div></section>
+<nav class="next-project shell" aria-label="Next case study"><a href="sedp-dashboard.html"><span><span class="section-label">Next project</span><strong>SEDP</strong><span>Public data. Made legible.</span></span><span aria-hidden="true">↗</span></a></nav>
+</main>
+<footer class="case-footer shell"><a href="../index.html#work">← All work</a><span>Priyank Agarwal</span><a href="#top">Back to top ↑</a></footer>
+<dialog class="image-dialog" aria-labelledby="detail-title" aria-describedby="detail-note"><div class="dialog-bar"><p id="detail-title">Design detail</p><div><button type="button" data-detail-size aria-pressed="false">Actual size</button><button type="button" data-close aria-label="Close enlarged design">Close ×</button></div></div><p id="detail-note" class="dialog-note"></p><div class="dialog-image-wrap" tabindex="0" aria-label="Image; scroll to inspect"><img alt=""></div></dialog>
+<script src="../assets/js/mega-poker.js?v=4" defer></script><script src="../assets/js/analytics.js?v=1" defer></script>
 </body>
 </html>

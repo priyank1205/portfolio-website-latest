@@ -1,0 +1,244 @@
+[
+  {
+    "asset": "assets/images/sedp/supporting/ecometer-workspace.webp",
+    "product": "Ecometer",
+    "source": "assets/images/ecometer/e6f9dcfb_1._Main.png",
+    "source_sha256": "89875fc315cddc76f2100a88d6b68ce2c8fb4d8c9f94bba006213dbf3176d8f9",
+    "crop_bounds": [
+      0,
+      84,
+      1600,
+      1001
+    ],
+    "dimensions": [
+      1600,
+      917
+    ],
+    "source_type": "supplied design/mockup frame",
+    "capture_or_version_date": null,
+    "shipping": "Represented redesign shipped, confirmed by Priyank on 21 September 2026; independent of image provenance.",
+    "sample_data": true,
+    "presentation_limit": "Inconsistent plot/range dates and repeated range labels; layout evidence only.",
+    "treatment": "Crop only; lossless WebP, no retouching or numerical edits."
+  },
+  {
+    "asset": "assets/images/sedp/supporting/ecometer-series.webp",
+    "product": "Ecometer",
+    "source": "assets/images/ecometer/e6f9dcfb_1._Main.png",
+    "source_sha256": "89875fc315cddc76f2100a88d6b68ce2c8fb4d8c9f94bba006213dbf3176d8f9",
+    "crop_bounds": [
+      1250,
+      265,
+      1580,
+      645
+    ],
+    "dimensions": [
+      330,
+      380
+    ],
+    "source_type": "supplied design/mockup frame",
+    "capture_or_version_date": null,
+    "shipping": "Represented redesign shipped, confirmed by Priyank on 21 September 2026; independent of image provenance.",
+    "sample_data": true,
+    "presentation_limit": "Selected-series detail from the same workspace; no sample values changed.",
+    "treatment": "Crop only; lossless WebP, no retouching or numerical edits."
+  },
+  {
+    "asset": "assets/images/sedp/supporting/ecometer-growth.webp",
+    "product": "Ecometer",
+    "source": "assets/images/ecometer/0849b72d_3._Chart_Growth_Rate.png",
+    "source_sha256": "b806fa07f5ec335b1013b2b6422f330ccf7125c04bc24f264ab9c53fcebc0432",
+    "crop_bounds": [
+      510,
+      198,
+      935,
+      694
+    ],
+    "dimensions": [
+      425,
+      496
+    ],
+    "source_type": "supplied design/mockup frame",
+    "capture_or_version_date": null,
+    "shipping": "Represented redesign shipped, confirmed by Priyank on 21 September 2026; independent of image provenance.",
+    "sample_data": true,
+    "presentation_limit": "Transformation selector and explanation only; no transformed-result frame supplied.",
+    "treatment": "Crop only; lossless WebP, no retouching or numerical edits."
+  },
+  {
+    "asset": "assets/images/sedp/supporting/ecometer-provenance.webp",
+    "product": "Ecometer",
+    "source": "assets/images/ecometer/e4652152_4._Chart_Description.png",
+    "source_sha256": "6b0942109aa1878172597c37a311990384ad0cf9e728aa2e3753da78dc0ff989",
+    "crop_bounds": [
+      302,
+      199,
+      885,
+      645
+    ],
+    "dimensions": [
+      583,
+      446
+    ],
+    "source_type": "supplied design/mockup frame",
+    "capture_or_version_date": null,
+    "shipping": "Represented redesign shipped, confirmed by Priyank on 21 September 2026; independent of image provenance.",
+    "sample_data": true,
+    "presentation_limit": "Indicator definition, notes and methodology; historical wording retained.",
+    "treatment": "Crop only; lossless WebP, no retouching or numerical edits."
+  },
+  {
+    "asset": "assets/images/sedp/supporting/agrimarket-entry.webp",
+    "product": "Agrimarket",
+    "source": "assets/images/ecometer/e0b09fb2_before1.png",
+    "source_sha256": "a19b18f1e2f3bec76fd07ce70dd70041bc5a5409229197ebee22b6fb65aa7805",
+    "crop_bounds": [
+      145,
+      76,
+      1495,
+      710
+    ],
+    "dimensions": [
+      1350,
+      634
+    ],
+    "source_type": "supplied old interface capture",
+    "capture_or_version_date": null,
+    "shipping": "Not applicable: supplied old interface, not a Priyank redesign frame.",
+    "sample_data": false,
+    "presentation_limit": "Supplied old interface state; not a matched before/after task.",
+    "treatment": "Crop only; lossless WebP, no retouching or numerical edits."
+  },
+  {
+    "asset": "assets/images/sedp/supporting/agrimarket-configuration.webp",
+    "product": "Agrimarket",
+    "source": "assets/images/ecometer/981dbc44_before2.png",
+    "source_sha256": "75c4ff90b252c82b07c38adce4403d61f8ea192fccb0b2492fb94447b2c8ac45",
+    "crop_bounds": [
+      99,
+      45,
+      1502,
+      272
+    ],
+    "dimensions": [
+      1403,
+      227
+    ],
+    "source_type": "supplied old interface capture",
+    "capture_or_version_date": null,
+    "shipping": "Not applicable: supplied old interface, not a Priyank redesign frame.",
+    "sample_data": false,
+    "presentation_limit": "Supplied old configuration state; displayed dates do not date the engagement.",
+    "treatment": "Crop only; lossless WebP, no retouching or numerical edits."
+  },
+  {
+    "asset": "assets/images/sedp/supporting/agrimarket-workspace.webp",
+    "product": "Agrimarket",
+    "source": "assets/images/ecometer/27977c07_1._Default_View.png",
+    "source_sha256": "9c7246dd982987dcad4c74cf81f63c40ca5a02f8d636c11eeec124ef9517b760",
+    "crop_bounds": [
+      0,
+      84,
+      1600,
+      1001
+    ],
+    "dimensions": [
+      1600,
+      917
+    ],
+    "source_type": "supplied design/mockup frame",
+    "capture_or_version_date": null,
+    "shipping": "Represented redesign shipped, confirmed by Priyank on 21 September 2026; independent of image provenance.",
+    "sample_data": true,
+    "presentation_limit": "Inconsistent sample arithmetic; table/chart layout and explanation evidence only.",
+    "treatment": "Crop only; lossless WebP, no retouching or numerical edits."
+  },
+  {
+    "asset": "assets/images/sedp/supporting/agrimarket-price-explanation.webp",
+    "product": "Agrimarket",
+    "source": "assets/images/ecometer/27977c07_1._Default_View.png",
+    "source_sha256": "9c7246dd982987dcad4c74cf81f63c40ca5a02f8d636c11eeec124ef9517b760",
+    "crop_bounds": [
+      273,
+      532,
+      696,
+      689
+    ],
+    "dimensions": [
+      423,
+      157
+    ],
+    "source_type": "supplied design/mockup frame",
+    "capture_or_version_date": null,
+    "shipping": "Represented redesign shipped, confirmed by Priyank on 21 September 2026; independent of image provenance.",
+    "sample_data": true,
+    "presentation_limit": "Last-available-price rule as written; sample arithmetic does not verify it.",
+    "treatment": "Crop only; lossless WebP, no retouching or numerical edits."
+  },
+  {
+    "asset": "assets/images/sedp/supporting/agrimarket-isolation.webp",
+    "product": "Agrimarket",
+    "source": "assets/images/ecometer/66609919_4._Hover_on_Modal_Prices_Legend.png",
+    "source_sha256": "f0ad3cbb2f8e4c49d8d43dab6622f24c7e79657b326dfcbc48de8f77838779a2",
+    "crop_bounds": [
+      583,
+      435,
+      1567,
+      915
+    ],
+    "dimensions": [
+      984,
+      480
+    ],
+    "source_type": "supplied design/mockup frame",
+    "capture_or_version_date": null,
+    "shipping": "Represented redesign shipped, confirmed by Priyank on 21 September 2026; independent of image provenance.",
+    "sample_data": true,
+    "presentation_limit": "Separate design state, not transition capture. 30-day average and source/footer differ from default (7-day).",
+    "treatment": "Crop only; lossless WebP, no retouching or numerical edits."
+  },
+  {
+    "asset": "assets/images/sedp/supporting/agrimarket-map-workspace.webp",
+    "product": "Agrimarket",
+    "source": "assets/images/ecometer/74b2db68_Map_View.png",
+    "source_sha256": "2f847434250ead451861311cf6568db3d18a14a62c0b762a3975393cacfecb70",
+    "crop_bounds": [
+      0,
+      84,
+      1600,
+      1001
+    ],
+    "dimensions": [
+      1600,
+      917
+    ],
+    "source_type": "supplied design/mockup frame",
+    "capture_or_version_date": null,
+    "shipping": "Represented redesign shipped, confirmed by Priyank on 21 September 2026; independent of image provenance.",
+    "sample_data": true,
+    "presentation_limit": "Retains table, context, map and readouts. Displayed table/map dates differ; no synchronization proof.",
+    "treatment": "Crop only; lossless WebP, no retouching or numerical edits."
+  },
+  {
+    "asset": "assets/images/sedp/supporting/agrimarket-download.webp",
+    "product": "Agrimarket",
+    "source": "assets/images/ecometer/3a8ce847_3._Download_Modal.png",
+    "source_sha256": "b762f64a05717d84eb58041949073451d1b66111e2c4c21512cac9e792d3e37e",
+    "crop_bounds": [
+      610,
+      270,
+      990,
+      774
+    ],
+    "dimensions": [
+      380,
+      504
+    ],
+    "source_type": "supplied design/mockup frame",
+    "capture_or_version_date": null,
+    "shipping": "Represented redesign shipped, confirmed by Priyank on 21 September 2026; independent of image provenance.",
+    "sample_data": true,
+    "presentation_limit": "Complete export configuration; no exported output supplied.",
+    "treatment": "Crop only; lossless WebP, no retouching or numerical edits."
+  }
+]

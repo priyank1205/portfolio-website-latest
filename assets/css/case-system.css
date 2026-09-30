@@ -3819,3 +3819,246 @@ body:has(.viewer[open]) {
 .block-sm {
   margin-top: var(--sp-5);
 }
+
+/* ============================================================================
+   The site pages (2026-09-24). The homepage and About join the family: they
+   carry every study's accents, light product shots in plates and end on the
+   same contact panel.
+   ========================================================================== */
+
+/* Each study's accents as a class, for a page that shows more than one
+   product. The values are the ones each study sets on its own :root; keep
+   the two in step. The composite tokens are declared again here, because a
+   custom property resolves where it is declared, not where it is used. */
+.accent-kp,
+.accent-sedp,
+.accent-gm,
+.accent-mp {
+  --accent: rgb(var(--accent-rgb));
+  --positive: rgb(var(--positive-rgb));
+  --caution: rgb(var(--caution-rgb));
+  --action: linear-gradient(90deg, rgb(var(--action-a-rgb)), rgb(var(--action-b-rgb)));
+}
+
+.accent-kp {
+  --accent-rgb: 255 122 99;
+  --positive-rgb: 25 207 163;
+  --caution-rgb: 224 160 92;
+  --action-a-rgb: 225 77 92;
+  --action-b-rgb: 224 114 76;
+  --on-accent: #180706;
+}
+
+.accent-sedp {
+  --accent-rgb: 232 80 104;
+  --positive-rgb: 127 159 224;
+  --caution-rgb: 240 160 112;
+  --action-a-rgb: 240 128 96;
+  --action-b-rgb: 232 56 104;
+  --on-accent: #1a0509;
+}
+
+.accent-gm {
+  --accent-rgb: 60 192 156;
+  --positive-rgb: 240 180 0;
+  --caution-rgb: 216 60 84;
+  --action-a-rgb: 76 204 168;
+  --action-b-rgb: 48 168 144;
+  --on-accent: #04130f;
+  --screen-ratio: 9 / 16;
+  --device-ratio: 0.573;
+}
+
+.accent-mp {
+  --accent-rgb: 211 164 134;
+  --positive-rgb: 47 163 156;
+  --caution-rgb: 248 96 96;
+  --action-a-rgb: 201 153 122;
+  --action-b-rgb: 237 198 171;
+  --on-accent: #1c130d;
+}
+
+/* The site pages' own frame is ink: white for emphasis and a white-to-grey
+   ramp for the headline, so the only colour on the page is the work's.
+   Availability keeps a green. On an ink ramp the author mark needs dark
+   type, and the hero's light is left to the work. */
+.accent-site {
+  --accent-rgb: 242 242 243;
+  --positive-rgb: 74 222 128;
+  --caution-rgb: 240 163 68;
+  --action-a-rgb: 242 242 243;
+  --action-b-rgb: 150 150 160;
+  --on-accent: #0a0a0c;
+  --accent: rgb(var(--accent-rgb));
+  --positive: rgb(var(--positive-rgb));
+  --caution: rgb(var(--caution-rgb));
+  --action: linear-gradient(90deg, rgb(var(--action-a-rgb)), rgb(var(--action-b-rgb)));
+}
+
+.accent-site .nav-home .mark {
+  color: var(--on-accent);
+}
+
+.accent-site .hero::before {
+  display: none;
+}
+
+/* A plate: a lit panel that a product's own screens sit in, cropped by its
+   edges rather than floated whole. It takes its light from the accent class
+   it carries. */
+.plate {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-7);
+  background:
+    radial-gradient(72% 58% at 50% 104%, rgb(var(--action-a-rgb) / var(--a-4)), transparent 72%),
+    radial-gradient(52% 44% at 86% 0%, rgb(var(--action-b-rgb) / var(--a-2)), transparent 72%),
+    linear-gradient(180deg, var(--bg-1), var(--bg));
+  box-shadow: var(--hi-edge);
+}
+
+/* A screen placed in a plate: centred on --x, its top at --y, --w wide. */
+.plate-shot {
+  position: absolute;
+  z-index: var(--z, 1);
+  left: var(--x, 50%);
+  top: var(--y, 10%);
+  width: var(--w, 50%);
+  transform: translateX(-50%);
+}
+
+/* A flat artifact in a plate: a web page, a board, a shared image. */
+.plate-shot--flat {
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-4);
+  box-shadow: var(--shadow-4), var(--hi-edge);
+}
+
+.plate-shot--flat img {
+  width: 100%;
+}
+
+/* What a plate's artifact is, said on the artifact. */
+.plate-label {
+  position: absolute;
+  z-index: 3;
+  left: var(--sp-4);
+  bottom: var(--sp-4);
+  background: rgb(var(--bg-rgb) / var(--scrim-2));
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+/* The contact panel every site page ends on: the ask and the address on
+   the left, every other way in on the right. */
+.contact {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: var(--sp-7) clamp(40px, 6vw, 96px);
+  align-items: end;
+  overflow: hidden;
+  padding: clamp(28px, 4.4vw, 64px);
+  border: 1px solid var(--line);
+  border-radius: var(--r-7);
+  background:
+    radial-gradient(80% 110% at 0% 0%, rgb(var(--action-a-rgb) / var(--a-2)), transparent 60%),
+    linear-gradient(180deg, var(--bg-1), var(--bg));
+  box-shadow: var(--hi-edge);
+}
+
+.contact .chead-rule {
+  margin-bottom: var(--sp-6);
+}
+
+.contact .lead {
+  margin-top: var(--sp-4);
+}
+
+.contact-mail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3) var(--sp-4);
+  margin-top: var(--sp-7);
+}
+
+.contact-address {
+  font-size: var(--fs-title);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.024em;
+  box-shadow: inset 0 -1px 0 var(--line-3);
+  transition: box-shadow var(--quick);
+}
+
+@media (hover: hover) {
+  .contact-address:hover {
+    box-shadow: inset 0 -1px 0 var(--fg);
+  }
+}
+
+/* The other ways in, as an index of hairline rows. */
+.contact-links {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+  font-size: var(--fs-ui);
+}
+
+.contact-links a {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 52px;
+  border-bottom: 1px solid var(--line);
+  color: var(--fg);
+  transition: color var(--quick);
+}
+
+.contact-links a .num {
+  margin-left: auto;
+  color: var(--fg-3);
+}
+
+.contact-links svg {
+  color: var(--fg-3);
+  transition: color var(--quick), transform var(--quick);
+}
+
+@media (hover: hover) {
+  .contact-links a:hover svg {
+    color: var(--fg);
+    transform: translate(2px, -2px);
+  }
+}
+
+.contact-ps {
+  margin-top: var(--sp-5);
+}
+
+/* A copy button says it worked, in place, then goes back. */
+[data-copy] .is-done-label,
+[data-copy].is-done .is-idle-label {
+  display: none;
+}
+
+[data-copy].is-done .is-done-label {
+  display: inline;
+}
+
+@media (max-width: 900px) {
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .contact-address {
+    font-size: var(--fs-heading);
+  }
+}

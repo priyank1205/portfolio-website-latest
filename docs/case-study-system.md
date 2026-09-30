@@ -11,7 +11,7 @@ The shared design system every case study on this site is built on. It was extra
 
 ## 1. How a case study is put together
 
-**Naming.** Every case study built on the system is `projects/<study>-redesign-claude.html` with `assets/css/<study>-redesign-claude.css` and `assets/js/<study>-redesign-claude.js`, beside the earlier version, which stays until the new one is approved and linked. For example: `khiladipro-redesign-claude`, `getmega-redesign-claude`, `sedp-redesign-claude`, `mega-poker-redesign-claude`. The four link to each other in a ring through their next-study cards (KhiladiPro, SEDP, Getmega, Mega Poker).
+**Naming.** Every case study built on the system is `projects/<study>-redesign-claude.html` with `assets/css/<study>-redesign-claude.css` and `assets/js/<study>-redesign-claude.js`, beside the earlier version, which stays until the new one is approved and linked. For example: `khiladipro-redesign-claude`, `getmega-redesign-claude`, `sedp-redesign-claude`, `mega-poker-redesign-claude`. The four link to each other in a ring through their next-study cards (KhiladiPro, SEDP, Getmega, Mega Poker). The site pages follow the same rule at the root: `index-redesign-claude.html` and `about-redesign-claude.html`, with `assets/css|js/index-redesign-claude.*` and `assets/css|js/about-redesign-claude.*`, beside the old `index.html` and `about.html`. The case studies' navigation points at the new pair.
 
 ```html
 <link rel="stylesheet" href="../assets/css/case-system.css?v=N">
@@ -181,6 +181,14 @@ Promoted from Getmega on their second use in SEDP:
 
 Promoted from SEDP on their second use in Mega Poker: **`.fig-note`** (the caption under an annotated artifact) and **`.block-sm`** (a note one closer step below the figure it belongs to).
 
+**Site pages** (added 2026-09-24, when the homepage and About joined the family):
+
+- **Accent classes** (`.accent-kp`, `.accent-sedp`, `.accent-gm`, `.accent-mp`): each study's accents on any element, for a page that shows more than one product. They repeat the values each study sets on its own `:root`, so keep the two in step. They re-declare `--accent`, `--positive`, `--caution` and `--action` too, because a custom property resolves where it is declared.
+- **Site accent** (`.accent-site` on `<html>`): the homepage and About frame themselves in ink (a white accent, a white-to-grey headline ramp, a green for availability), so the only colour on the page is the work's. The author mark takes dark type and the hero's own light is switched off.
+- **Plate** (`.plate`, `.plate-shot`, `.plate-shot--flat`, `.plate-label`): a lit panel a product's real screens sit in, cropped by its edges rather than floated whole; each shot is placed with `--x`, `--y`, `--w` and `--z`. It takes its light from the accent class it carries. Real exports only: the site's old thumbnails were AI renders.
+- **Contact panel** (`.contact`, `.contact-main`, `.contact-side`, `.contact-address`, `.contact-links`, `.contact-ps`): the ask and the address on the left, every other way in as hairline rows on the right.
+- **Copy and clock** (`[data-copy]` with `.is-idle-label` and `.is-done-label`; `[data-clock]`): a copy button that confirms in place, and the local time in Bengaluru.
+
 **Engines** (`window.CaseSystem`): `walk(root, stepList, onStep)`, `annotate(root)` (automatic on `[data-annot]`), `pinnedSequence(root, count, render)`, `stack(el, texts)`, `swap(...els)`, `showFrame(screen, i)`, `swipePager(track, items, labelFor, onChange)`, plus the shared scroll loop (`onScroll`, `queueScroll`, `runScroll`) and helpers (`$`, `$$`, `pad`, `clamp`, `reduced`).
 
 ## 9. Demos still owned by one study (candidates for promotion)
@@ -213,6 +221,14 @@ From Mega Poker:
 - **Sample mismatch** (`.mismatch`, `--wide`): a design sample whose figures do not add up says so beside the figure, in the caution colour, at caption size.
 - **Aligned pairs**: paired devices share rows through subgrid, so a label that wraps in one column does not push its device below the other. Promote with `.pair--devices` when a second study labels its pairs.
 
+The homepage left the system on purpose (2026-09-24). The author asked for a first touchpoint that is unique, fun, premium and interactive rather than another case-study page, so `index-redesign-claude.html` runs on its own stylesheet and script: Mona Sans, a name that plays as an instrument, four live product pieces and a career timeline with a playhead. Bringing it and the studies into one family is later work; until then the product accents are the shared thread.
+
+From About:
+
+- **Episodes** (`.episode`): a value shown at work, each linking to the chapter where it happened.
+- **The record** (`.record`): a dated index, newest first, each row that opens a case study wearing its colour.
+- **The instruments**: the one moment of play on the site. Synthesized, silent until touched, playable by pointer, touch slide, focus and the keyboard's letter rows.
+
 ## 9a. Studies on the system
 
 | Study | Page | Accents (sampled from the product) |
@@ -221,6 +237,8 @@ From Mega Poker:
 | Getmega | `projects/getmega-redesign-claude.html` | Teal (its play colour), gold (winnings), red (alerts), flat teal action |
 | SEDP (with Ecometer and Agrimarket) | `projects/sedp-redesign-claude.html` | The heatmap's pink, CEDA's navy lifted for the dark ground, the heatmap's light end for limits, its peach-to-crimson ramp |
 | Mega Poker | `projects/mega-poker-redesign-claude.html` | Copper (its primary buttons), teal (its live cards, lifted), red (the unavailable offer), the copper button's own ramp |
+| About | `about-redesign-claude.html` | The neutral site accent; each product's colours arrive through the accent classes |
+| Homepage (standalone) | `index-redesign-claude.html` | Its own system; the same four product accents |
 
 ## 10. Phones and tablets
 

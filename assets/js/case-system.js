@@ -569,6 +569,41 @@
     risers.forEach(item => observer.observe(item));
   }
 
+  /* --- Copy and clock ----------------------------------------------------- */
+
+  // [data-copy] copies its value and says so in place for a moment.
+  $$('[data-copy]').forEach(button => {
+    let reset = null;
+    button.addEventListener('click', async () => {
+      const value = button.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(value);
+      } catch {
+        const field = document.createElement('textarea');
+        field.value = value;
+        field.setAttribute('readonly', '');
+        field.style.position = 'fixed';
+        field.style.opacity = '0';
+        document.body.append(field);
+        field.select();
+        document.execCommand('copy');
+        field.remove();
+      }
+      button.classList.add('is-done');
+      clearTimeout(reset);
+      reset = setTimeout(() => button.classList.remove('is-done'), 1800);
+    });
+  });
+
+  // [data-clock] shows the time where I am, to the minute.
+  const clocks = $$('[data-clock]');
+  if (clocks.length) {
+    const format = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' });
+    const tick = () => clocks.forEach(clock => { clock.textContent = `${format.format(new Date())} IST`; });
+    tick();
+    setInterval(tick, 30000);
+  }
+
   window.CaseSystem = {
     reduced, pad, clamp, $, $$,
     onScroll, queueScroll, runScroll,

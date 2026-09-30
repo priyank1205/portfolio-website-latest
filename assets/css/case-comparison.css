@@ -1,0 +1,66 @@
+/* Shared editorial before/after treatment. Both originals remain visible. */
+.comparison-spread {
+  --comparison-color: #722d43;
+  --comparison-highlight: #f5d6cd;
+  --comparison-secondary: #e0bfca;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+.mega-case .comparison-spread {
+  --comparison-color: #153d38;
+  --comparison-highlight: #edbb95;
+  --comparison-secondary: #b7cbc1;
+}
+.comparison-panel { min-width: 0; padding: 32px; border-radius: 3px; }
+.comparison-panel--before { background: var(--surface); }
+.comparison-panel--after {
+  --ink: #fff7f0;
+  --muted: var(--comparison-secondary);
+  --accent: var(--comparison-highlight);
+  --focus: var(--comparison-highlight);
+  --line: rgb(255 247 240 / 24%);
+  background: var(--comparison-color);
+  color: var(--ink);
+}
+.comparison-heading { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+.comparison-eyebrow { color: var(--muted); font-size: 11px; font-weight: 500; line-height: 1.5; letter-spacing: .11em; text-transform: uppercase; }
+.comparison-heading h3 { font-size: clamp(48px, 4.5vw, 64px); line-height: 1; letter-spacing: -.05em; margin-top: 12px; }
+.comparison-panel--after .comparison-heading h3 { color: var(--comparison-highlight); }
+.comparison-takeaway { color: var(--muted); font-size: var(--small); line-height: 1.6; margin-top: 16px; }
+.comparison-panel .figure-heading { display: none; }
+.comparison-panel .comparison-image { width: 100%; margin: 0; }
+.comparison-media { display: grid; place-items: center; width: 100%; }
+.comparison-media img { display: block; object-fit: contain; width: 100%; height: 100%; min-height: 0; }
+.comparison-inspect, .comparison-panel .inspect { display: block; margin-top: 16px; color: var(--muted); font-size: var(--small); text-align: center; }
+.comparison-image:hover .comparison-inspect, .comparison-image:hover .inspect { color: var(--accent); }
+.comparison-panel figcaption { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
+.comparison-spread--phones .comparison-media { height: 580px; }
+.comparison-spread--phones .comparison-media img { max-width: 280px; }
+.comparison-spread--phones figcaption { max-width: 430px; margin-inline: auto; }
+.comparison-spread--dashboard .comparison-media { aspect-ratio: 1600 / 1560; }
+@media (max-width: 1100px) {
+  .comparison-panel { padding: 28px; }
+  .comparison-takeaway { min-height: 42px; }
+  .comparison-spread--phones .comparison-media { height: 540px; }
+}
+@media (max-width: 820px) {
+  .comparison-panel { padding: 24px; }
+  .comparison-spread--phones .comparison-media { height: 470px; }
+}
+@media (max-width: 600px) {
+  .comparison-spread { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .comparison-panel { padding: 24px 20px; }
+  .comparison-heading { margin-bottom: 24px; padding-bottom: 20px; }
+  .comparison-heading h3 { font-size: 52px; }
+  .comparison-takeaway { min-height: 0; }
+  .comparison-spread--phones .comparison-media { height: 530px; }
+  .comparison-panel figcaption { margin-top: 20px; }
+}
+@media (max-width: 360px) {
+  .comparison-spread--phones .comparison-media { height: 440px; }
+}
+@media print {
+  .comparison-panel { break-inside: avoid; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}

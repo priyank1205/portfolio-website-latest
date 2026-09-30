@@ -113,7 +113,9 @@ def check(page):
         for href, n in parsed:
             local = [c for c in css if href.endswith(str(c.relative_to(ROOT)))]
             if local:
-                blocks = re.sub(r'/\*.*?\*/', '', local[0].read_text(encoding='utf-8'), flags=re.S).count('{')
+                text = re.sub(r'/\*.*?\*/', '', local[0].read_text(encoding='utf-8'), flags=re.S)
+                # Chromium drops rules for Firefox's own pseudo-elements by design.
+                blocks = text.count('{') - len(re.findall(r'::-moz-[^{]*\{', text))
                 if n != blocks:
                     problems.append(f'{local[0].relative_to(ROOT)}: browser parsed {n} rules of {blocks} blocks')
         browser.close()

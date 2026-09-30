@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case study comparison | Priyank Agarwal</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/review/compare.css?v=1">
+<script src="assets/review/data.js?v=1" defer></script>
+<script src="assets/review/compare.js?v=1" defer></script>
+</head>
+<body>
+<header><a href="index.html">← Portfolio</a><h1>Compare the case studies</h1><p>The original versions are preserved. Switch versions at the same viewport size, or compare side by side.</p></header>
+<main>
+<div class="controls">
+<div class="button-group" aria-label="Project"><button type="button" data-project="khiladipro" aria-pressed="true">KhiladiPro</button><button type="button" data-project="sedp-dashboard" aria-pressed="false">SEDP</button></div>
+<div class="button-group" aria-label="Comparison view"><button type="button" data-view="original" aria-pressed="true">Original</button><button type="button" data-view="redesign" aria-pressed="false">Redesign</button><button type="button" data-view="both" aria-pressed="false">Side by side</button></div>
+<label>Viewport <select id="viewport"><option value="desktop">Desktop · 1280 × 850</option><option value="mobile">Mobile · 390 × 844</option></select></label>
+</div>
+<p class="view-note">Scroll within each page independently. Use “Open full page” for an unscaled view.</p>
+<div class="versions" data-view="original">
+<section class="version" id="original-pane"><div class="version-label"><h2>Original</h2><a id="original-link" href="projects/khiladipro-original.html" target="_blank" rel="noopener">Open full page ↗</a></div><div class="frame-stage"><iframe title="Original KhiladiPro case study" id="original-frame" src="projects/khiladipro-original.html"></iframe></div></section>
+<section class="version" id="redesign-pane" hidden><div class="version-label"><h2>Redesign</h2><a id="redesign-link" href="projects/khiladipro.html" target="_blank" rel="noopener">Open full page ↗</a></div><div class="frame-stage"><iframe title="Redesigned KhiladiPro case study" id="redesign-frame" src="projects/khiladipro.html"></iframe></div></section>
+</div>
+<details class="inventory"><summary>What happened to the mockups? <span id="inventory-summary"></span></summary><p>Each row tracks a distinct image from the original case study. Repeated appearances count once. “Screen explorer” means it sits behind a viewer tab; “Linked full-size only” means it opens from a text link.</p><div id="inventory"></div><div id="added"></div></details>
+<aside class="feedback"><h2>Giving feedback</h2><p>Tell me the <strong>project, section, and version</strong>, then what you want to keep or change. For example: “SEDP, comparison section: keep the original’s larger mockups, but use the redesign’s explanation.” The image numbers below also give us stable references.</p></aside>
+<noscript><p>The comparison controls need JavaScript. You can still open the originals directly: <a href="projects/khiladipro-original.html">KhiladiPro</a> · <a href="projects/sedp-dashboard-original.html">SEDP</a>.</p></noscript>
+</main>
+</body></html>
