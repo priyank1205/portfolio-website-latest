@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timestamped Summary for YouTube</title>
+<meta name="description" content="A free, open-source Chrome extension that puts a sectioned, timestamped outline of any YouTube video in the sidebar. Click a line and the video jumps there.">
+<meta property="og:title" content="Timestamped Summary for YouTube">
+<meta property="og:description" content="Read YouTube videos before you watch them. A timestamped outline in the sidebar, free with Gemini.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#08080a">
+<link rel="icon" type="image/webp" href="../assets/images/timestamped-summary/icon.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/css/timestamped-summary.css">
+</head>
+<body>
+<div class="dir d-k is-dark">
+  <div class="wrap">
+    <nav class="k-nav" aria-label="Timestamped Summary">
+      <a class="brand" href="#k-top" id="k-top"><img src="../assets/images/timestamped-summary/icon.webp" alt="">Timestamped Summary</a>
+      <nav><a href="#k-grid">overview</a><a href="#k-grid">detail</a><a href="#k-grid">jump</a><a href="#k-grid">your ai</a><a href="#k-faq">questions</a></nav>
+      <div class="r"><a class="lk" href="https://github.com/priyank1205/youtube-timestamped-summary" target="_blank" rel="noopener">GitHub</a><a class="btn btn-sm k-dark" href="https://github.com/priyank1205/youtube-timestamped-summary/releases/latest" target="_blank" rel="noopener">Download</a></div>
+    </nav>
+    <p class="k-tag">Read YouTube videos before you watch them</p>
+    <article class="k-card k-hero">
+      <div class="k-copy">
+        <div class="k-title"><span class="sq sq-lg" data-i="lines"></span><h1>timestamped summary</h1></div>
+        <p>A sectioned outline of any YouTube video, right in the sidebar. Click a line and the video jumps there.</p>
+        <a class="btn btn-pri" href="https://github.com/priyank1205/youtube-timestamped-summary/releases/latest" target="_blank" rel="noopener">download for chrome<svg class="ar" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg></a>
+      </div>
+      <div class="k-fan" aria-hidden="true">
+        <img class="f3" src="../assets/images/timestamped-summary/overview.webp" alt="">
+        <img class="f2" src="../assets/images/timestamped-summary/detail-selector.webp" alt="">
+        <img class="f1" src="../assets/images/timestamped-summary/summary-generated.webp" alt="">
+      </div>
+    </article>
+
+    <div class="k-grid" id="k-grid">
+      <article class="k-card"><div class="k-copy"><div class="k-title"><span class="sq" style="--c:#e8a02a" data-i="lines"></span><h2>overview</h2></div><p>What the video is actually about, in two or three sentences. Decide before you press play.</p><span class="k-tagpill">every video</span></div><div class="k-vis k-slabs"><i></i><i></i><i></i></div></article>
+      <article class="k-card"><div class="k-copy"><div class="k-title"><span class="sq" data-i="bars"></span><h2>detail</h2></div><p>Brief, Standard or In-depth, sized to the video's real length.</p><span class="k-tagpill">three levels</span></div><div class="k-vis"><div class="k-bars" id="k-bars"></div></div></article>
+      <article class="k-card"><div class="k-copy"><div class="k-title"><span class="sq" style="--c:#1fa58e" data-i="play"></span><h2>jump</h2></div><p>Every line is a link into the video. The one playing now stays marked.</p><span class="k-tagpill">one click</span></div><div class="k-vis"><div class="k-rows" id="k-rows"></div></div></article>
+      <article class="k-card"><div class="k-copy"><div class="k-title"><span class="sq" style="--c:#7a5cf0" data-i="chev"></span><h2>expand</h2></div><p>Headings stay scannable. Open one for the detail, and often skip the video.</p><span class="k-tagpill">open a point</span></div><div class="k-vis"><div class="k-exp" id="k-exp"><button class="ap-row"><span class="pill">16:40</span><span class="t">The Ideal X, April 1956</span><svg class="cv" viewBox="0 0 12 12"><path d="M2.5 4.5L6 8l3.5-3.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></button><div class="d">A converted tanker sails from Newark to Houston carrying 58 containers, and the cost of loading a ton of cargo falls sharply.</div></div></div></article>
+      <article class="k-card"><div class="k-copy"><div class="k-title"><span class="sq" style="--c:#2fae63" data-i="spark"></span><h2>your ai</h2></div><p>Gemini for free, or OpenAI, Anthropic, or a model on your own machine.</p><span class="k-tagpill">bring your key</span></div><div class="k-vis k-provs"><span class="k-prov"><span class="sq" style="--c:#3a8ef0" data-i="spark"></span>Google Gemini <em>free</em></span><span class="k-prov"><span class="sq" style="--c:#3a3a40" data-i="spark"></span>OpenAI</span><span class="k-prov"><span class="sq" style="--c:#c26a3a" data-i="spark"></span>Anthropic</span><span class="k-prov"><span class="sq" style="--c:#2fae63" data-i="code"></span>localhost</span></div></article>
+      <article class="k-card"><div class="k-copy"><div class="k-title"><span class="sq" style="--c:#3a3a40" data-i="lock"></span><h2>private</h2></div><p>No server, no account, no tracking. Your key stays where YouTube can't read it.</p><span class="k-tagpill">on your machine</span></div><div class="k-vis"><div class="k-key"><span class="kp"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="9" width="11" height="8" rx="2"/><path d="M7 9V6.5a3 3 0 016 0V9"/></svg>AIza••••••••••••0000</span><small>stays in this browser</small></div></div></article>
+    </div>
+
+    <article class="k-card k-price">
+      <div><small>Timestamped Summary</small><h2>Every video. Free.</h2><p>The extension is free and open source, and Google's Gemini writes summaries at no cost, with no card.</p></div>
+      <div class="amt"><b>$0</b><span>with Gemini, forever</span><a class="btn btn-pri btn-sm" href="https://github.com/priyank1205/youtube-timestamped-summary/releases/latest" target="_blank" rel="noopener">download</a></div>
+    </article>
+
+    <div class="k-steps">
+      <div class="k-step"><b>1</b><h3>Download</h3><p>Get the zip from the <a href="https://github.com/priyank1205/youtube-timestamped-summary/releases/latest" target="_blank" rel="noopener">latest release</a> and unzip it somewhere permanent.</p></div>
+      <div class="k-step"><b>2</b><h3>Load unpacked</h3><p>Turn on Developer mode and choose the folder.</p><span class="code">chrome://extensions<button data-copy="chrome://extensions">Copy</button></span></div>
+      <div class="k-step"><b>3</b><h3>Paste a free key</h3><p>The setup guide opens by itself and walks you to a free Gemini key.</p></div>
+    </div>
+
+    <h2 class="k-faq-h" id="k-faq">questions</h2>
+    <div class="faq k-faq" data-faq></div>
+    <p class="k-more"><b>more on the way</b>New releases land on GitHub, with notes for every version.</p>
+    <footer class="foot" data-foot></footer>
+  </div>
+</div>
+
+
+<script src="../assets/js/timestamped-summary.js"></script>
+</body>
+</html>

@@ -1,0 +1,487 @@
+/* ============================================================================
+   About (Claude): this page's own styles
+
+   Loaded after the case study system (case-system.css), under the system's
+   neutral site accent. Each episode and each row of the record wears the
+   colours of the case study it opens. The one moment of play is the
+   instruments at the end, and they only sound when touched. Tokens only.
+   ========================================================================== */
+
+/* --- Hero ----------------------------------------------------------------- */
+
+.hero--about .h1 {
+  max-width: 17ch;
+}
+
+.portrait {
+  justify-self: end;
+  width: min(100%, 340px);
+  aspect-ratio: 1;
+  margin: 0;
+}
+
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Why ------------------------------------------------------------------ */
+
+.section--first {
+  padding-top: 0;
+}
+
+.story {
+  max-width: 62ch;
+}
+
+.story p {
+  font-size: var(--fs-heading);
+  line-height: 1.6;
+  letter-spacing: -0.016em;
+  color: var(--fg-2);
+}
+
+.story p:first-child::first-line {
+  color: var(--fg);
+}
+
+.story p + p {
+  margin-top: var(--sp-4);
+}
+
+/* --- How I work: three values, each shown at work ------------------------- */
+
+.episodes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.episode {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: var(--sp-6);
+  border: 1px solid var(--line);
+  border-radius: var(--r-6);
+  background:
+    radial-gradient(90% 60% at 0% 0%, rgb(var(--action-a-rgb) / var(--a-1)), transparent 70%),
+    linear-gradient(180deg, var(--bg-1), var(--bg));
+  box-shadow: var(--hi-edge);
+}
+
+/* The study's own colour, drawn along the top edge. */
+.episode::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: var(--action);
+  opacity: 0.8;
+}
+
+.episode-value {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.episode-value .num {
+  color: var(--fg-3);
+}
+
+.episode h3 {
+  margin-top: var(--sp-5);
+}
+
+.episode .body {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-ui);
+  line-height: 1.6;
+}
+
+.episode-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: auto;
+  padding-top: var(--sp-6);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--fg-2);
+  transition: color var(--quick);
+}
+
+.episode-link svg {
+  transition: transform var(--quick);
+}
+
+@media (hover: hover) {
+  .episode-link:hover {
+    color: var(--accent);
+  }
+
+  .episode-link:hover svg {
+    transform: translateX(3px);
+  }
+}
+
+/* --- The record: a dated index, newest first ------------------------------ */
+
+.record {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.record-row > a,
+.record-static {
+  display: grid;
+  grid-template-columns: 136px minmax(0, 0.8fr) minmax(0, 1.2fr) 32px;
+  gap: var(--sp-5);
+  align-items: baseline;
+  padding: var(--sp-5) var(--sp-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.record-row > a {
+  transition: background var(--quick);
+}
+
+@media (hover: hover) {
+  .record-row > a:hover {
+    background: linear-gradient(90deg, rgb(var(--accent-rgb) / var(--a-1)), transparent 80%);
+  }
+
+  .record-row > a:hover .record-go {
+    color: var(--accent);
+    transform: translateX(3px);
+  }
+}
+
+.record-when {
+  color: var(--fg-3);
+}
+
+.record-who b {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  letter-spacing: -0.014em;
+}
+
+/* A row that opens a case study carries that study's colour. */
+.record-row[class*="accent-"] .record-who b::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.record-who > span {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--fs-small);
+  color: var(--fg-3);
+}
+
+.record-what {
+  font-size: var(--fs-ui);
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+
+.record-go {
+  justify-self: end;
+  color: var(--fg-3);
+  transition: color var(--quick), transform var(--quick);
+}
+
+.record-row--now .record-when {
+  align-self: center;
+}
+
+.record-row--edu .record-static {
+  border-bottom: 0;
+}
+
+/* --- Off hours ------------------------------------------------------------ */
+
+.interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: 0 0 var(--sp-7);
+  padding: 0;
+  list-style: none;
+}
+
+.instruments {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-4);
+}
+
+.instrument {
+  margin: 0;
+  padding: var(--sp-6) var(--sp-6) var(--sp-5);
+}
+
+.instrument svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* A vertical strum is the gesture on the strings, so they keep the touch;
+   a sideways run is the gesture on the keys, so the page still scrolls. */
+.uke {
+  touch-action: none;
+}
+
+.piano {
+  touch-action: pan-y;
+}
+
+.instrument figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-4);
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-small);
+  color: var(--fg-3);
+}
+
+.instrument figcaption b {
+  margin-right: var(--sp-2);
+  font-weight: 500;
+  color: var(--fg);
+}
+
+.instrument [data-readout] {
+  color: var(--fg-2);
+}
+
+.i-line {
+  fill: none;
+  stroke: var(--fg-3);
+  stroke-width: 1.4;
+}
+
+.i-detail {
+  fill: none;
+  stroke: var(--line-3);
+  stroke-width: 1;
+}
+
+.uke-string,
+.p-key {
+  cursor: pointer;
+  outline: none;
+}
+
+.uke-string .hit {
+  stroke: transparent;
+  stroke-width: 9;
+}
+
+.uke-string .str {
+  stroke: var(--fg-2);
+  stroke-width: 1.2;
+  transform-box: fill-box;
+  transition: stroke var(--quick), stroke-width var(--quick);
+}
+
+.uke-string:focus-visible .str,
+.uke-string.play .str {
+  stroke: var(--fg);
+  stroke-width: 1.8;
+}
+
+.uke-string.play .str {
+  animation: pluck 450ms linear;
+}
+
+@keyframes pluck {
+  0% { transform: translateY(0); }
+  12% { transform: translateY(-1.8px); }
+  26% { transform: translateY(1.5px); }
+  40% { transform: translateY(-1.1px); }
+  54% { transform: translateY(0.8px); }
+  68% { transform: translateY(-0.5px); }
+  84% { transform: translateY(0.2px); }
+  100% { transform: translateY(0); }
+}
+
+.p-key {
+  stroke: var(--line-3);
+  stroke-width: 1;
+  transition: fill var(--quick), stroke var(--quick);
+}
+
+.p-key.white {
+  fill: rgb(var(--hi-rgb) / var(--a-0));
+}
+
+.p-key.black {
+  fill: var(--bg-3);
+}
+
+@media (hover: hover) {
+  .uke-string:hover .str {
+    stroke: var(--fg);
+  }
+
+  .p-key.white:hover {
+    fill: rgb(var(--hi-rgb) / var(--a-1));
+  }
+
+  .p-key.black:hover {
+    fill: var(--bg-2);
+  }
+}
+
+.p-key:focus-visible {
+  stroke: var(--fg);
+}
+
+.p-key.white.play {
+  fill: rgb(var(--hi-rgb) / var(--a-4));
+}
+
+.p-key.black.play {
+  fill: var(--fg-3);
+}
+
+.instruments-hint {
+  margin-top: var(--sp-4);
+}
+
+/* A touch screen has no keyboard row to play from. */
+@media (hover: none) {
+  .instruments-hint {
+    display: none;
+  }
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+
+@media (max-width: 1080px) {
+  .episodes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .record-row > a,
+  .record-static {
+    grid-template-columns: 120px minmax(0, 1fr) 32px;
+  }
+
+  .record-what {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .record-what:empty {
+    display: none;
+  }
+
+  .record-go {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .instruments {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .hero--about > .wrap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* The portrait leads on a phone, small, the way a profile does. */
+  .portrait {
+    order: -1;
+    justify-self: start;
+    width: 132px;
+  }
+
+  .portrait .plate-label {
+    display: none;
+  }
+
+  .story p {
+    font-size: var(--fs-lead);
+  }
+
+  .episode {
+    padding: var(--sp-5);
+  }
+
+  .record-row > a,
+  .record-static {
+    grid-template-columns: minmax(0, 1fr) 24px;
+    gap: var(--sp-1) var(--sp-3);
+    padding: var(--sp-4) 2px;
+  }
+
+  .record-when {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .record-who {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .record-what {
+    grid-column: 1;
+    grid-row: 3;
+    margin-top: var(--sp-1);
+  }
+
+  .record-go {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .record-row--now .record-when {
+    margin-bottom: var(--sp-1);
+  }
+
+  .record-row > a:active {
+    background: rgb(var(--hi-rgb) / var(--a-0));
+  }
+
+  .instrument {
+    padding: var(--sp-5) var(--sp-4) var(--sp-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uke-string.play .str {
+    animation: none;
+  }
+}
