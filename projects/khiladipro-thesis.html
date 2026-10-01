@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>KhiladiPro · Priyank Agarwal</title>
+<meta name="description" content="Designing for the far side of the room. A paid sports olympiad played at home and scored by a phone camera: sole product designer across the web, Android and iOS. Every screen shipped.">
+<meta property="og:title" content="KhiladiPro · Priyank Agarwal">
+<meta property="og:description" content="Designing for the far side of the room: a paid sports olympiad, scored by a phone camera. Every screen shipped.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#09090b">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('thesis-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="stylesheet" href="../assets/css/thesis.css?v=4">
+<link rel="stylesheet" href="../assets/css/khiladipro-thesis.css?v=1">
+</head>
+<body class="kp">
+<a class="skip" href="#brief">Skip to the case study</a>
+
+<header class="bar">
+  <div class="who">
+    <a class="me" href="../index-thesis.html" aria-label="Priyank Agarwal, home">
+      <img src="../assets/images/home/shots/me.webp" alt="" width="40" height="40">
+      <span><b>Priyank Agarwal</b><span>Senior product designer, Bengaluru</span></span>
+    </a>
+    <nav class="site" aria-label="Site">
+      <a href="../index-thesis.html#work" aria-current="page">Work</a>
+      <a href="../writing-thesis.html">Writing</a>
+      <a href="../about-thesis.html">About</a>
+    </nav>
+    <button class="theme" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to light mode"><svg class="moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></button>
+  </div>
+</header>
+
+<!-- The map of the study, laid on its side. It arrives once the opening has
+     scrolled away, and each chapter fills its stretch of the line as you read. -->
+<nav class="chapters" aria-label="Chapters" data-chapters>
+  <div class="chapters-in">
+    <a class="ch-home" href="../index-thesis.html#khiladipro" aria-label="Back to all work">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <span>KhiladiPro</span>
+    </a>
+    <div class="ch-list" data-ch-list>
+      <a href="#brief" data-for="brief">The brief</a>
+      <a href="#onboarding" data-for="onboarding">Onboarding</a>
+      <a href="#landing" data-for="landing">Landing and registration</a>
+      <a href="#event" data-for="event">The event</a>
+      <a href="#outcome" data-for="outcome">Outcome</a>
+      <a href="#prototypes" data-for="prototypes">Prototypes</a>
+    </div>
+    <button class="theme" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to light mode"><svg class="moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></button>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ═══ Opening ═══════════════════════════════════════════════════════════ -->
+<header class="hero wrap" data-hero>
+  <p class="proj-line"><b>KhiladiPro</b><span>Sports and fitness olympiad</span><span>2024 to 2025</span></p>
+  <h1 class="hero-t">Designing for the far side of the room.</h1>
+  <!-- The positioning is the navigation: each surface is a word that lights
+       with a picture of itself and takes you to its chapter. -->
+  <p class="hero-s">A paid sports olympiad for 12 to 18 year olds, played at home and scored by a phone camera. I designed every surface: the <span class="nw"><a class="w" href="#landing" data-word="landing">landing page<span class="chipimg" aria-hidden="true"><img src="../assets/images/khiladipro/web/landing-mobile.webp" alt=""></span></a>,</span> <span class="nw"><a class="w" href="#registration" data-word="registration">registration<span class="chipimg" aria-hidden="true"><img src="../assets/images/khiladipro/web/registration-step-1.webp" alt="" style="object-position:20% 22%"></span></a>,</span> the first-run <a class="w" href="#onboarding" data-word="onboarding">onboarding<span class="chipimg" aria-hidden="true"><img src="../assets/images/home/shots/kp-body.webp" alt=""></span></a> and the <span class="nw"><a class="w" href="#event" data-word="event">event<span class="chipimg" aria-hidden="true"><img src="../assets/images/khiladipro/web/ev-4-home.webp" alt=""></span></a> itself.</span></p>
+  <ul class="meta"><li>Sole product designer</li><li>Team of four</li><li>Every screen shipped</li><li>Rehired</li></ul>
+
+  <!-- The plate from the homepage card, opened out: every screen stands in a
+       row, and one at a time is lit while its segment fills. -->
+  <div class="plate plate--hero" data-reel="film" aria-roledescription="carousel" aria-label="Five screens from the olympiad">
+    <div class="film">
+      <button class="film-item" type="button" data-cap="Landing page: the dates come first" aria-label="Landing page: the dates come first"><img src="../assets/images/home/shots/kp-landing-m.webp" alt="" width="567" height="1227" fetchpriority="high"></button>
+      <button class="film-item" type="button" data-cap="Onboarding: where the phone goes" aria-label="Onboarding: where the phone goes"><img src="../assets/images/home/shots/kp-placement.webp" alt="" width="570" height="1230"></button>
+      <button class="film-item" type="button" data-cap="Onboarding: stand inside the guidelines" aria-label="Onboarding: stand inside the guidelines"><img src="../assets/images/home/shots/kp-body.webp" alt="" width="570" height="1230"></button>
+      <button class="film-item" type="button" data-cap="The drill: a count you can read from across the room" aria-label="The drill: a count you can read from across the room"><img src="../assets/images/home/shots/kp-jacks.webp" alt="" width="570" height="1230"></button>
+      <button class="film-item" type="button" data-cap="After the drill: points and their history" aria-label="After the drill: points and their history"><img src="../assets/images/home/shots/kp-points.webp" alt="" width="570" height="1230"></button>
+    </div>
+    <span class="plate-cap" data-reel-cap>Landing page: the dates come first</span>
+    <span class="ticks" data-reel-ticks></span>
+  </div>
+
+  <dl class="facts">
+    <div><dt>Role</dt><dd><b>Sole product designer</b><span>Lo-fi to shipped</span></dd></div>
+    <div><dt>Platforms</dt><dd><b>Web, Android and iOS</b><span>Landing page to live event</span></dd></div>
+    <div><dt>Duration</dt><dd><b>About 8 weeks</b><span>Fixed start: 25 May</span></dd></div>
+    <div><dt>Team</dt><dd><b>A team of four</b><span>PM, engineer, CEO and me</span></dd></div>
+    <div><dt>Outcome</dt><dd><b>Every screen shipped</b><a class="lnk" href="#outcome">Rehired for a second engagement</a></dd></div>
+  </dl>
+  <p class="facts-note">No analytics access, so there are no impact metrics on this page. <a class="lnk" href="#next-up">What I would measure next</a></p>
+</header>
+
+<!-- ═══ The brief ═════════════════════════════════════════════════════════ -->
+<section class="chapter wrap" id="brief" data-spy data-word="brief" style="--c:var(--kp)" aria-labelledby="brief-t">
+  <header class="ch">
+    <p class="tag">The brief</p>
+    <h2 id="brief-t">“Design the olympiad.”</h2>
+    <p class="ch-lede">That was the whole brief. Strategy and success metrics stayed with the client, for whom the olympiad was an acquisition play into casual sports participants. The design was mine: four surfaces, shaped by five constraints.</p>
+  </header>
+
+  <!-- The four surfaces as one picture, in the order a family meets them:
+       two on the web before anything is installed, two in the app. -->
+  <figure class="plate plate--journey" aria-label="The four surfaces, in the order a family meets them">
+    <div class="jr-side jr-side--web"><span>On the web</span></div>
+    <div class="jr-side jr-side--app"><span>In the app</span></div>
+    <a class="jr" href="#landing" style="--k:0">
+      <span class="jr-shot jr-shot--ph"><img src="../assets/images/khiladipro/web/landing-mobile.webp" alt="" width="567" height="1227" loading="lazy"></span>
+      <b>Landing page</b><span>Three audiences, one URL, a fixed date window.</span>
+    </a>
+    <a class="jr" href="#registration" style="--k:1">
+      <span class="jr-shot jr-shot--dk"><img src="../assets/images/khiladipro/web/registration-step-1.webp" alt="" width="1600" height="1045" loading="lazy"></span>
+      <b>Registration and payment</b><span>On the web, before anyone installs anything.</span>
+    </a>
+    <a class="jr" href="#onboarding" style="--k:2">
+      <span class="jr-shot jr-shot--ph"><img src="../assets/images/khiladipro/web/onb-1-intro.webp" alt="" width="570" height="1230" loading="lazy"></span>
+      <b>First-run onboarding</b><span>Teach a camera-scored drill to a 12 year old.</span>
+    </a>
+    <a class="jr" href="#event" style="--k:3">
+      <span class="jr-shot jr-shot--ph"><img src="../assets/images/khiladipro/web/ev-4-home.webp" alt="" width="570" height="1230" loading="lazy"></span>
+      <b>The in-app event</b><span>Mostly the time between attempts.</span>
+    </a>
+  </figure>
+
+  <!-- Five constraints, each drawn as the thing it constrained, with the
+       decision it forced. -->
+  <div class="block">
+    <h3 class="block-t">The five constraints</h3>
+    <ol class="cons-list">
+      <li class="cons" data-draw>
+        <div class="cons-text">
+          <h4>A fixed holiday window</h4>
+          <p>The olympiad ran 25 May to 15 June, and marketing needed the pages before it opened.</p>
+          <p class="forced"><span>What it forced</span>Dates lead the page, and the deadline stays visible everywhere.</p>
+        </div>
+        <div class="cons-art cons-art--window" aria-hidden="true">
+          <p class="cw-n"><b>22</b> days</p>
+          <div class="cw">
+            <span class="cw-track"><span class="cw-win"></span><span class="cw-split"></span></span>
+            <span class="cw-lab" style="--x:0%">May</span>
+            <span class="cw-lab" style="--x:50.8%">June</span>
+            <span class="cw-date" style="--x:39.3%">25 May</span>
+            <span class="cw-date cw-date--end" style="--x:75.4%">15 June</span>
+          </div>
+        </div>
+      </li>
+      <li class="cons" data-draw>
+        <div class="cons-text">
+          <h4>Three audiences, one URL</h4>
+          <p>Students compete, parents pay, academies bring whole cohorts.</p>
+          <p class="forced"><span>What it forced</span>Three distinct promises, sequenced down a single landing page.</p>
+        </div>
+        <div class="cons-art cons-art--merge" aria-hidden="true">
+          <ul class="cm-from"><li>Competitor</li><li>Parent</li><li>Academy</li></ul>
+          <svg class="cm-lines" viewBox="0 0 100 90" preserveAspectRatio="none">
+            <path pathLength="1" d="M0 12 C 50 12, 50 45, 100 45"/>
+            <path pathLength="1" d="M0 45 L 100 45"/>
+            <path pathLength="1" d="M0 78 C 50 78, 50 45, 100 45"/>
+          </svg>
+          <span class="cm-to">One URL</span>
+        </div>
+      </li>
+      <li class="cons" data-draw>
+        <div class="cons-text">
+          <h4>Payment before install</h4>
+          <p>Registration and payment both happen on the web.</p>
+          <p class="forced"><span>What it forced</span>Reassurance beside the form, before anyone downloads the app.</p>
+        </div>
+        <div class="cons-art cons-art--steps" aria-hidden="true">
+          <div class="cs"><span class="cs-k">On the web</span><span class="cs-row"><span class="cs-step"><i>1</i>Register</span><span class="cs-step"><i>2</i>Pay</span></span></div>
+          <div class="cs cs--later"><span class="cs-k">Then</span><span class="cs-row"><span class="cs-step"><i>3</i>Install</span></span></div>
+        </div>
+      </li>
+      <li class="cons" data-draw>
+        <div class="cons-text">
+          <h4>Inherited app language</h4>
+          <p>No formal design system. New screens had to feel native.</p>
+          <p class="forced"><span>What it forced</span>Type, scale and state patterns, all inside the existing language.</p>
+        </div>
+        <div class="cons-art cons-art--palette" aria-hidden="true">
+          <span class="sw" style="--sw:linear-gradient(90deg,#e1734c,#e14d5c)"><i></i>Action</span>
+          <span class="sw" style="--sw:linear-gradient(90deg,#00654d,#013226)"><i></i>Progress</span>
+          <span class="sw" style="--sw:#0d0d0d"><i></i>Surface</span>
+        </div>
+      </li>
+      <li class="cons" data-draw>
+        <div class="cons-text">
+          <h4>A team of four</h4>
+          <p>One designer, a PM, an engineer and the CEO.</p>
+          <p class="forced"><span>What it forced</span>Owning every screen: website, onboarding and the live event.</p>
+        </div>
+        <div class="cons-art cons-art--team" aria-hidden="true">
+          <span class="tm is-me">Me</span><span class="tm">PM</span><span class="tm">Engineer</span><span class="tm">CEO</span>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═══ First-run onboarding ══════════════════════════════════════════════ -->
+<section class="chapter" id="onboarding" data-spy data-word="onboarding" style="--c:var(--kp)" aria-labelledby="onboarding-t">
+  <header class="ch wrap">
+    <p class="tag">First-run onboarding</p>
+    <h2 id="onboarding-t">The moment the phone leaves your hand</h2>
+    <p class="ch-lede">If onboarding fails, the drill cannot be scored, and in a paid event that becomes a refund request. So I designed it as a rehearsal: hold the phone, prop it up, step away, then move. Scroll to walk all nine screens, or step through them yourself.</p>
+  </header>
+
+  <!-- Scroll walks the nine screens. The room beside the phone shows where
+       the phone and the player are for each one. -->
+  <div class="walk" data-walk style="--n:9">
+    <div class="walk-pin">
+      <div class="wrap walk-in">
+        <div class="plate plate--walk">
+          <div class="room" data-room aria-hidden="true">
+            <span class="room-floor"></span>
+            <span class="room-beam"></span>
+            <span class="room-gap"></span>
+            <span class="room-stand"></span>
+            <span class="room-phone"></span>
+            <span class="room-player">
+              <svg viewBox="0 0 60 120" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round">
+                <circle cx="30" cy="13" r="8.5" fill="currentColor" stroke="none"/>
+                <path d="M30 25v40"/>
+                <path class="arm arm--l" d="M30 31v28"/>
+                <path class="arm arm--r" d="M30 31v28"/>
+                <path class="leg leg--l" d="M30 65v46"/>
+                <path class="leg leg--r" d="M30 65v46"/>
+              </svg>
+            </span>
+          </div>
+          <div class="walk-screen" data-walk-screen>
+            <img class="is-on" src="../assets/images/khiladipro/web/onb-1-intro.webp" alt="Introducing Supervision: a video about camera-based scoring" width="570" height="1230">
+            <img src="../assets/images/khiladipro/web/onb-2-permission.webp" alt="Camera permission, explained before the system request" width="570" height="1230" loading="lazy">
+            <img src="../assets/images/khiladipro/web/onb-3-face.webp" alt="Face capture: fit your face inside the oval" width="570" height="1230" loading="lazy">
+            <img src="../assets/images/khiladipro/web/onb-4-placement.webp" alt="Phone placement guide, read while still holding the phone" width="570" height="1230" loading="lazy">
+            <img src="../assets/images/khiladipro/web/onb-5-body.webp" alt="Body capture: stand inside the full-body guide" width="570" height="1230" loading="lazy">
+            <img src="../assets/images/khiladipro/web/onb-6-perfect.webp" alt="The verdict: a single oversized Perfect" width="570" height="1230" loading="lazy">
+            <img src="../assets/images/khiladipro/web/onb-7-next.webp" alt="The next drill: do 6 jumping jacks" width="570" height="1230" loading="lazy">
+            <img src="../assets/images/khiladipro/web/onb-8-reps.webp" alt="Counting reps: a body guide, set progress and a 3 of 6 counter" width="570" height="1230" loading="lazy">
+            <img src="../assets/images/khiladipro/web/onb-9-finish.webp" alt="The finish: three drills complete, ten points earned" width="570" height="1230" loading="lazy">
+          </div>
+          <span class="plate-cap" data-walk-phase>In the hand</span>
+          <span class="ticks ticks--scroll" data-walk-ticks role="group" aria-label="Onboarding screens"></span>
+        </div>
+
+        <div class="walk-copy">
+          <div class="walk-text" aria-live="polite">
+            <p class="walk-n" data-walk-count>1 of 9</p>
+            <h3 data-walk-title>Introducing Supervision</h3>
+            <p data-walk-copy>A video introduces camera-based scoring before the app asks for access.</p>
+          </div>
+          <div class="steppers">
+            <button class="round" type="button" data-walk-prev aria-label="Previous screen"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18 9 12l6-6"/></svg></button>
+            <button class="round" type="button" data-walk-next aria-label="Next screen"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- The step data drives the walk, and is the whole story without script. -->
+  <ol class="walk-steps wrap" data-walk-steps>
+    <li data-phase="In the hand" data-phone="12" data-player="19" data-title="Introducing Supervision">A video introduces camera-based scoring before the app asks for access.</li>
+    <li data-phase="In the hand" data-phone="12" data-player="19" data-title="Camera permission">Explain what the camera tracks before the system permission request appears.</li>
+    <li data-phase="In the hand" data-phone="12" data-player="19" data-title="Face capture">The first drill asks the player to fit their face inside an oval.</li>
+    <li data-phase="Still in the hand" data-phone="12" data-player="19" data-title="Phone placement">A placement guide, read while still holding the phone, prepares the player to prop it up and step away.</li>
+    <li data-phase="Across the room" data-phone="8" data-player="76" data-down="1" data-title="Body capture">The phone is down. The second drill asks the player to stand inside a full-body guide.</li>
+    <li data-phase="Across the room" data-phone="8" data-player="76" data-down="1" data-title="The verdict">A single, oversized “Perfect!” confirms the position from across the room.</li>
+    <li data-phase="In motion" data-phone="8" data-player="76" data-down="1" data-moving="1" data-title="The next drill">Six jumping jacks appear as the next instruction, without a trip through a menu.</li>
+    <li data-phase="In motion" data-phone="8" data-player="76" data-down="1" data-moving="1" data-title="Counting reps">The third drill combines a body guide, set progress and a large 3/6 counter.</li>
+    <li data-phase="Back in the hand" data-phone="12" data-player="19" data-title="The finish">The player walks back and picks the phone up: three drills complete, ten points earned.</li>
+  </ol>
+
+  <!-- Why rehearse: the two screens stand in one plate, with the three parts
+       that never move drawn across both. -->
+  <div class="wrap sub" data-pair>
+    <header class="ch ch--sub">
+      <p class="tag">Why rehearse at all</p>
+      <h3>Same frame, different stakes</h3>
+      <p class="ch-lede">Onboarding does not explain the app. It runs the exact screen the scored test will use, so the first time it counts is the second time you have seen it. Side by side, only the drill and the stakes change.</p>
+    </header>
+
+    <figure class="plate plate--pair">
+      <span class="pair-lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>The frame is locked across both</span>
+      <div class="pair">
+        <div class="pair-one">
+          <p class="pair-k">Rehearsal <span>Onboarding, screen 8 of 9</span></p>
+          <div class="pair-dev">
+            <img src="../assets/images/khiladipro/web/onb-8-reps.webp" alt="Rehearsal drill: six jumping jacks with a body guide and a 3 of 6 counter" width="570" height="1230" loading="lazy">
+            <span class="zone" data-zone="0" style="--t:5%;--b:79%" aria-hidden="true"><i>1</i></span>
+            <span class="zone" data-zone="1" style="--t:23%;--b:30%" aria-hidden="true"><i>2</i></span>
+            <span class="zone" data-zone="2" style="--t:71%;--b:11%" aria-hidden="true"><i>3</i></span>
+          </div>
+          <dl class="stakes"><div><dt>Drill</dt><dd>Jumping jacks</dd></div><div><dt>Reps</dt><dd>6</dd></div><div><dt>Counts towards</dt><dd>Nothing</dd></div></dl>
+        </div>
+        <div class="pair-one is-scored">
+          <p class="pair-k">The real test <span>Scored, drill 1 of 3</span></p>
+          <div class="pair-dev">
+            <img src="../assets/images/khiladipro/web/scored-squats.webp" alt="Scored drill: twenty squats with a body guide and a 13 of 20 counter" width="570" height="1230" loading="lazy">
+            <span class="zone" data-zone="0" style="--t:5%;--b:79%" aria-hidden="true"><i>1</i></span>
+            <span class="zone" data-zone="1" style="--t:23%;--b:30%" aria-hidden="true"><i>2</i></span>
+            <span class="zone" data-zone="2" style="--t:71%;--b:11%" aria-hidden="true"><i>3</i></span>
+          </div>
+          <dl class="stakes"><div><dt>Drill</dt><dd>Squats</dd></div><div><dt>Reps</dt><dd>20</dd></div><div><dt>Counts towards</dt><dd>The olympiad</dd></div></dl>
+        </div>
+      </div>
+    </figure>
+
+    <div class="keys" role="group" aria-label="The three parts that stay put">
+      <button type="button" class="key" data-zone="0" aria-pressed="false"><i>1</i><b>The instruction</b><span>What to do next, in one line, at the top of the screen.</span></button>
+      <button type="button" class="key" data-zone="1" aria-pressed="false"><i>2</i><b>The body guide</b><span>The outline you have to fill: the only feedback that reads at four metres.</span></button>
+      <button type="button" class="key" data-zone="2" aria-pressed="false"><i>3</i><b>The count</b><span>Set at display size, because it is the one thing you read mid-rep.</span></button>
+    </div>
+
+    <dl class="ledger">
+      <div>
+        <dt class="is-gain">What it buys</dt>
+        <dd><p class="ledger-line">A player’s first scored drill is never their first drill.</p><p>The instruction, the body guide and the counter have all been seen once already, with nothing at stake. The first attempt that counts should never fail because the screen was new.</p></dd>
+      </div>
+      <div>
+        <dt>What it costs</dt>
+        <dd><p class="ledger-line">Every onboarding step keeps “Skip for now”.</p><p>It gives returning users a way through, and also lets a first-timer skip the rehearsal that makes their first drill scoreable. I shipped that trade-off knowingly.</p></dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<!-- ═══ Landing and registration ══════════════════════════════════════════ -->
+<section class="chapter wrap" id="landing" data-spy data-word="landing" style="--c:var(--kp)" aria-labelledby="landing-t">
+  <header class="ch">
+    <p class="tag">Landing and registration</p>
+    <h2 id="landing-t">One page, three readers, one fold</h2>
+    <p class="ch-lede">The student, the parent paying and the academy coach all arrive at the same URL. Pick a screen size and watch what each of them still gets, and what the narrow fold takes away.</p>
+  </header>
+
+  <!-- The fold is the bottom edge of a real window. Pick a reader and the
+       page lights up where it answers them. -->
+  <div class="lab" data-lab>
+    <div class="lab-bar">
+      <div class="pills" role="group" aria-label="Screen size">
+        <button type="button" data-vp="desktop" aria-pressed="true">Desktop <span>1440 px</span></button>
+        <button type="button" data-vp="mobile" aria-pressed="false">Mobile <span>390 px</span></button>
+      </div>
+      <button class="plain" type="button" data-zoom data-zoom-src="../assets/images/khiladipro/web/landing-desktop.webp" data-zoom-alt="The full olympiad landing page">View full size <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8"/></svg></button>
+    </div>
+
+    <div class="plate plate--lab" data-lab-plate>
+      <div class="lab-page lab-page--desktop is-on" data-page="desktop">
+        <div class="lab-img">
+          <img src="../assets/images/khiladipro/web/landing-desktop.webp" alt="The olympiad landing page at desktop width: dates, the student and parent benefits, the age band and Register now, with how it works below" width="1600" height="1841" loading="lazy">
+          <span class="lab-below" aria-hidden="true"></span>
+          <span class="band" aria-hidden="true"></span>
+        </div>
+        <span class="lab-fold" aria-hidden="true"><span>The fold at 1440 × 900</span></span>
+      </div>
+      <div class="lab-page lab-page--mobile" data-page="mobile">
+        <div class="lab-img">
+          <img src="../assets/images/khiladipro/web/landing-mobile.webp" alt="The olympiad landing page at phone width: the photograph, the student benefit and a full-width Register now button" width="567" height="1227" loading="lazy">
+          <span class="band" aria-hidden="true"></span>
+        </div>
+        <span class="lab-fold" aria-hidden="true"><span>The fold at 390 × 844</span></span>
+      </div>
+      <span class="plate-cap" data-lab-cap>Pick a reader below: the page lights up where it answers them</span>
+      <p class="lab-cut" data-lab-cut hidden><b>Not on the first screen.</b><span data-lab-cut-copy></span></p>
+    </div>
+
+    <div class="readers" role="group" aria-label="Who is reading">
+      <button type="button" class="reader" data-band-desktop="8.6,33.3" data-band-mobile="7,93" aria-pressed="false">
+        <b>The competitor</b>
+        <span class="ask">“What can I win?”</span>
+        <span class="why">Dates, prizes and recognition: a reason to enter before the page explains any scoring technology.</span>
+        <span class="state" data-reader-state></span>
+      </button>
+      <button type="button" class="reader" data-band-desktop="33.3,48" data-band-mobile="cut" aria-pressed="false">
+        <b>The parent</b>
+        <span class="ask">“Is this right for my child?”</span>
+        <span class="why">A dedicated benefit and the 12 to 18 age band, sitting right beside the registration button.</span>
+        <span class="state" data-reader-state></span>
+      </button>
+      <button type="button" class="reader" data-band-desktop="53.8,82" data-band-mobile="cut" aria-pressed="false">
+        <b>The academy</b>
+        <span class="ask">“How will participation work?”</span>
+        <span class="why">Register, compete, win: the kit, activities and rewards, so a coach can share one link with every family.</span>
+        <span class="state" data-reader-state></span>
+      </button>
+    </div>
+
+    <p class="fold-line"><span class="fold-k">Above the fold at <b data-fold-width>1440 px</b></span><span class="fold-items" data-fold-items></span></p>
+    <p class="fold-note" data-fold-note>The photograph sits alongside the offer, not below it.</p>
+    <p class="caption">Design-stage export. A clean re-export is pending.</p>
+  </div>
+
+  <!-- From the page to the form: each decision can be pointed at, and the
+       form lights up where it lives. -->
+  <div class="sub" id="registration" data-annot>
+    <header class="ch ch--sub">
+      <p class="tag">From the page to the form</p>
+      <h3>The form has to do the convincing</h3>
+      <p class="ch-lede">Payment happens on the web, before anyone installs anything. A parent is deciding with no product to try, so three decisions all carry the same job: keep them typing.</p>
+    </header>
+
+    <figure class="plate plate--form">
+      <div class="form-shot" data-form>
+        <img src="../assets/images/khiladipro/web/registration-step-1.webp" alt="Registration, step 1 of 3, basic details: three labelled steps, quotes from Jonty Rhodes and Saurabh Dwivedi beside the fields, and date of birth dropdowns" width="1600" height="1045" loading="lazy">
+        <span class="spot" data-spot aria-hidden="true"></span>
+        <button type="button" class="mark" style="--x:5.4%;--y:16.4%" data-note="0" aria-label="Decision 1: three steps, labelled">1</button>
+        <button type="button" class="mark" style="--x:55.6%;--y:24%" data-note="1" aria-label="Decision 2: named people beside the fields">2</button>
+        <button type="button" class="mark" style="--x:7%;--y:63%" data-note="2" aria-label="Decision 3: date of birth as a gate">3</button>
+      </div>
+      <span class="plate-cap">Registration, step 1 of 3: basic details</span>
+      <button class="plate-btn" type="button" data-zoom data-zoom-src="../assets/images/khiladipro/web/registration-step-1.webp" data-zoom-alt="Registration, step 1 of 3, basic details" aria-label="View the form full size"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-8 8M3 21l8-8"/></svg></button>
+    </figure>
+
+    <div class="keys keys--notes" role="group" aria-label="Three decisions">
+      <button type="button" class="key" data-note="0" data-region="13.4,61.6,76.2,6.2" aria-pressed="false"><i>1</i><b>Three steps, labelled</b><span>The whole sequence sits above the first field, so nobody starts typing without knowing where it ends.</span></button>
+      <button type="button" class="key" data-note="1" data-region="17.4,2.4,44.2,54.6" aria-pressed="false"><i>2</i><b>Named people beside the fields</b><span>Jonty Rhodes and academy coach Saurabh Dwivedi are quoted next to the inputs, not on a page the parent has already scrolled past.</span></button>
+      <button type="button" class="key" data-note="2" data-region="60.6,69.4,29.6,8.4" aria-pressed="false"><i>3</i><b>Date of birth as a gate</b><span>Eligible birth years are picked inside the form. The 12 to 18 rule is never parked in an FAQ.</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ The in-app event ══════════════════════════════════════════════════ -->
+<section class="chapter wrap" id="event" data-spy data-word="event" style="--c:var(--kp)" aria-labelledby="event-t">
+  <header class="ch">
+    <p class="tag">The in-app event</p>
+    <h2 id="event-t">The screens players opened every day of the event</h2>
+    <p class="ch-lede">The olympiad ran inside KhiladiPro’s main app. Between drills, this is where participants spent their days: getting in, seeing what came next, deciding whether to start a 24-minute test and checking what counted.</p>
+  </header>
+
+  <!-- Seven screens in a line. The one in the middle is the one in use; the
+       question it answers sits under the plate. -->
+  <div class="days" data-reel="days" aria-roledescription="carousel" aria-label="Seven event screens">
+    <div class="plate plate--days">
+      <div class="days-track">
+        <button class="day" type="button" data-group="Before it opens" data-q="“I paid on the web. How do I get in?”" data-text="An event introduction and the access code sent by email." aria-label="Unregistered"><img src="../assets/images/khiladipro/web/ev-1-unregistered.webp" alt="Unregistered: an event introduction and the access code sent by email" width="570" height="1230" loading="lazy"></button>
+        <button class="day" type="button" data-group="Before it opens" data-q="“I typed the code and it did not work.”" data-text="An inline error keeps the code field available to retry." aria-label="Code error"><img src="../assets/images/khiladipro/web/ev-2-code-error.webp" alt="Code error: an inline error keeps the code field available to retry" width="570" height="1230" loading="lazy"></button>
+        <button class="day" type="button" data-group="Before it opens" data-q="“I am in, but nothing starts for days.”" data-text="While the event is locked, the next action opens rewards." aria-label="Countdown"><img src="../assets/images/khiladipro/web/ev-3-countdown.webp" alt="Countdown: while the event is locked, the next action opens rewards" width="570" height="1230" loading="lazy"></button>
+        <button class="day" type="button" data-group="During the event" data-q="“Where am I, and what is next?”" data-text="Points earned, the next test and the event’s stages." aria-label="Event home"><img src="../assets/images/khiladipro/web/ev-4-home.webp" alt="Event home: points earned, the next test and the event stages" width="570" height="1230" loading="lazy"></button>
+        <button class="day" type="button" data-group="During the event" data-q="“Do I have time for this right now?”" data-text="Estimated time, the drills and peer completion, before committing to 24 minutes." aria-label="Stage sheet"><img src="../assets/images/khiladipro/web/ev-5-stage.webp" alt="Stage sheet: estimated 24 minutes, the drills included, and peer completion" width="570" height="1230" loading="lazy"></button>
+        <button class="day" type="button" data-group="After each test" data-q="“Which reps actually counted?”" data-text="A drill-by-drill record of what actually counted." aria-label="Points ledger"><img src="../assets/images/khiladipro/web/ev-6-points.webp" alt="Points ledger: a drill-by-drill record of what counted" width="570" height="1230" loading="lazy"></button>
+        <button class="day" type="button" data-group="After each test" data-q="“How much is still on the table?”" data-text="Unfinished tests and the points still available." aria-label="Remaining tests"><img src="../assets/images/khiladipro/web/ev-7-remaining.webp" alt="Remaining tests: unfinished tests and the points still available" width="570" height="1230" loading="lazy"></button>
+      </div>
+      <span class="plate-cap" data-reel-cap>Before it opens</span>
+      <span class="ticks" data-reel-ticks></span>
+    </div>
+    <div class="days-copy" aria-live="polite">
+      <p class="days-q" data-days-q>“I paid on the web. How do I get in?”</p>
+      <p class="days-a"><b data-days-title>Unregistered</b> <span data-days-copy>An event introduction and the access code sent by email.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Outcome ═══════════════════════════════════════════════════════════ -->
+<section class="chapter wrap" id="outcome" data-spy data-word="outcome" style="--c:var(--kp)" aria-labelledby="outcome-t">
+  <header class="ch">
+    <p class="tag">They came back</p>
+    <h2 id="outcome-t">Then the growth team asked for a second one</h2>
+    <p class="ch-lede">After the olympiad, the growth team brought me back for a second engagement: the landing page for an IPL fan campaign, on desktop and mobile.</p>
+  </header>
+
+  <div class="plate plate--wide" data-plate>
+    <div class="slides">
+      <div class="slide" data-cap="The first engagement: the olympiad landing page"><img class="dk" src="../assets/images/khiladipro/web/landing-desktop.webp" alt="The olympiad landing page, from the first engagement" width="1600" height="1841" loading="lazy"></div>
+      <div class="slide" data-cap="The second engagement: the IPL fan campaign"><img class="dk" src="../assets/images/khiladipro/web/ipl-landing.webp" alt="The IPL fan campaign landing page, from the second engagement" width="1600" height="1039" loading="lazy"></div>
+    </div>
+    <span class="plate-cap" data-cap-out>The first engagement: the olympiad landing page</span>
+    <span class="segs" aria-hidden="true"></span>
+  </div>
+
+  <ol class="engs">
+    <li class="eng">
+      <p class="eng-k">The first engagement</p>
+      <h3>The olympiad</h3>
+      <p>The landing page, registration, onboarding and the in-app event, across the website and the app.</p>
+      <ul class="meta"><li>About 8 weeks</li><li>Web, Android, iOS</li></ul>
+    </li>
+    <li class="eng-link" aria-label="Then"><span class="eng-line"></span><span class="eng-pill">Rehired</span></li>
+    <li class="eng">
+      <p class="eng-k">The second engagement</p>
+      <h3>The IPL fan campaign</h3>
+      <p>A page that had to convert fans during a live tournament. The in-house team owned the app screens.</p>
+      <ul class="meta"><li>Landing page</li><li>Desktop and mobile</li></ul>
+    </li>
+  </ol>
+
+  <div class="sub">
+    <header class="ch ch--sub">
+      <p class="tag">Outcome</p>
+      <h3>Shipped as designed</h3>
+      <p class="ch-lede">Everything I designed for KhiladiPro shipped: the web journey, the onboarding and the event screens. Nothing was redrawn by someone else on the way to build.</p>
+    </header>
+    <dl class="tally" data-tally>
+      <div style="--n:4"><dt data-count="4">4</dt><dd><span class="tally-segs" aria-hidden="true"></span><b>surfaces designed</b><span>Landing, registration, onboarding, event</span></dd></div>
+      <div style="--n:9"><dt data-count="9">9</dt><dd><span class="tally-segs" aria-hidden="true"></span><b>onboarding screens</b><span>All nine shipped, in order</span></dd></div>
+      <div style="--n:7"><dt data-count="7">7</dt><dd><span class="tally-segs" aria-hidden="true"></span><b>Figma prototypes</b><span>Lo-fi through to the live event</span></dd></div>
+      <div style="--n:2"><dt data-count="2">2</dt><dd><span class="tally-segs" aria-hidden="true"></span><b>engagements</b><span>The olympiad, then the IPL campaign</span></dd></div>
+    </dl>
+  </div>
+
+  <div class="sub" id="next-up">
+    <header class="ch ch--sub">
+      <p class="tag">Unfinished business</p>
+      <h3>If I picked it back up</h3>
+      <p class="ch-lede">No analytics access meant no impact story. These are the two things I would set up first if the olympiad ran again.</p>
+    </header>
+    <div class="plans">
+      <div class="plan">
+        <p class="plan-h"><b>Measure</b><span>Three funnels, none of which existed.</span></p>
+        <ul class="rows">
+          <li><b>Registration</b><span>Visitor to paid entry, split by audience and by device.</span></li>
+          <li><b>First use</b><span>First scoreable drill, onboarding drop-offs, failed attempts.</span></li>
+          <li><b>Participation</b><span>Return to the next test, and unscoreable submissions.</span></li>
+        </ul>
+      </div>
+      <div class="plan">
+        <p class="plan-h"><b>Test</b><span>In their own rooms, not in a lab.</span></p>
+        <ul class="rows">
+          <li><b>Can they set it up?</b><span>Position the phone, read feedback while moving, finish a scoreable drill.</span></li>
+          <li><b>Can they read it from the mat?</b><span>How much of the screen, the instruction and the count still land once the phone is on the ground, and how comfortable that angle is to hold for a whole drill.</span></li>
+          <li><b>Can they hear the cues?</b><span>Audio prompts with music playing, with a television in the room, outdoors, and from the far side of the room.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Prototypes ════════════════════════════════════════════════════════ -->
+<section class="chapter wrap" id="prototypes" data-spy data-word="prototypes" style="--c:var(--kp)" aria-labelledby="protos-t">
+  <header class="ch">
+    <p class="tag">Source material</p>
+    <h2 id="protos-t">Everything clickable</h2>
+    <p class="ch-lede">Seven Figma prototypes, from the first lo-fi structure through to the live-event flow. All of them open in a new tab.</p>
+  </header>
+
+  <ol class="protos" data-protos>
+    <li><a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2254-23890&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener"><span class="proto-thumb" aria-hidden="true"><img src="../assets/images/khiladipro/web/landing-desktop.webp" alt="" loading="lazy"></span><b>Lo-fi prototype: structure</b><span class="proto-k">Landing page</span><svg class="proto-go" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></li>
+    <li><a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2254-23895&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener"><span class="proto-thumb" aria-hidden="true"><img src="../assets/images/khiladipro/web/landing-desktop.webp" alt="" loading="lazy"></span><b>Mid-fi prototype: layout</b><span class="proto-k">Landing page</span><svg class="proto-go" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></li>
+    <li><a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2030-4001&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener"><span class="proto-thumb" aria-hidden="true"><img src="../assets/images/khiladipro/web/landing-desktop.webp" alt="" loading="lazy"></span><b>The shipped landing page</b><span class="proto-k">Landing page</span><svg class="proto-go" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></li>
+    <li><a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2345-1923&amp;t=c1yya1PZsLvXzw1m-1" target="_blank" rel="noopener"><span class="proto-thumb" aria-hidden="true"><img src="../assets/images/khiladipro/web/registration-step-1.webp" alt="" loading="lazy"></span><b>Registration, steps 1 to 3</b><span class="proto-k">Web</span><svg class="proto-go" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></li>
+    <li><a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=326-3609&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener"><span class="proto-thumb" aria-hidden="true"><img src="../assets/images/khiladipro/web/onb-1-intro.webp" alt="" loading="lazy"></span><b>The complete onboarding flow</b><span class="proto-k">App</span><svg class="proto-go" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></li>
+    <li><a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2069-19430&amp;t=fLSKV7D53Q7fKG46-1" target="_blank" rel="noopener"><span class="proto-thumb" aria-hidden="true"><img src="../assets/images/khiladipro/web/ev-1-unregistered.webp" alt="" loading="lazy"></span><b>Pre-event flow</b><span class="proto-k">App</span><svg class="proto-go" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></li>
+    <li><a class="proto" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=2069-16207&amp;t=fLSKV7D53Q7fKG46-1" target="_blank" rel="noopener"><span class="proto-thumb" aria-hidden="true"><img src="../assets/images/khiladipro/web/ev-4-home.webp" alt="" loading="lazy"></span><b>Live-event flow</b><span class="proto-k">App</span><svg class="proto-go" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></li>
+  </ol>
+  <a class="read read--big" href="https://www.figma.com/proto/JEoa0373t3JJxSo6uwfYWJ/KPro.Fit-Explorations?node-id=326-3609&amp;t=GsNH2tcF3o1b1vGE-1" target="_blank" rel="noopener">Open the onboarding prototype and walk it yourself <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+</section>
+
+<!-- ═══ Close ═════════════════════════════════════════════════════════════ -->
+<section class="close wrap" aria-label="Testimonial and next case study">
+  <figure class="voice" style="--c:var(--kp)">
+    <blockquote>“He showed intuitive product thinking, is very proactive with his contributions and gives a lot of attention to detail.”</blockquote>
+    <figcaption><b>Aakash Verma</b>, Product Head at KhiladiPro, via LinkedIn.</figcaption>
+  </figure>
+
+  <div class="next">
+    <p class="next-k">Next case study</p>
+    <article class="proj" style="--c:var(--sedp)" aria-labelledby="sedp-t">
+      <a class="card-link" href="sedp-redesign-claude.html">
+      <div class="plate" data-plate>
+        <div class="slides">
+          <div class="slide" data-cap="The portal, organised by what readers look for"><img class="dk" src="../assets/images/home/shots/sedp-landing.webp" alt="The Socio-Economic Data Portal landing page." width="1600" height="1158" loading="lazy"></div>
+          <div class="slide" data-cap="The chart comes first; every control redraws it"><img class="dk" src="../assets/images/home/shots/sedp-bars.webp" alt="The chart workspace showing a bar chart of states." width="1600" height="915" loading="lazy"></div>
+          <div class="slide" data-cap="Two indicators, side by side"><img class="dk" src="../assets/images/home/shots/sedp-compare.webp" alt="Two maps of India compared side by side." width="1600" height="915" loading="lazy"></div>
+          <div class="slide" data-cap="A shared chart carries its labels and source"><img class="sq" src="../assets/images/home/shots/sedp-export.webp" alt="A share export with a map, top and bottom states and the source." width="1200" height="1200" loading="lazy"></div>
+        </div>
+        <span class="plate-cap" data-cap-out>The portal, organised by what readers look for</span>
+        <span class="segs" aria-hidden="true"></span>
+      </div>
+      <div class="proj-head"><h2 id="sedp-t">SEDP</h2><span>CEDA, Ashoka University</span><span class="yr">2023 to 2024</span></div>
+      <p class="lede">CEDA’s Socio-Economic Data Portal, rebuilt around three jobs: find a chart, compare indicators, and share an insight that makes sense on its own.</p>
+      <span class="read">Read the case study <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+    </article>
+  </div>
+
+  <div class="reach">
+    <button class="mail" type="button" data-copy="hello@priyank.design" aria-label="Copy hello@priyank.design"><span class="mail-text" aria-hidden="true" data-mail>hello@priyank.design</span><small><span class="copy-idle">Email is quickest. Click to copy.</span><span class="copy-done">Copied to your clipboard.</span></small></button>
+    <div class="row">
+      <a class="lnk" href="https://www.linkedin.com/in/priyank1205/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="lnk" href="https://drive.google.com/file/d/0B0y_QT-8mXwgRFhmWEdUWkpKOHc/view?usp=sharing&amp;resourcekey=0-Q4joErTGFsTqmVHZnpbYYw" target="_blank" rel="noopener">Résumé</a>
+      <a class="lnk" href="https://github.com/priyank1205" target="_blank" rel="noopener">GitHub</a>
+      <button class="snd" type="button" aria-pressed="true" data-sound-toggle><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span data-sound-label>Sound on</span></button>
+      <span class="clock" data-clock>IST</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot wrap">
+  <a class="lnk" href="../index-thesis.html#khiladipro">All work</a>
+  <span>© 2026 Priyank Agarwal</span>
+</footer>
+
+<dialog class="viewer" data-viewer aria-label="Full size">
+  <button class="round viewer-x" type="button" data-viewer-close aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <div class="viewer-body"><img alt=""></div>
+</dialog>
+
+<div class="toast" role="status" aria-live="polite" data-toast></div>
+<script src="../assets/js/thesis.js?v=4" defer></script>
+<script src="../assets/js/khiladipro-thesis.js?v=1" defer></script>
+</body>
+</html>

@@ -133,6 +133,14 @@ img {
   display: none !important;
 }
 
+/* Moving between Thesis pages cross-fades, and the KhiladiPro plate on the
+   homepage opens into the case study's first plate. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
 ::selection {
   background: rgb(var(--kp) / 0.3);
   color: var(--ink);
