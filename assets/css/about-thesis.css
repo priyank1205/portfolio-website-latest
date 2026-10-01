@@ -26,7 +26,7 @@
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 20px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 40px 70px -28px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 0 0 1px var(--ring), 0 40px 70px -28px var(--cast);
   transform: rotate(-2deg);
   transition: transform 0.6s var(--spring);
 }
@@ -93,69 +93,17 @@
   font-weight: 500;
 }
 
-/* Three ways in, one per reader. */
-.readers {
-  display: grid;
-  gap: 8px;
-  margin-top: 12px;
-}
+/* --- How I work: three principles, words only ------------------------------ */
 
-.readers-t {
-  margin-bottom: 4px;
-  color: var(--ink-3);
-  font-size: 12.5px;
-}
-
-.reader {
+.principle {
   --c: var(--neutral);
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr) auto;
-  align-items: baseline;
-  gap: 6px 20px;
-  width: 100%;
-  padding: 16px 18px;
-  border-radius: 14px;
-  background: var(--plate);
-  box-shadow: inset 0 0 0 1px var(--line);
-  text-align: left;
-  transition: box-shadow 0.25s var(--ease), background-color 0.25s var(--ease);
+  gap: 14px;
+  max-width: 62ch;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 30px;
 }
-
-.reader b {
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.reader span {
-  color: var(--ink-2);
-  font-size: 14.5px;
-  line-height: 1.5;
-}
-
-.reader em {
-  color: rgb(var(--c));
-  font-size: var(--fs-4);
-  font-style: normal;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.reader em::after {
-  content: " \2192";
-}
-
-@media (hover: hover) {
-  .reader:hover {
-    background: rgb(var(--c) / 0.07);
-    box-shadow: inset 0 0 0 1px rgb(var(--c) / 0.45);
-  }
-}
-
-.reader.is-copied em {
-  color: rgb(var(--live));
-}
-
-/* --- The three moments --------------------------------------------------------- */
 
 .value-tag {
   display: inline-flex;
@@ -174,13 +122,125 @@
   background: currentColor;
 }
 
-.episode-t {
-  margin-top: -8px;
-  font-size: clamp(26px, 2.4vw, 32px);
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.028em;
+.principle h2 {
+  font-size: clamp(28px, 2.7vw, 38px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
   text-wrap: balance;
+}
+
+.principle p:not(.value-tag) {
+  color: var(--ink-2);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.principle p.aside-line {
+  padding-left: 16px;
+  border-left: 2px solid rgb(var(--c) / 0.6);
+  color: var(--ink);
+}
+
+/* What I bring: eight things, each a line. */
+.bring {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.bring li {
+  display: grid;
+  gap: 3px;
+  padding: 16px 20px 16px 0;
+  border-bottom: 1px solid var(--line);
+  transition: color 0.25s var(--ease);
+}
+
+.bring li:nth-child(even) {
+  padding: 16px 0 16px 20px;
+  border-left: 1px solid var(--line);
+}
+
+.bring b {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.bring span {
+  color: var(--ink-2);
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+
+/* --- The kalimba -------------------------------------------------------------- */
+
+.kalimba-plate {
+  display: grid;
+  gap: 16px;
+  padding: 28px 20px 20px;
+  border-radius: 20px;
+  background: var(--plate);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.kalimba {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: clamp(4px, 0.8vw, 8px);
+  padding-top: 14px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.kalimba::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 8%;
+  right: 8%;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--line-2);
+}
+
+.tine {
+  --c: var(--neutral);
+  width: clamp(14px, 2vw, 24px);
+  height: var(--h);
+  border-radius: 3px 3px 12px 12px;
+  background: var(--line-2);
+  transform-origin: 50% 0;
+  cursor: pointer;
+  transition: background-color 0.9s var(--ease), box-shadow 0.9s var(--ease);
+}
+
+.tine.is-lit {
+  background: rgb(var(--c));
+  box-shadow: 0 0 24px rgb(var(--c) / 0.55);
+  transition-duration: 0.04s;
+}
+
+.kalimba-cap {
+  color: var(--ink-3);
+  font-size: var(--fs-4);
+  text-align: center;
+}
+
+kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border: 1px solid var(--line-2);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  font: 500 11px/1 var(--font);
+  color: var(--ink-2);
 }
 
 /* --- Background ------------------------------------------------------------------ */
@@ -250,8 +310,13 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .reader {
+  .bring {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bring li:nth-child(even) {
+    padding: 16px 0;
+    border-left: 0;
   }
 
   .rec--long li {
@@ -261,7 +326,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .portrait,
-  .notes-chips li {
+  .notes-chips li,
+  .tine {
     transition: none;
   }
 }

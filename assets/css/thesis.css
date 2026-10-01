@@ -21,6 +21,11 @@
   --line: rgba(255, 255, 255, 0.08);
   --line-2: rgba(255, 255, 255, 0.16);
   --glass: rgba(9, 9, 11, 0.72);
+  --hover: rgba(255, 255, 255, 0.07);
+  --ring: rgba(255, 255, 255, 0.08);
+  --cast: rgba(0, 0, 0, 0.8);
+  --seg: rgba(255, 255, 255, 0.2);
+  --body-ink: rgba(243, 243, 244, 0.82);
   --live: 69 212 131;
 
   /* The only colour is the products'. */
@@ -41,6 +46,34 @@
   --fs-4: 13px;
 
   --gutter: clamp(16px, 3.4vw, 48px);
+}
+
+/* The same page in daylight: warm white, recessed plates, deeper accents so
+   the product colours hold their contrast on white. */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #fbfbfa;
+  --plate: #f0f0ed;
+  --ink: #17171a;
+  --ink-2: rgba(23, 23, 26, 0.66);
+  --ink-3: rgba(23, 23, 26, 0.46);
+  --line: rgba(0, 0, 0, 0.08);
+  --line-2: rgba(0, 0, 0, 0.15);
+  --glass: rgba(251, 251, 250, 0.82);
+  --hover: rgba(0, 0, 0, 0.05);
+  --ring: rgba(0, 0, 0, 0.08);
+  --cast: rgba(40, 30, 20, 0.22);
+  --seg: rgba(0, 0, 0, 0.14);
+  --body-ink: rgba(23, 23, 26, 0.8);
+  --live: 31 157 85;
+
+  --kp: 226 86 62;
+  --gm: 22 150 116;
+  --sedp: 208 58 86;
+  --mp: 166 112 76;
+  --ts: 204 26 60;
+  --neutral: 23 23 26;
 }
 
 /* --- Base ------------------------------------------------------------------ */
@@ -213,9 +246,42 @@ img {
   transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
 }
 
+.site a[aria-current="page"] {
+  background: var(--hover);
+  color: var(--ink);
+}
+
 @media (hover: hover) {
   .site a:hover {
-    background: rgba(255, 255, 255, 0.07);
+    background: var(--hover);
+    color: var(--ink);
+  }
+}
+
+.theme {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink-2);
+  transition: color 0.15s var(--ease), background-color 0.15s var(--ease);
+}
+
+.theme .sun,
+:root[data-theme="light"] .theme .moon {
+  display: none;
+}
+
+:root[data-theme="light"] .theme .sun {
+  display: block;
+}
+
+@media (hover: hover) {
+  .theme:hover {
+    background: var(--hover);
     color: var(--ink);
   }
 }
@@ -573,7 +639,6 @@ img {
   border-radius: 20px;
   background: var(--plate);
   box-shadow: inset 0 0 0 1px var(--line);
-  cursor: ew-resize;
   isolation: isolate;
 }
 
@@ -609,7 +674,7 @@ img {
 .slide img {
   position: absolute;
   height: auto;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 30px 60px -24px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 0 1px var(--ring), 0 30px 60px -24px var(--cast);
 }
 
 /* A phone stands in the plate and runs off its foot. */
@@ -684,12 +749,54 @@ img {
   flex: 1;
   height: 3px;
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--seg);
   transition: background-color 0.25s var(--ease);
 }
 
+/* The segment in view fills while its screen is showing; a pointer on the
+   card holds it still. */
+.segs i {
+  position: relative;
+  overflow: hidden;
+}
+
 .segs i.is-on {
+  background: rgb(var(--c) / 0.3);
+}
+
+.segs i.is-on::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
   background: rgb(var(--c));
+  transform-origin: 0 50%;
+  animation: seg-fill var(--pace, 5.6s) linear forwards;
+}
+
+.plate:not(.is-running) .segs i.is-on::after,
+.card-link:hover .segs i.is-on::after {
+  animation-play-state: paused;
+}
+
+@keyframes seg-fill {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.slide img {
+  transition: scale 0.7s var(--spring);
+}
+
+@media (hover: hover) {
+  .card-link:hover .slide.is-on img {
+    scale: 1.035;
+  }
 }
 
 /* The whole piece, picture and words, is one link to its case study. */
@@ -1099,6 +1206,7 @@ a.note {
 
 @media (prefers-reduced-motion: reduce) {
   .slide,
+  .slide img,
   .w,
   .chipimg,
   .mail-text .mk,
@@ -1107,6 +1215,7 @@ a.note {
   }
 
   .avail i::after,
+  .segs i.is-on::after,
   .eq i,
   .note--soon .note-meta i {
     animation: none;

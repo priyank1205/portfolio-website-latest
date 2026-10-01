@@ -4,8 +4,8 @@
    The sentence follows the page: whichever section is in view lights its
    word in the pinned sentence, with a small picture, and the map beside it
    tracks progress through that section. Each word takes you to its section.
-   Plates cross-fade through their screens, slowly, and a pointer can step
-   through them by moving across. A quiet kalimba in D major pentatonic
+   Plates cross-fade through their screens, slowly, and hold still under a
+   pointer. A quiet kalimba in D major pentatonic
    answers a few gestures; nothing sounds before one, and the switch turns it
    off. Pages opt in with data attributes:
 
@@ -14,7 +14,8 @@
      [data-chip]           on a section: the picture that word shows
      .w[data-word]         a word of the sentence
      [data-for]            a map link, naming the section id it follows
-     [data-plate]          a plate of screens to step through
+     [data-plate]          a plate of screens that cross-fade
+     [data-theme-toggle]   the light and dark switch
      [data-mail]           an address whose letters play
    ========================================================================== */
 
@@ -27,6 +28,32 @@
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
   const EMAIL = 'hello@priyank.design';
+
+  /* --- Theme: dark by default, light on request, remembered -------------------- */
+
+  const THEME_KEY = 'thesis-theme';
+  const themeButtons = $$('[data-theme-toggle]');
+  function paintTheme() {
+    const light = document.documentElement.dataset.theme === 'light';
+    themeButtons.forEach(button => {
+      button.setAttribute('aria-pressed', String(light));
+      button.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+      button.title = light ? 'Dark mode' : 'Light mode';
+    });
+    const meta = $('meta[name="theme-color"]');
+    if (meta) meta.content = light ? '#fbfbfa' : '#09090b';
+  }
+  themeButtons.forEach(button => button.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem(THEME_KEY, next);
+    } catch {
+      // Not remembered; still applied.
+    }
+    paintTheme();
+  }));
+  paintTheme();
 
   /* --- Sound ---------------------------------------------------------------- */
 
@@ -219,57 +246,38 @@
     toast(`Good call. ${EMAIL} is on your clipboard.`, 4000);
   });
 
-  /* --- Plates: cross-fade through the screens ---------------------------------- */
+  /* --- Plates: cross-fade through the screens, slowly --------------------------- */
 
-  const PACE = 5600;
+  // Each plate shows one screen at a time. The segment under it fills while
+  // it shows; when it is full, the next screen fades in. A pointer on the card
+  // holds the current screen still, and the plate only runs while on screen.
   const plates = $$('[data-plate]').map(plate => {
     const items = $$('.slide', plate);
     const capOut = $('[data-cap-out]', plate);
     const segs = $('.segs', plate);
     if (segs) segs.replaceChildren(...items.map(() => document.createElement('i')));
-    return { plate, items, capOut, ticks: segs ? [...segs.children] : [], index: -1, visible: false, hovered: false, last: 0 };
+    return { plate, items, capOut, segs, ticks: segs ? [...segs.children] : [], index: -1 };
   });
 
-  function show(p, i, withSound) {
-    i = clamp(i, 0, p.items.length - 1);
+  function show(p, i) {
+    i = ((i % p.items.length) + p.items.length) % p.items.length;
     if (i === p.index) return;
     p.index = i;
-    p.last = performance.now();
     p.items.forEach((item, j) => item.classList.toggle('is-on', j === i));
     if (p.capOut) p.capOut.textContent = p.items[i].dataset.cap || '';
     p.ticks.forEach((t, j) => t.classList.toggle('is-on', j === i));
-    if (withSound) sound.tick(i + 3);
   }
 
   plates.forEach(p => {
-    show(p, 0, false);
-    if (p.items.length < 2) return;
-    // Moving across the plate steps through it; the zones are wide, so a
-    // quick pass does not flicker.
-    p.plate.addEventListener('pointermove', event => {
-      if (event.pointerType !== 'mouse') return;
-      p.hovered = true;
-      const box = p.plate.getBoundingClientRect();
-      show(p, Math.floor(((event.clientX - box.left) / box.width) * p.items.length), true);
-    });
-    p.plate.addEventListener('pointerleave', () => { p.hovered = false; });
+    show(p, 0);
+    if (p.items.length < 2 || !p.segs) return;
+    p.segs.addEventListener('animationend', () => show(p, p.index + 1));
   });
 
-  const seen = new IntersectionObserver(entries => entries.forEach(entry => {
-    const p = plates.find(q => q.plate === entry.target);
-    if (p) p.visible = entry.isIntersecting;
+  const running = new IntersectionObserver(entries => entries.forEach(entry => {
+    entry.target.classList.toggle('is-running', entry.isIntersecting && !reduced.matches);
   }), { threshold: 0.4 });
-  plates.forEach(p => seen.observe(p.plate));
-
-  // Plates in view walk themselves, slowly, and wait while a pointer is on them.
-  setInterval(() => {
-    if (reduced.matches || document.hidden) return;
-    const now = performance.now();
-    plates.forEach(p => {
-      if (p.items.length < 2 || !p.visible || p.hovered || now - p.last < PACE) return;
-      show(p, (p.index + 1) % p.items.length, false);
-    });
-  }, 400);
+  plates.forEach(p => { if (p.items.length > 1) running.observe(p.plate); });
 
   /* --- The sentence follows the page -------------------------------------------- */
 
@@ -285,7 +293,8 @@
     const word = section ? section.dataset.word : null;
     words.forEach(w => w.classList.toggle('is-on', !!word && w.dataset.word === word));
     if (!section) return;
-    const colour = getComputedStyle(section).getPropertyValue('--c').trim();
+    // Keep the token itself, so the colour follows the theme when it changes.
+    const colour = section.style.getPropertyValue('--c').trim() || getComputedStyle(section).getPropertyValue('--c').trim();
     if (colour) document.documentElement.style.setProperty('--c', colour);
     const w = word && words.find(x => x.dataset.word === word);
     if (w) {
