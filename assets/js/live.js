@@ -666,74 +666,65 @@
     close.addEventListener('click', () => { card.hidden = true; sedp.classList.remove('is-sharing'); share.focus({ preventScroll: true }); });
   }
 
-  /* Record: a timeline with a playhead */
-  const player = $('[data-player]');
-  if (player) {
-    const items = $$('[data-chapters] li', player).map(li => ({ year: li.dataset.year, accent: li.dataset.accent, name: $('b', li).textContent, role: $('span', li).textContent, text: $('p', li).textContent, quote: $('blockquote', li) ? $('blockquote', li).innerHTML : '' }));
-    const track = $('[data-player-track]', player), head = $('[data-player-head]', player), stopsWrap = $('[data-player-stops]', player);
-    const now = $('[data-player-now]', player), yearEl = $('[data-player-year]', player), indexEl = $('[data-player-index]', player), playButton = $('[data-player-play]', player);
-    const lastI = items.length - 1;
-    const stops = items.map((item, i) => {
-      const x = (i / lastI) * 100;
-      const dot = document.createElement('span'); dot.className = 'stop'; dot.style.setProperty('--x', `${x}%`); dot.style.setProperty('--sc', rgb(item.accent));
-      const year = document.createElement('span'); year.className = 'stop-year'; year.style.setProperty('--x', `${x}%`); year.textContent = item.year;
-      stopsWrap.append(dot, year);
-      return { dot, year, x };
+  /* Where I've worked: each row plays a note and lights in its colour */
+  $$('[data-wk] .wk-row').forEach((row, i) => {
+    const light = on => row.classList.toggle('is-lit', on);
+    row.addEventListener('pointerenter', event => {
+      if (event.pointerType !== 'mouse') return;
+      light(true);
+      sound.pluck(SCALE[clamp(3 + i, 0, 13)], 0.5);
     });
-    yearEl.textContent = '';
-    let shownYear = '';
-    function showYear(text, dir) {
-      if (text === shownYear) return;
-      shownYear = text;
-      const old = yearEl.lastElementChild;
-      const next = document.createElement('span'); next.className = 'y'; next.textContent = text; yearEl.append(next);
-      if (!old) return;
-      if (reduced.matches) { old.remove(); return; }
-      const easing = 'cubic-bezier(0.22, 1, 0.36, 1)';
-      next.animate([{ transform: `translateY(${dir * 60}%)`, opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 650, easing });
-      old.animate([{ transform: 'none', opacity: 1 }, { transform: `translateY(${-dir * 60}%)`, opacity: 0 }], { duration: 520, easing, fill: 'forwards' }).onfinish = () => old.remove();
-    }
-    let index = -1, dragging = false, timer = 0;
-    function set(i, note = false) {
-      i = clamp(i, 0, lastI);
-      if (i === index) return;
-      const prev = index;
-      index = i;
-      const item = items[i];
-      player.style.setProperty('--pc', rgb(item.accent));
-      if (!dragging) { track.style.setProperty('--p', `${stops[i].x}%`); head.style.setProperty('--hx', `${stops[i].x}%`); }
-      stops.forEach((s, n) => { s.dot.classList.toggle('is-past', n <= i); s.year.classList.toggle('is-on', n === i); });
-      showYear(item.year, i >= prev ? 1 : -1);
-      now.innerHTML = `<div class="pn-in"><p class="pn-tag"><i></i>Chapter ${String(i + 1).padStart(2, '0')} · ${item.year}</p><p class="pn-name">${item.name}</p><p class="pn-role">${item.role}</p><p class="pn-text">${item.text}</p>${item.quote ? `<blockquote class="pn-quote">${item.quote}</blockquote>` : ''}</div>`;
-      indexEl.textContent = String(i + 1).padStart(2, '0');
-      track.setAttribute('aria-valuenow', String(i + 1));
-      track.setAttribute('aria-valuetext', `${item.year}, ${item.name}`);
-      if (note) sound.pluck(SCALE[clamp(i + 3, 0, 13)], 0.55);
-    }
-    const ratioAt = x => { const b = track.getBoundingClientRect(); return clamp((x - b.left) / b.width, 0, 1); };
-    function drag(e) { const r = ratioAt(e.clientX); head.style.setProperty('--hx', `${r * 100}%`); track.style.setProperty('--p', `${r * 100}%`); set(Math.round(r * lastI), true); }
-    track.addEventListener('pointerdown', e => { stop(); dragging = true; track.classList.add('is-dragging'); track.setPointerCapture(e.pointerId); drag(e); });
-    track.addEventListener('pointermove', e => { if (dragging) drag(e); });
-    const release = () => { if (!dragging) return; dragging = false; track.classList.remove('is-dragging'); track.style.setProperty('--p', `${stops[index].x}%`); head.style.setProperty('--hx', `${stops[index].x}%`); };
-    track.addEventListener('pointerup', release);
-    track.addEventListener('pointercancel', release);
-    track.addEventListener('keydown', e => {
-      const moves = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 };
-      let target = null;
-      if (e.key in moves) target = index + moves[e.key]; else if (e.key === 'Home') target = 0; else if (e.key === 'End') target = lastI;
-      if (target === null) return;
-      e.preventDefault(); stop(); set(target, true);
+    row.addEventListener('pointerleave', () => light(false));
+    row.addEventListener('focus', () => light(true));
+    row.addEventListener('blur', () => light(false));
+  });
+
+  /* Writing: each essay row lights in its colour and plays a note */
+  $$('[data-essays] .essay-row').forEach((row, i) => {
+    const light = on => row.classList.toggle('is-lit', on);
+    row.addEventListener('pointerenter', event => {
+      if (event.pointerType !== 'mouse') return;
+      light(true);
+      sound.pluck(SCALE[clamp(4 + i * 2, 0, 13)], 0.45);
     });
-    function play() {
-      if (index >= lastI) set(0, true);
-      player.classList.add('is-playing');
-      playButton.setAttribute('aria-label', 'Pause the timeline');
-      timer = setInterval(() => { if (index >= lastI) { stop(); return; } set(index + 1, true); }, 1800);
-    }
-    function stop() { clearInterval(timer); timer = 0; player.classList.remove('is-playing'); playButton.setAttribute('aria-label', 'Play the timeline'); }
-    playButton.addEventListener('click', () => (timer ? stop() : play()));
-    set(3);
+    row.addEventListener('pointerleave', () => light(false));
+  });
+
+  /* The close: the time in Bengaluru, and how far that is from you */
+  const bigClock = $('[data-clock-big]');
+  const offset = $('[data-offset]');
+  if (bigClock) {
+    const parts = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Kolkata' });
+    const tickBig = () => {
+      const now = new Date();
+      const p = parts.formatToParts(now);
+      const h = p.find(x => x.type === 'hour').value;
+      const m = p.find(x => x.type === 'minute').value;
+      bigClock.innerHTML = `${h}<span class="colon">:</span>${m}`;
+      if (!offset) return;
+      const diff = 330 + now.getTimezoneOffset();
+      const abs = Math.abs(diff);
+      const hh = Math.floor(abs / 60);
+      const mm = abs % 60;
+      const span = [hh ? `${hh}h` : '', mm ? `${mm}m` : ''].filter(Boolean).join(' ');
+      offset.textContent = diff === 0 ? 'The same time as you.' : `${span} ${diff > 0 ? 'ahead of' : 'behind'} you.`;
+    };
+    tickBig();
+    setInterval(tickBig, 15000);
   }
+
+  /* The foot: five notes of the site's scale, to play on the way out */
+  $$('[data-chime]').forEach((button, i) => {
+    button.style.setProperty('--c', rgb(CYCLE[i % CYCLE.length]));
+    const ring = () => {
+      sound.pluck(SCALE[5 + i], 0.7);
+      button.classList.add('is-lit');
+      clearTimeout(button.lit);
+      button.lit = setTimeout(() => button.classList.remove('is-lit'), 200);
+    };
+    button.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') ring(); });
+    button.addEventListener('click', ring);
+  });
 
   /* Contact: the address plays too */
   const mailText = $('[data-mail-text]');

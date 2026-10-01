@@ -1,10 +1,10 @@
 /* ============================================================================
    About, Live: the behaviour
 
-   A board of magnets to rearrange, a switch that reorders the record for
-   whoever is asking, three values you can flip through, a table of what I
-   can own that names its receipts, and the site's instrument, a kalimba in D
-   major pentatonic. Sound, copy and the chrome come from live.js.
+   A board of magnets to rearrange, three principles drawn as small moving
+   pictures, eight things I bring, each with a note, and the site's
+   instrument, a kalimba in D major pentatonic. Sound, copy, the close and the
+   chrome come from live.js.
    ========================================================================== */
 
 (() => {
@@ -71,120 +71,25 @@
     });
   }
 
-  /* --- What you came for: one record, three readers ------------------------------- */
+  /* --- How I work: a tap on a phone does what a pointer does on a laptop -------- */
 
-  const ask = $('[data-ask]');
-  if (ask) {
-    const tabs = $$('[role="tab"]', ask);
-    const thumb = $('[data-ask-thumb]', ask);
-    function choose(i, focus) {
-      tabs.forEach((tab, j) => {
-        const on = j === i;
-        tab.setAttribute('aria-selected', String(on));
-        tab.tabIndex = on ? 0 : -1;
-        const panel = document.getElementById(tab.getAttribute('aria-controls'));
-        panel.hidden = !on;
-        panel.classList.toggle('is-on', on);
-      });
-      thumb.style.setProperty('--i', i);
-      ask.style.setProperty('--a', `var(--${tabs[i].dataset.a}-rgb)`);
-      if (focus) tabs[i].focus();
-    }
-    tabs.forEach((tab, i) => {
-      tab.addEventListener('click', () => {
-        choose(i);
-        sound.pluck(SCALE[4 + i * 2], 0.6);
-      });
-      tab.addEventListener('keydown', event => {
-        const step = { ArrowRight: 1, ArrowLeft: -1 }[event.key];
-        if (!step) return;
-        event.preventDefault();
-        choose((i + step + tabs.length) % tabs.length, true);
-      });
+  $$('.principle').forEach((tile, i) => {
+    tile.addEventListener('pointerenter', event => {
+      if (event.pointerType === 'mouse') sound.pluck(SCALE[5 + i * 2], 0.45);
     });
-    choose(0);
-  }
-
-  /* --- Values: flip through each moment ------------------------------------------- */
-
-  $$('[data-flip]').forEach(tile => {
-    const buttons = $$('[data-show]', tile);
-    const images = $$('.value-phone img, .value-sheet img', tile);
-    const cap = $('[data-cap]', tile);
-    buttons.forEach((button, i) => button.addEventListener('click', () => {
-      buttons.forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
-      images.forEach((img, j) => img.classList.toggle('is-on', j === i));
-      cap.textContent = button.dataset.cap;
-      sound.pluck(SCALE[6 + i * 2], 0.5);
-    }));
+    tile.addEventListener('click', () => {
+      tile.classList.toggle('is-lit');
+      sound.pluck(SCALE[5 + i * 2], 0.6);
+    });
   });
 
-  /* --- What I can own: each dot names where ------------------------------------------ */
+  /* --- What I bring: each one has a note ---------------------------------------- */
 
-  const can = $('[data-can]');
-  if (can) {
-    const table = $('table', can);
-    const heads = $$('thead th', table);
-    const names = heads.map(th => th.textContent.trim());
-    const note = $('[data-can-note]', can);
-    const idle = note.innerHTML;
-    const colourOf = i => heads[i].style.getPropertyValue('--a');
-    let lit = [];
-
-    function light(cells, row) {
-      lit.forEach(el => el.classList.remove('is-hot'));
-      lit = [];
-      if (row) { row.classList.add('is-hot'); lit.push(row); }
-      cells.forEach(td => {
-        td.classList.add('is-hot');
-        const head = heads[td.cellIndex];
-        head.classList.add('is-hot');
-        lit.push(td, head);
-      });
-    }
-
-    function say(cells, label) {
-      if (!cells.length) {
-        note.innerHTML = idle;
-        return;
-      }
-      const parts = cells.map(td => `<span style="--a:${colourOf(td.cellIndex)}"><i></i><b>${names[td.cellIndex]}</b> ${td.dataset.note}</span>`);
-      note.innerHTML = `<span class="n-in">${label ? `<b>${label}.</b> ` : ''}${parts.join('<span class="sep" aria-hidden="true">/</span>')}</span>`;
-    }
-
-    // Each column carries its product's colour down to its dots.
-    $$('tbody tr', table).forEach(row => {
-      $$('td', row).forEach(td => {
-        td.style.setProperty('--a', colourOf(td.cellIndex));
-        if (td.dataset.note) {
-          td.tabIndex = 0;
-          td.setAttribute('aria-label', `${names[td.cellIndex]}: ${td.dataset.note}`);
-        }
-      });
-      const cells = $$('td[data-note]', row);
-      const label = $('th', row).textContent;
-      row.addEventListener('pointerenter', () => {
-        light(cells, row);
-        say(cells, label);
-      });
+  $$('[data-bring] .cap').forEach((cap, i) => {
+    cap.addEventListener('pointerenter', event => {
+      if (event.pointerType === 'mouse') sound.pluck(SCALE[clamp(3 + i, 0, 13)], 0.4);
     });
-
-    $$('td[data-note]', table).forEach(td => {
-      const show = () => {
-        light([td], td.parentElement);
-        say([td], $('th', td.parentElement).textContent);
-        sound.tick(1100 + td.cellIndex * 120, 0.035);
-      };
-      td.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') show(); });
-      td.addEventListener('focus', show);
-      td.addEventListener('click', show);
-    });
-
-    table.addEventListener('pointerleave', () => {
-      light([]);
-      say([]);
-    });
-  }
+  });
 
   /* --- The kalimba -------------------------------------------------------------------- */
 

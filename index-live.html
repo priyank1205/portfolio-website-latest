@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,200..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="assets/css/live.css?v=2">
+<link rel="stylesheet" href="assets/css/live.css?v=3">
 </head>
 <body>
 <a class="skip" href="#work">Skip to the work</a>
@@ -236,14 +236,6 @@
       </footer>
     </article>
   </div>
-  <div class="wrap">
-    <ul class="creds">
-      <li><span>Trained</span>B.Des, IIT Guwahati</li>
-      <li><span>In-house</span>Getmega and Medlife</li>
-      <li><span>Freelance</span>CEDA, KhiladiPro, Mega Poker</li>
-      <li><span>Building</span>An open source Chrome extension</li>
-    </ul>
-  </div>
 </section>
 
 <section class="playground" id="playground" aria-labelledby="play-t">
@@ -289,70 +281,107 @@
   </div>
 </section>
 
-<section class="record" id="record" aria-labelledby="record-t">
+<section class="worked" id="worked" aria-labelledby="worked-t">
   <div class="wrap">
     <header class="sec-head">
-      <h2 id="record-t">Where the work <span class="dim">happened.</span></h2>
-      <p>Drag the playhead, press play, or use your arrow keys.</p>
+      <h2 id="worked-t">Where I’ve worked. <span class="dim">Freelance, <span class="nw">in-house</span> and school.</span></h2>
+      <p>The longer version, and who I am off the clock, is on the <a href="about-live.html">About page</a>.</p>
     </header>
-    <div class="player" data-player>
-      <div class="player-screen">
-        <p class="player-year" aria-hidden="true" data-player-year>2019</p>
-        <div class="player-now" data-player-now aria-live="polite"></div>
+    <div class="bento worked-grid">
+      <div class="tile worked-col" style="--a:var(--kp-rgb)">
+        <header class="tile-head"><span class="tile-tag"><i aria-hidden="true"></i>Freelance</span><span class="tile-meta">2022 to 2025</span></header>
+        <ul class="wk" data-wk>
+          <li><a class="wk-row" href="projects/khiladipro-redesign-claude.html" style="--a:var(--kp-rgb)"><i aria-hidden="true"></i><span class="wk-n"><b>KhiladiPro</b><span>Sole product designer</span></span><span class="wk-y">2024 to 2025 <svg class="go" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a></li>
+          <li><a class="wk-row" href="projects/mega-poker-redesign-claude.html" style="--a:var(--mp-rgb)"><i aria-hidden="true"></i><span class="wk-n"><b>Mega Poker</b><span>Sole product designer</span></span><span class="wk-y">2024 <svg class="go" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a></li>
+          <li><a class="wk-row" href="projects/sedp-redesign-claude.html" style="--a:var(--sedp-rgb)"><i aria-hidden="true"></i><span class="wk-n"><b>CEDA, Ashoka University</b><span>Sole product designer</span></span><span class="wk-y">2022 to 2024 <svg class="go" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a></li>
+        </ul>
+        <p class="worked-note"><b>Two of three</b> came back for more.</p>
       </div>
-      <div class="player-bar">
-        <button class="player-play" type="button" aria-label="Play the timeline" data-player-play>
-          <svg class="i-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>
-          <svg class="i-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
-        </button>
-        <div class="player-track" role="slider" tabindex="0" aria-label="Career timeline" aria-valuemin="1" aria-valuemax="9" aria-valuenow="1" data-player-track>
-          <span class="player-rail" aria-hidden="true"><span class="player-fill" data-player-fill></span></span>
-          <span aria-hidden="true" data-player-stops></span>
-          <span class="player-head" aria-hidden="true" data-player-head></span>
-        </div>
-        <p class="player-count mono" aria-hidden="true"><span data-player-index>01</span>/09</p>
+      <div class="tile worked-col" style="--a:var(--gm-rgb)">
+        <header class="tile-head"><span class="tile-tag"><i aria-hidden="true"></i>In-house</span><span class="tile-meta">2018 to 2021</span></header>
+        <ul class="wk" data-wk>
+          <li><a class="wk-row" href="projects/getmega-redesign-claude.html" style="--a:var(--gm-rgb)"><i aria-hidden="true"></i><span class="wk-n"><b>Getmega</b><span>Product designer</span></span><span class="wk-y">2019 to 2021 <svg class="go" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a></li>
+          <li><span class="wk-row" style="--a:var(--live-rgb)"><i aria-hidden="true"></i><span class="wk-n"><b>Medlife</b><span>UX designer</span></span><span class="wk-y">2018 to 2019</span></span></li>
+        </ul>
+        <p class="worked-note">At Getmega the design team <b>grew to ten</b>.</p>
       </div>
-      <ol class="chapters" data-chapters>
-        <li data-year="2014" data-accent="ink"><b>IIT Guwahati</b><span>B.Des, Bachelor of Design</span><p>Tried graphic design, 3D and animation, then chose interaction design: psychology and technology in one discipline.</p></li>
-        <li data-year="2017" data-accent="ink"><b>Pakit</b><span>Logistics · During college</span><p>Design work while still at IIT Guwahati.</p></li>
-        <li data-year="2018" data-accent="ink"><b>Medlife</b><span>UX designer · Health tech</span><p>My first full-time role, straight out of design school.</p></li>
-        <li data-year="2019" data-accent="gm"><b>Getmega</b><span>Product designer · In-house</span><p>Two years and two business-model pivots. Each one changed how a game began, and each time I was given the core flow. The design team grew to ten.</p></li>
-        <li data-year="2022" data-accent="sedp"><b>CEDA, Ashoka University</b><span>Freelance · Public data</span><p>Ecometer and Agrimarket: dashboards for reading economic series and agricultural prices.</p></li>
-        <li data-year="2023" data-accent="sedp"><b>CEDA, again</b><span>Freelance · Public data</span><p>They came back for the Socio-Economic Data Portal: a chart-first workspace, comparison, and exports that explain themselves.</p><blockquote>“The redesigned dashboards are a treat to interact with. We will definitely be working with him again.” <cite>Akshi Chawla, Ex-Director, CEDA</cite></blockquote></li>
-        <li data-year="2024" data-accent="mp"><b>Mega Poker</b><span>Freelance · Real-money gaming</span><p>Money flows and tournament discovery, brought in by Getmega’s former growth head.</p></li>
-        <li data-year="2024" data-accent="kp"><b>KhiladiPro</b><span>Freelance · Sports tech</span><p>A paid olympiad scored by a phone camera, and every screen shipped. Then they brought me back for an IPL campaign page.</p><blockquote>“He showed intuitive product thinking. He is very proactive with his contributions and gives a lot of attention to detail.” <cite>Aakash Verma, Product Head, KhiladiPro</cite></blockquote></li>
-        <li data-year="2026" data-accent="live"><b>Now</b><span>Open to full-time, founding and freelance work</span><p>Building a Chrome extension that gives any YouTube video a timestamped summary, and looking for the next hard problem.</p></li>
-      </ol>
+      <div class="tile worked-col" style="--a:var(--mp-rgb)">
+        <header class="tile-head"><span class="tile-tag"><i aria-hidden="true"></i>School</span><span class="tile-meta">2014 to 2018</span></header>
+        <ul class="wk" data-wk>
+          <li><span class="wk-row" style="--a:var(--mp-rgb)"><i aria-hidden="true"></i><span class="wk-n"><b>IIT Guwahati</b><span>B.Des, Bachelor of Design</span></span><span class="wk-y">2014 to 2018</span></span></li>
+          <li><span class="wk-row" style="--a:var(--ts-rgb)"><i aria-hidden="true"></i><span class="wk-n"><b>Pakit</b><span>Design work, during college</span></span><span class="wk-y">2017</span></span></li>
+        </ul>
+        <p class="worked-note">Chose <b>interaction design</b> over graphics, 3D and animation.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="contact" id="contact" aria-labelledby="contact-t">
+<section class="close" id="contact" aria-labelledby="close-t">
   <div class="wrap">
-    <h2 id="contact-t">Let’s make something <span class="dim">people trust.</span></h2>
-    <button class="mail" type="button" data-copy="hello@priyank.design" aria-label="Copy hello@priyank.design">
-      <span class="mail-text" aria-hidden="true" data-mail-text>hello@priyank.design</span>
-      <span class="mail-state" aria-hidden="true"><span class="copy-idle">Copy</span><span class="copy-done">Copied</span></span>
-    </button>
-    <div class="links">
-      <a class="pill" href="https://www.linkedin.com/in/priyank1205/" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="pill" href="https://drive.google.com/file/d/0B0y_QT-8mXwgRFhmWEdUWkpKOHc/view?usp=sharing&amp;resourcekey=0-Q4joErTGFsTqmVHZnpbYYw" target="_blank" rel="noopener">Résumé</a>
-      <a class="pill" href="https://github.com/priyank1205" target="_blank" rel="noopener">GitHub</a>
+    <div class="tile close-card">
+      <div class="close-main">
+        <p class="status"><span class="status-dot" aria-hidden="true"></span>Open to full-time, founding and freelance work</p>
+        <h2 id="close-t">Let’s make something <span class="dim">people trust.</span></h2>
+        <button class="mail" type="button" data-copy="hello@priyank.design" aria-label="Copy hello@priyank.design">
+          <span class="mail-text" aria-hidden="true" data-mail-text>hello@priyank.design</span>
+          <span class="mail-state" aria-hidden="true"><span class="copy-idle">Copy</span><span class="copy-done">Copied</span></span>
+        </button>
+        <div class="links">
+          <a class="pill" href="https://www.linkedin.com/in/priyank1205/" target="_blank" rel="noopener">LinkedIn <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <a class="pill" href="https://drive.google.com/file/d/0B0y_QT-8mXwgRFhmWEdUWkpKOHc/view?usp=sharing&amp;resourcekey=0-Q4joErTGFsTqmVHZnpbYYw" target="_blank" rel="noopener">Résumé <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <a class="pill" href="https://github.com/priyank1205" target="_blank" rel="noopener">GitHub <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        </div>
+      </div>
+      <div class="close-side">
+        <div>
+          <p class="cs-k">Time in Bengaluru</p>
+          <p class="cs-clock" data-clock-big>IST</p>
+          <p class="cs-offset" data-offset>India Standard Time</p>
+        </div>
+        <ul class="cs-list">
+          <li><b>Email</b> is the quickest way to reach me.</li>
+          <li>In a hurry? Type <kbd>h</kbd><kbd>i</kbd><kbd>r</kbd><kbd>e</kbd> anywhere.</li>
+        </ul>
+      </div>
     </div>
-    <p class="ps">P.S. Feeling decisive? Type <kbd>h</kbd><kbd>i</kbd><kbd>r</kbd><kbd>e</kbd> anywhere on this page.</p>
   </div>
 </section>
 </main>
 
-<footer class="foot">
-  <span>© 2026 Priyank Agarwal</span>
-  <span>Every sound on this page is in D major pentatonic.</span>
-  <span>Bengaluru · <span class="mono" data-clock>IST</span></span>
+<footer class="site-foot">
+  <div class="wrap site-foot-grid">
+    <div class="sf-brand">
+      <a class="brand" href="index-live.html" aria-label="Priyank Agarwal, home"><span class="brand-mark" aria-hidden="true">pa</span><span>Priyank Agarwal</span></a>
+      <p>Senior product designer in Bengaluru. Every sound on this site is in D major pentatonic. Here are five of them.</p>
+      <div class="chimes" role="group" aria-label="Five notes to play">
+        <button type="button" data-chime aria-label="Play D"></button><button type="button" data-chime aria-label="Play E"></button><button type="button" data-chime aria-label="Play F sharp"></button><button type="button" data-chime aria-label="Play A"></button><button type="button" data-chime aria-label="Play B"></button>
+      </div>
+    </div>
+    <nav class="sf-col" aria-label="Site">
+      <p>Site</p>
+      <a href="index-live.html#work" aria-current="page">Work</a>
+      <a href="index-live.html#playground">Playground</a>
+      <a href="writing-live.html">Writing</a>
+      <a href="about-live.html">About</a>
+    </nav>
+    <nav class="sf-col" aria-label="Elsewhere">
+      <p>Elsewhere</p>
+      <a href="https://www.linkedin.com/in/priyank1205/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/priyank1205" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://drive.google.com/file/d/0B0y_QT-8mXwgRFhmWEdUWkpKOHc/view?usp=sharing&amp;resourcekey=0-Q4joErTGFsTqmVHZnpbYYw" target="_blank" rel="noopener">Résumé</a>
+    </nav>
+  </div>
+  <div class="wrap site-foot-base">
+    <span>© 2026 Priyank Agarwal · <span class="mono" data-clock>IST</span></span>
+    <a href="#top">Back to top ↑</a>
+  </div>
 </footer>
+
 
 <div class="toast" role="status" aria-live="polite" data-toast></div>
 <canvas class="confetti" aria-hidden="true" data-confetti></canvas>
 
-<script src="assets/js/live.js?v=2" defer></script>
+<script src="assets/js/live.js?v=3" defer></script>
 </body>
 </html>
